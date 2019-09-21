@@ -1,10 +1,10 @@
 INSERT INTO general(id, workplace)
 VALUES
     ((SELECT id FROM person WHERE fc = 'BNTRNN66M48B165D'), (SELECT id FROM province WHERE abbreviation = 'TN')),
-    ((SELECT id FROM person WHERE fc = 'MRNGNN77E10I805N'), (SELECT id FROM province WHERE abbreviation = 'BZ')),
-    ((SELECT id FROM person WHERE fc = 'GTTSNT70D47I686O'), (SELECT id FROM province WHERE abbreviation = 'BZ')),
     ((SELECT id FROM person WHERE fc = 'MNCSNT74R51D365A'), (SELECT id FROM province WHERE abbreviation = 'TN')),
-    ((SELECT id FROM person WHERE fc = 'DNGRRA76P67E173X'), (SELECT id FROM province WHERE abbreviation = 'TN'));
+    ((SELECT id FROM person WHERE fc = 'DNGRRA76P67E173X'), (SELECT id FROM province WHERE abbreviation = 'TN')),
+    ((SELECT id FROM person WHERE fc = 'MRNGNN77E10I805N'), (SELECT id FROM province WHERE abbreviation = 'BZ')),
+    ((SELECT id FROM person WHERE fc = 'GTTSNT70D47I686O'), (SELECT id FROM province WHERE abbreviation = 'BZ'));
 
 INSERT INTO hs_admin(id, workplace)
 VALUES

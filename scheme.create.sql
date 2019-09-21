@@ -99,10 +99,10 @@ CREATE TABLE specialist
 
 CREATE TABLE follows
 (
-    id      BIGSERIAL                             NOT NULL,
-    patient BIGINT                                NOT NULL REFERENCES person (id) ON UPDATE CASCADE ON DELETE RESTRICT,
-    general BIGINT                                NOT NULL REFERENCES general (id) ON UPDATE CASCADE ON DELETE RESTRICT,
-    since   TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    id      BIGSERIAL                      NOT NULL,
+    patient BIGINT                         NOT NULL REFERENCES person (id) ON UPDATE CASCADE ON DELETE RESTRICT,
+    general BIGINT                         NOT NULL REFERENCES general (id) ON UPDATE CASCADE ON DELETE RESTRICT,
+    since   DATE DEFAULT CURRENT_TIMESTAMP NOT NULL,
     CHECK ((patient <> general)),
     PRIMARY KEY (id)
 );
