@@ -1,4 +1,4 @@
-INSERT INTO hs_exam(name, info)
+INSERT INTO examination(name, info)
 VALUES ('Estrazione di dente deciduo', 'Info Estrazione di dente deciduo (gratuita fino a 14 anni)'),
        ('Estrazione di dente permanente', 'Info Estrazione di dente permanente (gratuita fino a 14 anni)'),
        ('Altra estrazione chirurgica dente', 'Info Altra estrazione chirurgica dente (gratuita fino a 14 anni)'),
@@ -158,7 +158,11 @@ VALUES ('Estrazione di dente deciduo', 'Info Estrazione di dente deciduo (gratui
        ('Splintaggio per gruppi di 4 denti', 'Info Splintaggio per gruppi di 4 denti'),
        ('Trattamento applicazioni protesi semovibili', 'Info Trattamento applicazioni protesi semovibili');
 
-INSERT INTO exam(name, info)
+INSERT INTO hs_exam(id)
+SELECT id
+FROM examination;
+
+INSERT INTO examination(name, info)
 VALUES ('Risonanza magnetica nucleare (RM) muscoloscheletrica',
         'Info Risonanza magnetica nucleare (RM) muscoloscheletrica'),
        ('Risonanza magnetica nucleare (RM) muscoloscheletrica senza e con contrasto',
@@ -223,3 +227,9 @@ VALUES ('Risonanza magnetica nucleare (RM) muscoloscheletrica',
         'Info Analisi mutazione del DNA con ibridazione sonde radiomarcate'),
        ('Analisi mutazione del DNA con reverse dot blot', 'Info Analisi mutazione del DNA con reverse dot blot'),
        ('Analisi di polimorfismi', 'Info Analisi di polimorfismi');
+
+INSERT INTO exam(id)
+SELECT examination.id
+FROM examination
+         LEFT JOIN hs_exam on examination.id = hs_exam.id
+WHERE hs_exam.id IS NULL

@@ -8,7 +8,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Alfa amilasi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Alfa amilasi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -21,7 +21,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Fosfatasi alcalina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Fosfatasi alcalina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -34,7 +34,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Ala deidrasi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Ala deidrasi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -47,7 +47,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Beta tromboglobulina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Beta tromboglobulina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -60,7 +60,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Androstenediolo') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Androstenediolo') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -73,7 +73,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Virus epatite B (HBV) Antigeni Hbeag') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Virus epatite B (HBV) Antigeni Hbeag') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -86,7 +86,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Aldolasi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Aldolasi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -99,7 +99,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Ferro') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Ferro') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -112,7 +112,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Potassio') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Potassio') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -125,7 +125,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Alanina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Alanina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -138,7 +138,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Gruppo sanguigno ABO e RH (D)') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Gruppo sanguigno ABO e RH (D)') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -151,7 +151,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Magnesio') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Magnesio') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -164,7 +164,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Alfa amilasi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Alfa amilasi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -177,7 +177,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Virus epatite B (HBV) Antigeni Hbeag') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Virus epatite B (HBV) Antigeni Hbeag') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -190,7 +190,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Mioglobina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Mioglobina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -203,7 +203,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Antigene carboidratico 15.3') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Antigene carboidratico 15.3') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -216,7 +216,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Analisi mutazione del DNA con ibridazione sonde radiomarcate') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Analisi mutazione del DNA con ibridazione sonde radiomarcate') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -229,7 +229,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Analisi di polimorfismi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Analisi di polimorfismi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -242,7 +242,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Lipasi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Lipasi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -255,7 +255,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Mioglobina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Mioglobina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -268,7 +268,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Acido 5 idrossi 3 indolacetico') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Acido 5 idrossi 3 indolacetico') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -281,7 +281,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Aspartato aminotrasferiasi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Aspartato aminotrasferiasi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -294,7 +294,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Alanina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Alanina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -307,7 +307,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Creatinchinasi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Creatinchinasi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -320,7 +320,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Fosfato inorganico') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Fosfato inorganico') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -333,7 +333,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Gruppo sanguigno ABO e RH (D)') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Gruppo sanguigno ABO e RH (D)') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -346,7 +346,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Calcio totale') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Calcio totale') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -359,7 +359,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Proteine') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Proteine') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -372,7 +372,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Trigliceridi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Trigliceridi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -385,7 +385,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Antigene carboidratico 19.9') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Antigene carboidratico 19.9') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -398,7 +398,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Albumina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Albumina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -411,7 +411,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Lattato') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Lattato') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -424,7 +424,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Colesterolo LDL') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Colesterolo LDL') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -437,7 +437,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Albumina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Albumina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -450,7 +450,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Androstenediolo') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Androstenediolo') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -463,7 +463,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Ala deidrasi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Ala deidrasi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -476,7 +476,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Analisi mutazione del DNA con reverse dot blot') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Analisi mutazione del DNA con reverse dot blot') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -489,7 +489,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Ige specifiche allergologiche screening qualitativo') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Ige specifiche allergologiche screening qualitativo') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -502,7 +502,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Antigene carcino embrionario') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Antigene carcino embrionario') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -515,7 +515,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Magnesio') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Magnesio') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -528,7 +528,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Alfa amilasi isoenzimi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Alfa amilasi isoenzimi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -541,7 +541,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Acido 5 idrossi 3 indolacetico') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Acido 5 idrossi 3 indolacetico') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -554,7 +554,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Eparina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Eparina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -567,7 +567,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Analisi di polimorfismi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Analisi di polimorfismi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -580,7 +580,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Glicoproteina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Glicoproteina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -593,7 +593,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Antigeni HLA') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Antigeni HLA') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -606,7 +606,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Trigliceridi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Trigliceridi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -619,7 +619,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Alfa amilasi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Alfa amilasi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -632,7 +632,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Fosfatasi alcalina isoenzima osseo') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Fosfatasi alcalina isoenzima osseo') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -645,7 +645,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Fosfatasi alcalina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Fosfatasi alcalina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -658,7 +658,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Albumina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Albumina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -671,7 +671,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Alfa amilasi isoenzimi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Alfa amilasi isoenzimi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -684,7 +684,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Deossicortisolo') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Deossicortisolo') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -697,7 +697,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Colesterolo totale') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Colesterolo totale') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -710,7 +710,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Risonanza magnetica nucleare (RM) muscoloscheletrica') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Risonanza magnetica nucleare (RM) muscoloscheletrica') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -723,7 +723,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Ige specifiche allergologiche screening qualitativo') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Ige specifiche allergologiche screening qualitativo') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -736,7 +736,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Antigene carboidratico 125') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Antigene carboidratico 125') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -749,7 +749,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Sodio') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Sodio') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -762,7 +762,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Cyfra') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Cyfra') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -775,7 +775,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Risonanza magnetica nucleare (RM) muscoloscheletrica senza e con contrasto') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Risonanza magnetica nucleare (RM) muscoloscheletrica senza e con contrasto') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -788,7 +788,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Antigene carboidratico 125') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Antigene carboidratico 125') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -801,7 +801,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Magnesio') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Magnesio') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -814,7 +814,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Colesterolo LDL') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Colesterolo LDL') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -827,7 +827,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Gruppo sanguigno ABO e RH (D)') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Gruppo sanguigno ABO e RH (D)') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -840,7 +840,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Virus epatite B (HBV) Antigeni Hbeag') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Virus epatite B (HBV) Antigeni Hbeag') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -853,7 +853,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Fosfato inorganico') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Fosfato inorganico') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -866,7 +866,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Beta tromboglobulina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Beta tromboglobulina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -879,7 +879,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Alfa 2') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Alfa 2') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -892,7 +892,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Fosfatasi alcalina isoenzima osseo') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Fosfatasi alcalina isoenzima osseo') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -905,7 +905,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Analisi di polimorfismi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Analisi di polimorfismi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -918,7 +918,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Antigeni HLA') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Antigeni HLA') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -931,7 +931,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Potassio') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Potassio') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -944,7 +944,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Gruppo sanguigno ABO e RH (D)') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Gruppo sanguigno ABO e RH (D)') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -957,7 +957,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Sodio') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Sodio') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -970,7 +970,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Eparina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Eparina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -983,7 +983,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Antigene carcino embrionario') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Antigene carcino embrionario') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -996,7 +996,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Acido 5 idrossi 3 indolacetico') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Acido 5 idrossi 3 indolacetico') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1009,7 +1009,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Cromo') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Cromo') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1022,7 +1022,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Alfa amilasi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Alfa amilasi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1035,7 +1035,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Lattato') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Lattato') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1048,7 +1048,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Colesterolo HDL') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Colesterolo HDL') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1061,7 +1061,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Aspartato aminotrasferiasi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Aspartato aminotrasferiasi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1074,7 +1074,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Calcio totale') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Calcio totale') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1087,7 +1087,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Potassio') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Potassio') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1100,7 +1100,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Fenotipo RH') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Fenotipo RH') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1113,7 +1113,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Acido delta') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Acido delta') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1126,7 +1126,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Deossicortisolo') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Deossicortisolo') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1139,7 +1139,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Colesterolo totale') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Colesterolo totale') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1152,7 +1152,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Colesterolo LDL') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Colesterolo LDL') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1165,7 +1165,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Creatinina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Creatinina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1178,7 +1178,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Acido 5 idrossi 3 indolacetico') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Acido 5 idrossi 3 indolacetico') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1191,7 +1191,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Gruppo sanguigno ABO e RH (D)') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Gruppo sanguigno ABO e RH (D)') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1204,7 +1204,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Analisi mutazione del DNA con ibridazione sonde radiomarcate') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Analisi mutazione del DNA con ibridazione sonde radiomarcate') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1217,7 +1217,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Antigeni HLA') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Antigeni HLA') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1230,7 +1230,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Beta tromboglobulina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Beta tromboglobulina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1243,7 +1243,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Ige specifiche allergologiche') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Ige specifiche allergologiche') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1256,7 +1256,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Albumina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Albumina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1269,7 +1269,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Creatinchinasi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Creatinchinasi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1282,7 +1282,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Inibitore attivatore del plasminogeno') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Inibitore attivatore del plasminogeno') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1295,7 +1295,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Urato Urea') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Urato Urea') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1308,7 +1308,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Albumina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Albumina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1321,7 +1321,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Risonanza magnetica nucleare (RM) muscoloscheletrica') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Risonanza magnetica nucleare (RM) muscoloscheletrica') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1334,7 +1334,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Analisi mutazione del DNA con reverse dot blot') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Analisi mutazione del DNA con reverse dot blot') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1347,7 +1347,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Aspartato aminotrasferiasi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Aspartato aminotrasferiasi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1360,7 +1360,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Risonanza magnetica nucleare (RM) muscoloscheletrica senza e con contrasto') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Risonanza magnetica nucleare (RM) muscoloscheletrica senza e con contrasto') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1373,7 +1373,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Alfa amilasi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Alfa amilasi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1386,7 +1386,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Analisi mutazione del DNA con reverse dot blot') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Analisi mutazione del DNA con reverse dot blot') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1399,7 +1399,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Risonanza magnetica nucleare (RM) muscoloscheletrica') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Risonanza magnetica nucleare (RM) muscoloscheletrica') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1412,7 +1412,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Lattato') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Lattato') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1425,7 +1425,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Ige specifiche allergologiche screening qualitativo') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Ige specifiche allergologiche screening qualitativo') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1438,7 +1438,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Fosfatasi alcalina isoenzima osseo') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Fosfatasi alcalina isoenzima osseo') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1451,7 +1451,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Acido 5 idrossi 3 indolacetico') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Acido 5 idrossi 3 indolacetico') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1464,7 +1464,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Analisi mutazione del DNA con ibridazione sonde radiomarcate') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Analisi mutazione del DNA con ibridazione sonde radiomarcate') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1477,7 +1477,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Alfa 2') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Alfa 2') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1490,7 +1490,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Anticorpi anti microsomi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Anticorpi anti microsomi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1503,7 +1503,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Antigene carcino embrionario') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Antigene carcino embrionario') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1516,7 +1516,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Albumina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Albumina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1529,7 +1529,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Alanina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Alanina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1542,7 +1542,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Alfa amilasi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Alfa amilasi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1555,7 +1555,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Inibitore attivatore del plasminogeno') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Inibitore attivatore del plasminogeno') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1568,7 +1568,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Potassio') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Potassio') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1581,7 +1581,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Enolasi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Enolasi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1594,7 +1594,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Aspartato aminotrasferiasi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Aspartato aminotrasferiasi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1607,7 +1607,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Ala deidrasi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Ala deidrasi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1620,7 +1620,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Analisi citogenetica per fragilita cromosomica') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Analisi citogenetica per fragilita cromosomica') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1633,7 +1633,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Risonanza magnetica nucleare (RM) muscoloscheletrica senza e con contrasto') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Risonanza magnetica nucleare (RM) muscoloscheletrica senza e con contrasto') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1646,7 +1646,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Lattato') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Lattato') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1659,7 +1659,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Creatinina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Creatinina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1672,7 +1672,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Fosfatasi acida') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Fosfatasi acida') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1685,7 +1685,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Alanina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Alanina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1698,7 +1698,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Alfa amilasi isoenzimi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Alfa amilasi isoenzimi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1711,7 +1711,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Ferro') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Ferro') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1724,7 +1724,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Colesterolo totale') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Colesterolo totale') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1737,7 +1737,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Magnesio') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Magnesio') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1750,7 +1750,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Androstenediolo') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Androstenediolo') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1763,7 +1763,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Lipasi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Lipasi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1776,7 +1776,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Cromo') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Cromo') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1789,7 +1789,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Densitometria ossera') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Densitometria ossera') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1802,7 +1802,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Risonanza magnetica nucleare (RM) muscoloscheletrica senza e con contrasto') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Risonanza magnetica nucleare (RM) muscoloscheletrica senza e con contrasto') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1815,7 +1815,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Ala deidrasi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Ala deidrasi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1828,7 +1828,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Acido delta') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Acido delta') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1841,7 +1841,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Colesterolo LDL') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Colesterolo LDL') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1854,7 +1854,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Ige specifiche allergologiche screening qualitativo') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Ige specifiche allergologiche screening qualitativo') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1867,7 +1867,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Alfa 2') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Alfa 2') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1880,7 +1880,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Creatinchinasi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Creatinchinasi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1893,7 +1893,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Colesterolo LDL') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Colesterolo LDL') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1906,7 +1906,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Ige specifiche allergologiche screening qualitativo') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Ige specifiche allergologiche screening qualitativo') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1919,7 +1919,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Cyfra') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Cyfra') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1932,7 +1932,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Colesterolo totale') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Colesterolo totale') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1945,7 +1945,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Aspartato aminotrasferiasi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Aspartato aminotrasferiasi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1958,7 +1958,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Albumina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Albumina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1971,7 +1971,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Cyfra') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Cyfra') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1984,7 +1984,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Deossicortisolo') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Deossicortisolo') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1997,7 +1997,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Sodio') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Sodio') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2010,7 +2010,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Creatinina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Creatinina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2023,7 +2023,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Eparina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Eparina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2036,7 +2036,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Proteine') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Proteine') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2049,7 +2049,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Fosfatasi alcalina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Fosfatasi alcalina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2062,7 +2062,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Magnesio') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Magnesio') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2075,7 +2075,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Aspartato aminotrasferiasi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Aspartato aminotrasferiasi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2088,7 +2088,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Urato Urea') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Urato Urea') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2101,7 +2101,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Aldolasi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Aldolasi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2114,7 +2114,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Colesterolo totale') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Colesterolo totale') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2127,7 +2127,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Anticorpi anti microsomi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Anticorpi anti microsomi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2140,7 +2140,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Alfa 2') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Alfa 2') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2153,7 +2153,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Fenotipo RH') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Fenotipo RH') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2166,7 +2166,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Cromo') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Cromo') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2179,7 +2179,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Risonanza magnetica nucleare (RM) muscoloscheletrica') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Risonanza magnetica nucleare (RM) muscoloscheletrica') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2192,7 +2192,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Glicoproteina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Glicoproteina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2205,7 +2205,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Colesterolo LDL') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Colesterolo LDL') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2218,7 +2218,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Creatinina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Creatinina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2231,7 +2231,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Analisi di polimorfismi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Analisi di polimorfismi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2244,7 +2244,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Analisi di polimorfismi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Analisi di polimorfismi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2257,7 +2257,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Eparina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Eparina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2270,7 +2270,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Antigene carboidratico 15.3') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Antigene carboidratico 15.3') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2283,7 +2283,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Beta tromboglobulina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Beta tromboglobulina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2296,7 +2296,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Eparina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Eparina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2309,7 +2309,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Antigene carboidratico 19.9') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Antigene carboidratico 19.9') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2322,7 +2322,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Cromo') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Cromo') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2335,7 +2335,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Densitometria ossera') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Densitometria ossera') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2348,7 +2348,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Eparina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Eparina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2361,7 +2361,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Proteine') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Proteine') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2374,7 +2374,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Risonanza magnetica nucleare (RM) muscoloscheletrica senza e con contrasto') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Risonanza magnetica nucleare (RM) muscoloscheletrica senza e con contrasto') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2387,7 +2387,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Fosfatasi alcalina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Fosfatasi alcalina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2400,7 +2400,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Fenotipo RH') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Fenotipo RH') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2413,7 +2413,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Gruppo sanguigno ABO e RH (D)') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Gruppo sanguigno ABO e RH (D)') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2426,7 +2426,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Analisi citogenetica per fragilita cromosomica') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Analisi citogenetica per fragilita cromosomica') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2439,7 +2439,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Fosfatasi acida') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Fosfatasi acida') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2452,7 +2452,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Alfa amilasi isoenzimi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Alfa amilasi isoenzimi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2465,7 +2465,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Creatinchinasi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Creatinchinasi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2478,7 +2478,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Colesterolo totale') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Colesterolo totale') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2491,7 +2491,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Aspartato aminotrasferiasi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Aspartato aminotrasferiasi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2504,7 +2504,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Sodio') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Sodio') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2517,7 +2517,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Calcio totale') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Calcio totale') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2530,7 +2530,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Ala deidrasi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Ala deidrasi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2543,7 +2543,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Anticorpi anti microsomi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Anticorpi anti microsomi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2556,7 +2556,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Fenotipo RH') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Fenotipo RH') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2569,7 +2569,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Fosfato inorganico') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Fosfato inorganico') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2582,7 +2582,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Cyfra') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Cyfra') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2595,7 +2595,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Analisi mutazione del DNA con reverse dot blot') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Analisi mutazione del DNA con reverse dot blot') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2608,7 +2608,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Densitometria ossera') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Densitometria ossera') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2621,7 +2621,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Deossicortisolo') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Deossicortisolo') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2634,7 +2634,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Glicoproteina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Glicoproteina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2647,7 +2647,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Urato Urea') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Urato Urea') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2660,7 +2660,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Alfa 2') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Alfa 2') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2673,7 +2673,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Antigeni HLA') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Antigeni HLA') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2686,7 +2686,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Deossicortisolo') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Deossicortisolo') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2699,7 +2699,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Creatinina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Creatinina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2712,7 +2712,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Analisi mutazione del DNA con ibridazione sonde radiomarcate') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Analisi mutazione del DNA con ibridazione sonde radiomarcate') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2725,7 +2725,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Alanina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Alanina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2738,7 +2738,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Analisi di polimorfismi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Analisi di polimorfismi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2751,7 +2751,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Colesterolo LDL') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Colesterolo LDL') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2764,7 +2764,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Acido 5 idrossi 3 indolacetico') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Acido 5 idrossi 3 indolacetico') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2777,7 +2777,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Colesterolo HDL') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Colesterolo HDL') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2790,7 +2790,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Sudore') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Sudore') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2803,7 +2803,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Fosfatasi acida') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Fosfatasi acida') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2816,7 +2816,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Glicoproteina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Glicoproteina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2829,7 +2829,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Fosfatasi alcalina isoenzima osseo') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Fosfatasi alcalina isoenzima osseo') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2842,7 +2842,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Magnesio') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Magnesio') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2855,7 +2855,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Analisi citogenetica per fragilita cromosomica') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Analisi citogenetica per fragilita cromosomica') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2868,7 +2868,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Proteine') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Proteine') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2881,7 +2881,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Sodio') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Sodio') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2894,7 +2894,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Magnesio') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Magnesio') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2907,7 +2907,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Alfa 2') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Alfa 2') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2920,7 +2920,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Anticorpi anti microsomi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Anticorpi anti microsomi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2933,7 +2933,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Fosfato inorganico') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Fosfato inorganico') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2946,7 +2946,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Eparina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Eparina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2959,7 +2959,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Mioglobina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Mioglobina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2972,7 +2972,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Enolasi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Enolasi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2985,7 +2985,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Cromo') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Cromo') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -2998,7 +2998,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Antigene carboidratico 125') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Antigene carboidratico 125') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3011,7 +3011,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Potassio') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Potassio') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3024,7 +3024,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Ige specifiche allergologiche') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Ige specifiche allergologiche') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3037,7 +3037,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Antigene carboidratico 19.9') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Antigene carboidratico 19.9') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3050,7 +3050,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Antigene carcino embrionario') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Antigene carcino embrionario') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3063,7 +3063,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Alfa 2') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Alfa 2') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3076,7 +3076,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Glicoproteina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Glicoproteina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3089,7 +3089,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Alfa amilasi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Alfa amilasi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3102,7 +3102,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Sudore') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Sudore') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3115,7 +3115,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Aspartato aminotrasferiasi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Aspartato aminotrasferiasi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3128,7 +3128,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Gruppo sanguigno ABO e RH (D)') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Gruppo sanguigno ABO e RH (D)') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3141,7 +3141,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Antigene carcino embrionario') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Antigene carcino embrionario') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3154,7 +3154,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Analisi di polimorfismi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Analisi di polimorfismi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3167,7 +3167,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Lipasi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Lipasi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3180,7 +3180,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Urato Urea') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Urato Urea') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3193,7 +3193,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Magnesio') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Magnesio') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3206,7 +3206,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Fosfatasi alcalina isoenzima osseo') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Fosfatasi alcalina isoenzima osseo') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3219,7 +3219,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Acido delta') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Acido delta') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3232,7 +3232,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Analisi citogenetica per fragilita cromosomica') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Analisi citogenetica per fragilita cromosomica') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3245,7 +3245,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Ige specifiche allergologiche') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Ige specifiche allergologiche') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3258,7 +3258,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Glicoproteina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Glicoproteina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3271,7 +3271,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Antigene carboidratico 15.3') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Antigene carboidratico 15.3') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3284,7 +3284,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Androstenediolo') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Androstenediolo') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3297,7 +3297,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Fenotipo RH') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Fenotipo RH') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3310,7 +3310,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Fosfatasi alcalina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Fosfatasi alcalina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3323,7 +3323,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Aspartato aminotrasferiasi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Aspartato aminotrasferiasi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3336,7 +3336,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Antigene carboidratico 125') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Antigene carboidratico 125') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3349,7 +3349,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Alfa 2') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Alfa 2') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3362,7 +3362,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Virus epatite B (HBV) Antigeni Hbeag') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Virus epatite B (HBV) Antigeni Hbeag') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3375,7 +3375,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Fosfato inorganico') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Fosfato inorganico') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3388,7 +3388,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Risonanza magnetica nucleare (RM) muscoloscheletrica') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Risonanza magnetica nucleare (RM) muscoloscheletrica') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3401,7 +3401,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Deossicortisolo') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Deossicortisolo') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3414,7 +3414,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Analisi di polimorfismi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Analisi di polimorfismi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3427,7 +3427,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Magnesio') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Magnesio') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3440,7 +3440,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Ala deidrasi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Ala deidrasi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3453,7 +3453,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Colesterolo HDL') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Colesterolo HDL') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3466,7 +3466,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Analisi mutazione del DNA con ibridazione sonde radiomarcate') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Analisi mutazione del DNA con ibridazione sonde radiomarcate') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3479,7 +3479,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Fenotipo RH') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Fenotipo RH') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3492,7 +3492,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Creatinina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Creatinina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3505,7 +3505,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Cyfra') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Cyfra') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3518,7 +3518,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Colesterolo HDL') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Colesterolo HDL') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3531,7 +3531,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Analisi citogenetica per fragilita cromosomica') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Analisi citogenetica per fragilita cromosomica') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3544,7 +3544,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Albumina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Albumina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3557,7 +3557,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Ige specifiche allergologiche screening qualitativo') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Ige specifiche allergologiche screening qualitativo') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3570,7 +3570,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Androstenediolo') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Androstenediolo') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3583,7 +3583,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Colesterolo LDL') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Colesterolo LDL') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3596,7 +3596,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Mioglobina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Mioglobina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3609,7 +3609,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Fosfatasi alcalina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Fosfatasi alcalina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3622,7 +3622,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Alfa 2') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Alfa 2') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3635,7 +3635,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Glicoproteina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Glicoproteina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3648,7 +3648,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Sudore') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Sudore') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3661,7 +3661,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Calcio totale') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Calcio totale') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3674,7 +3674,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Acido delta') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Acido delta') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3687,7 +3687,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Potassio') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Potassio') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3700,7 +3700,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Antigene carboidratico 15.3') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Antigene carboidratico 15.3') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3713,7 +3713,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Analisi mutazione del DNA con ibridazione sonde non radiomarcate') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Analisi mutazione del DNA con ibridazione sonde non radiomarcate') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3726,7 +3726,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Analisi mutazione del DNA con ibridazione sonde radiomarcate') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Analisi mutazione del DNA con ibridazione sonde radiomarcate') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3739,7 +3739,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Trigliceridi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Trigliceridi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3752,7 +3752,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Glicoproteina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Glicoproteina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3765,7 +3765,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Alfa 2') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Alfa 2') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3778,7 +3778,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Antigene carboidratico 125') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Antigene carboidratico 125') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3791,7 +3791,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Alfa amilasi isoenzimi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Alfa amilasi isoenzimi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3804,7 +3804,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Calcio totale') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Calcio totale') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3817,7 +3817,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Potassio') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Potassio') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3830,7 +3830,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Magnesio') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Magnesio') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3843,7 +3843,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Androstenediolo') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Androstenediolo') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3856,7 +3856,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Cyfra') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Cyfra') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3869,7 +3869,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Fosfatasi alcalina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Fosfatasi alcalina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3882,7 +3882,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Anticorpi anti microsomi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Anticorpi anti microsomi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -3895,5 +3895,5 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM exam WHERE name = 'Sudore') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Sudore') AS exam
 FROM pr;

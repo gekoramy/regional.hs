@@ -8,7 +8,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Esercizi respiratori per seduta individuale') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Esercizi respiratori per seduta individuale') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -21,7 +21,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Digestione DNA con enzimi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Digestione DNA con enzimi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -34,7 +34,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Tomoscintigrafia globale') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Tomoscintigrafia globale') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -47,7 +47,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Cariotipo da metafasi di midollo osseo') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Cariotipo da metafasi di midollo osseo') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -60,7 +60,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Trattamento con apparecchi fissi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Trattamento con apparecchi fissi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -73,7 +73,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Impianto di protesi dentaria') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Impianto di protesi dentaria') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -86,7 +86,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Radiologia diagnostica') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Radiologia diagnostica') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -99,7 +99,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Ricostruzione dente mediante otturazione a tre o più superfici') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Ricostruzione dente mediante otturazione a tre o più superfici') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -112,7 +112,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Viscosita ematica') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Viscosita ematica') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -125,7 +125,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Risonanza magnetica nucleare (RM) della colonna cervicale') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Risonanza magnetica nucleare (RM) della colonna cervicale') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -138,7 +138,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Trattamento con apparecchi funzionali') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Trattamento con apparecchi funzionali') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -151,7 +151,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Analisi mutazione del DNA con reazione polimerasica a catena') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Analisi mutazione del DNA con reazione polimerasica a catena') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -164,7 +164,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Analisi DNA e ibridazione con sonda') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Analisi DNA e ibridazione con sonda') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -177,7 +177,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Applicazione di corona') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Applicazione di corona') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -190,7 +190,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Levigatura delle radici') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Levigatura delle radici') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -203,7 +203,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Risonanza magnetica nucleare (RM) della colonna cervicale') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Risonanza magnetica nucleare (RM) della colonna cervicale') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -216,7 +216,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Immunizzazione allergia') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Immunizzazione allergia') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -229,7 +229,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Analisi citogenetica per studio mosaicismo') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Analisi citogenetica per studio mosaicismo') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -242,7 +242,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Ablazione tartaro') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Ablazione tartaro') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -255,7 +255,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Colorazione aggiuntiva in bande: Actinomicina D') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Colorazione aggiuntiva in bande: Actinomicina D') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -268,7 +268,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Tomoscintigrafia globale') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Tomoscintigrafia globale') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -281,7 +281,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Chlamydie ricerca diretta (EIA)') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Chlamydie ricerca diretta (EIA)') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -294,7 +294,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Tipizzazione genomica HLA : C') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Tipizzazione genomica HLA : C') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -307,7 +307,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Ricostruzione dente mediante otturazione a tre o più superfici') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Ricostruzione dente mediante otturazione a tre o più superfici') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -320,7 +320,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Trattamento ortodontico con apparecchi mobili') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Trattamento ortodontico con apparecchi mobili') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -333,7 +333,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Altra applicazione corona e perno') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Altra applicazione corona e perno') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -346,7 +346,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Tomografia computerizzata dell''arto inferiore (patologia traumatica)') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Tomografia computerizzata dell''arto inferiore (patologia traumatica)') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -359,7 +359,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Viscosita ematica') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Viscosita ematica') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -372,7 +372,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Tipizzazione sierologica HLA classe II') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Tipizzazione sierologica HLA classe II') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -385,7 +385,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Digestione DNA con enzimi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Digestione DNA con enzimi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -398,7 +398,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Sigillatura solchi e fossette') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Sigillatura solchi e fossette') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -411,7 +411,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Tipizzazione genomica HLA : DR seq. diretto') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Tipizzazione genomica HLA : DR seq. diretto') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -424,7 +424,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Estrazione di dente deciduo') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Estrazione di dente deciduo') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -437,7 +437,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Analisi di segmenti di DNA') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Analisi di segmenti di DNA') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -450,7 +450,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Tipizzazione sierologica HLA classe I') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Tipizzazione sierologica HLA classe I') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -463,7 +463,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Campylobacter da coltura') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Campylobacter da coltura') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -476,7 +476,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Trattamento con apparecchi funzionali') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Trattamento con apparecchi funzionali') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -489,7 +489,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Asportazione di lesione dentaria della mandibola (gratuita fino a 14 anni)') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Asportazione di lesione dentaria della mandibola (gratuita fino a 14 anni)') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -502,7 +502,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Tempo di tromboplastina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Tempo di tromboplastina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -515,7 +515,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Ricerca Mutazione (DGGE)') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Ricerca Mutazione (DGGE)') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -528,7 +528,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Crioconservazione in azoto liquido di cellule e tessuti') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Crioconservazione in azoto liquido di cellule e tessuti') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -541,7 +541,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Ricostruzione dente mediante otturazione a tre o più superfici') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Ricostruzione dente mediante otturazione a tre o più superfici') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -554,7 +554,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Colorazione aggiuntiva in bande: bandeggio R') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Colorazione aggiuntiva in bande: bandeggio R') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -567,7 +567,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Trattamento applicazioni protesi semovibili') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Trattamento applicazioni protesi semovibili') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -580,7 +580,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Analisi mutazione del DNA con reazione polimerasica a catena') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Analisi mutazione del DNA con reazione polimerasica a catena') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -593,7 +593,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Inserzione di protesi rimovibile') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Inserzione di protesi rimovibile') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -606,7 +606,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Campylobacter da coltura') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Campylobacter da coltura') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -619,7 +619,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Viscosita ematica') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Viscosita ematica') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -632,7 +632,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Intervento chirurgico preprotesico') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Intervento chirurgico preprotesico') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -645,7 +645,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Miceti anticorpi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Miceti anticorpi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -658,7 +658,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Cariotipo da metafasi di midollo osseo') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Cariotipo da metafasi di midollo osseo') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -671,7 +671,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Tomografia computerizzata dell''arto superiore (solo con patologia traumatica acuta)') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Tomografia computerizzata dell''arto superiore (solo con patologia traumatica acuta)') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -684,7 +684,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Terapia luce ultravioletta') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Terapia luce ultravioletta') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -697,7 +697,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Cariotipo da metafasi spontanee di villi corali') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Cariotipo da metafasi spontanee di villi corali') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -710,7 +710,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Tipizzazione sierologica HLA classe I') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Tipizzazione sierologica HLA classe I') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -723,7 +723,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Inalanti') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Inalanti') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -736,7 +736,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Tomografia computerizzata dell''arto superiore senza e con contrasto (patologia o sospetto oncologico)') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Tomografia computerizzata dell''arto superiore senza e con contrasto (patologia o sospetto oncologico)') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -749,7 +749,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Cariotipo da metafasi spontanee di villi corali') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Cariotipo da metafasi spontanee di villi corali') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -762,7 +762,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Test epicutanei a lettura ritardata') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Test epicutanei a lettura ritardata') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -775,7 +775,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Colorazione aggiuntiva in bande: bandeggio G') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Colorazione aggiuntiva in bande: bandeggio G') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -788,7 +788,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Tipizzazione sierologica HLA classe II') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Tipizzazione sierologica HLA classe II') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -801,7 +801,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Terapia canalare in pluriradicolato') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Terapia canalare in pluriradicolato') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -814,7 +814,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Colorazione aggiuntiva in bande: bandeggio Q') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Colorazione aggiuntiva in bande: bandeggio Q') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -827,7 +827,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Trattamento ortodontico con apparecchi mobili') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Trattamento ortodontico con apparecchi mobili') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -840,7 +840,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Test a lettura immediata') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Test a lettura immediata') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -853,7 +853,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Colorazione aggiuntiva in bande: bandeggio T') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Colorazione aggiuntiva in bande: bandeggio T') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -866,7 +866,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Analisi DNA e ibridazione con sonda') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Analisi DNA e ibridazione con sonda') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -879,7 +879,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Chlamydie ricerca diretta (EIA)') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Chlamydie ricerca diretta (EIA)') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -892,7 +892,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Tipizzazione genomica HLA : DQ alta risoluzione') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Tipizzazione genomica HLA : DQ alta risoluzione') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -905,7 +905,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Tomografia computerizzata del rachide') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Tomografia computerizzata del rachide') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -918,7 +918,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Tempo di protrombina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Tempo di protrombina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -931,7 +931,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Ricostruzione dente mediante intarsio') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Ricostruzione dente mediante intarsio') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -944,7 +944,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Analisi citogenetica per studio mosaicismo') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Analisi citogenetica per studio mosaicismo') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -957,7 +957,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Coltura di linfociti periferici') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Coltura di linfociti periferici') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -970,7 +970,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Tomoscintigrafia miocardica (PET)') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Tomoscintigrafia miocardica (PET)') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -983,7 +983,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Terapia canalare in monoradicolato') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Terapia canalare in monoradicolato') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -996,7 +996,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Tipizzazione genomica HLA : B sequenziamento diretto') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Tipizzazione genomica HLA : B sequenziamento diretto') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1009,7 +1009,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Tomoscintigrafia miocardica (PET)') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Tomoscintigrafia miocardica (PET)') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1022,7 +1022,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Test aggregazione piastrinica') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Test aggregazione piastrinica') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1035,7 +1035,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Terapia canalare in monoradicolato') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Terapia canalare in monoradicolato') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1048,7 +1048,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Applicazione di corona in lega aurea') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Applicazione di corona in lega aurea') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1061,7 +1061,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Miceti lieviti') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Miceti lieviti') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1074,7 +1074,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Tipizzazione sierologica HLA classe I') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Tipizzazione sierologica HLA classe I') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1087,7 +1087,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Analisi citogenetica per studio riarrangiamenti') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Analisi citogenetica per studio riarrangiamenti') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1100,7 +1100,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Trattamento ortodontico con apparecchi mobili') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Trattamento ortodontico con apparecchi mobili') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1113,7 +1113,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Altra applicazione corona e perno') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Altra applicazione corona e perno') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1126,7 +1126,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Ricostruzione dente mediante otturazione a tre o più superfici') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Ricostruzione dente mediante otturazione a tre o più superfici') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1139,7 +1139,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Orticarie fisiche') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Orticarie fisiche') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1152,7 +1152,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Ricostruzione dente con otturazione') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Ricostruzione dente con otturazione') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1165,7 +1165,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Analisi mutazione del DNA con reazione polimerasica a catena') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Analisi mutazione del DNA con reazione polimerasica a catena') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1178,7 +1178,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Tipizzazione sierologica HLA classe II') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Tipizzazione sierologica HLA classe II') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1191,7 +1191,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Tomografia computerizzata con contrasto') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Tomografia computerizzata con contrasto') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1204,7 +1204,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Gengivoplastica') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Gengivoplastica') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1217,7 +1217,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Tomografia computerizzata con contrasto') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Tomografia computerizzata con contrasto') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1230,7 +1230,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Cariotipo ad alta risoluzione') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Cariotipo ad alta risoluzione') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1243,7 +1243,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Tipizzazione genomica') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Tipizzazione genomica') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1256,7 +1256,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Orticarie fisiche') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Orticarie fisiche') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1269,7 +1269,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Tempo di protrombina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Tempo di protrombina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1282,7 +1282,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Crioconservazione in azoto liquido di cellule e tessuti') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Crioconservazione in azoto liquido di cellule e tessuti') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1295,7 +1295,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Chlamydie ricerca diretta (IF)') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Chlamydie ricerca diretta (IF)') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1308,7 +1308,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Sigillatura solchi e fossette') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Sigillatura solchi e fossette') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1321,7 +1321,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Levigatura delle radici') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Levigatura delle radici') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1334,7 +1334,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Analisi DNA per polimorfismo') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Analisi DNA per polimorfismo') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1347,7 +1347,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Estrazione DNA o RNA') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Estrazione DNA o RNA') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1360,7 +1360,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Applicazione di corona') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Applicazione di corona') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1373,7 +1373,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Colorazione aggiuntiva in bande: bandeggio G alta ris.') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Colorazione aggiuntiva in bande: bandeggio G alta ris.') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1386,7 +1386,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Altra applicazione corona') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Altra applicazione corona') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1399,7 +1399,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Cariotipo da metafasi di midollo osseo') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Cariotipo da metafasi di midollo osseo') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1412,7 +1412,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Analisi citogenetica per scambi di cromatidi') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Analisi citogenetica per scambi di cromatidi') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1425,7 +1425,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Apicectomia') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Apicectomia') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1438,7 +1438,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Estrazione DNA o RNA') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Estrazione DNA o RNA') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1451,7 +1451,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Riparazione di apparecchio ortodontico') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Riparazione di apparecchio ortodontico') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1464,7 +1464,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Analisi DNA studio citometrico') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Analisi DNA studio citometrico') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1477,7 +1477,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Immunizzazione malattia autoimmune') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Immunizzazione malattia autoimmune') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1490,7 +1490,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Sigillatura solchi e fossette') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Sigillatura solchi e fossette') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1503,7 +1503,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Colorazione aggiuntiva in bande: bandeggio T') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Colorazione aggiuntiva in bande: bandeggio T') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1516,7 +1516,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Terapia luce ultravioletta') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Terapia luce ultravioletta') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1529,7 +1529,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Tipizzazione genomica HLA : C') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Tipizzazione genomica HLA : C') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1542,7 +1542,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Tomoscintigrafia Cerebrale (PET)') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Tomoscintigrafia Cerebrale (PET)') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1555,7 +1555,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Coltura di cilli coriali') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Coltura di cilli coriali') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1568,7 +1568,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Intervento chirurgico preprotesico') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Intervento chirurgico preprotesico') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1581,7 +1581,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Cariotipo da metafasi di fibroblasti') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Cariotipo da metafasi di fibroblasti') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1594,7 +1594,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Conservazione campioni DNA RNA') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Conservazione campioni DNA RNA') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1607,7 +1607,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Immunizzazione malattia autoimmune') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Immunizzazione malattia autoimmune') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1620,7 +1620,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Inserzione di ponte fisso') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Inserzione di ponte fisso') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1633,7 +1633,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Coltura di amniociti') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Coltura di amniociti') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1646,7 +1646,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Colorazione aggiuntiva in bande: bandeggio G alta ris.') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Colorazione aggiuntiva in bande: bandeggio G alta ris.') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1659,7 +1659,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Impianto di dente') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Impianto di dente') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1672,7 +1672,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Intervento chirurgico preprotesico') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Intervento chirurgico preprotesico') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1685,7 +1685,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Tempo di protrombina') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Tempo di protrombina') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1698,7 +1698,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Ricostruzione dente mediante otturazione a tre o più superfici') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Ricostruzione dente mediante otturazione a tre o più superfici') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1711,7 +1711,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Crioconservazione in azoto liquido di cellule e tessuti') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Crioconservazione in azoto liquido di cellule e tessuti') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1724,7 +1724,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Orticarie fisiche') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Orticarie fisiche') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1737,7 +1737,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Ricostruzione dente con otturazione') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Ricostruzione dente con otturazione') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1750,7 +1750,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Tipizzazione genomica HLA : DQ alta risoluzione') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Tipizzazione genomica HLA : DQ alta risoluzione') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1763,7 +1763,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Tipizzazione genomica HLA : DQ seq. diretto') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Tipizzazione genomica HLA : DQ seq. diretto') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1776,7 +1776,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Ricerca mutazione (SSCP)') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Ricerca mutazione (SSCP)') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1789,7 +1789,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Tipizzazione genomica HLA : A sequenziamento diretto') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Tipizzazione genomica HLA : A sequenziamento diretto') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1802,7 +1802,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Coltura di materiale abortivo') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Coltura di materiale abortivo') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1815,7 +1815,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Intervento chirurgico preprotesico') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Intervento chirurgico preprotesico') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1828,7 +1828,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Radioterapia stereotassica') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Radioterapia stereotassica') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1841,7 +1841,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Shigelle') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Shigelle') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1854,7 +1854,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Irradiazione cutanea') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Irradiazione cutanea') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1867,7 +1867,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Campylobacter esame colturale') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Campylobacter esame colturale') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1880,7 +1880,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Tomografia computerizzata dell''arto inferiore (patologia traumatica)') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Tomografia computerizzata dell''arto inferiore (patologia traumatica)') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1893,7 +1893,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Estrazione di dente deciduo') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Estrazione di dente deciduo') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1906,7 +1906,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Intervento chirurgico preprotesico') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Intervento chirurgico preprotesico') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1919,7 +1919,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Analisi DNA e ibridazione con sonda') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Analisi DNA e ibridazione con sonda') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1932,7 +1932,7 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Tipizzazione genomica HLA : DQ seq. diretto') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Tipizzazione genomica HLA : DQ seq. diretto') AS exam
 FROM pr;
 
 WITH pr AS (
@@ -1945,5 +1945,5 @@ WITH pr AS (
   RETURNING id
 )
 INSERT INTO pr_hs_exam(prescription, exam)
-SELECT id AS prescription, (SELECT id FROM hs_exam WHERE name = 'Impianto di dente') AS exam
+SELECT id AS prescription, (SELECT id FROM examination WHERE name = 'Impianto di dente') AS exam
 FROM pr;

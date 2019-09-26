@@ -8,7 +8,7 @@ CREATE TABLE medicine
     PRIMARY KEY (id)
 );
 
-CREATE TABLE exam
+CREATE TABLE examination
 (
     id   BIGSERIAL NOT NULL,
     name TEXT      NOT NULL UNIQUE,
@@ -16,11 +16,15 @@ CREATE TABLE exam
     PRIMARY KEY (id)
 );
 
+CREATE TABLE exam
+(
+    id BIGINT NOT NULL REFERENCES examination (id) ON UPDATE CASCADE ON DELETE RESTRICT,
+    PRIMARY KEY (id)
+);
+
 CREATE TABLE hs_exam
 (
-    id   BIGSERIAL NOT NULL,
-    name TEXT      NOT NULL UNIQUE,
-    info TEXT      NOT NULL,
+    id BIGINT NOT NULL REFERENCES examination (id) ON UPDATE CASCADE ON DELETE RESTRICT,
     PRIMARY KEY (id)
 );
 
