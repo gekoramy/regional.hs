@@ -2,7 +2,6 @@
 
 DROP SCHEMA public CASCADE;
 CREATE SCHEMA public;
-GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO public;
 
 -- region TABLES
@@ -23,7 +22,7 @@ CREATE TABLE examination
     PRIMARY KEY (id)
 );
 
-CREATE TABLE exam
+CREATE TABLE sp_exam
 (
     id BIGINT NOT NULL REFERENCES examination (id) ON UPDATE CASCADE ON DELETE RESTRICT,
     PRIMARY KEY (id)
@@ -143,10 +142,10 @@ CREATE TABLE pr_medicine
     PRIMARY KEY (prescription)
 );
 
-CREATE TABLE pr_exam
+CREATE TABLE pr_sp_exam
 (
     prescription BIGINT NOT NULL REFERENCES prescription (id) ON UPDATE CASCADE ON DELETE CASCADE,
-    exam         BIGINT NOT NULL REFERENCES exam (id) ON UPDATE CASCADE ON DELETE RESTRICT,
+    exam         BIGINT NOT NULL REFERENCES sp_exam (id) ON UPDATE CASCADE ON DELETE RESTRICT,
     PRIMARY KEY (prescription)
 );
 
@@ -157,9 +156,9 @@ CREATE TABLE pr_hs_exam
     PRIMARY KEY (prescription)
 );
 
-CREATE TABLE report
+CREATE TABLE sp_report
 (
-    prescription BIGINT                                NOT NULL REFERENCES pr_exam (prescription) ON UPDATE CASCADE ON DELETE RESTRICT,
+    prescription BIGINT                                NOT NULL REFERENCES pr_sp_exam (prescription) ON UPDATE CASCADE ON DELETE RESTRICT,
     specialist   BIGINT                                NOT NULL REFERENCES specialist (id) ON UPDATE CASCADE ON DELETE RESTRICT,
     date         TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
     note         TEXT                                  NOT NULL,
@@ -175,10 +174,10 @@ CREATE TABLE hs_report
     PRIMARY KEY (prescription)
 );
 
-CREATE TABLE qualification
+CREATE TABLE sp_qualification
 (
     specialist BIGINT NOT NULL REFERENCES specialist (id) ON UPDATE CASCADE ON DELETE RESTRICT,
-    exam       BIGINT NOT NULL REFERENCES exam (id) ON UPDATE CASCADE ON DELETE RESTRICT,
+    exam       BIGINT NOT NULL REFERENCES sp_exam (id) ON UPDATE CASCADE ON DELETE RESTRICT,
     PRIMARY KEY (specialist, exam)
 );
 

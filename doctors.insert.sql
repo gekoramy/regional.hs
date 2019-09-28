@@ -27,7 +27,7 @@ VALUES
     ((SELECT id FROM person WHERE fc = 'DMCCST73T47A520Y')),
     ((SELECT id FROM person WHERE fc = 'GRRGLI71H29M072L'));
 
-INSERT INTO qualification(specialist, exam)
+INSERT INTO sp_qualification(specialist, exam)
 VALUES
     ((SELECT id FROM person WHERE fc = 'RLNMCL73H10E554H'), (SELECT id FROM examination WHERE name = 'Risonanza magnetica nucleare (RM) muscoloscheletrica senza e con contrasto')),
     ((SELECT id FROM person WHERE fc = 'RLNMCL73H10E554H'), (SELECT id FROM examination WHERE name = 'Alfa 2')),
@@ -50,7 +50,7 @@ VALUES
     ((SELECT id FROM person WHERE fc = 'RLNMCL73H10E554H'), (SELECT id FROM examination WHERE name = 'Analisi mutazione del DNA con ibridazione sonde non radiomarcate')),
     ((SELECT id FROM person WHERE fc = 'RLNMCL73H10E554H'), (SELECT id FROM examination WHERE name = 'Glicoproteina'));
 
-INSERT INTO qualification(specialist, exam)
+INSERT INTO sp_qualification(specialist, exam)
 VALUES
     ((SELECT id FROM person WHERE fc = 'LMBGNN74E19F750F'),(SELECT id FROM examination WHERE name = 'Aspartato aminotrasferiasi')),
     ((SELECT id FROM person WHERE fc = 'LMBGNN74E19F750F'),(SELECT id FROM examination WHERE name = 'Cromo')),
@@ -73,7 +73,7 @@ VALUES
     ((SELECT id FROM person WHERE fc = 'LMBGNN74E19F750F'),(SELECT id FROM examination WHERE name = 'Antigeni HLA')),
     ((SELECT id FROM person WHERE fc = 'LMBGNN74E19F750F'),(SELECT id FROM examination WHERE name = 'Colesterolo LDL'));
 
-INSERT INTO qualification(specialist, exam)
+INSERT INTO sp_qualification(specialist, exam)
 VALUES
     ((SELECT id FROM person WHERE fc = 'MNCMRT73H26H891I'), (SELECT id FROM examination WHERE name = 'Gruppo sanguigno ABO e RH (D)')),
     ((SELECT id FROM person WHERE fc = 'MNCMRT73H26H891I'), (SELECT id FROM examination WHERE name = 'Magnesio')),
@@ -96,7 +96,7 @@ VALUES
     ((SELECT id FROM person WHERE fc = 'MNCMRT73H26H891I'), (SELECT id FROM examination WHERE name = 'Alfa amilasi')),
     ((SELECT id FROM person WHERE fc = 'MNCMRT73H26H891I'), (SELECT id FROM examination WHERE name = 'Creatinina'));
 
-INSERT INTO qualification(specialist, exam)
+INSERT INTO sp_qualification(specialist, exam)
 VALUES
     ((SELECT id FROM person WHERE fc = 'DMCCST73T47A520Y'), (SELECT id FROM examination WHERE name = 'Antigene carboidratico 15.3')),
     ((SELECT id FROM person WHERE fc = 'DMCCST73T47A520Y'), (SELECT id FROM examination WHERE name = 'Proteine')),
@@ -119,7 +119,7 @@ VALUES
     ((SELECT id FROM person WHERE fc = 'DMCCST73T47A520Y'), (SELECT id FROM examination WHERE name = 'Ferro')),
     ((SELECT id FROM person WHERE fc = 'DMCCST73T47A520Y'), (SELECT id FROM examination WHERE name = 'Analisi mutazione del DNA con ibridazione sonde radiomarcate'));
 
-INSERT INTO qualification(specialist, exam)
+INSERT INTO sp_qualification(specialist, exam)
 VALUES
     ((SELECT id FROM person WHERE fc = 'GRRGLI71H29M072L'), (SELECT id FROM examination WHERE name = 'Aspartato aminotrasferiasi')),
     ((SELECT id FROM person WHERE fc = 'GRRGLI71H29M072L'), (SELECT id FROM examination WHERE name = 'Creatinchinasi')),

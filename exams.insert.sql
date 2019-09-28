@@ -228,7 +228,7 @@ VALUES ('Risonanza magnetica nucleare (RM) muscoloscheletrica',
        ('Analisi mutazione del DNA con reverse dot blot', 'Info Analisi mutazione del DNA con reverse dot blot'),
        ('Analisi di polimorfismi', 'Info Analisi di polimorfismi');
 
-INSERT INTO exam(id)
+INSERT INTO sp_exam(id)
 SELECT examination.id
 FROM examination
          LEFT JOIN hs_exam on examination.id = hs_exam.id
