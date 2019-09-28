@@ -1,0 +1,13 @@
+\i scheme.create.sql
+\i cities.insert.sql
+\i exams.insert.sql
+\i medicines.insert.sql
+\i people.insert.sql
+\i doctors.insert.sql
+\i follows.insert.sql
+\i pr_exams.insert.sql
+\i pr_hs_exams.insert.sql
+\i pr_medicine.insert.sql
+\i reports.insert.sql
+\i hs_reports.insert.sql
+\i tickets.insert.sql
