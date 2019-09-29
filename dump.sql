@@ -1,0 +1,13 @@
+\i queries/scheme.create.sql
+\i queries/cities.insert.sql
+\i queries/exams.insert.sql
+\i queries/medicines.insert.sql
+\i queries/people.insert.sql
+\i queries/doctors.insert.sql
+\i queries/follows.insert.sql
+\i queries/pr_sp_exams.insert.sql
+\i queries/pr_hs_exams.insert.sql
+\i queries/pr_medicine.insert.sql
+\i queries/sp_reports.insert.sql
+\i queries/hs_reports.insert.sql
+\i queries/tickets.insert.sql
