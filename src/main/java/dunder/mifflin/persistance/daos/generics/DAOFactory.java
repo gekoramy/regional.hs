@@ -30,6 +30,8 @@ public interface DAOFactory {
 
     ReportDAO report();
 
+    SecretDao secret();
+
     SpecialistDAO specialist();
 
     SpExamDAO spExam();

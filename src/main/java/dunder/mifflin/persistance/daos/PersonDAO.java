@@ -11,8 +11,6 @@ public interface PersonDAO extends DAO<Person, Long> {
 
     Optional<Person> by(String email) throws DAOException;
 
-    Optional<Person> update(long person, String password) throws DAOException;
-
     Stream<Person> qualifiedFor(long exam) throws DAOException;
 
     Stream<Person> patients(long general) throws DAOException;

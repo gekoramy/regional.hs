@@ -26,7 +26,7 @@ public class HsAdminJDBC extends JDBC implements HsAdminDAO {
     @Override
     public Optional<HsAdmin> byKey(Long key) {
         return context
-                .select(PERSON.asterisk(), HS_ADMIN.WORKPLACE)
+                .select(PERSON.asterisk().except(PERSON.PASSWORD), HS_ADMIN.WORKPLACE)
                 .from(PERSON)
                 .naturalJoin(HS_ADMIN)
                 .where(HS_ADMIN.ID.eq(key))
@@ -36,7 +36,7 @@ public class HsAdminJDBC extends JDBC implements HsAdminDAO {
     @Override
     public Stream<HsAdmin> fetchAll() {
         return context
-                .select(PERSON.asterisk(), HS_ADMIN.WORKPLACE)
+                .select(PERSON.asterisk().except(PERSON.PASSWORD), HS_ADMIN.WORKPLACE)
                 .from(PERSON)
                 .naturalJoin(HS_ADMIN)
                 .fetchStreamInto(HsAdmin.class);

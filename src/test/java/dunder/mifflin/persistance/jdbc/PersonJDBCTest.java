@@ -49,7 +49,6 @@ class PersonJDBCTest {
                     assertEquals("Arianna", person.name());
                     assertEquals("Bonetti", person.surname());
                     assertEquals("arianna.bonetti@dominio.com", person.email());
-                    assertEquals("$2a$10$.gNhlbOp8If4MEgnZapIg.2PqHPKS1LB0LeIddTUrOpB//5XxGgUO", person.password());
                     assertEquals(LocalDate.of(1966, 8, 8), person.birthday());
                     assertEquals(908L, person.birthplace());
                     assertEquals("BNTRNN66M48B165D", person.fc());
@@ -67,60 +66,6 @@ class PersonJDBCTest {
         assertEquals(2, dao.qualifiedFor(134L).count());
         assertEquals(2, dao.qualifiedFor(1L).count());
         assertEquals(0, dao.qualifiedFor(0L).count());
-    }
-
-    @Test
-    void update() {
-
-        dao.update(99L, "password").ifPresentOrElse(
-                (person) -> {
-                    assertEquals(99L, person.id());
-                    assertEquals("Arianna", person.name());
-                    assertEquals("Bonetti", person.surname());
-                    assertEquals("arianna.bonetti@dominio.com", person.email());
-                    assertEquals("password", person.password());
-                    assertEquals(LocalDate.of(1966, 8, 8), person.birthday());
-                    assertEquals(908L, person.birthplace());
-                    assertEquals("BNTRNN66M48B165D", person.fc());
-                    assertEquals(false, person.gender());
-                    assertEquals(946L, person.residence());
-                },
-                Assertions::fail
-        );
-
-        dao.byKey(99L).ifPresentOrElse(
-                (person) -> {
-                    assertEquals(99L, person.id());
-                    assertEquals("Arianna", person.name());
-                    assertEquals("Bonetti", person.surname());
-                    assertEquals("arianna.bonetti@dominio.com", person.email());
-                    assertEquals("password", person.password());
-                    assertEquals(LocalDate.of(1966, 8, 8), person.birthday());
-                    assertEquals(908L, person.birthplace());
-                    assertEquals("BNTRNN66M48B165D", person.fc());
-                    assertEquals(false, person.gender());
-                    assertEquals(946L, person.residence());
-                },
-                Assertions::fail
-        );
-
-        dao.update(99L, "$2a$10$.gNhlbOp8If4MEgnZapIg.2PqHPKS1LB0LeIddTUrOpB//5XxGgUO").ifPresentOrElse(
-                (person) -> {
-                    assertEquals(99L, person.id());
-                    assertEquals("Arianna", person.name());
-                    assertEquals("Bonetti", person.surname());
-                    assertEquals("arianna.bonetti@dominio.com", person.email());
-                    assertEquals("$2a$10$.gNhlbOp8If4MEgnZapIg.2PqHPKS1LB0LeIddTUrOpB//5XxGgUO", person.password());
-                    assertEquals(LocalDate.of(1966, 8, 8), person.birthday());
-                    assertEquals(908L, person.birthplace());
-                    assertEquals("BNTRNN66M48B165D", person.fc());
-                    assertEquals(false, person.gender());
-                    assertEquals(946L, person.residence());
-                },
-                Assertions::fail
-        );
-
-        assertFalse(dao.update(0L, "password").isPresent());
     }
 
     @Test
@@ -148,7 +93,6 @@ class PersonJDBCTest {
                     assertEquals("Arianna", person.name());
                     assertEquals("Bonetti", person.surname());
                     assertEquals("arianna.bonetti@dominio.com", person.email());
-                    assertEquals("$2a$10$.gNhlbOp8If4MEgnZapIg.2PqHPKS1LB0LeIddTUrOpB//5XxGgUO", person.password());
                     assertEquals(LocalDate.of(1966, 8, 8), person.birthday());
                     assertEquals(908L, person.birthplace());
                     assertEquals("BNTRNN66M48B165D", person.fc());

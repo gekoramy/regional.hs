@@ -53,7 +53,6 @@ class SpecialistJDBCTest {
                     assertEquals("Marcello", specialist.name());
                     assertEquals("Orlando", specialist.surname());
                     assertEquals("marcello.orlando@dominio.com", specialist.email());
-                    assertEquals("$2a$10$0uHa.w6kYtNpV5MaCOwz8Ov5nOHQeSIItsXdXSN1X4ITfnqg9wPRa", specialist.password());
                     assertEquals(LocalDate.of(1973, 6, 10), specialist.birthday());
                     assertEquals(244L, specialist.birthplace());
                     assertEquals("RLNMCL73H10E554H", specialist.fc());

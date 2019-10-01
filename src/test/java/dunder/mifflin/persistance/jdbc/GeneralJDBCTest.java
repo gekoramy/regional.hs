@@ -48,7 +48,6 @@ class GeneralJDBCTest {
                     assertEquals("Arianna", general.name());
                     assertEquals("Bonetti", general.surname());
                     assertEquals("arianna.bonetti@dominio.com", general.email());
-                    assertEquals("$2a$10$.gNhlbOp8If4MEgnZapIg.2PqHPKS1LB0LeIddTUrOpB//5XxGgUO", general.password());
                     assertEquals(LocalDate.of(1966, 8, 8), general.birthday());
                     assertEquals(908L, general.birthplace());
                     assertEquals("BNTRNN66M48B165D", general.fc());
@@ -74,7 +73,6 @@ class GeneralJDBCTest {
                     assertEquals("Arianna", general.name());
                     assertEquals("Bonetti", general.surname());
                     assertEquals("arianna.bonetti@dominio.com", general.email());
-                    assertEquals("$2a$10$.gNhlbOp8If4MEgnZapIg.2PqHPKS1LB0LeIddTUrOpB//5XxGgUO", general.password());
                     assertEquals(LocalDate.of(1966, 8, 8), general.birthday());
                     assertEquals(908L, general.birthplace());
                     assertEquals("BNTRNN66M48B165D", general.fc());

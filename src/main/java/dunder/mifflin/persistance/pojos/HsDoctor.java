@@ -9,8 +9,8 @@ public class HsDoctor extends Person {
 
     private final Long workplace;
 
-    public HsDoctor(Long id, String email, String password, String name, String surname, LocalDate birthday, Long birthplace, String fc, Boolean gender, Long residence, Long workplace) {
-        super(id, email, password, name, surname, birthday, birthplace, fc, gender, residence);
+    public HsDoctor(Long id, String email, String name, String surname, LocalDate birthday, Long birthplace, String fc, Boolean gender, Long residence, Long workplace) {
+        super(id, email, name, surname, birthday, birthplace, fc, gender, residence);
         this.workplace = requireNonNull(workplace);
     }
 
@@ -24,7 +24,6 @@ public class HsDoctor extends Person {
                 .add("workplace=" + workplace)
                 .add("id=" + id())
                 .add("email='" + email() + "'")
-                .add("password='" + password() + "'")
                 .add("name='" + name() + "'")
                 .add("surname='" + surname() + "'")
                 .add("birthday=" + birthday())

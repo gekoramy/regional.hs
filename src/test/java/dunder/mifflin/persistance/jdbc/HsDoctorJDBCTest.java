@@ -53,7 +53,6 @@ class HsDoctorJDBCTest {
                     assertEquals("Valentina", doctor.name());
                     assertEquals("Felce", doctor.surname());
                     assertEquals("valentina.felce@dominio.com", doctor.email());
-                    assertEquals("$2a$10$6bHGdOsKLZpwK9w7cc8srOK7QxfGpHhSZ0DpiKIfKseC8G5JEZDiy", doctor.password());
                     assertEquals(LocalDate.of(1969, 7, 1), doctor.birthday());
                     assertEquals(12L, doctor.birthplace());
                     assertEquals("FLCVNT69L41A975G", doctor.fc());

@@ -11,6 +11,8 @@ import org.jooq.impl.DefaultConfiguration;
 import javax.sql.DataSource;
 import java.sql.Connection;
 
+import static java.util.Objects.requireNonNull;
+
 public class JDBCFactory implements DAOFactory {
 
     private final AvatarDAO avatar;
@@ -22,6 +24,7 @@ public class JDBCFactory implements DAOFactory {
     private final HsExamDAO hsExam;
     private final MedicineDAO medicine;
     private final MedicinePrescriptionDAO medicinePrescription;
+    private final SecretDao secret;
     private final PersonDAO person;
     private final ProvinceDAO province;
     private final RegionDAO region;
@@ -30,10 +33,12 @@ public class JDBCFactory implements DAOFactory {
     private final SpExamDAO spExam;
     private final TicketDAO ticket;
 
-    public JDBCFactory(DataSource dataSource) {
+    public JDBCFactory(DataSource datasource) {
+        requireNonNull(datasource);
+
         final var context = DSL.using(
                 new DefaultConfiguration()
-                        .set(dataSource)
+                        .set(datasource)
                         .set(SQLDialect.POSTGRES)
                         .set(WrapperListener::new)
         );
@@ -52,6 +57,7 @@ public class JDBCFactory implements DAOFactory {
         this.province = new ProvinceJDBC(context);
         this.region = new RegionJDBC(context);
         this.report = new ReportJDBC(context);
+        this.secret = new SecretJDBC(context);
         this.specialist = new SpecialistJDBC(context);
         this.ticket = new TicketJDBC(context);
     }
@@ -78,6 +84,7 @@ public class JDBCFactory implements DAOFactory {
         this.province = new ProvinceJDBC(context);
         this.region = new RegionJDBC(context);
         this.report = new ReportJDBC(context);
+        this.secret = new SecretJDBC(context);
         this.specialist = new SpecialistJDBC(context);
         this.ticket = new TicketJDBC(context);
     }
@@ -145,6 +152,11 @@ public class JDBCFactory implements DAOFactory {
     @Override
     public ReportDAO report() {
         return report;
+    }
+
+    @Override
+    public SecretDao secret() {
+        return secret;
     }
 
     @Override

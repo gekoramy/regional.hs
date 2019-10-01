@@ -26,7 +26,7 @@ public class SpecialistJDBC extends JDBC implements SpecialistDAO {
     @Override
     public Optional<Specialist> byKey(Long key) {
         return context
-                .select(PERSON.asterisk())
+                .select(PERSON.asterisk().except(PERSON.PASSWORD))
                 .from(PERSON)
                 .naturalJoin(SPECIALIST)
                 .where(SPECIALIST.ID.eq(key))
@@ -36,7 +36,7 @@ public class SpecialistJDBC extends JDBC implements SpecialistDAO {
     @Override
     public Stream<Specialist> fetchAll() {
         return context
-                .select(PERSON.asterisk())
+                .select(PERSON.asterisk().except(PERSON.PASSWORD))
                 .from(PERSON)
                 .naturalJoin(SPECIALIST)
                 .fetchStreamInto(Specialist.class);

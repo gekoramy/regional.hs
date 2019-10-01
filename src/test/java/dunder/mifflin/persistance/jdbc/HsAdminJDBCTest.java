@@ -53,7 +53,6 @@ class HsAdminJDBCTest {
                     assertEquals("Sergio", admin.name());
                     assertEquals("Colombo", admin.surname());
                     assertEquals("sergio.colombo@dominio.com", admin.email());
-                    assertEquals("$2a$10$1tcV42fdKtsHllYIrhuPDujLJnZHxwKn/V3VYC25/RPxnj19fQ1Da", admin.password());
                     assertEquals(LocalDate.of(1968, 3, 26), admin.birthday());
                     assertEquals(394L, admin.birthplace());
                     assertEquals("CLMSRG68C26A023R", admin.fc());

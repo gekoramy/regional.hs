@@ -26,7 +26,7 @@ public class HsDoctorJDBC extends JDBC implements HsDoctorDAO {
     @Override
     public Optional<HsDoctor> byKey(Long key) {
         return context
-                .select(PERSON.asterisk(), HS_DOCTOR.WORKPLACE)
+                .select(PERSON.asterisk().except(PERSON.PASSWORD), HS_DOCTOR.WORKPLACE)
                 .from(PERSON)
                 .naturalJoin(HS_DOCTOR)
                 .where(HS_DOCTOR.ID.eq(key))
@@ -36,7 +36,7 @@ public class HsDoctorJDBC extends JDBC implements HsDoctorDAO {
     @Override
     public Stream<HsDoctor> fetchAll() {
         return context
-                .select(PERSON.asterisk(), HS_DOCTOR.WORKPLACE)
+                .select(PERSON.asterisk().except(PERSON.PASSWORD), HS_DOCTOR.WORKPLACE)
                 .from(PERSON)
                 .naturalJoin(HS_DOCTOR)
                 .fetchStreamInto(HsDoctor.class);

@@ -19,7 +19,7 @@ public class GeneralJDBC extends JDBC implements GeneralDAO {
     @Override
     public Optional<General> by(long patient) {
         return context
-                .select(PERSON.asterisk(), GENERAL.WORKPLACE)
+                .select(PERSON.asterisk().except(PERSON.PASSWORD), GENERAL.WORKPLACE)
                 .from(FOLLOWS)
                 .innerJoin(PERSON).on(FOLLOWS.GENERAL.eq(PERSON.ID))
                 .innerJoin(GENERAL).on(FOLLOWS.GENERAL.eq(GENERAL.ID))
@@ -36,7 +36,7 @@ public class GeneralJDBC extends JDBC implements GeneralDAO {
     @Override
     public Optional<General> byKey(Long key) {
         return context
-                .select(PERSON.asterisk(), GENERAL.WORKPLACE)
+                .select(PERSON.asterisk().except(PERSON.PASSWORD), GENERAL.WORKPLACE)
                 .from(PERSON)
                 .naturalJoin(GENERAL)
                 .where(GENERAL.ID.eq(key))
@@ -46,7 +46,7 @@ public class GeneralJDBC extends JDBC implements GeneralDAO {
     @Override
     public Stream<General> fetchAll() {
         return context
-                .select(PERSON.asterisk(), GENERAL.WORKPLACE)
+                .select(PERSON.asterisk().except(PERSON.PASSWORD), GENERAL.WORKPLACE)
                 .from(PERSON)
                 .naturalJoin(GENERAL)
                 .fetchStreamInto(General.class);
