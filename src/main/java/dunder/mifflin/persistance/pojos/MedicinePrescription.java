@@ -7,16 +7,16 @@ import static java.util.Objects.requireNonNull;
 
 public class MedicinePrescription extends Prescription {
 
-    private final Long medicine;
+    private final Medicine medicine;
     private final Integer quantity;
 
-    public MedicinePrescription(Long id, Long place, OffsetDateTime date, Long concerns, Long medicine, Integer quantity) {
+    public MedicinePrescription(Long id, Long place, OffsetDateTime date, Long concerns, Long medicine, String name, String info, Integer quantity) {
         super(id, place, date, concerns);
-        this.medicine = requireNonNull(medicine);
+        this.medicine = new Medicine(requireNonNull(medicine), name, info);
         this.quantity = requireNonNull(quantity);
     }
 
-    public Long medicine() {
+    public Medicine medicine() {
         return medicine;
     }
 
