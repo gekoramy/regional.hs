@@ -12,7 +12,7 @@ public class MedicinePrescription extends Prescription {
 
     public MedicinePrescription(Long id, Long place, OffsetDateTime date, Long concerns, Long medicine, String name, String info, Integer quantity) {
         super(id, place, date, concerns);
-        this.medicine = new Medicine(requireNonNull(medicine), name, info);
+        this.medicine = new Medicine(requireNonNull(medicine), requireNonNull(name), requireNonNull(info));
         this.quantity = requireNonNull(quantity);
     }
 
