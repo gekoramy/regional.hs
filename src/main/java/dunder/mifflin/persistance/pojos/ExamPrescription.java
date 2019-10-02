@@ -7,14 +7,14 @@ import static java.util.Objects.requireNonNull;
 
 public class ExamPrescription extends Prescription {
 
-    private final Long exam;
+    private final Examination exam;
 
-    public ExamPrescription(Long id, Long place, OffsetDateTime date, Long concerns, Long exam) {
+    public ExamPrescription(Long id, Long place, OffsetDateTime date, Long concerns, Long exam, String name, String info) {
         super(id, place, date, concerns);
-        this.exam = requireNonNull(exam);
+        this.exam = new Examination(requireNonNull(exam), requireNonNull(name), requireNonNull(info));
     }
 
-    public Long exam() {
+    public Examination exam() {
         return exam;
     }
 
