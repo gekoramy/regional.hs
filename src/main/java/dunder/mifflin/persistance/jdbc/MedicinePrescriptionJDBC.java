@@ -22,7 +22,7 @@ public class MedicinePrescriptionJDBC extends JDBC implements MedicinePrescripti
     public MedicinePrescription insert(long patient, long medicine, int quantity) {
         return context.transactionResult((config) -> {
 
-            final var insert = context
+            final var insert = DSL.using(config)
                     .select()
                     .from(MEDICINE)
                     .where(MEDICINE.ID.eq(medicine))
@@ -57,7 +57,8 @@ public class MedicinePrescriptionJDBC extends JDBC implements MedicinePrescripti
     @Override
     public Optional<MedicinePrescription> remove(long prescription) {
         return context.transactionResult((config) -> {
-            final var delete = context
+
+            final var delete = DSL.using(config)
                     .select()
                     .from(PR_MEDICINE)
                     .innerJoin(MEDICINE).on(PR_MEDICINE.MEDICINE.eq(MEDICINE.ID))
@@ -66,7 +67,7 @@ public class MedicinePrescriptionJDBC extends JDBC implements MedicinePrescripti
 
             return null == delete
                     ? Optional.empty()
-                    : context
+                    : DSL.using(config)
                     .deleteFrom(PRESCRIPTION)
                     .where(PRESCRIPTION.ID.eq(delete.get(PR_MEDICINE.PRESCRIPTION)))
                     .returning(PRESCRIPTION.asterisk())
