@@ -41,8 +41,8 @@ class GeneralJDBCTest {
     }
 
     @Test
-    void byPatient() {
-        dao.by(33L).ifPresentOrElse(
+    void follows() {
+        dao.follows(33L).ifPresentOrElse(
                 (general) -> {
                     assertEquals(99L, general.id());
                     assertEquals("Arianna", general.name());
@@ -57,7 +57,7 @@ class GeneralJDBCTest {
                 Assertions::fail
         );
 
-        Assertions.assertFalse(dao.by(1L).isPresent());
+        Assertions.assertFalse(dao.follows(1L).isPresent());
     }
 
     @Test

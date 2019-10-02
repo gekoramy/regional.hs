@@ -17,7 +17,7 @@ public class GeneralJDBC extends JDBC implements GeneralDAO {
     }
 
     @Override
-    public Optional<General> by(long patient) {
+    public Optional<General> follows(long patient) {
         return context
                 .select(PERSON.asterisk().except(PERSON.PASSWORD), GENERAL.WORKPLACE)
                 .from(FOLLOWS)

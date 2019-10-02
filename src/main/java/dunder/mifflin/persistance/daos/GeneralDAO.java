@@ -8,6 +8,6 @@ import java.util.Optional;
 
 public interface GeneralDAO extends DAO<General, Long> {
 
-    Optional<General> by(long patient) throws DAOException;
+    Optional<General> follows(long patient) throws DAOException;
 
 }
