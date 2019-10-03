@@ -5,7 +5,7 @@ VALUES
     , 'Giovanni'
     , 'Serra'
     , true
-    , '19090321'
+    , '20090321'
     , (SELECT C.id FROM city C WHERE C.name = 'Ledro')
     , 'SRRGNN09C21M313Q'
     , (SELECT C.id FROM city C WHERE C.name = 'Ala')
@@ -135,7 +135,7 @@ VALUES
     , 'Giorgio'
     , 'Pretti'
     , true
-    , '19120418'
+    , '20120418'
     , (SELECT C.id FROM city C WHERE C.name = 'Marano di Napoli')
     , 'PRTGRG12D18E906T'
     , (SELECT C.id FROM city C WHERE C.name = 'Vermiglio')
@@ -185,7 +185,7 @@ VALUES
     , 'Claudia'
     , 'Costa'
     , false
-    , '19120207'
+    , '20120207'
     , (SELECT C.id FROM city C WHERE C.name = 'Angri')
     , 'CSTCLD12B47A294O'
     , (SELECT C.id FROM city C WHERE C.name = 'Vallarsa')
@@ -285,7 +285,7 @@ VALUES
     , 'Gaia'
     , 'Neri'
     , false
-    , '19060220'
+    , '20060220'
     , (SELECT C.id FROM city C WHERE C.name = 'Emarese')
     , 'NREGAI06B60D402O'
     , (SELECT C.id FROM city C WHERE C.name = 'Canal San Bovo')
@@ -435,7 +435,7 @@ VALUES
     , 'Arianna'
     , 'Felce'
     , false
-    , '19070409'
+    , '20070409'
     , (SELECT C.id FROM city C WHERE C.name = 'Cairano')
     , 'FLCRNN07D49B367U'
     , (SELECT C.id FROM city C WHERE C.name = 'Silandro')
@@ -655,7 +655,7 @@ VALUES
     , 'Andrea'
     , 'Moretti'
     , true
-    , '19130310'
+    , '20130310'
     , (SELECT C.id FROM city C WHERE C.name = 'Treppo Carnico')
     , 'MRTNDR13C10L381S'
     , (SELECT C.id FROM city C WHERE C.name = 'Lauregno')
@@ -715,7 +715,7 @@ VALUES
     , 'Simone'
     , 'Conti'
     , true
-    , '19060328'
+    , '20060328'
     , (SELECT C.id FROM city C WHERE C.name = 'Torcegno')
     , 'CNTSMN06C28L211B'
     , (SELECT C.id FROM city C WHERE C.name = 'Drena')
@@ -755,7 +755,7 @@ VALUES
     , 'Carlo'
     , 'Gatti'
     , true
-    , '19140109'
+    , '20140109'
     , (SELECT C.id FROM city C WHERE C.name = 'Preore')
     , 'GTTCRL14A09H039X'
     , (SELECT C.id FROM city C WHERE C.name = 'Villa Agnedo')
@@ -765,7 +765,7 @@ VALUES
     , 'Carlo'
     , 'Orlando'
     , true
-    , '19190629'
+    , '19200629'
     , (SELECT C.id FROM city C WHERE C.name = 'Cavedine')
     , 'RLNCRL19H29C393E'
     , (SELECT C.id FROM city C WHERE C.name = 'Canazei')
@@ -825,7 +825,7 @@ VALUES
     , 'Attilio'
     , 'Esposito'
     , true
-    , '19060807'
+    , '20060807'
     , (SELECT C.id FROM city C WHERE C.name = 'Palazzolo dello Stella')
     , 'SPSTTL06M07G268F'
     , (SELECT C.id FROM city C WHERE C.name = 'San Candido')
@@ -865,7 +865,7 @@ VALUES
     , 'Claudia'
     , 'Romano'
     , false
-    , '19191206'
+    , '19201206'
     , (SELECT C.id FROM city C WHERE C.name = 'Bucciano')
     , 'RMNCLD19T46B239R'
     , (SELECT C.id FROM city C WHERE C.name = 'Calceranica al Lago')
@@ -915,7 +915,7 @@ VALUES
     , 'Alessia'
     , 'Costa'
     , false
-    , '19150717'
+    , '20150717'
     , (SELECT C.id FROM city C WHERE C.name = 'Brez')
     , 'CSTLSS15L57B165Z'
     , (SELECT C.id FROM city C WHERE C.name = 'Scena')
@@ -955,7 +955,7 @@ VALUES
     , 'Stefano'
     , 'Rossi'
     , true
-    , '19150630'
+    , '20150630'
     , (SELECT C.id FROM city C WHERE C.name = 'Bellosguardo')
     , 'RSSSFN15H30A756P'
     , (SELECT C.id FROM city C WHERE C.name = 'Moena')
@@ -1175,7 +1175,7 @@ VALUES
     , 'Elisa'
     , 'Neri'
     , false
-    , '19081217'
+    , '20081217'
     , (SELECT C.id FROM city C WHERE C.name = 'Camerota')
     , 'NRELSE08T57B476U'
     , (SELECT C.id FROM city C WHERE C.name = 'Avelengo')
@@ -1285,7 +1285,7 @@ VALUES
     , 'Gabriele'
     , 'Greco'
     , true
-    , '19061029'
+    , '20061029'
     , (SELECT C.id FROM city C WHERE C.name = 'Trasaghis')
     , 'GRCGRL06R29L335E'
     , (SELECT C.id FROM city C WHERE C.name = 'Cloz')
@@ -1315,7 +1315,7 @@ VALUES
     , 'Federica'
     , 'Neri'
     , false
-    , '19150920'
+    , '20150920'
     , (SELECT C.id FROM city C WHERE C.name = 'Pagani')
     , 'NREFRC15P60G230N'
     , (SELECT C.id FROM city C WHERE C.name = 'Trodena nel parco naturale')
@@ -1655,7 +1655,7 @@ VALUES
     , 'Giuliana'
     , 'Fontana'
     , false
-    , '19150930'
+    , '20150930'
     , (SELECT C.id FROM city C WHERE C.name = 'Paduli')
     , 'FNTGLN15P70G227F'
     , (SELECT C.id FROM city C WHERE C.name = 'Cornedo all''Isarco')
@@ -1675,7 +1675,7 @@ VALUES
     , 'Giulio'
     , 'Rinaldi'
     , true
-    , '19050129'
+    , '20050129'
     , (SELECT C.id FROM city C WHERE C.name = 'Galluccio')
     , 'RNLGLI05A29D886O'
     , (SELECT C.id FROM city C WHERE C.name = 'Cis')
@@ -1745,7 +1745,7 @@ VALUES
     , 'Valentina'
     , 'Boltri'
     , false
-    , '19150205'
+    , '20150205'
     , (SELECT C.id FROM city C WHERE C.name = 'Pieve Tesino')
     , 'BLTVNT15B45G656S'
     , (SELECT C.id FROM city C WHERE C.name = 'Sluderno')
@@ -1785,7 +1785,7 @@ VALUES
     , 'Simone'
     , 'Rana'
     , true
-    , '19140318'
+    , '20140318'
     , (SELECT C.id FROM city C WHERE C.name = 'Ledro')
     , 'RNASMN14C18M313X'
     , (SELECT C.id FROM city C WHERE C.name = 'Ronzone')
@@ -1925,7 +1925,7 @@ VALUES
     , 'Laura'
     , 'Conti'
     , false
-    , '19051015'
+    , '20051015'
     , (SELECT C.id FROM city C WHERE C.name = 'Teor')
     , 'CNTLRA05R55L101Q'
     , (SELECT C.id FROM city C WHERE C.name = 'Castelnuovo')
@@ -1985,7 +1985,7 @@ VALUES
     , 'Silvia'
     , 'Ruggiero'
     , false
-    , '19050811'
+    , '20050811'
     , (SELECT C.id FROM city C WHERE C.name = 'Ton')
     , 'RGGSLV05M51L200O'
     , (SELECT C.id FROM city C WHERE C.name = 'Campo di Trens')
@@ -1995,7 +1995,7 @@ VALUES
     , 'Felice'
     , 'Conti'
     , true
-    , '19111220'
+    , '20111220'
     , (SELECT C.id FROM city C WHERE C.name = 'Bellosguardo')
     , 'CNTFLC11T20A756U'
     , (SELECT C.id FROM city C WHERE C.name = 'Brentonico')
@@ -2145,7 +2145,7 @@ VALUES
     , 'Francesco'
     , 'Neri'
     , true
-    , '19151230'
+    , '20151230'
     , (SELECT C.id FROM city C WHERE C.name = 'Dro')
     , 'NREFNC15T30D371J'
     , (SELECT C.id FROM city C WHERE C.name = 'Rovereto')
@@ -2255,7 +2255,7 @@ VALUES
     , 'Iole'
     , 'Negri'
     , false
-    , '19190711'
+    , '19200711'
     , (SELECT C.id FROM city C WHERE C.name = 'Pietrelcina')
     , 'NGRLIO19L51G631Q'
     , (SELECT C.id FROM city C WHERE C.name = 'Daiano')
@@ -2385,7 +2385,7 @@ VALUES
     , 'Alessia'
     , 'Salvini'
     , false
-    , '19090219'
+    , '20090219'
     , (SELECT C.id FROM city C WHERE C.name = 'Agropoli')
     , 'SLVLSS09B59A091Q'
     , (SELECT C.id FROM city C WHERE C.name = 'Spiazzo')
@@ -2475,7 +2475,7 @@ VALUES
     , 'Luigi'
     , 'Parisi'
     , true
-    , '19060825'
+    , '20060825'
     , (SELECT C.id FROM city C WHERE C.name = 'Bicinicco')
     , 'PRSLGU06M25A855Z'
     , (SELECT C.id FROM city C WHERE C.name = 'Marlengo')
@@ -2535,7 +2535,7 @@ VALUES
     , 'Davide'
     , 'Grasso'
     , true
-    , '19141219'
+    , '20141219'
     , (SELECT C.id FROM city C WHERE C.name = 'Apollosa')
     , 'GRSDVD14T19A330H'
     , (SELECT C.id FROM city C WHERE C.name = 'Spera')
