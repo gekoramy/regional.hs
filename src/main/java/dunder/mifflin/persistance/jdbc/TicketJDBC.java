@@ -1,11 +1,13 @@
 package dunder.mifflin.persistance.jdbc;
 
 import dunder.mifflin.persistance.daos.TicketDAO;
+import dunder.mifflin.persistance.daos.exceptions.DAOException;
 import dunder.mifflin.persistance.jdbc.generics.JDBC;
 import dunder.mifflin.persistance.pojos.Ticket;
 import org.jooq.DSLContext;
 
 import java.math.BigDecimal;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -71,6 +73,15 @@ public class TicketJDBC extends JDBC implements TicketDAO {
                 .from(TICKET)
                 .where(TICKET.PRESCRIPTION.eq(key))
                 .fetchOptionalInto(Ticket.class);
+    }
+
+    @Override
+    public Map<Long, Ticket> byKeys(Long... keys) throws DAOException {
+        return context
+                .select()
+                .from(TICKET)
+                .where(TICKET.PRESCRIPTION.in(keys))
+                .fetchMap(TICKET.PRESCRIPTION, Ticket.class);
     }
 
     @Override

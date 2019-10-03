@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -56,6 +57,22 @@ class RegionJDBCTest {
         );
 
         assertFalse(dao.byKey(21L).isPresent());
+    }
+
+    @Test
+    void byKeys() {
+        final var results = dao.byKeys(1L, 21L);
+
+        assertFalse(results.containsKey(21L));
+
+        Optional.ofNullable(results.get(1L))
+                .ifPresentOrElse(
+                        (region) -> {
+                            assertEquals(1, region.id());
+                            assertEquals("Abruzzo", region.name());
+                        },
+                        Assertions::fail
+                );
     }
 
     @Test

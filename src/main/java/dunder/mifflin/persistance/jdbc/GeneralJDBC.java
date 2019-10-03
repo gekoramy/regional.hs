@@ -1,10 +1,12 @@
 package dunder.mifflin.persistance.jdbc;
 
 import dunder.mifflin.persistance.daos.GeneralDAO;
+import dunder.mifflin.persistance.daos.exceptions.DAOException;
 import dunder.mifflin.persistance.jdbc.generics.JDBC;
 import dunder.mifflin.persistance.pojos.General;
 import org.jooq.DSLContext;
 
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -17,9 +19,9 @@ public class GeneralJDBC extends JDBC implements GeneralDAO {
     }
 
     @Override
-    public Optional<General> by(long patient) {
+    public Optional<General> follows(long patient) {
         return context
-                .select(PERSON.asterisk(), GENERAL.WORKPLACE)
+                .select(PERSON.asterisk().except(PERSON.PASSWORD), GENERAL.WORKPLACE)
                 .from(FOLLOWS)
                 .innerJoin(PERSON).on(FOLLOWS.GENERAL.eq(PERSON.ID))
                 .innerJoin(GENERAL).on(FOLLOWS.GENERAL.eq(GENERAL.ID))
@@ -36,7 +38,7 @@ public class GeneralJDBC extends JDBC implements GeneralDAO {
     @Override
     public Optional<General> byKey(Long key) {
         return context
-                .select(PERSON.asterisk(), GENERAL.WORKPLACE)
+                .select(PERSON.asterisk().except(PERSON.PASSWORD), GENERAL.WORKPLACE)
                 .from(PERSON)
                 .naturalJoin(GENERAL)
                 .where(GENERAL.ID.eq(key))
@@ -44,9 +46,19 @@ public class GeneralJDBC extends JDBC implements GeneralDAO {
     }
 
     @Override
+    public Map<Long, General> byKeys(Long... keys) throws DAOException {
+        return context
+                .select(PERSON.asterisk().except(PERSON.PASSWORD), GENERAL.WORKPLACE)
+                .from(PERSON)
+                .naturalJoin(GENERAL)
+                .where(GENERAL.ID.in(keys))
+                .fetchMap(GENERAL.ID, General.class);
+    }
+
+    @Override
     public Stream<General> fetchAll() {
         return context
-                .select(PERSON.asterisk(), GENERAL.WORKPLACE)
+                .select(PERSON.asterisk().except(PERSON.PASSWORD), GENERAL.WORKPLACE)
                 .from(PERSON)
                 .naturalJoin(GENERAL)
                 .fetchStreamInto(General.class);

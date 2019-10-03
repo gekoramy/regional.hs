@@ -79,6 +79,11 @@ class AvatarJDBCTest {
     }
 
     @Test
+    void byKeys() {
+        // TODO
+    }
+
+    @Test
     void fetchAll() {
         assertEquals(0, dao.fetchAll().count());
     }

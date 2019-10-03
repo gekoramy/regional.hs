@@ -14,8 +14,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class HsAdminJDBCTest {
 
@@ -53,7 +55,6 @@ class HsAdminJDBCTest {
                     assertEquals("Sergio", admin.name());
                     assertEquals("Colombo", admin.surname());
                     assertEquals("sergio.colombo@dominio.com", admin.email());
-                    assertEquals("$2a$10$1tcV42fdKtsHllYIrhuPDujLJnZHxwKn/V3VYC25/RPxnj19fQ1Da", admin.password());
                     assertEquals(LocalDate.of(1968, 3, 26), admin.birthday());
                     assertEquals(394L, admin.birthplace());
                     assertEquals("CLMSRG68C26A023R", admin.fc());
@@ -64,6 +65,29 @@ class HsAdminJDBCTest {
         );
 
         Assertions.assertFalse(dao.byKey(1L).isPresent());
+    }
+
+    @Test
+    void byKeys() {
+        final var results = dao.byKeys(1L, 79L);
+
+        assertFalse(results.containsKey(1L));
+
+        Optional.ofNullable(results.get(79L))
+                .ifPresentOrElse(
+                        (admin) -> {
+                            assertEquals(79L, admin.id());
+                            assertEquals("Sergio", admin.name());
+                            assertEquals("Colombo", admin.surname());
+                            assertEquals("sergio.colombo@dominio.com", admin.email());
+                            assertEquals(LocalDate.of(1968, 3, 26), admin.birthday());
+                            assertEquals(394L, admin.birthplace());
+                            assertEquals("CLMSRG68C26A023R", admin.fc());
+                            assertEquals(true, admin.gender());
+                            assertEquals(1033L, admin.residence());
+                        },
+                        Assertions::fail
+                );
     }
 
     @Test

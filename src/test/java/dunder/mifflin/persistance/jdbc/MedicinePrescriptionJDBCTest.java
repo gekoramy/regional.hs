@@ -15,8 +15,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class MedicinePrescriptionJDBCTest {
 
@@ -48,7 +50,9 @@ class MedicinePrescriptionJDBCTest {
         assertEquals(11L, store.place());
         assertEquals(LocalDate.now(), store.date().toLocalDate());
         assertEquals(6L, store.concerns());
-        assertEquals(1L, store.medicine());
+        assertEquals(1L, store.medicine().id());
+        assertEquals("Abacavir Sulfate", store.medicine().name());
+        assertEquals("Info Abacavir Sulfate", store.medicine().info());
         assertEquals(3, store.quantity());
 
         dao.byKey(store.id()).ifPresentOrElse(
@@ -57,7 +61,9 @@ class MedicinePrescriptionJDBCTest {
                     assertEquals(store.place(), prescription.place());
                     assertEquals(store.date(), prescription.date());
                     assertEquals(store.concerns(), prescription.concerns());
-                    assertEquals(store.medicine(), prescription.medicine());
+                    assertEquals(store.medicine().id(), prescription.medicine().id());
+                    assertEquals(store.medicine().name(), prescription.medicine().name());
+                    assertEquals(store.medicine().info(), prescription.medicine().info());
                     assertEquals(store.quantity(), prescription.quantity());
                 },
                 Assertions::fail
@@ -68,7 +74,9 @@ class MedicinePrescriptionJDBCTest {
                     assertEquals(store.id(), prescription.id());
                     assertEquals(store.place(), prescription.place());
                     assertEquals(store.date(), prescription.date());
-                    assertEquals(store.medicine(), prescription.medicine());
+                    assertEquals(store.medicine().id(), prescription.medicine().id());
+                    assertEquals(store.medicine().name(), prescription.medicine().name());
+                    assertEquals(store.medicine().info(), prescription.medicine().info());
                     assertEquals(store.quantity(), prescription.quantity());
                 },
                 Assertions::fail
@@ -101,13 +109,37 @@ class MedicinePrescriptionJDBCTest {
                     assertEquals(11L, prescription.place());
                     assertEquals(LocalDate.of(2013, 4, 11), prescription.date().toLocalDate());
                     assertEquals(12L, prescription.concerns());
-                    assertEquals(653L, prescription.medicine());
+                    assertEquals(653L, prescription.medicine().id());
+                    assertEquals("Omnaris", prescription.medicine().name());
+                    assertEquals("Info Omnaris", prescription.medicine().info());
                     assertEquals(2, prescription.quantity());
                 },
                 Assertions::fail
         );
 
         Assertions.assertFalse(dao.byKey(1L).isPresent());
+    }
+
+    @Test
+    void byKeys() {
+        final var results = dao.byKeys(1L, 600L);
+
+        assertFalse(results.containsKey(1L));
+
+        Optional.ofNullable(results.get(600L))
+                .ifPresentOrElse(
+                        (prescription) -> {
+                            assertEquals(600L, prescription.id());
+                            assertEquals(11L, prescription.place());
+                            assertEquals(LocalDate.of(2013, 4, 11), prescription.date().toLocalDate());
+                            assertEquals(12L, prescription.concerns());
+                            assertEquals(653L, prescription.medicine().id());
+                            assertEquals("Omnaris", prescription.medicine().name());
+                            assertEquals("Info Omnaris", prescription.medicine().info());
+                            assertEquals(2, prescription.quantity());
+                        },
+                        Assertions::fail
+                );
     }
 
     @Test

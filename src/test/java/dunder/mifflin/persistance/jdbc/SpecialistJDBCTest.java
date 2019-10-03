@@ -14,8 +14,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class SpecialistJDBCTest {
 
@@ -53,7 +55,6 @@ class SpecialistJDBCTest {
                     assertEquals("Marcello", specialist.name());
                     assertEquals("Orlando", specialist.surname());
                     assertEquals("marcello.orlando@dominio.com", specialist.email());
-                    assertEquals("$2a$10$0uHa.w6kYtNpV5MaCOwz8Ov5nOHQeSIItsXdXSN1X4ITfnqg9wPRa", specialist.password());
                     assertEquals(LocalDate.of(1973, 6, 10), specialist.birthday());
                     assertEquals(244L, specialist.birthplace());
                     assertEquals("RLNMCL73H10E554H", specialist.fc());
@@ -64,6 +65,29 @@ class SpecialistJDBCTest {
         );
 
         Assertions.assertFalse(dao.byKey(1L).isPresent());
+    }
+
+    @Test
+    void byKeys() {
+        final var results = dao.byKeys(1L, 116L);
+
+        assertFalse(results.containsKey(1L));
+
+        Optional.ofNullable(results.get(116L))
+                .ifPresentOrElse(
+                        (specialist) -> {
+                            assertEquals(116L, specialist.id());
+                            assertEquals("Marcello", specialist.name());
+                            assertEquals("Orlando", specialist.surname());
+                            assertEquals("marcello.orlando@dominio.com", specialist.email());
+                            assertEquals(LocalDate.of(1973, 6, 10), specialist.birthday());
+                            assertEquals(244L, specialist.birthplace());
+                            assertEquals("RLNMCL73H10E554H", specialist.fc());
+                            assertEquals(true, specialist.gender());
+                            assertEquals(950L, specialist.residence());
+                        },
+                        Assertions::fail
+                );
     }
 
     @Test

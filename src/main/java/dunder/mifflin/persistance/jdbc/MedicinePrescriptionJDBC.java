@@ -1,12 +1,14 @@
 package dunder.mifflin.persistance.jdbc;
 
 import dunder.mifflin.persistance.daos.MedicinePrescriptionDAO;
+import dunder.mifflin.persistance.daos.exceptions.DAOException;
 import dunder.mifflin.persistance.jdbc.generics.JDBC;
 import dunder.mifflin.persistance.jdbc.utils.Queries;
 import dunder.mifflin.persistance.pojos.MedicinePrescription;
 import org.jooq.DSLContext;
 import org.jooq.impl.DSL;
 
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -22,7 +24,13 @@ public class MedicinePrescriptionJDBC extends JDBC implements MedicinePrescripti
     public MedicinePrescription insert(long patient, long medicine, int quantity) {
         return context.transactionResult((config) -> {
 
-            if (!DSL.using(config).fetchExists(MEDICINE, MEDICINE.ID.eq(medicine))) {
+            final var insert = DSL.using(config)
+                    .select()
+                    .from(MEDICINE)
+                    .where(MEDICINE.ID.eq(medicine))
+                    .fetchOne();
+
+            if (null == insert) {
                 throw new IllegalArgumentException(String.format("There is no medicine with id : %d", medicine));
             }
 
@@ -39,7 +47,9 @@ public class MedicinePrescriptionJDBC extends JDBC implements MedicinePrescripti
                             prescription.place(),
                             prescription.date(),
                             prescription.concerns(),
-                            r.get(PR_MEDICINE.MEDICINE),
+                            insert.get(MEDICINE.ID),
+                            insert.get(MEDICINE.NAME),
+                            insert.get(MEDICINE.INFO),
                             r.get(PR_MEDICINE.QUANTITY)
                     ))
                     .get();
@@ -48,36 +58,42 @@ public class MedicinePrescriptionJDBC extends JDBC implements MedicinePrescripti
 
     @Override
     public Optional<MedicinePrescription> remove(long prescription) {
+        return context.transactionResult((config) -> {
 
-        final var prMedicine = context
-                .deleteFrom(PR_MEDICINE)
-                .where(PR_MEDICINE.PRESCRIPTION.eq(prescription))
-                .returning(PR_MEDICINE.asterisk())
-                .fetchOptional();
+            final var delete = DSL.using(config)
+                    .select()
+                    .from(PR_MEDICINE)
+                    .innerJoin(MEDICINE).on(PR_MEDICINE.MEDICINE.eq(MEDICINE.ID))
+                    .where(PR_MEDICINE.PRESCRIPTION.eq(prescription))
+                    .fetchOne();
 
-        return prMedicine
-                .flatMap((medicine) -> context
-                        .deleteFrom(PRESCRIPTION)
-                        .where(PRESCRIPTION.ID.eq(prescription))
-                        .returning(PRESCRIPTION.asterisk())
-                        .fetchOptional()
-                        .map((r) -> new MedicinePrescription(
-                                r.get(PRESCRIPTION.ID),
-                                r.get(PRESCRIPTION.PLACE),
-                                r.get(PRESCRIPTION.DATE),
-                                r.get(PRESCRIPTION.CONCERNS),
-                                medicine.get(PR_MEDICINE.MEDICINE),
-                                medicine.get(PR_MEDICINE.QUANTITY)
-                        ))
-                );
+            return null == delete
+                    ? Optional.empty()
+                    : DSL.using(config)
+                    .deleteFrom(PRESCRIPTION)
+                    .where(PRESCRIPTION.ID.eq(delete.get(PR_MEDICINE.PRESCRIPTION)))
+                    .returning(PRESCRIPTION.asterisk())
+                    .fetchOptional()
+                    .map((r) -> new MedicinePrescription(
+                            r.get(PRESCRIPTION.ID),
+                            r.get(PRESCRIPTION.PLACE),
+                            r.get(PRESCRIPTION.DATE),
+                            r.get(PRESCRIPTION.CONCERNS),
+                            delete.get(MEDICINE.ID),
+                            delete.get(MEDICINE.NAME),
+                            delete.get(MEDICINE.INFO),
+                            delete.get(PR_MEDICINE.QUANTITY)
+                    ));
+        });
     }
 
     @Override
     public Stream<MedicinePrescription> concerns(long patient) {
         return context
-                .select(PRESCRIPTION.asterisk(), PR_MEDICINE.asterisk().except(PR_MEDICINE.PRESCRIPTION))
+                .select(PRESCRIPTION.asterisk(), MEDICINE.asterisk(), PR_MEDICINE.QUANTITY)
                 .from(PRESCRIPTION)
                 .innerJoin(PR_MEDICINE).on(PRESCRIPTION.ID.eq(PR_MEDICINE.PRESCRIPTION))
+                .innerJoin(MEDICINE).on(PR_MEDICINE.MEDICINE.eq(MEDICINE.ID))
                 .innerJoin(FOLLOWS).on(PRESCRIPTION.CONCERNS.eq(FOLLOWS.ID))
                 .where(FOLLOWS.PATIENT.eq(patient))
                 .orderBy(PRESCRIPTION.DATE)
@@ -93,19 +109,32 @@ public class MedicinePrescriptionJDBC extends JDBC implements MedicinePrescripti
     @Override
     public Optional<MedicinePrescription> byKey(Long key) {
         return context
-                .select(PRESCRIPTION.asterisk(), PR_MEDICINE.asterisk().except(PR_MEDICINE.PRESCRIPTION))
+                .select(PRESCRIPTION.asterisk(), MEDICINE.asterisk(), PR_MEDICINE.QUANTITY)
                 .from(PRESCRIPTION)
                 .innerJoin(PR_MEDICINE).on(PRESCRIPTION.ID.eq(PR_MEDICINE.PRESCRIPTION))
+                .innerJoin(MEDICINE).on(PR_MEDICINE.MEDICINE.eq(MEDICINE.ID))
                 .where(PRESCRIPTION.ID.eq(key))
                 .fetchOptionalInto(MedicinePrescription.class);
     }
 
     @Override
-    public Stream<MedicinePrescription> fetchAll() {
+    public Map<Long, MedicinePrescription> byKeys(Long... keys) throws DAOException {
         return context
-                .select(PRESCRIPTION.asterisk(), PR_MEDICINE.asterisk().except(PR_MEDICINE.PRESCRIPTION))
+                .select(PRESCRIPTION.asterisk(), MEDICINE.asterisk(), PR_MEDICINE.QUANTITY)
                 .from(PRESCRIPTION)
                 .innerJoin(PR_MEDICINE).on(PRESCRIPTION.ID.eq(PR_MEDICINE.PRESCRIPTION))
+                .innerJoin(MEDICINE).on(PR_MEDICINE.MEDICINE.eq(MEDICINE.ID))
+                .where(PRESCRIPTION.ID.in(keys))
+                .fetchMap(PRESCRIPTION.ID, MedicinePrescription.class);
+    }
+
+    @Override
+    public Stream<MedicinePrescription> fetchAll() {
+        return context
+                .select(PRESCRIPTION.asterisk(), MEDICINE.asterisk(), PR_MEDICINE.QUANTITY)
+                .from(PRESCRIPTION)
+                .innerJoin(PR_MEDICINE).on(PRESCRIPTION.ID.eq(PR_MEDICINE.PRESCRIPTION))
+                .innerJoin(MEDICINE).on(PR_MEDICINE.MEDICINE.eq(MEDICINE.ID))
                 .orderBy(PRESCRIPTION.DATE)
                 .fetchStreamInto(MedicinePrescription.class);
     }

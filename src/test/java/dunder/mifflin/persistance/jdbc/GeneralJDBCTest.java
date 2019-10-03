@@ -14,8 +14,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class GeneralJDBCTest {
 
@@ -41,14 +43,13 @@ class GeneralJDBCTest {
     }
 
     @Test
-    void byPatient() {
-        dao.by(33L).ifPresentOrElse(
+    void follows() {
+        dao.follows(33L).ifPresentOrElse(
                 (general) -> {
                     assertEquals(99L, general.id());
                     assertEquals("Arianna", general.name());
                     assertEquals("Bonetti", general.surname());
                     assertEquals("arianna.bonetti@dominio.com", general.email());
-                    assertEquals("$2a$10$.gNhlbOp8If4MEgnZapIg.2PqHPKS1LB0LeIddTUrOpB//5XxGgUO", general.password());
                     assertEquals(LocalDate.of(1966, 8, 8), general.birthday());
                     assertEquals(908L, general.birthplace());
                     assertEquals("BNTRNN66M48B165D", general.fc());
@@ -58,7 +59,7 @@ class GeneralJDBCTest {
                 Assertions::fail
         );
 
-        Assertions.assertFalse(dao.by(1L).isPresent());
+        Assertions.assertFalse(dao.follows(1L).isPresent());
     }
 
     @Test
@@ -74,7 +75,6 @@ class GeneralJDBCTest {
                     assertEquals("Arianna", general.name());
                     assertEquals("Bonetti", general.surname());
                     assertEquals("arianna.bonetti@dominio.com", general.email());
-                    assertEquals("$2a$10$.gNhlbOp8If4MEgnZapIg.2PqHPKS1LB0LeIddTUrOpB//5XxGgUO", general.password());
                     assertEquals(LocalDate.of(1966, 8, 8), general.birthday());
                     assertEquals(908L, general.birthplace());
                     assertEquals("BNTRNN66M48B165D", general.fc());
@@ -86,6 +86,30 @@ class GeneralJDBCTest {
         );
 
         Assertions.assertFalse(dao.byKey(1L).isPresent());
+    }
+
+    @Test
+    void byKeys() {
+        final var results = dao.byKeys(1L, 99L);
+
+        assertFalse(results.containsKey(1L));
+
+        Optional.ofNullable(results.get(99L))
+                .ifPresentOrElse(
+                        (general) -> {
+                            assertEquals(99L, general.id());
+                            assertEquals("Arianna", general.name());
+                            assertEquals("Bonetti", general.surname());
+                            assertEquals("arianna.bonetti@dominio.com", general.email());
+                            assertEquals(LocalDate.of(1966, 8, 8), general.birthday());
+                            assertEquals(908L, general.birthplace());
+                            assertEquals("BNTRNN66M48B165D", general.fc());
+                            assertEquals(false, general.gender());
+                            assertEquals(946L, general.residence());
+                            assertEquals(11, general.workplace());
+                        },
+                        Assertions::fail
+                );
     }
 
     @Test

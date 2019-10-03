@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -64,6 +65,24 @@ class SpExamJDBCTest {
 
         assertFalse(dao.byKey(1L).isPresent(), "not specialist exam");
         assertFalse(dao.byKey(0L).isPresent(), "not existing exam");
+    }
+
+    @Test
+    void byKeys() {
+        final var results = dao.byKeys(0L, 1L, 134L);
+
+        assertFalse(results.containsKey(0L));
+        assertFalse(results.containsKey(1L));
+
+        Optional.ofNullable(results.get(134L))
+                .ifPresentOrElse(
+                        (exam) -> {
+                            assertEquals(134L, exam.id());
+                            assertEquals("Risonanza magnetica nucleare (RM) muscoloscheletrica", exam.name());
+                            assertEquals("Info Risonanza magnetica nucleare (RM) muscoloscheletrica", exam.info());
+                        },
+                        Assertions::fail
+                );
     }
 
     @Test

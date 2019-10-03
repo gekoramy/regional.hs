@@ -1,10 +1,12 @@
 package dunder.mifflin.persistance.jdbc;
 
 import dunder.mifflin.persistance.daos.CityDAO;
+import dunder.mifflin.persistance.daos.exceptions.DAOException;
 import dunder.mifflin.persistance.jdbc.generics.JDBC;
 import dunder.mifflin.persistance.pojos.City;
 import org.jooq.DSLContext;
 
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -29,6 +31,15 @@ public class CityJDBC extends JDBC implements CityDAO {
                 .from(CITY)
                 .where(CITY.ID.eq(key))
                 .fetchOptionalInto(City.class);
+    }
+
+    @Override
+    public Map<Long, City> byKeys(Long... keys) throws DAOException {
+        return context
+                .select()
+                .from(CITY)
+                .where(CITY.ID.in(keys))
+                .fetchMap(CITY.ID, City.class);
     }
 
     @Override

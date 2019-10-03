@@ -6,6 +6,7 @@ import dunder.mifflin.persistance.jdbc.generics.JDBC;
 import dunder.mifflin.persistance.pojos.SpExam;
 import org.jooq.DSLContext;
 
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -42,6 +43,16 @@ public class SpExamJDBC extends JDBC implements SpExamDAO {
                 .naturalJoin(SP_EXAM)
                 .where(SP_EXAM.ID.eq(key))
                 .fetchOptionalInto(SpExam.class);
+    }
+
+    @Override
+    public Map<Long, SpExam> byKeys(Long... keys) throws DAOException {
+        return context
+                .select(EXAMINATION.asterisk())
+                .from(EXAMINATION)
+                .naturalJoin(SP_EXAM)
+                .where(SP_EXAM.ID.in(keys))
+                .fetchMap(SP_EXAM.ID, SpExam.class);
     }
 
     @Override

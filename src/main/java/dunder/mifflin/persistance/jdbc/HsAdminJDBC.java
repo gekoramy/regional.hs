@@ -1,10 +1,12 @@
 package dunder.mifflin.persistance.jdbc;
 
 import dunder.mifflin.persistance.daos.HsAdminDAO;
+import dunder.mifflin.persistance.daos.exceptions.DAOException;
 import dunder.mifflin.persistance.jdbc.generics.JDBC;
 import dunder.mifflin.persistance.pojos.HsAdmin;
 import org.jooq.DSLContext;
 
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -26,7 +28,7 @@ public class HsAdminJDBC extends JDBC implements HsAdminDAO {
     @Override
     public Optional<HsAdmin> byKey(Long key) {
         return context
-                .select(PERSON.asterisk(), HS_ADMIN.WORKPLACE)
+                .select(PERSON.asterisk().except(PERSON.PASSWORD), HS_ADMIN.WORKPLACE)
                 .from(PERSON)
                 .naturalJoin(HS_ADMIN)
                 .where(HS_ADMIN.ID.eq(key))
@@ -34,9 +36,19 @@ public class HsAdminJDBC extends JDBC implements HsAdminDAO {
     }
 
     @Override
+    public Map<Long, HsAdmin> byKeys(Long... keys) throws DAOException {
+        return context
+                .select(PERSON.asterisk().except(PERSON.PASSWORD), HS_ADMIN.WORKPLACE)
+                .from(PERSON)
+                .naturalJoin(HS_ADMIN)
+                .where(HS_ADMIN.ID.in(keys))
+                .fetchMap(HS_ADMIN.ID, HsAdmin.class);
+    }
+
+    @Override
     public Stream<HsAdmin> fetchAll() {
         return context
-                .select(PERSON.asterisk(), HS_ADMIN.WORKPLACE)
+                .select(PERSON.asterisk().except(PERSON.PASSWORD), HS_ADMIN.WORKPLACE)
                 .from(PERSON)
                 .naturalJoin(HS_ADMIN)
                 .fetchStreamInto(HsAdmin.class);
