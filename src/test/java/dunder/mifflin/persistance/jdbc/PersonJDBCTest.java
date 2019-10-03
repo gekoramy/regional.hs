@@ -14,6 +14,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -103,6 +104,29 @@ class PersonJDBCTest {
         );
 
         assertFalse(dao.byKey(0L).isPresent());
+    }
+
+    @Test
+    void byKeys() {
+        final var results = dao.byKeys(0L, 99L);
+
+        assertFalse(results.containsKey(0L));
+
+        Optional.ofNullable(results.get(99L))
+                .ifPresentOrElse(
+                        (person) -> {
+                            assertEquals(99L, person.id());
+                            assertEquals("Arianna", person.name());
+                            assertEquals("Bonetti", person.surname());
+                            assertEquals("arianna.bonetti@dominio.com", person.email());
+                            assertEquals(LocalDate.of(1966, 8, 8), person.birthday());
+                            assertEquals(908L, person.birthplace());
+                            assertEquals("BNTRNN66M48B165D", person.fc());
+                            assertEquals(false, person.gender());
+                            assertEquals(946L, person.residence());
+                        },
+                        Assertions::fail
+                );
     }
 
     @Test

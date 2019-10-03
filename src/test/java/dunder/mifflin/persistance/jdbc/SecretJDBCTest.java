@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -98,6 +99,22 @@ class SecretJDBCTest {
         );
 
         assertFalse(dao.byKey(0L).isPresent());
+    }
+
+    @Test
+    void byKeys() {
+        final var results = dao.byKeys(0L, 1L, 99L);
+
+        assertFalse(results.containsKey(0L));
+
+        Optional.ofNullable(results.get(99L))
+                .ifPresentOrElse(
+                        (password) -> {
+                            assertEquals(99L, password.id());
+                            assertEquals("$2a$10$.gNhlbOp8If4MEgnZapIg.2PqHPKS1LB0LeIddTUrOpB//5XxGgUO", password.password());
+                        },
+                        Assertions::fail
+                );
     }
 
     @Test

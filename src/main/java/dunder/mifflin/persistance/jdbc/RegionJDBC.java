@@ -1,10 +1,12 @@
 package dunder.mifflin.persistance.jdbc;
 
 import dunder.mifflin.persistance.daos.RegionDAO;
+import dunder.mifflin.persistance.daos.exceptions.DAOException;
 import dunder.mifflin.persistance.jdbc.generics.JDBC;
 import dunder.mifflin.persistance.pojos.Region;
 import org.jooq.DSLContext;
 
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -29,6 +31,15 @@ public class RegionJDBC extends JDBC implements RegionDAO {
                 .from(REGION)
                 .where(REGION.ID.eq(key))
                 .fetchOptionalInto(Region.class);
+    }
+
+    @Override
+    public Map<Long, Region> byKeys(Long... keys) throws DAOException {
+        return context
+                .select()
+                .from(REGION)
+                .where(REGION.ID.in(keys))
+                .fetchMap(REGION.ID, Region.class);
     }
 
     @Override

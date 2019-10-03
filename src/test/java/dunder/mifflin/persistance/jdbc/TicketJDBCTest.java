@@ -16,8 +16,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class TicketJDBCTest {
 
@@ -92,6 +94,23 @@ class TicketJDBCTest {
         );
 
         Assertions.assertFalse(dao.byKey(0L).isPresent());
+    }
+
+    @Test
+    void byKeys() {
+        final var results = dao.byKeys(0L, 104L);
+
+        assertFalse(results.containsKey(0L));
+
+        Optional.ofNullable(results.get(104L))
+                .ifPresentOrElse(
+                        (ticket) -> {
+                            assertEquals(104L, ticket.prescription());
+                            assertEquals(LocalDate.of(2012, 8, 31), ticket.date().toLocalDate());
+                            assertEquals(BigDecimal.valueOf(5000, 2), ticket.amount());
+                        },
+                        Assertions::fail
+                );
     }
 
     @Test

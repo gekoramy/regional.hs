@@ -1,10 +1,12 @@
 package dunder.mifflin.persistance.jdbc;
 
 import dunder.mifflin.persistance.daos.SpecialistDAO;
+import dunder.mifflin.persistance.daos.exceptions.DAOException;
 import dunder.mifflin.persistance.jdbc.generics.JDBC;
 import dunder.mifflin.persistance.pojos.Specialist;
 import org.jooq.DSLContext;
 
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -31,6 +33,16 @@ public class SpecialistJDBC extends JDBC implements SpecialistDAO {
                 .naturalJoin(SPECIALIST)
                 .where(SPECIALIST.ID.eq(key))
                 .fetchOptionalInto(Specialist.class);
+    }
+
+    @Override
+    public Map<Long, Specialist> byKeys(Long... keys) throws DAOException {
+        return context
+                .select(PERSON.asterisk().except(PERSON.PASSWORD))
+                .from(PERSON)
+                .naturalJoin(SPECIALIST)
+                .where(SPECIALIST.ID.in(keys))
+                .fetchMap(SPECIALIST.ID, Specialist.class);
     }
 
     @Override

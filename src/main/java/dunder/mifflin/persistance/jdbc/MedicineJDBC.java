@@ -1,10 +1,12 @@
 package dunder.mifflin.persistance.jdbc;
 
 import dunder.mifflin.persistance.daos.MedicineDAO;
+import dunder.mifflin.persistance.daos.exceptions.DAOException;
 import dunder.mifflin.persistance.jdbc.generics.JDBC;
 import dunder.mifflin.persistance.pojos.Medicine;
 import org.jooq.DSLContext;
 
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -29,6 +31,15 @@ public class MedicineJDBC extends JDBC implements MedicineDAO {
                 .from(MEDICINE)
                 .where(MEDICINE.ID.eq(key))
                 .fetchOptionalInto(Medicine.class);
+    }
+
+    @Override
+    public Map<Long, Medicine> byKeys(Long... keys) throws DAOException {
+        return context
+                .select()
+                .from(MEDICINE)
+                .where(MEDICINE.ID.in(keys))
+                .fetchMap(MEDICINE.ID, Medicine.class);
     }
 
     @Override

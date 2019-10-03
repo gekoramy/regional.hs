@@ -1,11 +1,14 @@
 package dunder.mifflin.persistance.jdbc;
 
 import dunder.mifflin.persistance.daos.ReportDAO;
+import dunder.mifflin.persistance.daos.exceptions.DAOException;
 import dunder.mifflin.persistance.jdbc.generics.JDBC;
 import dunder.mifflin.persistance.pojos.Report;
 import org.jooq.DSLContext;
 import org.jooq.impl.DSL;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -107,7 +110,27 @@ public class ReportJDBC extends JDBC implements ReportDAO {
                 .where(HS_REPORT.PRESCRIPTION.eq(key))
                 .fetchOptionalInto(Report.class);
 
-        return report.or(() -> hsReport);
+        return Optional.<Report>empty()
+                .or(() -> report)
+                .or(() -> hsReport);
+    }
+
+    @Override
+    public Map<Long, Report> byKeys(Long... keys) throws DAOException {
+        final var report = context.select()
+                .from(SP_REPORT)
+                .where(SP_REPORT.PRESCRIPTION.in(keys))
+                .fetchMap(SP_REPORT.PRESCRIPTION, Report.class);
+
+        final var hsReport = context.select()
+                .from(HS_REPORT)
+                .where(HS_REPORT.PRESCRIPTION.in(keys))
+                .fetchMap(HS_REPORT.PRESCRIPTION, Report.class);
+
+        final Map<Long, Report> results = new HashMap<>();
+        results.putAll(report);
+        results.putAll(hsReport);
+        return results;
     }
 
     @Override

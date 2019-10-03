@@ -15,8 +15,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class MedicinePrescriptionJDBCTest {
 
@@ -116,6 +118,28 @@ class MedicinePrescriptionJDBCTest {
         );
 
         Assertions.assertFalse(dao.byKey(1L).isPresent());
+    }
+
+    @Test
+    void byKeys() {
+        final var results = dao.byKeys(1L, 600L);
+
+        assertFalse(results.containsKey(1L));
+
+        Optional.ofNullable(results.get(600L))
+                .ifPresentOrElse(
+                        (prescription) -> {
+                            assertEquals(600L, prescription.id());
+                            assertEquals(11L, prescription.place());
+                            assertEquals(LocalDate.of(2013, 4, 11), prescription.date().toLocalDate());
+                            assertEquals(12L, prescription.concerns());
+                            assertEquals(653L, prescription.medicine().id());
+                            assertEquals("Omnaris", prescription.medicine().name());
+                            assertEquals("Info Omnaris", prescription.medicine().info());
+                            assertEquals(2, prescription.quantity());
+                        },
+                        Assertions::fail
+                );
     }
 
     @Test

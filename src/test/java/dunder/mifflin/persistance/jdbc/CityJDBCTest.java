@@ -13,8 +13,10 @@ import org.junit.jupiter.api.Test;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class CityJDBCTest {
 
@@ -56,6 +58,33 @@ class CityJDBCTest {
         );
 
         Assertions.assertFalse(dao.byKey(1177L).isPresent());
+    }
+
+    @Test
+    void byKeys() {
+        final var results = dao.byKeys(0L, 5L, 10L);
+
+        assertFalse(results.containsKey(0L));
+
+        Optional.ofNullable(results.get(5L))
+                .ifPresentOrElse(
+                        (city) -> {
+                            assertEquals(5L, city.id());
+                            assertEquals(1L, city.province());
+                            assertEquals("Ariano Irpino", city.name());
+                        },
+                        Assertions::fail
+                );
+
+        Optional.ofNullable(results.get(10L))
+                .ifPresentOrElse(
+                        (city) -> {
+                            assertEquals(10L, city.id());
+                            assertEquals(1L, city.province());
+                            assertEquals("Baiano", city.name());
+                        },
+                        Assertions::fail
+                );
     }
 
     @Test

@@ -1,10 +1,12 @@
 package dunder.mifflin.persistance.jdbc;
 
 import dunder.mifflin.persistance.daos.GeneralDAO;
+import dunder.mifflin.persistance.daos.exceptions.DAOException;
 import dunder.mifflin.persistance.jdbc.generics.JDBC;
 import dunder.mifflin.persistance.pojos.General;
 import org.jooq.DSLContext;
 
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -41,6 +43,16 @@ public class GeneralJDBC extends JDBC implements GeneralDAO {
                 .naturalJoin(GENERAL)
                 .where(GENERAL.ID.eq(key))
                 .fetchOptionalInto(General.class);
+    }
+
+    @Override
+    public Map<Long, General> byKeys(Long... keys) throws DAOException {
+        return context
+                .select(PERSON.asterisk().except(PERSON.PASSWORD), GENERAL.WORKPLACE)
+                .from(PERSON)
+                .naturalJoin(GENERAL)
+                .where(GENERAL.ID.in(keys))
+                .fetchMap(GENERAL.ID, General.class);
     }
 
     @Override

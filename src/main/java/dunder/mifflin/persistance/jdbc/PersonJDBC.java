@@ -1,10 +1,12 @@
 package dunder.mifflin.persistance.jdbc;
 
 import dunder.mifflin.persistance.daos.PersonDAO;
+import dunder.mifflin.persistance.daos.exceptions.DAOException;
 import dunder.mifflin.persistance.jdbc.generics.JDBC;
 import dunder.mifflin.persistance.pojos.Person;
 import org.jooq.DSLContext;
 
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -69,6 +71,15 @@ public class PersonJDBC extends JDBC implements PersonDAO {
                 .from(PERSON)
                 .where(PERSON.ID.eq(key))
                 .fetchOptionalInto(Person.class);
+    }
+
+    @Override
+    public Map<Long, Person> byKeys(Long... keys) throws DAOException {
+        return context
+                .select(PERSON.asterisk().except(PERSON.PASSWORD))
+                .from(PERSON)
+                .where(PERSON.ID.in(keys))
+                .fetchMap(PERSON.ID, Person.class);
     }
 
     @Override

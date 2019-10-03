@@ -1,12 +1,14 @@
 package dunder.mifflin.persistance.jdbc;
 
 import dunder.mifflin.persistance.daos.MedicinePrescriptionDAO;
+import dunder.mifflin.persistance.daos.exceptions.DAOException;
 import dunder.mifflin.persistance.jdbc.generics.JDBC;
 import dunder.mifflin.persistance.jdbc.utils.Queries;
 import dunder.mifflin.persistance.pojos.MedicinePrescription;
 import org.jooq.DSLContext;
 import org.jooq.impl.DSL;
 
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -113,6 +115,17 @@ public class MedicinePrescriptionJDBC extends JDBC implements MedicinePrescripti
                 .innerJoin(MEDICINE).on(PR_MEDICINE.MEDICINE.eq(MEDICINE.ID))
                 .where(PRESCRIPTION.ID.eq(key))
                 .fetchOptionalInto(MedicinePrescription.class);
+    }
+
+    @Override
+    public Map<Long, MedicinePrescription> byKeys(Long... keys) throws DAOException {
+        return context
+                .select(PRESCRIPTION.asterisk(), MEDICINE.asterisk(), PR_MEDICINE.QUANTITY)
+                .from(PRESCRIPTION)
+                .innerJoin(PR_MEDICINE).on(PRESCRIPTION.ID.eq(PR_MEDICINE.PRESCRIPTION))
+                .innerJoin(MEDICINE).on(PR_MEDICINE.MEDICINE.eq(MEDICINE.ID))
+                .where(PRESCRIPTION.ID.in(keys))
+                .fetchMap(PRESCRIPTION.ID, MedicinePrescription.class);
     }
 
     @Override

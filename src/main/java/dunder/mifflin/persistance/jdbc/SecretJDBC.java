@@ -6,6 +6,7 @@ import dunder.mifflin.persistance.jdbc.generics.JDBC;
 import dunder.mifflin.persistance.pojos.Secret;
 import org.jooq.DSLContext;
 
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -53,6 +54,15 @@ public class SecretJDBC extends JDBC implements SecretDao {
                 .from(PERSON)
                 .where(PERSON.ID.eq(key))
                 .fetchOptionalInto(Secret.class);
+    }
+
+    @Override
+    public Map<Long, Secret> byKeys(Long... keys) throws DAOException {
+        return context
+                .select(PERSON.ID, PERSON.PASSWORD)
+                .from(PERSON)
+                .where(PERSON.ID.in(keys))
+                .fetchMap(PERSON.ID, Secret.class);
     }
 
     @Override

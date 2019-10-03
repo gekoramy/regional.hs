@@ -1,10 +1,12 @@
 package dunder.mifflin.persistance.jdbc;
 
 import dunder.mifflin.persistance.daos.HsExamDAO;
+import dunder.mifflin.persistance.daos.exceptions.DAOException;
 import dunder.mifflin.persistance.jdbc.generics.JDBC;
 import dunder.mifflin.persistance.pojos.HsExam;
 import org.jooq.DSLContext;
 
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -41,6 +43,16 @@ public class HsExamJDBC extends JDBC implements HsExamDAO {
                 .naturalJoin(HS_EXAM)
                 .where(HS_EXAM.ID.eq(key))
                 .fetchOptionalInto(HsExam.class);
+    }
+
+    @Override
+    public Map<Long, HsExam> byKeys(Long... keys) throws DAOException {
+        return context
+                .select(EXAMINATION.asterisk())
+                .from(EXAMINATION)
+                .naturalJoin(HS_EXAM)
+                .where(HS_EXAM.ID.in(keys))
+                .fetchMap(HS_EXAM.ID, HsExam.class);
     }
 
     @Override

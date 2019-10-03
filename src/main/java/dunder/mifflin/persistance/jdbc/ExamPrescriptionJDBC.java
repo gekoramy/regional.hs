@@ -1,12 +1,14 @@
 package dunder.mifflin.persistance.jdbc;
 
 import dunder.mifflin.persistance.daos.ExamPrescriptionDAO;
+import dunder.mifflin.persistance.daos.exceptions.DAOException;
 import dunder.mifflin.persistance.jdbc.generics.JDBC;
 import dunder.mifflin.persistance.jdbc.utils.Queries;
 import dunder.mifflin.persistance.pojos.ExamPrescription;
 import org.jooq.DSLContext;
 import org.jooq.impl.DSL;
 
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -188,6 +190,19 @@ public class ExamPrescriptionJDBC extends JDBC implements ExamPrescriptionDAO {
                 .and(PRESCRIPTION.ID.eq(key))
                 .fetchOptionalInto(ExamPrescription.class);
 
+    }
+
+    @Override
+    public Map<Long, ExamPrescription> byKeys(Long... keys) throws DAOException {
+        return context
+                .select(PRESCRIPTION.asterisk(), EXAMINATION.asterisk())
+                .from(PRESCRIPTION)
+                .leftJoin(PR_SP_EXAM).on(PRESCRIPTION.ID.eq(PR_SP_EXAM.PRESCRIPTION))
+                .leftJoin(PR_HS_EXAM).on(PRESCRIPTION.ID.eq(PR_HS_EXAM.PRESCRIPTION))
+                .innerJoin(EXAMINATION).on(EXAMINATION.ID.eq(PR_SP_EXAM.EXAM).or(EXAMINATION.ID.eq(PR_HS_EXAM.EXAM)))
+                .where(PR_SP_EXAM.EXAM.isNotNull().or(PR_HS_EXAM.EXAM.isNotNull()))
+                .and(PRESCRIPTION.ID.in(keys))
+                .fetchMap(PRESCRIPTION.ID, ExamPrescription.class);
     }
 
     @Override

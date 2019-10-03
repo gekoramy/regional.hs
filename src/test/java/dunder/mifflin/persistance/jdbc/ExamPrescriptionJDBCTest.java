@@ -15,8 +15,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class ExamPrescriptionJDBCTest {
 
@@ -136,6 +138,41 @@ class ExamPrescriptionJDBCTest {
         );
 
         Assertions.assertFalse(dao.byKey(487L).isPresent());
+    }
+
+    @Test
+    void byKeys() {
+        final var results = dao.byKeys(0L, 1L, 301L);
+
+        assertFalse(results.containsKey(0L));
+
+        Optional.ofNullable(results.get(1L))
+                .ifPresentOrElse(
+                        (prescription) -> {
+                            assertEquals(1L, prescription.id());
+                            assertEquals(10L, prescription.place());
+                            assertEquals(LocalDate.of(2018, 3, 8), prescription.date().toLocalDate());
+                            assertEquals(64, prescription.concerns());
+                            assertEquals(144L, prescription.exam().id());
+                            assertEquals("Alfa amilasi", prescription.exam().name());
+                            assertEquals("Info Alfa amilasi", prescription.exam().info());
+                        },
+                        Assertions::fail
+                );
+
+        Optional.ofNullable(results.get(301L))
+                .ifPresentOrElse(
+                        (prescription) -> {
+                            assertEquals(301L, prescription.id());
+                            assertEquals(10L, prescription.place());
+                            assertEquals(LocalDate.of(2016, 2, 14), prescription.date().toLocalDate());
+                            assertEquals(64, prescription.concerns());
+                            assertEquals(122L, prescription.exam().id());
+                            assertEquals("Esercizi respiratori per seduta individuale", prescription.exam().name());
+                            assertEquals("Info Esercizi respiratori per seduta individuale", prescription.exam().info());
+                        },
+                        Assertions::fail
+                );
     }
 
     @Test

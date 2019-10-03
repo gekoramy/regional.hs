@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -64,6 +65,25 @@ class HsExamJDBCTest {
 
         assertFalse(dao.byKey(134L).isPresent(), "not health service exam");
         assertFalse(dao.byKey(0L).isPresent(), "not existing exam");
+    }
+
+    @Test
+    void byKeys() {
+        final var results = dao.byKeys(0L, 1L, 134L);
+
+        assertFalse(results.containsKey(0L));
+
+        assertFalse(results.containsKey(134L));
+
+        Optional.ofNullable(results.get(1L))
+                .ifPresentOrElse(
+                        (exam) -> {
+                            assertEquals(1L, exam.id());
+                            assertEquals("Estrazione di dente deciduo", exam.name());
+                            assertEquals("Info Estrazione di dente deciduo (gratuita fino a 14 anni)", exam.info());
+                        },
+                        Assertions::fail
+                );
     }
 
     @Test
