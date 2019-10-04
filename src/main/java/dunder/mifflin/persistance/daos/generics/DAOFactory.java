@@ -26,6 +26,8 @@ public interface DAOFactory {
 
     ProvinceDAO province();
 
+    RecoverDAO recover();
+
     RegionDAO region();
 
     ReportDAO report();

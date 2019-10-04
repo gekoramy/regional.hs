@@ -21,6 +21,7 @@ import dunder.mifflin.persistance.jdbc.jooq.tables.PrMedicine;
 import dunder.mifflin.persistance.jdbc.jooq.tables.PrSpExam;
 import dunder.mifflin.persistance.jdbc.jooq.tables.Prescription;
 import dunder.mifflin.persistance.jdbc.jooq.tables.Province;
+import dunder.mifflin.persistance.jdbc.jooq.tables.Recover;
 import dunder.mifflin.persistance.jdbc.jooq.tables.Region;
 import dunder.mifflin.persistance.jdbc.jooq.tables.SpExam;
 import dunder.mifflin.persistance.jdbc.jooq.tables.SpQualification;
@@ -88,6 +89,8 @@ public class Keys {
     public static final UniqueKey<Record> PR_SP_EXAM_PKEY = UniqueKeys0.PR_SP_EXAM_PKEY;
     public static final UniqueKey<Record> PRESCRIPTION_PKEY = UniqueKeys0.PRESCRIPTION_PKEY;
     public static final UniqueKey<Record> PROVINCE_PKEY = UniqueKeys0.PROVINCE_PKEY;
+    public static final UniqueKey<Record> RECOVER_PKEY = UniqueKeys0.RECOVER_PKEY;
+    public static final UniqueKey<Record> RECOVER_TOKEN_KEY = UniqueKeys0.RECOVER_TOKEN_KEY;
     public static final UniqueKey<Record> REGION_PKEY = UniqueKeys0.REGION_PKEY;
     public static final UniqueKey<Record> SP_EXAM_PKEY = UniqueKeys0.SP_EXAM_PKEY;
     public static final UniqueKey<Record> SP_QUALIFICATION_PKEY = UniqueKeys0.SP_QUALIFICATION_PKEY;
@@ -125,6 +128,7 @@ public class Keys {
     public static final ForeignKey<Record, Record> PRESCRIPTION__PRESCRIPTION_PLACE_FKEY = ForeignKeys0.PRESCRIPTION__PRESCRIPTION_PLACE_FKEY;
     public static final ForeignKey<Record, Record> PRESCRIPTION__PRESCRIPTION_CONCERNS_FKEY = ForeignKeys0.PRESCRIPTION__PRESCRIPTION_CONCERNS_FKEY;
     public static final ForeignKey<Record, Record> PROVINCE__PROVINCE_REGION_FKEY = ForeignKeys0.PROVINCE__PROVINCE_REGION_FKEY;
+    public static final ForeignKey<Record, Record> RECOVER__RECOVER_PERSON_FKEY = ForeignKeys0.RECOVER__RECOVER_PERSON_FKEY;
     public static final ForeignKey<Record, Record> SP_EXAM__SP_EXAM_ID_FKEY = ForeignKeys0.SP_EXAM__SP_EXAM_ID_FKEY;
     public static final ForeignKey<Record, Record> SP_QUALIFICATION__SP_QUALIFICATION_SPECIALIST_FKEY = ForeignKeys0.SP_QUALIFICATION__SP_QUALIFICATION_SPECIALIST_FKEY;
     public static final ForeignKey<Record, Record> SP_QUALIFICATION__SP_QUALIFICATION_EXAM_FKEY = ForeignKeys0.SP_QUALIFICATION__SP_QUALIFICATION_EXAM_FKEY;
@@ -169,6 +173,8 @@ public class Keys {
         public static final UniqueKey<Record> PR_SP_EXAM_PKEY = Internal.createUniqueKey(PrSpExam.PR_SP_EXAM, "pr_sp_exam_pkey", PrSpExam.PR_SP_EXAM.PRESCRIPTION);
         public static final UniqueKey<Record> PRESCRIPTION_PKEY = Internal.createUniqueKey(Prescription.PRESCRIPTION, "prescription_pkey", Prescription.PRESCRIPTION.ID);
         public static final UniqueKey<Record> PROVINCE_PKEY = Internal.createUniqueKey(Province.PROVINCE, "province_pkey", Province.PROVINCE.ID);
+        public static final UniqueKey<Record> RECOVER_PKEY = Internal.createUniqueKey(Recover.RECOVER, "recover_pkey", Recover.RECOVER.PERSON);
+        public static final UniqueKey<Record> RECOVER_TOKEN_KEY = Internal.createUniqueKey(Recover.RECOVER, "recover_token_key", Recover.RECOVER.TOKEN);
         public static final UniqueKey<Record> REGION_PKEY = Internal.createUniqueKey(Region.REGION, "region_pkey", Region.REGION.ID);
         public static final UniqueKey<Record> SP_EXAM_PKEY = Internal.createUniqueKey(SpExam.SP_EXAM, "sp_exam_pkey", SpExam.SP_EXAM.ID);
         public static final UniqueKey<Record> SP_QUALIFICATION_PKEY = Internal.createUniqueKey(SpQualification.SP_QUALIFICATION, "sp_qualification_pkey", SpQualification.SP_QUALIFICATION.SPECIALIST, SpQualification.SP_QUALIFICATION.EXAM);
@@ -204,6 +210,7 @@ public class Keys {
         public static final ForeignKey<Record, Record> PRESCRIPTION__PRESCRIPTION_PLACE_FKEY = Internal.createForeignKey(dunder.mifflin.persistance.jdbc.jooq.Keys.PROVINCE_PKEY, Prescription.PRESCRIPTION, "prescription__prescription_place_fkey", Prescription.PRESCRIPTION.PLACE);
         public static final ForeignKey<Record, Record> PRESCRIPTION__PRESCRIPTION_CONCERNS_FKEY = Internal.createForeignKey(dunder.mifflin.persistance.jdbc.jooq.Keys.FOLLOWS_PKEY, Prescription.PRESCRIPTION, "prescription__prescription_concerns_fkey", Prescription.PRESCRIPTION.CONCERNS);
         public static final ForeignKey<Record, Record> PROVINCE__PROVINCE_REGION_FKEY = Internal.createForeignKey(dunder.mifflin.persistance.jdbc.jooq.Keys.REGION_PKEY, Province.PROVINCE, "province__province_region_fkey", Province.PROVINCE.REGION);
+        public static final ForeignKey<Record, Record> RECOVER__RECOVER_PERSON_FKEY = Internal.createForeignKey(dunder.mifflin.persistance.jdbc.jooq.Keys.PERSON_PKEY, Recover.RECOVER, "recover__recover_person_fkey", Recover.RECOVER.PERSON);
         public static final ForeignKey<Record, Record> SP_EXAM__SP_EXAM_ID_FKEY = Internal.createForeignKey(dunder.mifflin.persistance.jdbc.jooq.Keys.EXAMINATION_PKEY, SpExam.SP_EXAM, "sp_exam__sp_exam_id_fkey", SpExam.SP_EXAM.ID);
         public static final ForeignKey<Record, Record> SP_QUALIFICATION__SP_QUALIFICATION_SPECIALIST_FKEY = Internal.createForeignKey(dunder.mifflin.persistance.jdbc.jooq.Keys.SPECIALIST_PKEY, SpQualification.SP_QUALIFICATION, "sp_qualification__sp_qualification_specialist_fkey", SpQualification.SP_QUALIFICATION.SPECIALIST);
         public static final ForeignKey<Record, Record> SP_QUALIFICATION__SP_QUALIFICATION_EXAM_FKEY = Internal.createForeignKey(dunder.mifflin.persistance.jdbc.jooq.Keys.SP_EXAM_PKEY, SpQualification.SP_QUALIFICATION, "sp_qualification__sp_qualification_exam_fkey", SpQualification.SP_QUALIFICATION.EXAM);

@@ -188,6 +188,16 @@ CREATE TABLE hs_qualification
     PRIMARY KEY (doctor, exam)
 );
 
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+CREATE TABLE recover
+(
+    person     BIGINT      NOT NULL REFERENCES person ON UPDATE CASCADE ON DELETE CASCADE,
+    token      UUID        NOT NULL UNIQUE DEFAULT uuid_generate_v4(),
+    expiration TIMESTAMPTZ NOT NULL        DEFAULT CURRENT_TIMESTAMP + interval '2 hours',
+    PRIMARY KEY (person)
+);
+
 -- endregion
 
 -- region INDEXES
