@@ -5,9 +5,16 @@ import dunder.mifflin.persistance.daos.generics.DAO;
 import dunder.mifflin.persistance.pojos.General;
 
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public interface GeneralDAO extends DAO<General, Long> {
 
     Optional<General> follows(long patient) throws DAOException;
+
+    Stream<General> suitable(long patient, String filter) throws DAOException;
+
+    General entrusts(long patient, long general) throws DAOException;
+
+    Optional<General> undo(long patient) throws DAOException;
 
 }
