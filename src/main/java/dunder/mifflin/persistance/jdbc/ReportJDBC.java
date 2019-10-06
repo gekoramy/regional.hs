@@ -59,7 +59,11 @@ public class ReportJDBC extends JDBC implements ReportDAO {
                                 .get();
                     }
 
-                    throw new IllegalArgumentException(String.format("Invalid combination prescription : %d, responsible : %d", prescription, responsible));
+                    throw new DAOException(String.format(
+                            "Invalid combination prescription : %d, responsible : %d",
+                            prescription,
+                            responsible
+                    ));
                 }
         );
     }

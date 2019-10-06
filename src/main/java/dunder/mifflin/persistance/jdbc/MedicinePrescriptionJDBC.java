@@ -31,7 +31,7 @@ public class MedicinePrescriptionJDBC extends JDBC implements MedicinePrescripti
                     .fetchOne();
 
             if (null == insert) {
-                throw new IllegalArgumentException(String.format("There is no medicine with id : %d", medicine));
+                throw new DAOException(String.format("There is no medicine with id : %d", medicine));
             }
 
             final var prescription = Queries.prescription(patient).apply(DSL.using(config));

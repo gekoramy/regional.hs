@@ -80,7 +80,7 @@ public class ExamPrescriptionJDBC extends JDBC implements ExamPrescriptionDAO {
                         .get();
             }
 
-            throw new IllegalArgumentException(String.format("There is no examination with id : %d", exam));
+            throw new DAOException(String.format("There is no examination with id : %d", exam));
         });
     }
 

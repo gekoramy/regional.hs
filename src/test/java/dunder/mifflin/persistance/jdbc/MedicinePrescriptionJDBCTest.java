@@ -1,6 +1,7 @@
 package dunder.mifflin.persistance.jdbc;
 
 import dunder.mifflin.persistance.daos.MedicinePrescriptionDAO;
+import dunder.mifflin.persistance.daos.exceptions.DAOException;
 import dunder.mifflin.persistance.jdbc.config.Database;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
@@ -84,7 +85,7 @@ class MedicinePrescriptionJDBCTest {
 
         Assertions.assertFalse(dao.byKey(store.id()).isPresent());
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> dao.insert(1L, 0L, 1), "not existing medicine");
+        Assertions.assertThrows(DAOException.class, () -> dao.insert(1L, 0L, 1), "not existing medicine");
 
         Assertions.assertThrows(DataAccessException.class, () -> dao.insert(0L, 1L, 1), "not existing person");
 
