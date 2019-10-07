@@ -10,4 +10,6 @@ public interface SpExamDAO extends DAO<SpExam, Long> {
 
     Stream<SpExam> qualifiedFor(long specialist) throws DAOException;
 
+    Stream<SpExam> contains(String pattern) throws DAOException;
+
 }

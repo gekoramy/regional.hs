@@ -11,7 +11,7 @@ public interface GeneralDAO extends DAO<General, Long> {
 
     Optional<General> follows(long patient) throws DAOException;
 
-    Stream<General> suitable(long patient, String filter) throws DAOException;
+    Stream<General> suitable(long patient, String name, String mail, String fc) throws DAOException;
 
     General entrusts(long patient, long general) throws DAOException;
 

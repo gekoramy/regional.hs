@@ -92,7 +92,9 @@ class ExamPrescriptionJDBCTest {
 
     @Test
     void concerns() {
-        Assertions.assertEquals(6L, dao.concerns(2L).count());
+        Assertions.assertEquals(6, dao.concerns(2L, "").count());
+        Assertions.assertEquals(5, dao.concerns(2L, "A").count());
+        Assertions.assertEquals(0, dao.concerns(2L, "X").count());
     }
 
     @Test

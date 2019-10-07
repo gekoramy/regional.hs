@@ -22,7 +22,7 @@ public class Queries {
                     .fetchOne(CITY.PROVINCE);
 
             final var concerns = dsl
-                    .select(FOLLOWS.ID, max(FOLLOWS.SINCE).as("_"))
+                    .select(FOLLOWS.ID, max(FOLLOWS.SINCE).as("ignore"))
                     .from(FOLLOWS)
                     .where(FOLLOWS.PATIENT.eq(patient))
                     .groupBy(FOLLOWS.ID, FOLLOWS.SINCE)

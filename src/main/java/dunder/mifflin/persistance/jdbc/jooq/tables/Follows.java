@@ -7,25 +7,14 @@ package dunder.mifflin.persistance.jdbc.jooq.tables;
 import dunder.mifflin.persistance.jdbc.jooq.Indexes;
 import dunder.mifflin.persistance.jdbc.jooq.Keys;
 import dunder.mifflin.persistance.jdbc.jooq.Public;
-
-import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
-
-import javax.annotation.processing.Generated;
-
-import org.jooq.Field;
-import org.jooq.ForeignKey;
-import org.jooq.Identity;
-import org.jooq.Index;
-import org.jooq.Name;
-import org.jooq.Record;
-import org.jooq.Schema;
-import org.jooq.Table;
-import org.jooq.TableField;
-import org.jooq.UniqueKey;
+import org.jooq.*;
 import org.jooq.impl.DSL;
 import org.jooq.impl.TableImpl;
+
+import javax.annotation.processing.Generated;
+import java.time.OffsetDateTime;
+import java.util.Arrays;
+import java.util.List;
 
 
 /**
@@ -41,7 +30,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Follows extends TableImpl<Record> {
 
-    private static final long serialVersionUID = -1467313783;
+    private static final long serialVersionUID = 587307381;
 
     /**
      * The reference instance of <code>public.follows</code>
@@ -74,7 +63,7 @@ public class Follows extends TableImpl<Record> {
     /**
      * The column <code>public.follows.since</code>.
      */
-    public final TableField<Record, LocalDate> SINCE = createField(DSL.name("since"), org.jooq.impl.SQLDataType.LOCALDATE.nullable(false).defaultValue(org.jooq.impl.DSL.field("CURRENT_TIMESTAMP", org.jooq.impl.SQLDataType.LOCALDATE)), this, "");
+    public final TableField<Record, OffsetDateTime> SINCE = createField(DSL.name("since"), org.jooq.impl.SQLDataType.TIMESTAMPWITHTIMEZONE.nullable(false).defaultValue(org.jooq.impl.DSL.field("CURRENT_TIMESTAMP", org.jooq.impl.SQLDataType.TIMESTAMPWITHTIMEZONE)), this, "");
 
     /**
      * Create a <code>public.follows</code> table reference

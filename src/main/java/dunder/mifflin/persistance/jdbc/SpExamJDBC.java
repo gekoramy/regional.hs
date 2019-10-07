@@ -30,6 +30,17 @@ public class SpExamJDBC extends JDBC implements SpExamDAO {
     }
 
     @Override
+    public Stream<SpExam> contains(String pattern) throws DAOException {
+        return context
+                .select(EXAMINATION.asterisk())
+                .from(EXAMINATION)
+                .naturalJoin(SP_EXAM)
+                .where(EXAMINATION.NAME.containsIgnoreCase(pattern))
+                .or(EXAMINATION.INFO.containsIgnoreCase(pattern))
+                .fetchStreamInto(SpExam.class);
+    }
+
+    @Override
     public long count() throws DAOException {
         return context
                 .fetchCount(SP_EXAM);

@@ -88,7 +88,7 @@ public class MedicinePrescriptionJDBC extends JDBC implements MedicinePrescripti
     }
 
     @Override
-    public Stream<MedicinePrescription> concerns(long patient) {
+    public Stream<MedicinePrescription> concerns(long patient, String filter) {
         return context
                 .select(PRESCRIPTION.asterisk(), MEDICINE.asterisk(), PR_MEDICINE.QUANTITY)
                 .from(PRESCRIPTION)
@@ -96,6 +96,7 @@ public class MedicinePrescriptionJDBC extends JDBC implements MedicinePrescripti
                 .innerJoin(MEDICINE).on(PR_MEDICINE.MEDICINE.eq(MEDICINE.ID))
                 .innerJoin(FOLLOWS).on(PRESCRIPTION.CONCERNS.eq(FOLLOWS.ID))
                 .where(FOLLOWS.PATIENT.eq(patient))
+                .and(MEDICINE.NAME.containsIgnoreCase(filter).or(MEDICINE.INFO.containsIgnoreCase(filter)))
                 .orderBy(PRESCRIPTION.DATE)
                 .fetchStreamInto(MedicinePrescription.class);
     }

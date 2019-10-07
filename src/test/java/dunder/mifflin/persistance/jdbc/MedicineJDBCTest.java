@@ -42,6 +42,14 @@ class MedicineJDBCTest {
     }
 
     @Test
+    void contains() {
+        assertEquals(1000, dao.contains("").count());
+        assertEquals(156, dao.contains("x").count());
+        assertEquals(6, dao.contains("0").count());
+        assertEquals(0, dao.contains("aei").count());
+    }
+
+    @Test
     void count() {
         assertEquals(1000, dao.count());
     }

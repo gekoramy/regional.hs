@@ -27,7 +27,7 @@ public class GeneralJDBC extends JDBC implements GeneralDAO {
     }
 
     @Override
-    public Stream<General> suitable(long patient, String filter) throws DAOException {
+    public Stream<General> suitable(long patient, String name, String email, String fc) throws DAOException {
         return context.transactionResult((config) -> {
             final var actual = actual(patient).apply(DSL.using(config)).map(Person::id).orElse(null);
 
@@ -40,7 +40,9 @@ public class GeneralJDBC extends JDBC implements GeneralDAO {
                     .where(PERSON.as("p").ID.eq(patient))
                     .and(PERSON.as("g").ID.notEqual(patient))
                     .and(PERSON.as("g").ID.notEqual(actual))
-                    .and(PERSON.as("g").NAME.concat(PERSON.as("g").SURNAME).containsIgnoreCase(filter))
+                    .and(DSL.concat(PERSON.as("g").NAME.concat(" "), PERSON.as("g").SURNAME).containsIgnoreCase(name))
+                    .and(PERSON.as("g").EMAIL.containsIgnoreCase(email))
+                    .and(PERSON.as("g").FC.containsIgnoreCase(fc))
                     .fetchStreamInto(General.class);
         });
     }

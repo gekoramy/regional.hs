@@ -94,7 +94,9 @@ class MedicinePrescriptionJDBCTest {
 
     @Test
     void concerns() {
-        Assertions.assertEquals(2L, dao.concerns(2L).count());
+        Assertions.assertEquals(2, dao.concerns(2L, "").count());
+        Assertions.assertEquals(1, dao.concerns(2L, "A").count());
+        Assertions.assertEquals(0, dao.concerns(2L, "X").count());
     }
 
     @Test

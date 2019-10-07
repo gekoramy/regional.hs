@@ -65,7 +65,10 @@ class GeneralJDBCTest {
 
     @Test
     void suitable() {
-        assertEquals(2, dao.suitable(33L, "").count());
+        assertEquals(2, dao.suitable(33L, "", "", "").count());
+        assertEquals(2, dao.suitable(33L, "", "@", "").count());
+        assertEquals(1, dao.suitable(33L, "G", "", "").count());
+        assertEquals(0, dao.suitable(33L, "", "X", "").count());
     }
 
     @Test

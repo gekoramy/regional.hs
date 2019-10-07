@@ -63,6 +63,15 @@ class PersonJDBCTest {
     }
 
     @Test
+    void contains() {
+        assertEquals(257, dao.contains("", "", "").count());
+        assertEquals(1, dao.contains("Mario", "", "").count());
+        assertEquals(6, dao.contains("", "Bonetti", "").count());
+        assertEquals(7, dao.contains("", "", "LCU").count());
+        assertEquals(0, dao.contains("X", "", "").count());
+    }
+
+    @Test
     void qualifiedFor() {
         assertEquals(2, dao.qualifiedFor(134L).count());
         assertEquals(2, dao.qualifiedFor(1L).count());
@@ -71,7 +80,11 @@ class PersonJDBCTest {
 
     @Test
     void patients() {
-        assertEquals(15, dao.patients(99L).count());
+        assertEquals(15, dao.patients(99L, "", "", "").count());
+        assertEquals(15, dao.patients(99L, "", "@", "").count());
+        assertEquals(1, dao.patients(99L, "Giuliana", "", "").count());
+        assertEquals(1, dao.patients(99L, "", "", "GLN").count());
+        assertEquals(0, dao.patients(99L, "", "marco", "").count());
     }
 
     @Test

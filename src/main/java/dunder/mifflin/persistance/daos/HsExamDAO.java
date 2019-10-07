@@ -10,4 +10,6 @@ public interface HsExamDAO extends DAO<HsExam, Long> {
 
     Stream<HsExam> qualifiedFor(long hsDoctor) throws DAOException;
 
+    Stream<HsExam> contains(String pattern) throws DAOException;
+
 }

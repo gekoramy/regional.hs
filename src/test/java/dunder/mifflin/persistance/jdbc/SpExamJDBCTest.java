@@ -48,6 +48,14 @@ class SpExamJDBCTest {
     }
 
     @Test
+    void contains() {
+        assertEquals(59, dao.contains("").count());
+        assertEquals(59, dao.contains("info").count());
+        assertEquals(4, dao.contains("(").count());
+        assertEquals(0, dao.contains("0").count());
+    }
+
+    @Test
     void count() {
         assertEquals(59, dao.count());
     }
