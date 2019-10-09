@@ -21,6 +21,7 @@ import dunder.mifflin.persistance.jdbc.jooq.tables.PrMedicine;
 import dunder.mifflin.persistance.jdbc.jooq.tables.PrSpExam;
 import dunder.mifflin.persistance.jdbc.jooq.tables.Prescription;
 import dunder.mifflin.persistance.jdbc.jooq.tables.Province;
+import dunder.mifflin.persistance.jdbc.jooq.tables.Recover;
 import dunder.mifflin.persistance.jdbc.jooq.tables.Region;
 import dunder.mifflin.persistance.jdbc.jooq.tables.SpExam;
 import dunder.mifflin.persistance.jdbc.jooq.tables.SpQualification;
@@ -53,7 +54,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Public extends SchemaImpl {
 
-    private static final long serialVersionUID = -1137098209;
+    private static final long serialVersionUID = 1620862149;
 
     /**
      * The reference instance of <code>public</code>
@@ -146,6 +147,11 @@ public class Public extends SchemaImpl {
     public final Province PROVINCE = dunder.mifflin.persistance.jdbc.jooq.tables.Province.PROVINCE;
 
     /**
+     * The table <code>public.recover</code>.
+     */
+    public final Recover RECOVER = dunder.mifflin.persistance.jdbc.jooq.tables.Recover.RECOVER;
+
+    /**
      * The table <code>public.region</code>.
      */
     public final Region REGION = dunder.mifflin.persistance.jdbc.jooq.tables.Region.REGION;
@@ -233,6 +239,7 @@ public class Public extends SchemaImpl {
             PrSpExam.PR_SP_EXAM,
             Prescription.PRESCRIPTION,
             Province.PROVINCE,
+            Recover.RECOVER,
             Region.REGION,
             SpExam.SP_EXAM,
             SpQualification.SP_QUALIFICATION,

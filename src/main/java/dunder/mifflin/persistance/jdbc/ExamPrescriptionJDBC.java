@@ -80,7 +80,7 @@ public class ExamPrescriptionJDBC extends JDBC implements ExamPrescriptionDAO {
                         .get();
             }
 
-            throw new IllegalArgumentException(String.format("There is no examination with id : %d", exam));
+            throw new DAOException(String.format("There is no examination with id : %d", exam));
         });
     }
 
@@ -130,7 +130,7 @@ public class ExamPrescriptionJDBC extends JDBC implements ExamPrescriptionDAO {
     }
 
     @Override
-    public Stream<ExamPrescription> concerns(long patient) {
+    public Stream<ExamPrescription> concerns(long patient, String filter) {
         return context
                 .select(PRESCRIPTION.asterisk(), EXAMINATION.asterisk())
                 .from(PRESCRIPTION)
@@ -140,6 +140,7 @@ public class ExamPrescriptionJDBC extends JDBC implements ExamPrescriptionDAO {
                 .innerJoin(FOLLOWS).on(PRESCRIPTION.CONCERNS.eq(FOLLOWS.ID))
                 .where(PR_SP_EXAM.EXAM.isNotNull().or(PR_HS_EXAM.EXAM.isNotNull()))
                 .and(FOLLOWS.PATIENT.eq(patient))
+                .and(EXAMINATION.NAME.containsIgnoreCase(filter).or(EXAMINATION.INFO.containsIgnoreCase(filter)))
                 .orderBy(PRESCRIPTION.DATE)
                 .fetchStreamInto(ExamPrescription.class);
     }

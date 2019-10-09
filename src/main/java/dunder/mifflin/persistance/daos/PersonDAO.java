@@ -11,9 +11,11 @@ public interface PersonDAO extends DAO<Person, Long> {
 
     Optional<Person> by(String email) throws DAOException;
 
+    Stream<Person> contains(String name, String email, String fc) throws DAOException;
+
     Stream<Person> qualifiedFor(long exam) throws DAOException;
 
-    Stream<Person> patients(long general) throws DAOException;
+    Stream<Person> patients(long general, String name, String email, String fc) throws DAOException;
 
     Stream<Person> residence(long province) throws DAOException;
 

@@ -1,8 +1,10 @@
 package dunder.mifflin.persistance.jdbc.utils;
 
+import dunder.mifflin.persistance.pojos.General;
 import dunder.mifflin.persistance.pojos.Prescription;
 import org.jooq.DSLContext;
 
+import java.util.Optional;
 import java.util.function.Function;
 
 import static dunder.mifflin.persistance.jdbc.jooq.Tables.*;
@@ -20,7 +22,7 @@ public class Queries {
                     .fetchOne(CITY.PROVINCE);
 
             final var concerns = dsl
-                    .select(FOLLOWS.ID, max(FOLLOWS.SINCE).as("_"))
+                    .select(FOLLOWS.ID, max(FOLLOWS.SINCE).as("ignore"))
                     .from(FOLLOWS)
                     .where(FOLLOWS.PATIENT.eq(patient))
                     .groupBy(FOLLOWS.ID, FOLLOWS.SINCE)
@@ -42,4 +44,15 @@ public class Queries {
         };
     }
 
+    public static Function<DSLContext, Optional<General>> actual(long patient) {
+        return (dsl) -> dsl
+                .select(PERSON.asterisk().except(PERSON.PASSWORD), GENERAL.WORKPLACE)
+                .from(FOLLOWS)
+                .innerJoin(PERSON).on(FOLLOWS.GENERAL.eq(PERSON.ID))
+                .innerJoin(GENERAL).on(FOLLOWS.GENERAL.eq(GENERAL.ID))
+                .where(FOLLOWS.PATIENT.eq(patient))
+                .orderBy(FOLLOWS.SINCE.desc())
+                .limit(1)
+                .fetchOptionalInto(General.class);
+    }
 }

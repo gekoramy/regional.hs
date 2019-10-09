@@ -1,6 +1,7 @@
 package dunder.mifflin.persistance.jdbc;
 
 import dunder.mifflin.persistance.daos.ReportDAO;
+import dunder.mifflin.persistance.daos.exceptions.DAOException;
 import dunder.mifflin.persistance.jdbc.config.Database;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
@@ -74,13 +75,13 @@ class ReportJDBCTest {
 
         Assertions.assertFalse(dao.byKey(store.prescription()).isPresent());
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> dao.insert(0L, 1L, "note"), "not existing prescription");
+        Assertions.assertThrows(DAOException.class, () -> dao.insert(0L, 1L, "note"), "not existing prescription");
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> dao.insert(1L, 0L, "note"), "not existing responsible");
+        Assertions.assertThrows(DAOException.class, () -> dao.insert(1L, 0L, "note"), "not existing responsible");
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> dao.insert(450L, 116L, "note"), "specialist cannot report health service exam");
+        Assertions.assertThrows(DAOException.class, () -> dao.insert(450L, 116L, "note"), "specialist cannot report health service exam");
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> dao.insert(1L, 169L, "note"), "health service doctor cannot report specialist exam");
+        Assertions.assertThrows(DAOException.class, () -> dao.insert(1L, 169L, "note"), "health service doctor cannot report specialist exam");
 
         Assertions.assertThrows(DataAccessException.class, () -> dao.insert(382L, 169L, "note"), "already reported exam");
     }

@@ -21,6 +21,7 @@ import dunder.mifflin.persistance.jdbc.jooq.tables.PrMedicine;
 import dunder.mifflin.persistance.jdbc.jooq.tables.PrSpExam;
 import dunder.mifflin.persistance.jdbc.jooq.tables.Prescription;
 import dunder.mifflin.persistance.jdbc.jooq.tables.Province;
+import dunder.mifflin.persistance.jdbc.jooq.tables.Recover;
 import dunder.mifflin.persistance.jdbc.jooq.tables.Region;
 import dunder.mifflin.persistance.jdbc.jooq.tables.SpExam;
 import dunder.mifflin.persistance.jdbc.jooq.tables.SpQualification;
@@ -73,6 +74,8 @@ public class Indexes {
     public static final Index PR_SP_EXAM_PKEY = Indexes0.PR_SP_EXAM_PKEY;
     public static final Index PRESCRIPTION_PKEY = Indexes0.PRESCRIPTION_PKEY;
     public static final Index PROVINCE_PKEY = Indexes0.PROVINCE_PKEY;
+    public static final Index RECOVER_PKEY = Indexes0.RECOVER_PKEY;
+    public static final Index RECOVER_TOKEN_KEY = Indexes0.RECOVER_TOKEN_KEY;
     public static final Index REGION_PKEY = Indexes0.REGION_PKEY;
     public static final Index SP_EXAM_PKEY = Indexes0.SP_EXAM_PKEY;
     public static final Index SP_QUALIFICATION_PKEY = Indexes0.SP_QUALIFICATION_PKEY;
@@ -106,6 +109,8 @@ public class Indexes {
         public static Index PR_SP_EXAM_PKEY = Internal.createIndex("pr_sp_exam_pkey", PrSpExam.PR_SP_EXAM, new OrderField[] { PrSpExam.PR_SP_EXAM.PRESCRIPTION }, true);
         public static Index PRESCRIPTION_PKEY = Internal.createIndex("prescription_pkey", Prescription.PRESCRIPTION, new OrderField[] { Prescription.PRESCRIPTION.ID }, true);
         public static Index PROVINCE_PKEY = Internal.createIndex("province_pkey", Province.PROVINCE, new OrderField[] { Province.PROVINCE.ID }, true);
+        public static Index RECOVER_PKEY = Internal.createIndex("recover_pkey", Recover.RECOVER, new OrderField[] { Recover.RECOVER.PERSON }, true);
+        public static Index RECOVER_TOKEN_KEY = Internal.createIndex("recover_token_key", Recover.RECOVER, new OrderField[] { Recover.RECOVER.TOKEN }, true);
         public static Index REGION_PKEY = Internal.createIndex("region_pkey", Region.REGION, new OrderField[] { Region.REGION.ID }, true);
         public static Index SP_EXAM_PKEY = Internal.createIndex("sp_exam_pkey", SpExam.SP_EXAM, new OrderField[] { SpExam.SP_EXAM.ID }, true);
         public static Index SP_QUALIFICATION_PKEY = Internal.createIndex("sp_qualification_pkey", SpQualification.SP_QUALIFICATION, new OrderField[] { SpQualification.SP_QUALIFICATION.SPECIALIST, SpQualification.SP_QUALIFICATION.EXAM }, true);

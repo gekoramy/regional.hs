@@ -13,6 +13,6 @@ public interface MedicinePrescriptionDAO extends DAO<MedicinePrescription, Long>
 
     Optional<MedicinePrescription> remove(long prescription) throws DAOException;
 
-    Stream<MedicinePrescription> concerns(long patient) throws DAOException;
+    Stream<MedicinePrescription> concerns(long patient, String filter) throws DAOException;
 
 }

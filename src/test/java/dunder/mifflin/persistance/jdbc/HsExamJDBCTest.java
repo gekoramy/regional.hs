@@ -48,6 +48,14 @@ class HsExamJDBCTest {
     }
 
     @Test
+    void contains() {
+        assertEquals(133, dao.contains("").count());
+        assertEquals(133, dao.contains("info").count());
+        assertEquals(22, dao.contains("(").count());
+        assertEquals(0, dao.contains("0").count());
+    }
+
+    @Test
     void count() {
         assertEquals(133, dao.count());
     }

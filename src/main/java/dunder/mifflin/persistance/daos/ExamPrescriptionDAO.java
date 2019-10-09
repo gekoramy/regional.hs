@@ -13,7 +13,7 @@ public interface ExamPrescriptionDAO extends DAO<ExamPrescription, Long> {
 
     Optional<ExamPrescription> remove(long prescription) throws DAOException;
 
-    Stream<ExamPrescription> concerns(long patient) throws DAOException;
+    Stream<ExamPrescription> concerns(long patient, String filter) throws DAOException;
 
     Stream<ExamPrescription> prescribedBy(long general) throws DAOException;
 

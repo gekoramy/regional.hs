@@ -21,6 +21,7 @@ import dunder.mifflin.persistance.jdbc.jooq.tables.PrMedicine;
 import dunder.mifflin.persistance.jdbc.jooq.tables.PrSpExam;
 import dunder.mifflin.persistance.jdbc.jooq.tables.Prescription;
 import dunder.mifflin.persistance.jdbc.jooq.tables.Province;
+import dunder.mifflin.persistance.jdbc.jooq.tables.Recover;
 import dunder.mifflin.persistance.jdbc.jooq.tables.Region;
 import dunder.mifflin.persistance.jdbc.jooq.tables.SpExam;
 import dunder.mifflin.persistance.jdbc.jooq.tables.SpQualification;
@@ -128,6 +129,11 @@ public class Tables {
      * The table <code>public.province</code>.
      */
     public static final Province PROVINCE = Province.PROVINCE;
+
+    /**
+     * The table <code>public.recover</code>.
+     */
+    public static final Recover RECOVER = Recover.RECOVER;
 
     /**
      * The table <code>public.region</code>.

@@ -30,6 +30,17 @@ public class HsExamJDBC extends JDBC implements HsExamDAO {
     }
 
     @Override
+    public Stream<HsExam> contains(String pattern) throws DAOException {
+        return context
+                .select(EXAMINATION.asterisk())
+                .from(EXAMINATION)
+                .naturalJoin(HS_EXAM)
+                .where(EXAMINATION.NAME.containsIgnoreCase(pattern))
+                .or(EXAMINATION.INFO.containsIgnoreCase(pattern))
+                .fetchStreamInto(HsExam.class);
+    }
+
+    @Override
     public long count() {
         return context
                 .fetchCount(HS_EXAM);

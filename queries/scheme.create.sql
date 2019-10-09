@@ -109,10 +109,10 @@ CREATE TABLE specialist
 
 CREATE TABLE follows
 (
-    id      BIGSERIAL                      NOT NULL,
-    patient BIGINT                         NOT NULL REFERENCES person (id) ON UPDATE CASCADE ON DELETE RESTRICT,
-    general BIGINT                         NOT NULL REFERENCES general (id) ON UPDATE CASCADE ON DELETE RESTRICT,
-    since   DATE DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    id      BIGSERIAL                             NOT NULL,
+    patient BIGINT                                NOT NULL REFERENCES person (id) ON UPDATE CASCADE ON DELETE RESTRICT,
+    general BIGINT                                NOT NULL REFERENCES general (id) ON UPDATE CASCADE ON DELETE RESTRICT,
+    since   TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
     CHECK ((patient <> general)),
     PRIMARY KEY (id)
 );
@@ -186,6 +186,16 @@ CREATE TABLE hs_qualification
     doctor BIGINT NOT NULL REFERENCES hs_doctor (id) ON UPDATE CASCADE ON DELETE RESTRICT,
     exam   BIGINT NOT NULL REFERENCES hs_exam (id) ON UPDATE CASCADE ON DELETE RESTRICT,
     PRIMARY KEY (doctor, exam)
+);
+
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+CREATE TABLE recover
+(
+    person     BIGINT      NOT NULL REFERENCES person ON UPDATE CASCADE ON DELETE CASCADE,
+    token      UUID        NOT NULL UNIQUE DEFAULT uuid_generate_v4(),
+    expiration TIMESTAMPTZ NOT NULL        DEFAULT CURRENT_TIMESTAMP + interval '2 hours',
+    PRIMARY KEY (person)
 );
 
 -- endregion

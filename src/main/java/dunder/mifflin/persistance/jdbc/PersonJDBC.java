@@ -5,6 +5,7 @@ import dunder.mifflin.persistance.daos.exceptions.DAOException;
 import dunder.mifflin.persistance.jdbc.generics.JDBC;
 import dunder.mifflin.persistance.pojos.Person;
 import org.jooq.DSLContext;
+import org.jooq.impl.DSL;
 
 import java.util.Map;
 import java.util.Optional;
@@ -28,6 +29,17 @@ public class PersonJDBC extends JDBC implements PersonDAO {
     }
 
     @Override
+    public Stream<Person> contains(String name, String email, String fc) throws DAOException {
+        return context
+                .select(PERSON.asterisk().except(PERSON.PASSWORD))
+                .from(PERSON)
+                .where(DSL.concat(PERSON.NAME.concat(" "), PERSON.SURNAME).containsIgnoreCase(name))
+                .and(PERSON.EMAIL.containsIgnoreCase(email))
+                .and(PERSON.FC.containsIgnoreCase(fc))
+                .fetchStreamInto(Person.class);
+    }
+
+    @Override
     public Stream<Person> qualifiedFor(long exam) {
         return context
                 .select(PERSON.asterisk().except(PERSON.PASSWORD))
@@ -39,12 +51,15 @@ public class PersonJDBC extends JDBC implements PersonDAO {
     }
 
     @Override
-    public Stream<Person> patients(long general) {
+    public Stream<Person> patients(long general, String name, String email, String fc) {
         return context
                 .select(PERSON.asterisk().except(PERSON.PASSWORD))
                 .from(PERSON)
                 .innerJoin(FOLLOWS).on(FOLLOWS.PATIENT.eq(PERSON.ID))
                 .where(FOLLOWS.GENERAL.eq(general))
+                .and(DSL.concat(PERSON.NAME.concat(" "), PERSON.SURNAME).containsIgnoreCase(name))
+                .and(PERSON.EMAIL.containsIgnoreCase(email))
+                .and(PERSON.FC.containsIgnoreCase(fc))
                 .fetchStreamInto(Person.class);
     }
 

@@ -19,6 +19,16 @@ public class MedicineJDBC extends JDBC implements MedicineDAO {
     }
 
     @Override
+    public Stream<Medicine> contains(String pattern) {
+        return context
+                .select()
+                .from(MEDICINE)
+                .where(MEDICINE.NAME.containsIgnoreCase(pattern))
+                .or(MEDICINE.INFO.containsIgnoreCase(pattern))
+                .fetchStreamInto(Medicine.class);
+    }
+
+    @Override
     public long count() {
         return context
                 .fetchCount(MEDICINE);

@@ -4,6 +4,7 @@ import dunder.mifflin.persistance.daos.*;
 import dunder.mifflin.persistance.daos.generics.DAOFactory;
 import dunder.mifflin.persistance.jdbc.*;
 import dunder.mifflin.persistance.jdbc.utils.WrapperListener;
+import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
 import org.jooq.impl.DefaultConfiguration;
@@ -27,21 +28,15 @@ public class JDBCFactory implements DAOFactory {
     private final SecretDao secret;
     private final PersonDAO person;
     private final ProvinceDAO province;
+    private final RecoverDAO recover;
     private final RegionDAO region;
     private final ReportDAO report;
     private final SpecialistDAO specialist;
     private final SpExamDAO spExam;
     private final TicketDAO ticket;
 
-    public JDBCFactory(DataSource datasource) {
-        requireNonNull(datasource);
-
-        final var context = DSL.using(
-                new DefaultConfiguration()
-                        .set(datasource)
-                        .set(SQLDialect.POSTGRES)
-                        .set(WrapperListener::new)
-        );
+    private JDBCFactory(DSLContext context) {
+        requireNonNull(context);
 
         this.avatar = new AvatarJDBC(context);
         this.city = new CityJDBC(context);
@@ -55,6 +50,7 @@ public class JDBCFactory implements DAOFactory {
         this.examPrescription = new ExamPrescriptionJDBC(context);
         this.medicinePrescription = new MedicinePrescriptionJDBC(context);
         this.province = new ProvinceJDBC(context);
+        this.recover = new RecoverJDBC(context);
         this.region = new RegionJDBC(context);
         this.report = new ReportJDBC(context);
         this.secret = new SecretJDBC(context);
@@ -62,31 +58,26 @@ public class JDBCFactory implements DAOFactory {
         this.ticket = new TicketJDBC(context);
     }
 
-    public JDBCFactory(Connection connection) {
-        final var context = DSL.using(
-                new DefaultConfiguration()
-                        .set(connection)
-                        .set(SQLDialect.POSTGRES)
-                        .set(WrapperListener::new)
+    public JDBCFactory(DataSource datasource) {
+        this(
+                DSL.using(
+                        new DefaultConfiguration()
+                                .set(datasource)
+                                .set(SQLDialect.POSTGRES)
+                                .set(WrapperListener::new)
+                )
         );
+    }
 
-        this.avatar = new AvatarJDBC(context);
-        this.city = new CityJDBC(context);
-        this.spExam = new SpExamJDBC(context);
-        this.general = new GeneralJDBC(context);
-        this.hsAdmin = new HsAdminJDBC(context);
-        this.hsDoctor = new HsDoctorJDBC(context);
-        this.hsExam = new HsExamJDBC(context);
-        this.medicine = new MedicineJDBC(context);
-        this.person = new PersonJDBC(context);
-        this.examPrescription = new ExamPrescriptionJDBC(context);
-        this.medicinePrescription = new MedicinePrescriptionJDBC(context);
-        this.province = new ProvinceJDBC(context);
-        this.region = new RegionJDBC(context);
-        this.report = new ReportJDBC(context);
-        this.secret = new SecretJDBC(context);
-        this.specialist = new SpecialistJDBC(context);
-        this.ticket = new TicketJDBC(context);
+    public JDBCFactory(Connection connection) {
+        this(
+                DSL.using(
+                        new DefaultConfiguration()
+                                .set(connection)
+                                .set(SQLDialect.POSTGRES)
+                                .set(WrapperListener::new)
+                )
+        );
     }
 
     @Override
@@ -142,6 +133,11 @@ public class JDBCFactory implements DAOFactory {
     @Override
     public ProvinceDAO province() {
         return province;
+    }
+
+    @Override
+    public RecoverDAO recover() {
+        return recover;
     }
 
     @Override
