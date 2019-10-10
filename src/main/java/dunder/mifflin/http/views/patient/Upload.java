@@ -3,6 +3,7 @@ package dunder.mifflin.http.views.patient;
 import dunder.mifflin.persistance.daos.exceptions.DAOException;
 import dunder.mifflin.persistance.pojos.Avatar;
 import dunder.mifflin.services.DAOs;
+import dunder.mifflin.utils.Auths;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -17,7 +18,8 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.NoSuchElementException;
-import java.util.Optional;
+
+import static dunder.mifflin.utils.Locations.location;
 
 @WebServlet("/patient/upload")
 @MultipartConfig
@@ -31,7 +33,7 @@ public class Upload extends HttpServlet {
         try (
                 final InputStream input = req.getPart("avatar").getInputStream()
         ) {
-            final long id = Optional.ofNullable(req.getSession(false)).map((session) -> session.getAttribute("auth")).filter((auth) -> auth instanceof Long).map((auth) -> (Long) auth).orElseThrow();
+            final long id = Auths.session(req).orElseThrow();
             final File uploads = new File(String.format("%s/assets/img/avatar", req.getServletContext().getRealPath("/")));
             final File file = File.createTempFile("avt", ".jpg", uploads);
 
@@ -55,12 +57,12 @@ public class Upload extends HttpServlet {
             daos.factory().avatar()
                     .store(id, file.getName());
 
-            resp.sendRedirect(String.format("%s/%s", req.getContextPath(), "patient/profile"));
+            resp.sendRedirect(location(req, "/patient/profile"));
         } catch (NoSuchElementException | IOException e) {
-            resp.sendRedirect(String.format("%s/%s", req.getContextPath(), "login"));
+            resp.sendRedirect(location(req, "/login"));
         } catch (DAOException e) {
             req.setAttribute("exception", e);
-            resp.sendRedirect(String.format("%s/%s", req.getContextPath(), "exception"));
+            resp.sendRedirect(location(req, "/exception"));
         }
     }
 }

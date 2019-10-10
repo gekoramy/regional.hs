@@ -8,18 +8,20 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Optional;
 
+import static dunder.mifflin.utils.Locations.location;
+
 @WebServlet("/logout")
 public class Logout extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Optional.ofNullable(req.getSession(false)).ifPresent(HttpSession::invalidate);
-        resp.sendRedirect(String.format("%s/%s", req.getContextPath(), "login"));
+        resp.sendRedirect(location(req, "/login"));
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Optional.ofNullable(req.getSession(false)).ifPresent(HttpSession::invalidate);
-        resp.sendRedirect(String.format("%s/%s", req.getContextPath(), "login"));
+        resp.sendRedirect(location(req, "/login"));
     }
 }

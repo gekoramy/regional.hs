@@ -141,6 +141,27 @@ class GeneralJDBCTest {
     }
 
     @Test
+    void general() {
+        dao.general(6L).ifPresentOrElse(
+                (general) -> {
+                    assertEquals(99L, general.id());
+                    assertEquals("Arianna", general.name());
+                    assertEquals("Bonetti", general.surname());
+                    assertEquals("arianna.bonetti@dominio.com", general.email());
+                    assertEquals(LocalDate.of(1966, 8, 8), general.birthday());
+                    assertEquals(908L, general.birthplace());
+                    assertEquals("BNTRNN66M48B165D", general.fc());
+                    assertEquals(false, general.gender());
+                    assertEquals(946L, general.residence());
+                    assertEquals(11L, general.workplace());
+                },
+                Assertions::fail
+        );
+
+        assertFalse(dao.general(0L).isPresent(), "not existing follows");
+    }
+
+    @Test
     void count() {
         assertEquals(5, dao.count());
     }

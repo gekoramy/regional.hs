@@ -115,6 +115,17 @@ public class GeneralJDBC extends JDBC implements GeneralDAO {
     }
 
     @Override
+    public Optional<General> general(long follows) throws DAOException {
+        return context
+                .select(PERSON.asterisk().except(PERSON.PASSWORD), GENERAL.WORKPLACE)
+                .from(PERSON)
+                .naturalJoin(GENERAL)
+                .innerJoin(FOLLOWS).on(PERSON.ID.eq(FOLLOWS.GENERAL))
+                .where(FOLLOWS.ID.eq(follows))
+                .fetchOptionalInto(General.class);
+    }
+
+    @Override
     public long count() {
         return context
                 .fetchCount(GENERAL);

@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import static dunder.mifflin.utils.Locations.location;
 import static java.util.concurrent.TimeUnit.DAYS;
 import static java.util.concurrent.TimeUnit.HOURS;
 
@@ -45,14 +46,14 @@ public class Login extends HttpServlet {
             ));
 
             req.getSession().setAttribute("auth", id);
-            resp.sendRedirect(String.format("%s/%s", req.getContextPath(), "patient/medicines"));
+            resp.sendRedirect(location(req, "/patient/medicines"));
 
         } catch (NoSuchElementException e) {
             req.setAttribute("wrong", true);
-            req.getServletContext().getRequestDispatcher(String.format("/%s", "login.jsp")).forward(req, resp);
+            req.getServletContext().getRequestDispatcher("/login.jsp").forward(req, resp);
         } catch (DAOException e) {
             req.setAttribute("exception", e);
-            resp.sendRedirect(String.format("%s/%s", req.getContextPath(), "exception"));
+            resp.sendRedirect(location(req, "/exception"));
         }
     }
 }

@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Optional;
 
+import static dunder.mifflin.utils.Locations.location;
+
 @WebFilter(urlPatterns = "/login")
 public class AlreadyLoggedIn extends HttpFilter {
 
@@ -29,7 +31,7 @@ public class AlreadyLoggedIn extends HttpFilter {
                 .isPresent();
 
         if (auth)
-            res.sendRedirect(String.format("%s/%s", req.getContextPath(), "patient/medicines"));
+            res.sendRedirect(location(req, "/patient/medicines"));
         else
             chain.doFilter(req, res);
     }

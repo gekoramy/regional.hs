@@ -11,7 +11,7 @@ import javax.sql.DataSource;
 @Singleton
 public class DAOs {
 
-    @Resource(name = "PostgreSQL")
+    @Resource
     private DataSource datasource;
 
     private DAOFactory factory;

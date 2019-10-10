@@ -2,8 +2,11 @@ package dunder.mifflin.http.views.patient;
 
 import dunder.mifflin.persistance.daos.exceptions.DAOException;
 import dunder.mifflin.services.DAOs;
+import dunder.mifflin.services.Emails;
+import dunder.mifflin.utils.Auths;
 
 import javax.inject.Inject;
+import javax.mail.MessagingException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -12,29 +15,37 @@ import java.io.IOException;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import static dunder.mifflin.utils.Locations.location;
+
 @WebServlet("/patient/general")
 public class General extends HttpServlet {
 
     @Inject
     DAOs daos;
 
+    @Inject
+    Emails emails;
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try {
-            final long id = Optional.ofNullable(req.getSession(false)).map((session) -> session.getAttribute("auth")).filter((auth) -> auth instanceof Long).map((auth) -> (Long) auth).orElseThrow();
+            final long id = Auths.session(req).orElseThrow();
             final long purpose = Optional.ofNullable(req.getParameter("purpose")).map(Long::parseLong).orElseThrow();
 
-            daos.factory().general().entrusts(id, purpose);
+            final var person = daos.factory().person().byKey(id).orElseThrow();
+            final var general = daos.factory().general().entrusts(id, purpose);
 
-            // TODO send email
+            emails.general(person, general);
 
-            resp.sendRedirect(String.format("%s/%s", req.getContextPath(), "patient/profile"));
+            resp.sendRedirect(location(req, "/patient/profile"));
 
         } catch (NoSuchElementException e) {
-            resp.sendRedirect(String.format("%s/%s", req.getContextPath(), "login"));
+            resp.sendRedirect(location(req, "/login"));
         } catch (DAOException e) {
             req.setAttribute("exception", e);
-            resp.sendRedirect(String.format("%s/%s", req.getContextPath(), "exception"));
+            resp.sendRedirect(location(req, "/exception"));
+        } catch (MessagingException e) {
+            // TODO MessagingException
         }
     }
 }

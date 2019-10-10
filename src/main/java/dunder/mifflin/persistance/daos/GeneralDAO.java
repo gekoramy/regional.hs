@@ -17,4 +17,5 @@ public interface GeneralDAO extends DAO<General, Long> {
 
     Optional<General> undo(long patient) throws DAOException;
 
+    Optional<General> general(long follows) throws DAOException;
 }

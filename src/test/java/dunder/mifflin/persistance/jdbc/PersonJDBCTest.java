@@ -95,6 +95,26 @@ class PersonJDBCTest {
     }
 
     @Test
+    void patient() {
+        dao.patient(6L).ifPresentOrElse(
+                (person) -> {
+                    assertEquals(2L, person.id());
+                    assertEquals("Gabriele", person.name());
+                    assertEquals("Colombo", person.surname());
+                    assertEquals("gabriele.colombo@dominio.com", person.email());
+                    assertEquals(LocalDate.of(1992, 1, 22), person.birthday());
+                    assertEquals(587L, person.birthplace());
+                    assertEquals("CLMGRL92A22C217L", person.fc());
+                    assertEquals(true, person.gender());
+                    assertEquals(1064, person.residence());
+                },
+                Assertions::fail
+        );
+
+        assertFalse(dao.patient(0L).isPresent(), "not existing follows");
+    }
+
+    @Test
     void count() {
         assertEquals(257, dao.count());
     }

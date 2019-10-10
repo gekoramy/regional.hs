@@ -5,6 +5,7 @@
 <jsp:useBean id="person" scope="request" type="dunder.mifflin.persistance.pojos.Person"/>
 <jsp:useBean id="avatar" scope="request" type="java.lang.String"/>
 <jsp:useBean id="medicines" scope="request" type="java.util.List<dunder.mifflin.persistance.pojos.MedicinePrescription>"/>
+<jsp:useBean id="tickets" scope="request" type="java.util.Map<java.lang.Long, dunder.mifflin.persistance.pojos.Ticket>"/>
 
 <html>
 <head>
@@ -15,7 +16,7 @@
 
 <h3>Paziente</h3>
 <a href="${pageContext.request.contextPath}/patient/profile">
-    <img src="${avatar}"  alt="pic" width="40" height="40"/>
+    <img src="${avatar}" alt="pic" width="40" height="40"/>
 </a>
 
 <a href="${pageContext.request.contextPath}/patient/exams">esami</a>
@@ -37,8 +38,8 @@
             <td>${out}</td>
             <td>${it.medicine().name()}</td>
             <td>${it.quantity()}</td>
-            <td>x</td>
-            <td>y</td>
+            <td>${tickets.get(it.id())}</td>
+            <td><a href="${pageContext.request.contextPath}/qr?size=500&prescription=${it.id()}" target="_blank">qr</a></td>
         </tr>
     </c:forEach>
 </table>

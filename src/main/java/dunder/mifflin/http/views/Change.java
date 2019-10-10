@@ -1,10 +1,13 @@
 package dunder.mifflin.http.views;
 
 import dunder.mifflin.persistance.daos.exceptions.DAOException;
+import dunder.mifflin.persistance.pojos.Person;
 import dunder.mifflin.services.DAOs;
+import dunder.mifflin.services.Emails;
 import org.mindrot.jbcrypt.BCrypt;
 
 import javax.inject.Inject;
+import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,11 +19,16 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.UUID;
 
+import static dunder.mifflin.utils.Locations.location;
+
 @WebServlet("/change")
 public class Change extends HttpServlet {
 
     @Inject
     DAOs daos;
+
+    @Inject
+    Emails emails;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -34,14 +42,14 @@ public class Change extends HttpServlet {
             req.setAttribute("person", person);
             req.setAttribute("token", token.toString());
 
-            req.getServletContext().getRequestDispatcher(String.format("/%s", "change.jsp")).forward(req, resp);
+            req.getServletContext().getRequestDispatcher("/change.jsp").forward(req, resp);
 
         } catch (NoSuchElementException e) {
             req.setAttribute("wrong", true);
-            req.getServletContext().getRequestDispatcher(String.format("/%s", "logout")).forward(req, resp);
+            req.getServletContext().getRequestDispatcher("/logout").forward(req, resp);
         } catch (DAOException e) {
             req.setAttribute("exception", e);
-            resp.sendRedirect(String.format("%s/%s", req.getContextPath(), "exception"));
+            resp.sendRedirect(location(req, "/exception"));
         }
     }
 
@@ -55,19 +63,22 @@ public class Change extends HttpServlet {
                     .filter((r) -> r.expiration().isAfter(OffsetDateTime.now()))
                     .orElseThrow();
 
+            final Person person = daos.factory().person().byKey(recover.person()).orElseThrow();
             daos.factory().secret().store(recover.person(), BCrypt.hashpw(password, BCrypt.gensalt()));
 
-            // TODO send email
+            emails.password(person);
 
             daos.factory().recover().remove(recover.person());
 
-            req.getServletContext().getRequestDispatcher(String.format("/%s", "logout")).forward(req, resp);
+            req.getServletContext().getRequestDispatcher("/logout").forward(req, resp);
 
         } catch (NoSuchElementException e) {
-            req.getServletContext().getRequestDispatcher(String.format("/%s", "change.jsp")).forward(req, resp);
+            req.getServletContext().getRequestDispatcher("/change.jsp").forward(req, resp);
         } catch (DAOException e) {
             req.setAttribute("exception", e);
-            resp.sendRedirect(String.format("%s/%s", req.getContextPath(), "exception"));
+            resp.sendRedirect(location(req, "/exception"));
+        } catch (MessagingException e) {
+            // TODO MessagingException
         }
     }
 }
