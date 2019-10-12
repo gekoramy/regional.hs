@@ -19,4 +19,5 @@ public interface PersonDAO extends DAO<Person, Long> {
 
     Stream<Person> residence(long province) throws DAOException;
 
+    Optional<Person> patient(long follows) throws DAOException;
 }
