@@ -1,6 +1,8 @@
 package dunder.mifflin.utils;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Locations {
 
@@ -9,6 +11,19 @@ public class Locations {
                 "",
                 req.getContextPath(),
                 servlet
+        );
+    }
+
+    public static String location(HttpServletRequest req, String servlet, Map<String, String> parameters) {
+        return String.join(
+                "",
+                req.getContextPath(),
+                servlet,
+                parameters
+                        .entrySet()
+                        .stream()
+                        .map((parameter) -> String.format("%s=%s", parameter.getKey(), parameter.getValue()))
+                        .collect(Collectors.joining("&", "?", ""))
         );
     }
 }
