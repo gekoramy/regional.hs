@@ -10,7 +10,6 @@ import org.mindrot.jbcrypt.BCrypt;
 
 import javax.inject.Inject;
 import javax.mail.MessagingException;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -30,7 +29,7 @@ public class Password extends HttpServlet {
     Emails emails;
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try {
             final long id = Auths.session(req).orElseThrow();
             final String current = req.getParameter("current");
@@ -42,7 +41,7 @@ public class Password extends HttpServlet {
 
             emails.password(person);
 
-            req.getServletContext().getRequestDispatcher("/patient/profile").forward(req, resp);
+            resp.sendRedirect(location(req, "/patient/profile"));
 
         } catch (NoSuchElementException e) {
             resp.sendRedirect(location(req, "/logout"));
