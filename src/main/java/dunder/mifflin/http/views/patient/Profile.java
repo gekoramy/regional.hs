@@ -25,8 +25,7 @@ public class Profile extends HttpServlet {
     @Inject
     DAOs daos;
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    private void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             final long id = Auths.session(req).orElseThrow();
             final Person person = daos.factory().person().byKey(id).orElseThrow();
@@ -46,5 +45,15 @@ public class Profile extends HttpServlet {
             req.setAttribute("exception", e);
             resp.sendRedirect(location(req, "/exception"));
         }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        process(req, resp);
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        process(req, resp);
     }
 }
