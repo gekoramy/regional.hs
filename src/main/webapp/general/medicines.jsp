@@ -11,6 +11,47 @@
 <html>
 <head>
     <title>Storico</title>
+
+    <script src="${pageContext.request.contextPath}/assets/script/strings.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#filter").keyup(function () {
+                $.getJSON(
+                    "${pageContext.request.contextPath}/api/medicines",
+                    {
+                        pattern: $("#filter").val()
+                    },
+                    function (result) {
+                        $("#items")
+                            .empty()
+                            .append(
+                                `
+                                <input type="hidden" name="patient" value="${patient.id()}">
+                                <label>
+                                    Quantita
+                                    <input type="number" name="quantity" value="1" min="1" max="4">
+                                </label>
+                                `
+                            );
+
+                        $.each(result, function (i, it) {
+                            $("#items")
+                                .append(
+                                    `
+                                    <div>
+                                    <label>
+                                        {name}
+                                        <input type="submit" name="medicine" value="{id}">
+                                    </label>
+                                    </div>
+                                    `.formatUnicorn(it)
+                                );
+                        });
+                    });
+            });
+        });
+    </script>
 </head>
 
 <body>
@@ -44,6 +85,12 @@
 <form method="get" action="${pageContext.request.contextPath}/general/exams">
     <input type="submit" name="patient" value="${patient.id()}"/>
 </form>
+
+<label>
+    Filtra
+    <input type="text" id="filter" placeholder="farmaco">
+</label>
+<form method="post" action="${pageContext.request.contextPath}/general/prescribe/medicine" id="items"></form>
 
 <table>
     <thead>
