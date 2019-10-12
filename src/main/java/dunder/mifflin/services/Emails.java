@@ -1,6 +1,8 @@
 package dunder.mifflin.services;
 
+import dunder.mifflin.persistance.pojos.ExamPrescription;
 import dunder.mifflin.persistance.pojos.General;
+import dunder.mifflin.persistance.pojos.MedicinePrescription;
 import dunder.mifflin.persistance.pojos.Person;
 
 import javax.annotation.Resource;
@@ -88,36 +90,39 @@ public class Emails {
         );
     }
 
-    public void exam(Person dest, General general) throws MessagingException {
+    public void prescription(Person dest, General general, ExamPrescription prescription) throws MessagingException {
         send(
                 dest,
                 "Nuova prescrizione",
                 String.format(
                         "Gentile %s %s,\n" +
-                                "%s %s ti ha prescritto un esame\n" +
+                                "%s %s ti ha prescritto l'esame '%s'\n" +
                                 "\n" +
                                 "- Dunder Mifflin",
                         dest.name(),
                         dest.surname(),
                         general.name(),
-                        general.surname()
+                        general.surname(),
+                        prescription.exam().name()
                 )
         );
     }
 
-    public void medicine(Person dest, General general) throws MessagingException {
+    public void prescription(Person dest, General general, MedicinePrescription prescription) throws MessagingException {
         send(
                 dest,
                 "Nuova prescrizione",
                 String.format(
                         "Gentile %s %s,\n" +
-                                "%s %s ti ha prescritto un farmaco\n" +
+                                "%s %s ti ha prescritto il farmaco '%s', quantità %d\n" +
                                 "\n" +
                                 "- Dunder Mifflin",
                         dest.name(),
                         dest.surname(),
                         general.name(),
-                        general.surname()
+                        general.surname(),
+                        prescription.medicine().name(),
+                        prescription.quantity()
                 )
         );
     }
