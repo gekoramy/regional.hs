@@ -20,64 +20,118 @@ public class Emails {
 
     private String debug = "";
 
-    public void recover(Person dest, String url) throws MessagingException {
+    private void send(Person dest, String subject, String content) throws MessagingException {
         final Message message = new MimeMessage(session);
         message.setRecipients(TO, new Address[]{new InternetAddress(debug)});
         message.setSentDate(new Date());
-        message.setSubject("Ripristina password");
-        message.setText(String.format(
-                "Gentile %s %s,\n" +
-                        "Di recente hai richiesto il ripristino della tua password\n" +
-                        "Per confermare la richiesta, visita entro 2 ore il seguente link:\n" +
-                        "%s\n" +
-                        "\n" +
-                        "Se non hai effettuato questa richiesta, o non desideri più ripristinare la tua password, elimina semplicemente questa email\n" +
-                        "\n" +
-                        "- Dunder Mifflin",
-                dest.name(),
-                dest.surname(),
-                url
-        ));
-
+        message.setSubject(subject);
+        message.setText(content);
         Transport.send(message);
+    }
+
+    public void recover(Person dest, String url) throws MessagingException {
+        send(
+                dest,
+                "Ripristina password",
+                String.format(
+                        "Gentile %s %s,\n" +
+                                "Di recente hai richiesto il ripristino della tua password\n" +
+                                "Per confermare la richiesta, visita entro 2 ore il seguente link:\n" +
+                                "%s\n" +
+                                "\n" +
+                                "Se non hai effettuato questa richiesta, o non desideri più ripristinare la tua password, elimina semplicemente questa email\n" +
+                                "\n" +
+                                "- Dunder Mifflin",
+                        dest.name(),
+                        dest.surname(),
+                        url
+                )
+        );
     }
 
     public void password(Person dest) throws MessagingException {
-        final Message message = new MimeMessage(session);
-        message.setRecipients(TO, new Address[]{new InternetAddress(debug)});
-        message.setSentDate(new Date());
-        message.setSubject("Password aggiornata");
-        message.setText(String.format(
-                "Gentile %s %s,\n" +
-                        "Ti informiamo che la password è stata cambiata\n" +
-                        "Non sei stato tu? Assicurati di cambiare subito la tua password\n" +
-                        "\n" +
-                        "- Dunder Mifflin",
-                dest.name(),
-                dest.surname()
-        ));
-
-        Transport.send(message);
+        send(
+                dest,
+                "Password aggiornata",
+                String.format(
+                        "Gentile %s %s,\n" +
+                                "Ti informiamo che la password è stata cambiata\n" +
+                                "Non sei stato tu? Assicurati di cambiare subito la tua password\n" +
+                                "\n" +
+                                "- Dunder Mifflin",
+                        dest.name(),
+                        dest.surname()
+                )
+        );
     }
 
     public void general(Person dest, General general) throws MessagingException {
-        final Message message = new MimeMessage(session);
-        message.setRecipients(TO, new Address[]{new InternetAddress(debug)});
-        message.setSentDate(new Date());
-        message.setSubject("Medico di base modificato");
-        message.setText(String.format(
-                "Gentile %s %s,\n" +
-                        "Da oggi il tuo medico di base è %s %s\n" +
-                        "Ti ricordiamo che puoi modificare il medico di base in qualsiasi momento\n" +
-                        "Non sei stato tu? Assicurati di cambiare subito la tua password\n" +
-                        "\n" +
-                        "- Dunder Mifflin",
-                dest.name(),
-                dest.surname(),
-                general.name(),
-                general.surname()
-        ));
+        send(
+                dest,
+                "Medico di base modificato",
+                String.format(
+                        "Gentile %s %s,\n" +
+                                "Da oggi il tuo medico di base è %s %s\n" +
+                                "Ti ricordiamo che puoi modificare il medico di base in qualsiasi momento\n" +
+                                "Non sei stato tu? Assicurati di cambiare subito la tua password\n" +
+                                "\n" +
+                                "- Dunder Mifflin",
+                        dest.name(),
+                        dest.surname(),
+                        general.name(),
+                        general.surname()
+                )
+        );
+    }
 
-        Transport.send(message);
+    public void exam(Person dest, General general) throws MessagingException {
+        send(
+                dest,
+                "Nuova prescrizione",
+                String.format(
+                        "Gentile %s %s,\n" +
+                                "%s %s ti ha prescritto un esame\n" +
+                                "\n" +
+                                "- Dunder Mifflin",
+                        dest.name(),
+                        dest.surname(),
+                        general.name(),
+                        general.surname()
+                )
+        );
+    }
+
+    public void medicine(Person dest, General general) throws MessagingException {
+        send(
+                dest,
+                "Nuova prescrizione",
+                String.format(
+                        "Gentile %s %s,\n" +
+                                "%s %s ti ha prescritto un farmaco\n" +
+                                "\n" +
+                                "- Dunder Mifflin",
+                        dest.name(),
+                        dest.surname(),
+                        general.name(),
+                        general.surname()
+                )
+        );
+    }
+
+    public void report(Person dest, Person responsible) throws MessagingException {
+        send(
+                dest,
+                "Nuovo referto",
+                String.format(
+                        "Gentile %s %s,\n" +
+                                "%s %s ha pubblicato un referto che ti riguarda\n" +
+                                "\n" +
+                                "- Dunder Mifflin",
+                        dest.name(),
+                        dest.surname(),
+                        responsible.name(),
+                        responsible.surname()
+                )
+        );
     }
 }
