@@ -16,31 +16,6 @@ repositories {
 
 jooq {
     version = '3.12.1'
-    db(sourceSets.main) {
-        jdbc {
-            driver = 'org.postgresql.Driver'
-            url = 'jdbc:postgresql://localhost:5432/regional.hs'
-            user = ''
-            password = ''
-        }
-        generator {
-            name = 'org.jooq.codegen.DefaultGenerator'
-            database {
-                name = 'org.jooq.meta.postgres.PostgresDatabase'
-                inputSchema = 'public'
-            }
-            generate {
-                javaTimeTypes = true
-                relations = false
-                records = false
-                routines = false
-            }
-            target {
-                packageName = 'dunder.mifflin.persistance.jdbc.jooq'
-                directory = 'src/main/java'
-            }
-        }
-    }
 }
 
 test {
