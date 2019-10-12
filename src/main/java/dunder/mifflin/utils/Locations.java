@@ -14,7 +14,7 @@ public class Locations {
         );
     }
 
-    public static String location(HttpServletRequest req, String servlet, Map<String, String> parameters) {
+    public static String location(HttpServletRequest req, String servlet, Map<String, Object> parameters) {
         return String.join(
                 "",
                 req.getContextPath(),

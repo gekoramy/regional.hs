@@ -32,7 +32,7 @@ public class PrescribeExam extends HttpServlet {
 
             daos.factory().examPrescription().insert(patient, exam);
 
-            resp.sendRedirect(location(req, "/general/exams", Map.of("patient", Long.toString(patient))));
+            resp.sendRedirect(location(req, "/general/exams", Map.of("patient", patient)));
 
         } catch (NoSuchElementException e) {
             // TODO NoSuchElementException
