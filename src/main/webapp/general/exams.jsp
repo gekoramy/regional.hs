@@ -12,13 +12,50 @@
 <html>
 <head>
     <title>Storico</title>
+
+    <script src="${pageContext.request.contextPath}/assets/script/strings.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#filter").keyup(function () {
+                $.getJSON(
+                    "${pageContext.request.contextPath}/api/exams",
+                    {
+                        pattern: $("#filter").val()
+                    },
+                    function (result) {
+                        $("#items")
+                            .empty()
+                            .append(
+                                `
+                                <input type="hidden" name="patient" value="${patient.id()}">
+                                `
+                            );
+
+                        $.each(result, function (i, it) {
+                            $("#items")
+                                .append(
+                                    `
+                                    <div>
+                                    <label>
+                                        {name}
+                                        <input type="submit" name="exam" value="{id}">
+                                    </label>
+                                    </div>
+                                    `.formatUnicorn(it)
+                                );
+                        });
+                    });
+            });
+        });
+    </script>
 </head>
 
 <body>
 
 <h3>Medico generale</h3>
 <a href="${pageContext.request.contextPath}/general/patients">
-    <img src="${avatar}"  alt="pic" width="40" height="40"/>
+    <img src="${avatar}" alt="pic" width="40" height="40"/>
 </a>
 
 <table>
@@ -45,6 +82,12 @@
 <form method="get" action="${pageContext.request.contextPath}/general/medicines">
     <input type="submit" name="patient" value="${patient.id()}"/>
 </form>
+
+<label>
+    Filtra
+    <input type="text" id="filter" placeholder="esame">
+</label>
+<form method="post" action="${pageContext.request.contextPath}/general/prescribe/exam" id="items"></form>
 
 <table>
     <thead>
