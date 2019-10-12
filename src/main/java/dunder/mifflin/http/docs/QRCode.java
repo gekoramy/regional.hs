@@ -1,4 +1,4 @@
-package dunder.mifflin.http.views.images;
+package dunder.mifflin.http.docs;
 
 import com.google.zxing.WriterException;
 import dunder.mifflin.persistance.pojos.MedicinePrescription;
