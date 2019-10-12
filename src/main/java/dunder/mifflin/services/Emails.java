@@ -9,6 +9,7 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Date;
+import java.util.Optional;
 
 import static javax.mail.Message.RecipientType.TO;
 
@@ -18,11 +19,14 @@ public class Emails {
     @Resource
     private Session session;
 
-    private String debug = "";
+    @Resource
+    private InternetAddress debug;
 
     private void send(Person dest, String subject, String content) throws MessagingException {
         final Message message = new MimeMessage(session);
-        message.setRecipients(TO, new Address[]{new InternetAddress(debug)});
+        message.setRecipients(TO, new Address[]{
+                Optional.ofNullable(debug).orElse(new InternetAddress(dest.email()))
+        });
         message.setSentDate(new Date());
         message.setSubject(subject);
         message.setText(content);

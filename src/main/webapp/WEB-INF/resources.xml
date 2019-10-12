@@ -18,4 +18,8 @@
         Password = ***REMOVED***
     </Resource>
 
+    <Resource id="debug" class-name="javax.mail.internet.InternetAddress" constructor="address">
+        address = ***REMOVED***
+    </Resource>
+
 </resources>
