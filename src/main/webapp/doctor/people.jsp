@@ -1,7 +1,7 @@
 <%--suppress HtmlUnknownTarget --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 
-<jsp:useBean id="specialist" scope="request" type="dunder.mifflin.persistance.pojos.Specialist"/>
+<jsp:useBean id="doctor" scope="request" type="dunder.mifflin.persistance.pojos.HsDoctor"/>
 <jsp:useBean id="avatar" scope="request" type="java.lang.String"/>
 
 <html>
@@ -61,8 +61,8 @@
 
 <body>
 
-<h3>Specialista</h3>
-<a href="${pageContext.request.contextPath}/specialist/people">
+<h3>Medico Servizio Sanitario</h3>
+<a href="${pageContext.request.contextPath}/doctor/people">
     <img src="${avatar}" alt="pic" width="40" height="40"/>
 </a>
 
@@ -71,7 +71,7 @@
     <input type="text" id="filter" placeholder="filtro">
 </label>
 
-<form method="get" action="${pageContext.request.contextPath}/specialist/medicines">
+<form method="get" action="${pageContext.request.contextPath}/doctor/medicines">
     <table id="items"></table>
 </form>
 
