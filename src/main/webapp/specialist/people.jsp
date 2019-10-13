@@ -62,7 +62,7 @@
 <body>
 
 <h3>Specialista</h3>
-<a href="${pageContext.request.contextPath}/general/patients">
+<a href="${pageContext.request.contextPath}/specialist/people">
     <img src="${avatar}" alt="pic" width="40" height="40"/>
 </a>
 
