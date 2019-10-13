@@ -23,9 +23,9 @@ import java.util.Optional;
 
 import static java.util.stream.Collectors.toUnmodifiableList;
 
-@WebServlet("/api/suitable")
+@WebServlet("/api/people")
 @Produces(MediaType.APPLICATION_JSON)
-public class Suitable extends HttpServlet {
+public class People extends HttpServlet {
 
     @Inject
     DAOs daos;
@@ -38,13 +38,19 @@ public class Suitable extends HttpServlet {
             final String email = Optional.ofNullable(req.getParameter("email")).orElse("");
             final String fc = Optional.ofNullable(req.getParameter("fc")).orElse("");
 
-            final List<Person> suitable = daos.factory().general().suitable(id, name, email, fc).collect(toUnmodifiableList());
+            // only specialist and health service doctors can perform this request
+            Optional.<Long>empty()
+                    .or(() -> daos.factory().specialist().byKey(id).map(Person::id))
+                    .or(() -> daos.factory().hsDoctor().byKey(id).map(Person::id))
+                    .orElseThrow();
 
-            final Map<Long, String> avatars = Avatars.avatars50(daos.factory().avatar(), req.getContextPath(), suitable);
+            final List<Person> people = daos.factory().person().contains(name, email, fc).collect(toUnmodifiableList());
 
-            final JsonArray array = suitable
+            final Map<Long, String> avatars = Avatars.avatars50(daos.factory().avatar(), req.getContextPath(), people);
+
+            final JsonArray array = people
                     .stream()
-                    .map((general) -> Jsonify.json(general, avatars))
+                    .map((person) -> Jsonify.json(person, avatars))
                     .collect(Jsonify.array());
 
             array.toJson(resp.getWriter());

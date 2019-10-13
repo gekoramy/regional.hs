@@ -1,12 +1,12 @@
 package dunder.mifflin.http.api.restricted;
 
 import com.github.cliftonlabs.json_simple.JsonArray;
-import com.github.cliftonlabs.json_simple.JsonObject;
 import dunder.mifflin.persistance.daos.exceptions.DAOException;
 import dunder.mifflin.persistance.pojos.Person;
 import dunder.mifflin.services.DAOs;
 import dunder.mifflin.utils.Auths;
 import dunder.mifflin.utils.Avatars;
+import dunder.mifflin.utils.Jsonify;
 
 import javax.inject.Inject;
 import javax.servlet.annotation.WebServlet;
@@ -21,7 +21,6 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import static java.time.format.DateTimeFormatter.ISO_DATE;
 import static java.util.stream.Collectors.toUnmodifiableList;
 
 @WebServlet("/api/patients")
@@ -45,21 +44,8 @@ public class Patients extends HttpServlet {
 
             final JsonArray array = patients
                     .stream()
-                    .map((person) -> new JsonObject(Map.of(
-                            "id", person.id(),
-                            "avatar", avatars.get(person.id()),
-                            "fc", person.fc(),
-                            "gender", person.gender(),
-                            "email", person.email(),
-                            "birthday", person.birthday().format(ISO_DATE),
-                            "name", person.name(),
-                            "surname", person.surname()
-                    )))
-                    .collect(
-                            JsonArray::new,
-                            JsonArray::addChain,
-                            JsonArray::addAllChain
-                    );
+                    .map((patient) -> Jsonify.json(patient, avatars))
+                    .collect(Jsonify.array());
 
             array.toJson(resp.getWriter());
 
