@@ -66,15 +66,17 @@
             <td>${tickets.get(it.id())}</td>
             <td>${reports.get(it.id())}</td>
             <td>
-                <form method="post" action="${pageContext.request.contextPath}/specialist/publish">
-                    <label>
-                        Anamnesi
-                        <input type="hidden" name="prescription" value="${it.id()}">
-                        <input type="hidden" name="patient" value="${patient.id()}">
-                        <input type="text" name="note" minlength="50">
-                        <input type="submit" value="pubblica">
-                    </label>
-                </form>
+                <c:if test="${not reports.containsKey(it.id())}">
+                    <form method="post" action="${pageContext.request.contextPath}/specialist/publish">
+                        <label>
+                            Anamnesi
+                            <input type="hidden" name="prescription" value="${it.id()}">
+                            <input type="hidden" name="patient" value="${patient.id()}">
+                            <input type="text" name="note" minlength="50">
+                            <input type="submit" value="pubblica">
+                        </label>
+                    </form>
+                </c:if>
             </td>
         </tr>
     </c:forEach>
