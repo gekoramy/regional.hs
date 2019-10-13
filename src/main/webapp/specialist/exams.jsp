@@ -54,6 +54,7 @@
         <th>Nome</th>
         <th>Ricevuta</th>
         <th>Risultati</th>
+        <th>Prescrivi</th>
     </tr>
     </thead>
     <c:forEach items="${exams}" var="it">
@@ -64,6 +65,17 @@
             <td>${it.exam().name()}</td>
             <td>${tickets.get(it.id())}</td>
             <td>${reports.get(it.id())}</td>
+            <td>
+                <form method="post" action="${pageContext.request.contextPath}/specialist/publish">
+                    <label>
+                        Anamnesi
+                        <input type="hidden" name="prescription" value="${it.id()}">
+                        <input type="hidden" name="patient" value="${patient.id()}">
+                        <input type="text" name="note" minlength="50">
+                        <input type="submit" value="pubblica">
+                    </label>
+                </form>
+            </td>
         </tr>
     </c:forEach>
 </table>
