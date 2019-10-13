@@ -1,9 +1,9 @@
 package dunder.mifflin.http.api;
 
 import com.github.cliftonlabs.json_simple.JsonArray;
-import com.github.cliftonlabs.json_simple.JsonObject;
 import dunder.mifflin.persistance.daos.exceptions.DAOException;
 import dunder.mifflin.services.DAOs;
+import dunder.mifflin.utils.Jsonify;
 
 import javax.inject.Inject;
 import javax.servlet.annotation.WebServlet;
@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
-import java.util.Map;
 import java.util.Optional;
 
 @WebServlet("/api/medicines")
@@ -29,16 +28,8 @@ public class Medicines extends HttpServlet {
             final String pattern = Optional.ofNullable(req.getParameter("pattern")).orElse("");
 
             final JsonArray array = daos.factory().medicine().contains(pattern)
-                    .map((medicine) -> new JsonObject(Map.of(
-                            "id", medicine.id(),
-                            "name", medicine.name(),
-                            "info", medicine.info()
-                    )))
-                    .collect(
-                            JsonArray::new,
-                            JsonArray::addChain,
-                            JsonArray::addAllChain
-                    );
+                    .map(Jsonify::json)
+                    .collect(Jsonify.array());
 
             array.toJson(resp.getWriter());
 
