@@ -6,7 +6,7 @@
 <jsp:useBean id="avatar" scope="request" type="java.lang.String"/>
 <jsp:useBean id="patient" scope="request" type="dunder.mifflin.persistance.pojos.Person"/>
 <jsp:useBean id="exams" scope="request" type="java.util.List<dunder.mifflin.persistance.pojos.ExamPrescription>"/>
-<jsp:useBean id="qualified" scope="request" type="java.util.Set<dunder.mifflin.persistance.pojos.SpExam>"/>
+<jsp:useBean id="qualified" scope="request" type="java.util.Set<java.lang.Long>"/>
 <jsp:useBean id="tickets" scope="request" type="java.util.Map<java.lang.Long, dunder.mifflin.persistance.pojos.Ticket>"/>
 <jsp:useBean id="reports" scope="request" type="java.util.Map<java.lang.Long, dunder.mifflin.persistance.pojos.Report>"/>
 
@@ -67,15 +67,17 @@
             <td>${reports.get(it.id())}</td>
             <td>
                 <c:if test="${not reports.containsKey(it.id())}">
-                    <form method="post" action="${pageContext.request.contextPath}/specialist/publish">
-                        <label>
-                            Anamnesi
-                            <input type="hidden" name="prescription" value="${it.id()}">
-                            <input type="hidden" name="patient" value="${patient.id()}">
-                            <input type="text" name="note" minlength="50">
-                            <input type="submit" value="pubblica">
-                        </label>
-                    </form>
+                    <c:if test="${qualified.contains(it.exam().id())}">
+                        <form method="post" action="${pageContext.request.contextPath}/specialist/publish">
+                            <label>
+                                Anamnesi
+                                <input type="hidden" name="prescription" value="${it.id()}">
+                                <input type="hidden" name="patient" value="${patient.id()}">
+                                <input type="text" name="note" minlength="50">
+                                <input type="submit" value="pubblica">
+                            </label>
+                        </form>
+                    </c:if>
                 </c:if>
             </td>
         </tr>
