@@ -3,7 +3,6 @@ package dunder.mifflin.http.views.patient;
 import dunder.mifflin.persistance.daos.exceptions.DAOException;
 import dunder.mifflin.persistance.pojos.*;
 import dunder.mifflin.services.DAOs;
-import dunder.mifflin.services.Emails;
 import dunder.mifflin.utils.Auths;
 import dunder.mifflin.utils.Avatars;
 
@@ -26,9 +25,6 @@ public class ExamPrescriptions extends HttpServlet {
 
     @Inject
     DAOs daos;
-
-    @Inject
-    Emails emails;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
