@@ -71,7 +71,7 @@
     <input type="text" id="filter" placeholder="filtro">
 </label>
 
-<form>
+<form method="get" action="${pageContext.request.contextPath}/specialist/medicines">
     <table id="items"></table>
 </form>
 
