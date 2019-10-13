@@ -35,7 +35,7 @@ public class ExamPrescriptions extends HttpServlet {
             final long pid = Optional.ofNullable(req.getParameter("patient")).map(Long::parseLong).orElseThrow();
             final Person patient = daos.factory().person().byKey(pid).orElseThrow();
             final List<ExamPrescription> exams = daos.factory().examPrescription().concerns(patient.id(), "").collect(toUnmodifiableList());
-            final Set<HsExam> qualified = daos.factory().hsExam().qualifiedFor(doctor.id()).collect(toUnmodifiableSet());
+            final Set<Long> qualified = daos.factory().hsExam().qualifiedFor(doctor.id()).map(Examination::id).collect(toUnmodifiableSet());
 
             final Long[] prescriptions = exams.stream().map(Prescription::id).toArray(Long[]::new);
             final Map<Long, Ticket> tickets = daos.factory().ticket().byKeys(prescriptions);
