@@ -54,6 +54,7 @@
         <th>Nome</th>
         <th>Ricevuta</th>
         <th>Risultati</th>
+        <th>Incassa</th>
         <th>Prescrivi</th>
     </tr>
     </thead>
@@ -65,9 +66,20 @@
             <td>${it.exam().name()}</td>
             <td>${tickets.get(it.id())}</td>
             <td>${reports.get(it.id())}</td>
-            <td>
-                <c:if test="${not reports.containsKey(it.id())}">
-                    <c:if test="${qualified.contains(it.exam().id())}">
+            <c:if test="${qualified.contains(it.exam().id())}">
+                <td>
+                    <c:if test="${not tickets.containsKey(it.id())}">
+                        <form method="post" action="${pageContext.request.contextPath}/doctor/cash">
+                            <label>
+                                <input type="hidden" name="prescription" value="${it.id()}">
+                                <input type="hidden" name="patient" value="${patient.id()}">
+                                <input type="submit" value="incassa">
+                            </label>
+                        </form>
+                    </c:if>
+                </td>
+                <td>
+                    <c:if test="${not reports.containsKey(it.id())}">
                         <form method="post" action="${pageContext.request.contextPath}/doctor/publish">
                             <label>
                                 Anamnesi
@@ -78,8 +90,8 @@
                             </label>
                         </form>
                     </c:if>
-                </c:if>
-            </td>
+                </td>
+            </c:if>
         </tr>
     </c:forEach>
 </table>

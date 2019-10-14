@@ -10,6 +10,7 @@ import javax.ejb.Stateless;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Optional;
 
@@ -140,6 +141,22 @@ public class Emails {
                         dest.surname(),
                         responsible.name(),
                         responsible.surname()
+                )
+        );
+    }
+
+    public void cash(Person dest, BigDecimal amount) throws MessagingException {
+        send(
+                dest,
+                "Ricevuta Ticket",
+                String.format(
+                        "Gentile %s %s,\n" +
+                                "Ti informiamo che il ticket di € %s è stato pagato correttamente\n" +
+                                "\n" +
+                                "- Dunder Mifflin",
+                        dest.name(),
+                        dest.surname(),
+                        amount.toPlainString()
                 )
         );
     }
