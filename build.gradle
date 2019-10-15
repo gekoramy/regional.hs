@@ -42,6 +42,9 @@ dependencies {
     // PDF
     compile group: 'com.itextpdf', name: 'itextpdf', version: '5.5.13.1'
 
+    // XLS
+    compile group: 'org.apache.poi', name: 'poi-ooxml', version: '4.1.0'
+
     // Persistance
     compile group: 'org.jooq', name: 'jooq'
     compile group: 'org.jooq', name: 'jooq-meta'
