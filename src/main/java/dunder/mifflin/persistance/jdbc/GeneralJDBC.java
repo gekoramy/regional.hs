@@ -126,6 +126,28 @@ public class GeneralJDBC extends JDBC implements GeneralDAO {
     }
 
     @Override
+    public Map<Long, General> generals(Long... follows) throws DAOException {
+        return context
+                .select(FOLLOWS.ID, PERSON.asterisk().except(PERSON.PASSWORD), GENERAL.WORKPLACE)
+                .from(PERSON)
+                .innerJoin(GENERAL).on(PERSON.ID.eq(GENERAL.ID))
+                .innerJoin(FOLLOWS).on(PERSON.ID.eq(FOLLOWS.GENERAL))
+                .where(FOLLOWS.ID.in(follows))
+                .fetchMap(FOLLOWS.ID, (r) -> new General(
+                        r.get(PERSON.ID),
+                        r.get(PERSON.EMAIL),
+                        r.get(PERSON.NAME),
+                        r.get(PERSON.SURNAME),
+                        r.get(PERSON.BIRTHDAY),
+                        r.get(PERSON.BIRTHPLACE),
+                        r.get(PERSON.FC),
+                        r.get(PERSON.GENDER),
+                        r.get(PERSON.RESIDENCE),
+                        r.get(GENERAL.WORKPLACE)
+                ));
+    }
+
+    @Override
     public long count() {
         return context
                 .fetchCount(GENERAL);

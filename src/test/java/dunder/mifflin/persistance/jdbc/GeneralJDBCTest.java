@@ -162,6 +162,14 @@ class GeneralJDBCTest {
     }
 
     @Test
+    void generals() {
+        assertEquals(1, dao.generals(6L).size());
+        assertEquals(1, dao.generals(0L, 6L).size());
+        assertEquals(3, dao.generals(6L, 7L, 8L).size());
+        assertEquals(0, dao.generals(0L).size(), "not existing follows");
+    }
+
+    @Test
     void count() {
         assertEquals(5, dao.count());
     }
