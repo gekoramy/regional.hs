@@ -1,0 +1,89 @@
+package dunder.mifflin.http.docs;
+
+import dunder.mifflin.persistance.daos.exceptions.DAOException;
+import dunder.mifflin.persistance.pojos.*;
+import dunder.mifflin.services.DAOs;
+import dunder.mifflin.services.XLSs;
+import dunder.mifflin.utils.Auths;
+
+import javax.inject.Inject;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.Produces;
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static dunder.mifflin.utils.Locations.location;
+
+@WebServlet("/tickets/xls")
+@Produces("application/xlsx")
+public class XLS extends HttpServlet {
+
+    @Inject
+    DAOs daos;
+
+    @Inject
+    XLSs xlss;
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            final HsAdmin admin = Auths.session(req).flatMap(daos.factory().hsAdmin()::byKey).orElseThrow();
+            final List<MedicinePrescription> medicines = daos.factory().medicinePrescription().tookIn(admin.workplace()).collect(Collectors.toUnmodifiableList());
+            final List<ExamPrescription> exams = daos.factory().examPrescription().tookIn(admin.workplace()).collect(Collectors.toUnmodifiableList());
+
+            final Map<Long, Ticket> tickets = daos.factory().ticket().byKeys(
+                    Stream.concat(
+                            medicines.stream().map(Prescription::id),
+                            exams.stream().map(Prescription::id))
+                            .toArray(Long[]::new)
+            );
+
+            final Map<Long, General> generals = daos.factory().general().generals(
+                    Stream.concat(
+                            medicines.stream().map(Prescription::concerns),
+                            exams.stream().map(Prescription::concerns))
+                            .toArray(Long[]::new)
+            );
+
+            final Map<Long, Person> patients = daos.factory().person().patients(
+                    Stream.concat(
+                            medicines.stream().map(Prescription::concerns),
+                            exams.stream().map(Prescription::concerns))
+                            .toArray(Long[]::new)
+            );
+
+            resp.addHeader("Content-Disposition", "attachment; filename=tickets.xlsx");
+
+            xlss.document(
+                    resp.getOutputStream(),
+                    (sheets) -> {
+                        xlss.medicine(
+                                medicines.stream(),
+                                tickets,
+                                patients,
+                                generals
+                        ).accept(sheets);
+
+                        xlss.exams(
+                                exams.stream(),
+                                tickets,
+                                patients,
+                                generals
+                        ).accept(sheets);
+                    }
+            );
+        } catch (NoSuchElementException e) {
+            resp.sendRedirect(location(req, "/login"));
+        } catch (DAOException e) {
+            // TODO DAOException
+        }
+    }
+}

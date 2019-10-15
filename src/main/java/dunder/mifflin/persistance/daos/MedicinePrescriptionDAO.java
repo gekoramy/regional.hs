@@ -15,4 +15,6 @@ public interface MedicinePrescriptionDAO extends DAO<MedicinePrescription, Long>
 
     Stream<MedicinePrescription> concerns(long patient, String filter) throws DAOException;
 
+    Stream<MedicinePrescription> tookIn(long province) throws DAOException;
+
 }

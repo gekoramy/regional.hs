@@ -100,6 +100,11 @@ class MedicinePrescriptionJDBCTest {
     }
 
     @Test
+    void tookIn() {
+        Assertions.assertEquals(60, dao.tookIn(10L).count());
+    }
+
+    @Test
     void count() {
         Assertions.assertEquals(150L, dao.count());
     }

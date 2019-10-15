@@ -115,6 +115,14 @@ class PersonJDBCTest {
     }
 
     @Test
+    void follows() {
+        assertEquals(1, dao.patients(6L).size());
+        assertEquals(1, dao.patients(0L, 6L).size());
+        assertEquals(3, dao.patients(6L, 7L, 8L).size());
+        assertEquals(0, dao.patients(0L).size(), "not existing follows");
+    }
+
+    @Test
     void count() {
         assertEquals(257, dao.count());
     }

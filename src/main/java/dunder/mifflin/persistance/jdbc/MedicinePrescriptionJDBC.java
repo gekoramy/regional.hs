@@ -102,6 +102,19 @@ public class MedicinePrescriptionJDBC extends JDBC implements MedicinePrescripti
     }
 
     @Override
+    public Stream<MedicinePrescription> tookIn(long province) throws DAOException {
+        return context
+                .select(PRESCRIPTION.asterisk(), MEDICINE.asterisk(), PR_MEDICINE.QUANTITY)
+                .from(PRESCRIPTION)
+                .innerJoin(PR_MEDICINE).on(PRESCRIPTION.ID.eq(PR_MEDICINE.PRESCRIPTION))
+                .innerJoin(MEDICINE).on(PR_MEDICINE.MEDICINE.eq(MEDICINE.ID))
+                .innerJoin(FOLLOWS).on(PRESCRIPTION.CONCERNS.eq(FOLLOWS.ID))
+                .where(PRESCRIPTION.PLACE.eq(province))
+                .orderBy(PRESCRIPTION.DATE)
+                .fetchStreamInto(MedicinePrescription.class);
+    }
+
+    @Override
     public long count() {
         return context
                 .fetchCount(PR_MEDICINE);
