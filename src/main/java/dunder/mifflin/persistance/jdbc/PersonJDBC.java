@@ -84,6 +84,26 @@ public class PersonJDBC extends JDBC implements PersonDAO {
     }
 
     @Override
+    public Map<Long, Person> patients(Long... follows) throws DAOException {
+        return context
+                .select(FOLLOWS.ID, PERSON.asterisk().except(PERSON.PASSWORD))
+                .from(PERSON)
+                .innerJoin(FOLLOWS).on(PERSON.ID.eq(FOLLOWS.PATIENT))
+                .where(FOLLOWS.ID.in(follows))
+                .fetchMap(FOLLOWS.ID, (r) -> new Person(
+                        r.get(PERSON.ID),
+                        r.get(PERSON.EMAIL),
+                        r.get(PERSON.NAME),
+                        r.get(PERSON.SURNAME),
+                        r.get(PERSON.BIRTHDAY),
+                        r.get(PERSON.BIRTHPLACE),
+                        r.get(PERSON.FC),
+                        r.get(PERSON.GENDER),
+                        r.get(PERSON.RESIDENCE)
+                ));
+    }
+
+    @Override
     public long count() {
         return context
                 .fetchCount(PERSON);
