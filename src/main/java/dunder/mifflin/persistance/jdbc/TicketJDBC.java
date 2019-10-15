@@ -57,6 +57,7 @@ public class TicketJDBC extends JDBC implements TicketDAO {
                 .innerJoin(TICKET).on(PRESCRIPTION.ID.eq(TICKET.PRESCRIPTION))
                 .innerJoin(FOLLOWS).on(PRESCRIPTION.CONCERNS.eq(FOLLOWS.ID))
                 .where(FOLLOWS.PATIENT.eq(patient))
+                .orderBy(TICKET.DATE.desc())
                 .fetchStreamInto(Ticket.class);
     }
 
@@ -89,6 +90,7 @@ public class TicketJDBC extends JDBC implements TicketDAO {
         return context
                 .select()
                 .from(TICKET)
+                .orderBy(TICKET.DATE.desc())
                 .fetchStreamInto(Ticket.class);
     }
 }
