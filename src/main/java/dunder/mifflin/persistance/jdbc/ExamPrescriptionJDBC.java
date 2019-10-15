@@ -141,7 +141,7 @@ public class ExamPrescriptionJDBC extends JDBC implements ExamPrescriptionDAO {
                 .where(PR_SP_EXAM.EXAM.isNotNull().or(PR_HS_EXAM.EXAM.isNotNull()))
                 .and(FOLLOWS.PATIENT.eq(patient))
                 .and(EXAMINATION.NAME.containsIgnoreCase(filter).or(EXAMINATION.INFO.containsIgnoreCase(filter)))
-                .orderBy(PRESCRIPTION.DATE)
+                .orderBy(PRESCRIPTION.DATE.desc())
                 .fetchStreamInto(ExamPrescription.class);
     }
 
@@ -156,7 +156,7 @@ public class ExamPrescriptionJDBC extends JDBC implements ExamPrescriptionDAO {
                 .innerJoin(FOLLOWS).on(PRESCRIPTION.CONCERNS.eq(FOLLOWS.ID))
                 .where(PR_SP_EXAM.EXAM.isNotNull().or(PR_HS_EXAM.EXAM.isNotNull()))
                 .and(FOLLOWS.GENERAL.eq(general))
-                .orderBy(PRESCRIPTION.DATE)
+                .orderBy(PRESCRIPTION.DATE.desc())
                 .fetchStreamInto(ExamPrescription.class);
     }
 
@@ -170,7 +170,7 @@ public class ExamPrescriptionJDBC extends JDBC implements ExamPrescriptionDAO {
                 .innerJoin(EXAMINATION).on(EXAMINATION.ID.eq(PR_SP_EXAM.EXAM).or(EXAMINATION.ID.eq(PR_HS_EXAM.EXAM)))
                 .where(PR_SP_EXAM.EXAM.isNotNull().or(PR_HS_EXAM.EXAM.isNotNull()))
                 .and(PRESCRIPTION.PLACE.eq(province))
-                .orderBy(PRESCRIPTION.DATE)
+                .orderBy(PRESCRIPTION.DATE.desc())
                 .fetchStreamInto(ExamPrescription.class);
     }
 
@@ -215,7 +215,7 @@ public class ExamPrescriptionJDBC extends JDBC implements ExamPrescriptionDAO {
                 .leftJoin(PR_HS_EXAM).on(PRESCRIPTION.ID.eq(PR_HS_EXAM.PRESCRIPTION))
                 .innerJoin(EXAMINATION).on(EXAMINATION.ID.eq(PR_SP_EXAM.EXAM).or(EXAMINATION.ID.eq(PR_HS_EXAM.EXAM)))
                 .where(PR_SP_EXAM.EXAM.isNotNull().or(PR_HS_EXAM.EXAM.isNotNull()))
-                .orderBy(PRESCRIPTION.DATE)
+                .orderBy(PRESCRIPTION.DATE.desc())
                 .fetchStreamInto(ExamPrescription.class);
     }
 }

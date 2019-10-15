@@ -73,7 +73,10 @@ public class XLSs {
     }
 
     private Consumer<Cell> text(String value) {
-        return (cell) -> cell.setCellValue(value);
+        return (cell) -> {
+            cell.setCellStyle(body(cell.getRow().getSheet().getWorkbook()));
+            cell.setCellValue(value);
+        };
     }
 
     private Consumer<Cell> time(OffsetDateTime value) {
