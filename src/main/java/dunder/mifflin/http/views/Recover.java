@@ -1,6 +1,6 @@
 package dunder.mifflin.http.views;
 
-import dunder.mifflin.persistance.daos.exceptions.DAOException;
+import dunder.mifflin.persistence.daos.exceptions.DAOException;
 import dunder.mifflin.services.DAOs;
 import dunder.mifflin.services.Emails;
 

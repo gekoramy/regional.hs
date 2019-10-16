@@ -1,8 +1,8 @@
 package dunder.mifflin.http.api;
 
 import com.github.cliftonlabs.json_simple.JsonArray;
-import dunder.mifflin.persistance.daos.exceptions.DAOException;
-import dunder.mifflin.persistance.pojos.Examination;
+import dunder.mifflin.persistence.daos.exceptions.DAOException;
+import dunder.mifflin.persistence.pojos.Examination;
 import dunder.mifflin.services.DAOs;
 import dunder.mifflin.utils.Jsonify;
 

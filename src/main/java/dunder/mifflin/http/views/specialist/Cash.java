@@ -1,8 +1,8 @@
 package dunder.mifflin.http.views.specialist;
 
-import dunder.mifflin.persistance.daos.exceptions.DAOException;
-import dunder.mifflin.persistance.pojos.ExamPrescription;
-import dunder.mifflin.persistance.pojos.Person;
+import dunder.mifflin.persistence.daos.exceptions.DAOException;
+import dunder.mifflin.persistence.pojos.ExamPrescription;
+import dunder.mifflin.persistence.pojos.Person;
 import dunder.mifflin.services.DAOs;
 import dunder.mifflin.services.Emails;
 import dunder.mifflin.utils.Auths;

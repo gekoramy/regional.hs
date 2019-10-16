@@ -1,7 +1,7 @@
 package dunder.mifflin.services;
 
-import dunder.mifflin.persistance.daos.generics.DAOFactory;
-import dunder.mifflin.persistance.jdbc.generics.JDBCFactory;
+import dunder.mifflin.persistence.daos.generics.DAOFactory;
+import dunder.mifflin.persistence.jdbc.generics.JDBCFactory;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;

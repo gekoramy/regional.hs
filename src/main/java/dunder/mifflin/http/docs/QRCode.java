@@ -1,8 +1,8 @@
 package dunder.mifflin.http.docs;
 
 import com.google.zxing.WriterException;
-import dunder.mifflin.persistance.pojos.MedicinePrescription;
-import dunder.mifflin.persistance.pojos.Person;
+import dunder.mifflin.persistence.pojos.MedicinePrescription;
+import dunder.mifflin.persistence.pojos.Person;
 import dunder.mifflin.services.DAOs;
 import dunder.mifflin.services.QRCodes;
 
