@@ -1,6 +1,6 @@
 package dunder.mifflin.utils;
 
-import dunder.mifflin.persistance.daos.generics.DAO;
+import dunder.mifflin.persistence.daos.generics.DAO;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;

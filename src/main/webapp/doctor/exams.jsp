@@ -2,13 +2,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<jsp:useBean id="doctor" scope="request" type="dunder.mifflin.persistance.pojos.HsDoctor"/>
+<jsp:useBean id="doctor" scope="request" type="dunder.mifflin.persistence.pojos.HsDoctor"/>
 <jsp:useBean id="avatar" scope="request" type="java.lang.String"/>
-<jsp:useBean id="patient" scope="request" type="dunder.mifflin.persistance.pojos.Person"/>
-<jsp:useBean id="exams" scope="request" type="java.util.List<dunder.mifflin.persistance.pojos.ExamPrescription>"/>
+<jsp:useBean id="patient" scope="request" type="dunder.mifflin.persistence.pojos.Person"/>
+<jsp:useBean id="exams" scope="request" type="java.util.List<dunder.mifflin.persistence.pojos.ExamPrescription>"/>
 <jsp:useBean id="qualified" scope="request" type="java.util.Set<java.lang.Long>"/>
-<jsp:useBean id="tickets" scope="request" type="java.util.Map<java.lang.Long, dunder.mifflin.persistance.pojos.Ticket>"/>
-<jsp:useBean id="reports" scope="request" type="java.util.Map<java.lang.Long, dunder.mifflin.persistance.pojos.Report>"/>
+<jsp:useBean id="tickets" scope="request" type="java.util.Map<java.lang.Long, dunder.mifflin.persistence.pojos.Ticket>"/>
+<jsp:useBean id="reports" scope="request" type="java.util.Map<java.lang.Long, dunder.mifflin.persistence.pojos.Report>"/>
 
 <html>
 <head>

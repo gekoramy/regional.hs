@@ -1,9 +1,9 @@
 package dunder.mifflin.services;
 
-import dunder.mifflin.persistance.pojos.ExamPrescription;
-import dunder.mifflin.persistance.pojos.General;
-import dunder.mifflin.persistance.pojos.MedicinePrescription;
-import dunder.mifflin.persistance.pojos.Person;
+import dunder.mifflin.persistence.pojos.ExamPrescription;
+import dunder.mifflin.persistence.pojos.General;
+import dunder.mifflin.persistence.pojos.MedicinePrescription;
+import dunder.mifflin.persistence.pojos.Person;
 
 import javax.annotation.Resource;
 import javax.ejb.Stateless;

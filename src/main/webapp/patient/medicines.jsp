@@ -2,10 +2,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<jsp:useBean id="person" scope="request" type="dunder.mifflin.persistance.pojos.Person"/>
+<jsp:useBean id="person" scope="request" type="dunder.mifflin.persistence.pojos.Person"/>
 <jsp:useBean id="avatar" scope="request" type="java.lang.String"/>
-<jsp:useBean id="medicines" scope="request" type="java.util.List<dunder.mifflin.persistance.pojos.MedicinePrescription>"/>
-<jsp:useBean id="tickets" scope="request" type="java.util.Map<java.lang.Long, dunder.mifflin.persistance.pojos.Ticket>"/>
+<jsp:useBean id="medicines" scope="request" type="java.util.List<dunder.mifflin.persistence.pojos.MedicinePrescription>"/>
+<jsp:useBean id="tickets" scope="request" type="java.util.Map<java.lang.Long, dunder.mifflin.persistence.pojos.Ticket>"/>
 
 <html>
 <head>

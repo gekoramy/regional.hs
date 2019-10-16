@@ -2,9 +2,9 @@ package dunder.mifflin.utils;
 
 import com.github.cliftonlabs.json_simple.JsonArray;
 import com.github.cliftonlabs.json_simple.JsonObject;
-import dunder.mifflin.persistance.pojos.Examination;
-import dunder.mifflin.persistance.pojos.Medicine;
-import dunder.mifflin.persistance.pojos.Person;
+import dunder.mifflin.persistence.pojos.Examination;
+import dunder.mifflin.persistence.pojos.Medicine;
+import dunder.mifflin.persistence.pojos.Person;
 
 import java.util.Map;
 import java.util.stream.Collector;

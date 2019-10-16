@@ -1,7 +1,7 @@
 package dunder.mifflin.http.views.general;
 
-import dunder.mifflin.persistance.daos.exceptions.DAOException;
-import dunder.mifflin.persistance.pojos.General;
+import dunder.mifflin.persistence.daos.exceptions.DAOException;
+import dunder.mifflin.persistence.pojos.General;
 import dunder.mifflin.services.DAOs;
 import dunder.mifflin.utils.Auths;
 import dunder.mifflin.utils.Avatars;

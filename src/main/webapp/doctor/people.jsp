@@ -1,7 +1,7 @@
 <%--suppress HtmlUnknownTarget --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 
-<jsp:useBean id="doctor" scope="request" type="dunder.mifflin.persistance.pojos.HsDoctor"/>
+<jsp:useBean id="doctor" scope="request" type="dunder.mifflin.persistence.pojos.HsDoctor"/>
 <jsp:useBean id="avatar" scope="request" type="java.lang.String"/>
 
 <html>

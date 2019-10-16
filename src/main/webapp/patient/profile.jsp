@@ -3,10 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<jsp:useBean id="person" scope="request" type="dunder.mifflin.persistance.pojos.Person"/>
+<jsp:useBean id="person" scope="request" type="dunder.mifflin.persistence.pojos.Person"/>
 <jsp:useBean id="avatar" scope="request" type="java.lang.String"/>
-<jsp:useBean id="residence" scope="request" type="dunder.mifflin.persistance.pojos.City"/>
-<jsp:useBean id="general" scope="request" type="dunder.mifflin.persistance.pojos.General"/>
+<jsp:useBean id="residence" scope="request" type="dunder.mifflin.persistence.pojos.City"/>
+<jsp:useBean id="general" scope="request" type="dunder.mifflin.persistence.pojos.General"/>
 
 <html>
 <head>

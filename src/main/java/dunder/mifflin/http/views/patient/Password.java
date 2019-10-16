@@ -1,8 +1,8 @@
 package dunder.mifflin.http.views.patient;
 
-import dunder.mifflin.persistance.daos.exceptions.DAOException;
-import dunder.mifflin.persistance.pojos.Person;
-import dunder.mifflin.persistance.pojos.Secret;
+import dunder.mifflin.persistence.daos.exceptions.DAOException;
+import dunder.mifflin.persistence.pojos.Person;
+import dunder.mifflin.persistence.pojos.Secret;
 import dunder.mifflin.services.DAOs;
 import dunder.mifflin.services.Emails;
 import dunder.mifflin.utils.Auths;

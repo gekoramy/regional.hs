@@ -1,8 +1,8 @@
 package dunder.mifflin.utils;
 
-import dunder.mifflin.persistance.daos.AvatarDAO;
-import dunder.mifflin.persistance.pojos.Avatar;
-import dunder.mifflin.persistance.pojos.Person;
+import dunder.mifflin.persistence.daos.AvatarDAO;
+import dunder.mifflin.persistence.pojos.Avatar;
+import dunder.mifflin.persistence.pojos.Person;
 
 import java.util.List;
 import java.util.Map;

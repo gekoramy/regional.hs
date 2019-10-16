@@ -1,10 +1,10 @@
 package dunder.mifflin.http.docs.pdf;
 
 import com.itextpdf.text.DocumentException;
-import dunder.mifflin.persistance.pojos.ExamPrescription;
-import dunder.mifflin.persistance.pojos.Prescription;
-import dunder.mifflin.persistance.pojos.Province;
-import dunder.mifflin.persistance.pojos.Ticket;
+import dunder.mifflin.persistence.pojos.ExamPrescription;
+import dunder.mifflin.persistence.pojos.Prescription;
+import dunder.mifflin.persistence.pojos.Province;
+import dunder.mifflin.persistence.pojos.Ticket;
 import dunder.mifflin.services.DAOs;
 import dunder.mifflin.services.PDFs;
 import dunder.mifflin.utils.Auths;
