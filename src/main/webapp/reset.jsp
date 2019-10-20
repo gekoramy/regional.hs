@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<form method="post" action="${pageContext.request.contextPath}/change">
+<form method="post" action="${pageContext.request.contextPath}/reset">
     <input type="hidden" name="token" value="${token}">
     <label>
         New password

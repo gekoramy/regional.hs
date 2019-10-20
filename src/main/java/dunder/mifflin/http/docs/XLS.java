@@ -20,7 +20,8 @@ import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static dunder.mifflin.utils.Locations.location;
+import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
+import static javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
 
 @WebServlet("/tickets/xls")
 @Produces("application/xlsx")
@@ -81,9 +82,9 @@ public class XLS extends HttpServlet {
                     }
             );
         } catch (NoSuchElementException e) {
-            resp.sendRedirect(location(req, "/login"));
+            resp.sendError(SC_UNAUTHORIZED);
         } catch (DAOException e) {
-            // TODO DAOException
+            resp.sendError(SC_INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 }

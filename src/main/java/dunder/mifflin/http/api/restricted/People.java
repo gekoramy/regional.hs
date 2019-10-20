@@ -56,9 +56,9 @@ public class People extends HttpServlet {
             array.toJson(resp.getWriter());
 
         } catch (NoSuchElementException e) {
-            // TODO NoSuchElementException
+            resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         } catch (DAOException e) {
-            // TODO DAOException
+            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 }

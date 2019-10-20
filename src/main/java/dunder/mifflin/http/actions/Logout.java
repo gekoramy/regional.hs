@@ -1,4 +1,4 @@
-package dunder.mifflin.http.views;
+package dunder.mifflin.http.actions;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

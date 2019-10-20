@@ -7,6 +7,7 @@ import dunder.mifflin.persistence.pojos.Person;
 import dunder.mifflin.services.DAOs;
 import dunder.mifflin.utils.Auths;
 import dunder.mifflin.utils.Avatars;
+import dunder.mifflin.utils.Fallbacks;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -17,7 +18,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.NoSuchElementException;
 
-import static dunder.mifflin.utils.Locations.location;
+import static dunder.mifflin.utils.Results.result;
+import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
+import static javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
 
 @WebServlet("/patient/profile")
 public class Profile extends HttpServlet {
@@ -33,17 +36,19 @@ public class Profile extends HttpServlet {
             final City residence = daos.factory().city().byKey(person.residence()).orElseThrow();
             final General general = daos.factory().general().follows(person.id()).orElseThrow();
 
+            req.setAttribute("result", result(req, "/patient/general", "/patient/password", "/patient/upload"));
             req.setAttribute("person", person);
             req.setAttribute("avatar", avatar);
             req.setAttribute("residence", residence);
             req.setAttribute("general", general);
             req.getServletContext().getRequestDispatcher("/patient/profile.jsp").forward(req, resp);
 
+            Fallbacks.safe(req);
+
         } catch (NoSuchElementException e) {
-            resp.sendRedirect(location(req, "/login"));
+            resp.sendError(SC_UNAUTHORIZED);
         } catch (DAOException e) {
-            req.setAttribute("exception", e);
-            resp.sendRedirect(location(req, "/exception"));
+            resp.sendError(SC_INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 

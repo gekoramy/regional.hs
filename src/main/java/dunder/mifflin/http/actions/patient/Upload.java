@@ -1,4 +1,4 @@
-package dunder.mifflin.http.views.patient;
+package dunder.mifflin.http.actions.patient;
 
 import dunder.mifflin.persistence.daos.exceptions.DAOException;
 import dunder.mifflin.persistence.pojos.Avatar;
@@ -20,16 +20,26 @@ import java.nio.file.StandardCopyOption;
 import java.util.NoSuchElementException;
 
 import static dunder.mifflin.utils.Locations.location;
+import static javax.servlet.http.HttpServletResponse.*;
 
 @WebServlet("/patient/upload")
 @MultipartConfig
 public class Upload extends HttpServlet {
 
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getSession().setAttribute(
+                "/patient/upload",
+                action(req)
+        );
+
+        resp.sendRedirect(location(req, "/patient/profile"));
+    }
+
     @Inject
     DAOs daos;
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    private int action(HttpServletRequest req) throws IOException, ServletException {
         try (
                 final InputStream input = req.getPart("avatar").getInputStream()
         ) {
@@ -49,20 +59,17 @@ public class Upload extends HttpServlet {
                         try {
                             Files.deleteIfExists(path);
                         } catch (IOException e) {
-                            e.printStackTrace();
-                            // TODO handle exception
+                            req.getServletContext().log("Unable to delete old avatar", e);
                         }
                     });
 
-            daos.factory().avatar()
-                    .store(id, file.getName());
+            daos.factory().avatar().store(id, file.getName());
 
-            resp.sendRedirect(location(req, "/patient/profile"));
-        } catch (NoSuchElementException | IOException e) {
-            resp.sendRedirect(location(req, "/login"));
+            return SC_OK;
+        } catch (NoSuchElementException e) {
+            return SC_UNAUTHORIZED;
         } catch (DAOException e) {
-            req.setAttribute("exception", e);
-            resp.sendRedirect(location(req, "/exception"));
+            return SC_INTERNAL_SERVER_ERROR;
         }
     }
 }

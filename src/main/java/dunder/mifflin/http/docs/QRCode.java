@@ -1,6 +1,7 @@
 package dunder.mifflin.http.docs;
 
 import com.google.zxing.WriterException;
+import dunder.mifflin.persistence.daos.exceptions.DAOException;
 import dunder.mifflin.persistence.pojos.MedicinePrescription;
 import dunder.mifflin.persistence.pojos.Person;
 import dunder.mifflin.services.DAOs;
@@ -21,9 +22,10 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static dunder.mifflin.utils.Locations.location;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
+import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
+import static javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
 
 @WebServlet("/qr")
 @Produces("image/png")
@@ -62,11 +64,9 @@ public class QRCode extends HttpServlet {
             );
 
         } catch (NoSuchElementException e) {
-            req.setAttribute("wrong", true);
-            req.getServletContext().getRequestDispatcher("/logout").forward(req, resp);
-        } catch (WriterException e) {
-            req.setAttribute("exception", e);
-            resp.sendRedirect(location(req, "/exception"));
+            resp.sendError(SC_UNAUTHORIZED);
+        } catch (DAOException | WriterException e) {
+            resp.sendError(SC_INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 }

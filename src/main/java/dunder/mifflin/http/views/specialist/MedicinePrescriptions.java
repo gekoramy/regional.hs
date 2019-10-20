@@ -5,6 +5,7 @@ import dunder.mifflin.persistence.pojos.*;
 import dunder.mifflin.services.DAOs;
 import dunder.mifflin.utils.Auths;
 import dunder.mifflin.utils.Avatars;
+import dunder.mifflin.utils.Fallbacks;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -18,8 +19,9 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import static dunder.mifflin.utils.Locations.location;
 import static java.util.stream.Collectors.toUnmodifiableList;
+import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
+import static javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
 
 @WebServlet("/specialist/medicines")
 public class MedicinePrescriptions extends HttpServlet {
@@ -48,10 +50,12 @@ public class MedicinePrescriptions extends HttpServlet {
             req.setAttribute("tickets", tickets);
             req.getServletContext().getRequestDispatcher("/specialist/medicines.jsp").forward(req, resp);
 
+            Fallbacks.safe(req);
+
         } catch (NoSuchElementException e) {
-            resp.sendRedirect(location(req, "/login"));
+            resp.sendError(SC_UNAUTHORIZED);
         } catch (DAOException e) {
-            // TODO DAOException
+            resp.sendError(SC_INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 }

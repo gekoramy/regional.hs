@@ -5,6 +5,7 @@ import dunder.mifflin.persistence.pojos.*;
 import dunder.mifflin.services.DAOs;
 import dunder.mifflin.utils.Auths;
 import dunder.mifflin.utils.Avatars;
+import dunder.mifflin.utils.Fallbacks;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -18,8 +19,10 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import static dunder.mifflin.utils.Locations.location;
+import static dunder.mifflin.utils.Results.result;
 import static java.util.stream.Collectors.toUnmodifiableList;
+import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
+import static javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
 
 @WebServlet("/general/medicines")
 public class MedicinePrescriptions extends HttpServlet {
@@ -41,6 +44,7 @@ public class MedicinePrescriptions extends HttpServlet {
             final Long[] prescriptions = medicines.stream().map(Prescription::id).toArray(Long[]::new);
             final Map<Long, Ticket> tickets = daos.factory().ticket().byKeys(prescriptions);
 
+            req.setAttribute("result", result(req, "/general/prescribe/medicine"));
             req.setAttribute("general", general);
             req.setAttribute("avatar", avatar);
             req.setAttribute("patient", patient);
@@ -48,11 +52,12 @@ public class MedicinePrescriptions extends HttpServlet {
             req.setAttribute("tickets", tickets);
             req.getServletContext().getRequestDispatcher("/general/medicines.jsp").forward(req, resp);
 
+            Fallbacks.safe(req);
+
         } catch (NoSuchElementException e) {
-            resp.sendRedirect(location(req, "/login"));
+            resp.sendError(SC_UNAUTHORIZED);
         } catch (DAOException e) {
-            req.setAttribute("exception", e);
-            resp.sendRedirect(location(req, "/exception"));
+            resp.sendError(SC_INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 }

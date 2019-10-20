@@ -1,4 +1,4 @@
-package dunder.mifflin.http.views.general;
+package dunder.mifflin.http.actions.general;
 
 import dunder.mifflin.persistence.daos.exceptions.DAOException;
 import dunder.mifflin.persistence.pojos.ExamPrescription;
@@ -20,9 +20,20 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static dunder.mifflin.utils.Locations.location;
+import static javax.servlet.http.HttpServletResponse.*;
 
 @WebServlet("/general/prescribe/exam")
 public class PrescribeExam extends HttpServlet {
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        req.getSession().setAttribute(
+                "/general/prescribe/exam",
+                action(req)
+        );
+
+        resp.sendRedirect(location(req, "/general/exams", Map.of("patient", req.getParameter("patient"))));
+    }
 
     @Inject
     DAOs daos;
@@ -30,8 +41,7 @@ public class PrescribeExam extends HttpServlet {
     @Inject
     Emails emails;
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected int action(HttpServletRequest req) {
         try {
             final General general = Auths.session(req).flatMap(daos.factory().general()::byKey).orElseThrow();
             final Person patient = Optional.ofNullable(req.getParameter("patient")).map(Long::parseLong).flatMap(daos.factory().person()::byKey).orElseThrow();
@@ -40,14 +50,13 @@ public class PrescribeExam extends HttpServlet {
             final ExamPrescription prescription = daos.factory().examPrescription().insert(patient.id(), exam);
             emails.prescription(patient, general, prescription);
 
-            resp.sendRedirect(location(req, "/general/exams", Map.of("patient", patient.id())));
-
+            return SC_OK;
         } catch (NoSuchElementException e) {
-            // TODO NoSuchElementException
+            return SC_UNAUTHORIZED;
         } catch (DAOException e) {
-            // TODO DAOException
+            return SC_INTERNAL_SERVER_ERROR;
         } catch (MessagingException e) {
-            // TODO MessagingException
+            return SC_PARTIAL_CONTENT;
         }
     }
 }

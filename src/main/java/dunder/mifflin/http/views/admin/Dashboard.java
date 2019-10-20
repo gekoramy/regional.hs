@@ -3,6 +3,7 @@ package dunder.mifflin.http.views.admin;
 import dunder.mifflin.persistence.daos.exceptions.DAOException;
 import dunder.mifflin.services.DAOs;
 import dunder.mifflin.utils.Auths;
+import dunder.mifflin.utils.Fallbacks;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -13,7 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.NoSuchElementException;
 
-import static dunder.mifflin.utils.Locations.location;
+import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
+import static javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
 
 @WebServlet("/admin/dashboard")
 public class Dashboard extends HttpServlet {
@@ -26,10 +28,13 @@ public class Dashboard extends HttpServlet {
         try {
             Auths.session(req).flatMap(daos.factory().hsAdmin()::byKey).orElseThrow();
             req.getServletContext().getRequestDispatcher("/admin/dashboard.jsp").forward(req, resp);
+
+            Fallbacks.safe(req);
+
         } catch (NoSuchElementException e) {
-            resp.sendRedirect(location(req, "/login"));
+            resp.sendError(SC_UNAUTHORIZED);
         } catch (DAOException e) {
-            // TODO DAOException
+            resp.sendError(SC_INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 }

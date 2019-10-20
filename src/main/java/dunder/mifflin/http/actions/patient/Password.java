@@ -1,4 +1,4 @@
-package dunder.mifflin.http.views.patient;
+package dunder.mifflin.http.actions.patient;
 
 import dunder.mifflin.persistence.daos.exceptions.DAOException;
 import dunder.mifflin.persistence.pojos.Person;
@@ -18,9 +18,20 @@ import java.io.IOException;
 import java.util.NoSuchElementException;
 
 import static dunder.mifflin.utils.Locations.location;
+import static javax.servlet.http.HttpServletResponse.*;
 
 @WebServlet("/patient/password")
 public class Password extends HttpServlet {
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        req.getSession().setAttribute(
+                "/patient/password",
+                action(req)
+        );
+
+        resp.sendRedirect(location(req, "/patient/profile"));
+    }
 
     @Inject
     DAOs daos;
@@ -28,8 +39,7 @@ public class Password extends HttpServlet {
     @Inject
     Emails emails;
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    private int action(HttpServletRequest req) {
         try {
             final long id = Auths.session(req).orElseThrow();
             final String current = req.getParameter("current");
@@ -41,16 +51,13 @@ public class Password extends HttpServlet {
 
             emails.password(person);
 
-            resp.sendRedirect(location(req, "/patient/profile"));
-
+            return SC_OK;
         } catch (NoSuchElementException e) {
-            resp.sendRedirect(location(req, "/logout"));
+            return SC_UNAUTHORIZED;
         } catch (DAOException e) {
-            req.setAttribute("exception", e);
-            resp.sendRedirect(location(req, "/exception"));
+            return SC_INTERNAL_SERVER_ERROR;
         } catch (MessagingException e) {
-            // TODO MessagingException
-            e.printStackTrace();
+            return SC_PARTIAL_CONTENT;
         }
     }
 }

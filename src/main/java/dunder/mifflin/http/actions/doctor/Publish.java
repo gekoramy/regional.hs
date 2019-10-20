@@ -1,7 +1,8 @@
-package dunder.mifflin.http.views.doctor;
+package dunder.mifflin.http.actions.doctor;
 
 import dunder.mifflin.persistence.daos.exceptions.DAOException;
 import dunder.mifflin.persistence.pojos.ExamPrescription;
+import dunder.mifflin.persistence.pojos.HsDoctor;
 import dunder.mifflin.persistence.pojos.Person;
 import dunder.mifflin.services.DAOs;
 import dunder.mifflin.services.Emails;
@@ -14,15 +15,25 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static dunder.mifflin.utils.Locations.location;
+import static javax.servlet.http.HttpServletResponse.*;
 
-@WebServlet("/doctor/cash")
-public class Cash extends HttpServlet {
+@WebServlet("/doctor/publish")
+public class Publish extends HttpServlet {
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        req.getSession().setAttribute(
+                "/doctor/publish",
+                action(req)
+        );
+
+        resp.sendRedirect(location(req, "/doctor/exams", Map.of("patient", req.getParameter("patient"))));
+    }
 
     @Inject
     DAOs daos;
@@ -30,27 +41,21 @@ public class Cash extends HttpServlet {
     @Inject
     Emails emails;
 
-    private final BigDecimal amout = BigDecimal.valueOf(1100, 2);
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected int action(HttpServletRequest req) {
         try {
-            Auths.session(req).flatMap(daos.factory().hsDoctor()::byKey).orElseThrow();
-
+            final HsDoctor doctor = Auths.session(req).flatMap(daos.factory().hsDoctor()::byKey).orElseThrow();
             final Person patient = Optional.ofNullable(req.getParameter("patient")).map(Long::parseLong).flatMap(daos.factory().person()::byKey).orElseThrow();
             final ExamPrescription prescription = Optional.ofNullable(req.getParameter("prescription")).map(Long::parseLong).flatMap(daos.factory().examPrescription()::byKey).orElseThrow();
+            final String note = Optional.ofNullable(req.getParameter("note")).orElseThrow();
 
-            daos.factory().ticket().insert(prescription.id(), amout);
-            emails.cash(patient, amout);
+            daos.factory().report().insert(prescription.id(), doctor.id(), note);
+            emails.report(patient, doctor);
 
-            resp.sendRedirect(location(req, "/doctor/exams", Map.of("patient", patient.id())));
-
+            return SC_OK;
         } catch (NoSuchElementException e) {
-            resp.sendRedirect(location(req, "/doctor/people"));
-        } catch (DAOException e) {
-            // TODO DAOException
-        } catch (MessagingException e) {
-            // TODO MessagingException
+            return SC_UNAUTHORIZED;
+        } catch (DAOException | MessagingException e) {
+            return SC_INTERNAL_SERVER_ERROR;
         }
     }
 }

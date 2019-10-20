@@ -2,6 +2,7 @@ package dunder.mifflin.http.views;
 
 import dunder.mifflin.persistence.daos.exceptions.DAOException;
 import dunder.mifflin.persistence.pojos.Person;
+import dunder.mifflin.persistence.pojos.Recover;
 import dunder.mifflin.services.DAOs;
 import dunder.mifflin.services.Emails;
 import org.mindrot.jbcrypt.BCrypt;
@@ -19,10 +20,11 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.UUID;
 
-import static dunder.mifflin.utils.Locations.location;
+import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
+import static javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
 
-@WebServlet("/change")
-public class Change extends HttpServlet {
+@WebServlet("/reset")
+public class Reset extends HttpServlet {
 
     @Inject
     DAOs daos;
@@ -33,52 +35,50 @@ public class Change extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            final var token = Optional.ofNullable(req.getParameter("token")).map(UUID::fromString).orElseThrow();
+            final UUID token = Optional.ofNullable(req.getParameter("token")).map(UUID::fromString).orElseThrow();
 
-            final var recover = daos.factory().recover().by(token).filter((r) -> r.expiration().isAfter(OffsetDateTime.now())).orElseThrow();
-            final var person = daos.factory().person().byKey(recover.person()).orElseThrow();
+            final Recover recover = daos.factory().recover().by(token)
+                    .filter((r) -> r.expiration().isAfter(OffsetDateTime.now()))
+                    .orElseThrow();
+
+            final Person person = daos.factory().person().byKey(recover.person()).orElseThrow();
 
             req.setAttribute("expiration", recover.expiration());
             req.setAttribute("person", person);
             req.setAttribute("token", token.toString());
 
-            req.getServletContext().getRequestDispatcher("/change.jsp").forward(req, resp);
+            req.getServletContext().getRequestDispatcher("/reset.jsp").forward(req, resp);
 
         } catch (NoSuchElementException e) {
-            req.setAttribute("wrong", true);
-            req.getServletContext().getRequestDispatcher("/logout").forward(req, resp);
+            resp.sendError(SC_UNAUTHORIZED);
         } catch (DAOException e) {
-            req.setAttribute("exception", e);
-            resp.sendRedirect(location(req, "/exception"));
+            resp.sendError(SC_INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            final var token = Optional.ofNullable(req.getParameter("token")).map(UUID::fromString).orElseThrow();
-            final var password = Optional.ofNullable(req.getParameter("password")).orElseThrow();
+            final UUID token = Optional.ofNullable(req.getParameter("token")).map(UUID::fromString).orElseThrow();
+            final String password = Optional.ofNullable(req.getParameter("password")).orElseThrow();
 
-            final var recover = daos.factory().recover().by(token)
+            final Recover recover = daos.factory().recover().by(token)
                     .filter((r) -> r.expiration().isAfter(OffsetDateTime.now()))
                     .orElseThrow();
 
             final Person person = daos.factory().person().byKey(recover.person()).orElseThrow();
+
             daos.factory().secret().store(recover.person(), BCrypt.hashpw(password, BCrypt.gensalt()));
+            daos.factory().recover().remove(recover.person());
 
             emails.password(person);
-
-            daos.factory().recover().remove(recover.person());
 
             req.getServletContext().getRequestDispatcher("/logout").forward(req, resp);
 
         } catch (NoSuchElementException e) {
-            req.getServletContext().getRequestDispatcher("/change.jsp").forward(req, resp);
-        } catch (DAOException e) {
-            req.setAttribute("exception", e);
-            resp.sendRedirect(location(req, "/exception"));
-        } catch (MessagingException e) {
-            // TODO MessagingException
+            req.getServletContext().getRequestDispatcher("/reset.jsp").forward(req, resp);
+        } catch (DAOException | MessagingException e) {
+            resp.sendError(SC_INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 }

@@ -40,7 +40,7 @@ public class Exams extends HttpServlet {
             array.toJson(resp.getWriter());
 
         } catch (DAOException e) {
-            // TODO DAOException
+            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 }

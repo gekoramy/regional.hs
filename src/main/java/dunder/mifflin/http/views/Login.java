@@ -3,6 +3,7 @@ package dunder.mifflin.http.views;
 import dunder.mifflin.persistence.daos.exceptions.DAOException;
 import dunder.mifflin.persistence.pojos.Secret;
 import dunder.mifflin.services.DAOs;
+import dunder.mifflin.utils.Auths;
 import org.mindrot.jbcrypt.BCrypt;
 
 import javax.inject.Inject;
@@ -18,6 +19,7 @@ import java.util.Optional;
 import static dunder.mifflin.utils.Locations.location;
 import static java.util.concurrent.TimeUnit.DAYS;
 import static java.util.concurrent.TimeUnit.HOURS;
+import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 
 @WebServlet("/login")
 public class Login extends HttpServlet {
@@ -27,7 +29,10 @@ public class Login extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        req.getServletContext().getRequestDispatcher(String.format("/%s", "login.jsp")).forward(req, resp);
+        if (Auths.session(req).isPresent())
+            resp.sendRedirect(location(req, "/patient/medicines"));
+        else
+            req.getServletContext().getRequestDispatcher(String.format("/%s", "login.jsp")).forward(req, resp);
     }
 
     @Override
@@ -40,7 +45,7 @@ public class Login extends HttpServlet {
             final var id = daos.factory().secret().by(username).filter((secret) -> BCrypt.checkpw(password, secret.password())).map(Secret::id).orElseThrow();
 
             req.getSession().setMaxInactiveInterval((int) (
-                    remember.isPresent()
+                    remember.filter("true"::equalsIgnoreCase).isPresent()
                             ? DAYS.toSeconds(7)
                             : HOURS.toSeconds(1)
             ));
@@ -49,11 +54,10 @@ public class Login extends HttpServlet {
             resp.sendRedirect(location(req, "/patient/medicines"));
 
         } catch (NoSuchElementException e) {
-            req.setAttribute("wrong", true);
+            req.setAttribute("wrong", new Object());
             req.getServletContext().getRequestDispatcher("/login.jsp").forward(req, resp);
         } catch (DAOException e) {
-            req.setAttribute("exception", e);
-            resp.sendRedirect(location(req, "/exception"));
+            resp.sendError(SC_INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 }
