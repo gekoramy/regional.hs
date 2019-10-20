@@ -18,6 +18,7 @@ import java.util.Optional;
 import static dunder.mifflin.utils.Locations.location;
 import static java.util.concurrent.TimeUnit.DAYS;
 import static java.util.concurrent.TimeUnit.HOURS;
+import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 
 @WebServlet("/login")
 public class Login extends HttpServlet {
@@ -40,7 +41,7 @@ public class Login extends HttpServlet {
             final var id = daos.factory().secret().by(username).filter((secret) -> BCrypt.checkpw(password, secret.password())).map(Secret::id).orElseThrow();
 
             req.getSession().setMaxInactiveInterval((int) (
-                    remember.isPresent()
+                    remember.filter("true"::equalsIgnoreCase).isPresent()
                             ? DAYS.toSeconds(7)
                             : HOURS.toSeconds(1)
             ));
@@ -49,11 +50,10 @@ public class Login extends HttpServlet {
             resp.sendRedirect(location(req, "/patient/medicines"));
 
         } catch (NoSuchElementException e) {
-            req.setAttribute("wrong", true);
+            req.setAttribute("wrong", new Object());
             req.getServletContext().getRequestDispatcher("/login.jsp").forward(req, resp);
         } catch (DAOException e) {
-            req.setAttribute("exception", e);
-            resp.sendRedirect(location(req, "/exception"));
+            resp.sendError(SC_INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 }

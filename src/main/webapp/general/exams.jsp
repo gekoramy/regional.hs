@@ -2,6 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<%--@elvariable id="result" type="dunder.mifflin.utils.Result"--%>
+
 <jsp:useBean id="general" scope="request" type="dunder.mifflin.persistence.pojos.General"/>
 <jsp:useBean id="avatar" scope="request" type="java.lang.String"/>
 <jsp:useBean id="patient" scope="request" type="dunder.mifflin.persistence.pojos.Person"/>
@@ -52,6 +54,28 @@
 </head>
 
 <body>
+
+<c:if test="${not empty result}">
+    <div>
+        <c:choose>
+            <c:when test="${result.action().equals('/general/prescribe/exam')}">
+                <c:choose>
+                    <c:when test="${200 == result.code()}">
+                        Esame prescritto
+                    </c:when>
+
+                    <c:when test="${206 == result.code()}">
+                        Esame prescritto, ma non è stato possibile notificare il paziente
+                    </c:when>
+
+                    <c:otherwise>
+                        Non è stato possibile prescrivere l'esame
+                    </c:otherwise>
+                </c:choose>
+            </c:when>
+        </c:choose>
+    </div>
+</c:if>
 
 <h3>Medico generale</h3>
 <a href="${pageContext.request.contextPath}/general/patients">

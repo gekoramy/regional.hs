@@ -15,6 +15,8 @@ import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.util.Optional;
 
+import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
+
 @WebServlet("/api/medicines")
 @Produces(MediaType.APPLICATION_JSON)
 public class Medicines extends HttpServlet {
@@ -34,7 +36,7 @@ public class Medicines extends HttpServlet {
             array.toJson(resp.getWriter());
 
         } catch (DAOException e) {
-            // TODO DAOException
+            resp.setStatus(SC_INTERNAL_SERVER_ERROR);
         }
     }
 }

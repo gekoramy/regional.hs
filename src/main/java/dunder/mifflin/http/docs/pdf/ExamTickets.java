@@ -25,6 +25,8 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toUnmodifiableList;
+import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
+import static javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
 
 @WebServlet("/pdf/exams")
 @Produces("application/pdf")
@@ -100,10 +102,9 @@ public class ExamTickets extends HttpServlet {
             );
 
         } catch (NoSuchElementException e) {
-            req.setAttribute("wrong", true);
-            req.getServletContext().getRequestDispatcher("/logout").forward(req, resp);
+            resp.sendError(SC_UNAUTHORIZED);
         } catch (DocumentException e) {
-            // TODO DocumentException
+            resp.sendError(SC_INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 }

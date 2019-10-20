@@ -2,6 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<%--@elvariable id="result" type="dunder.mifflin.utils.Result"--%>
+
 <jsp:useBean id="doctor" scope="request" type="dunder.mifflin.persistence.pojos.HsDoctor"/>
 <jsp:useBean id="avatar" scope="request" type="java.lang.String"/>
 <jsp:useBean id="patient" scope="request" type="dunder.mifflin.persistence.pojos.Person"/>
@@ -16,6 +18,48 @@
 </head>
 
 <body>
+
+<c:if test="${not empty result}">
+    <div>
+        <c:choose>
+            <c:when test="${200 == result.code()}">
+                <c:choose>
+                    <c:when test="${result.action().equals('/doctor/cash')}">
+                        Incassato
+                    </c:when>
+
+                    <c:when test="${result.action().equals('/doctor/publish')}">
+                        Pubblicato
+                    </c:when>
+                </c:choose>
+            </c:when>
+
+            <c:when test="${206 == result.code()}">
+                <c:choose>
+                    <c:when test="${result.action().equals('/doctor/cash')}">
+                        Incassato, ma non è stato possibile notificare il paziente
+                    </c:when>
+
+                    <c:when test="${result.action().equals('/doctor/publish')}">
+                        Pubblicato, ma non è stato possibile notificare il paziente
+                    </c:when>
+                </c:choose>
+            </c:when>
+
+            <c:otherwise>
+                <c:choose>
+                    <c:when test="${result.action().equals('/doctor/cash')}">
+                        Non è stato possibile incassare
+                    </c:when>
+
+                    <c:when test="${result.action().equals('/doctor/publish')}">
+                        Non è stato possibile pubblicare l'anamnesi
+                    </c:when>
+                </c:choose>
+            </c:otherwise>
+        </c:choose>
+    </div>
+</c:if>
 
 <h3>Medico Servizio Sanitario</h3>
 <a href="${pageContext.request.contextPath}/doctor/people">

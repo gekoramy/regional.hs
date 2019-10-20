@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<%--@elvariable id="result" type="dunder.mifflin.utils.Result"--%>
+
 <jsp:useBean id="person" scope="request" type="dunder.mifflin.persistence.pojos.Person"/>
 <jsp:useBean id="avatar" scope="request" type="java.lang.String"/>
 <jsp:useBean id="residence" scope="request" type="dunder.mifflin.persistence.pojos.City"/>
@@ -64,6 +66,55 @@
 </head>
 
 <body>
+
+<c:if test="${not empty result}">
+    <div>
+        <c:choose>
+            <c:when test="${200 == result.code()}">
+                <c:choose>
+                    <c:when test="${result.action().equals('/patient/upload')}">
+                        Avatar aggiornato
+                    </c:when>
+                    <c:when test="${result.action().equals('/patient/password')}">
+                        Password aggiornata
+                    </c:when>
+                    <c:when test="${result.action().equals('/patient/general')}">
+                        Medico generale aggiornato
+                    </c:when>
+                </c:choose>
+            </c:when>
+
+            <c:when test="${206 == result.code()}">
+                <c:choose>
+                    <c:when test="${result.action().equals('/patient/upload')}">
+                        Avatar aggiornato, ma non è stato possibile notificarti via mail
+                    </c:when>
+                    <c:when test="${result.action().equals('/patient/password')}">
+                        Password aggiornata, ma non è stato possibile notificarti via mail
+                    </c:when>
+                    <c:when test="${result.action().equals('/patient/general')}">
+                        Medico generale aggiornato, ma non è stato possibile notificarti via mail
+                    </c:when>
+                </c:choose>
+            </c:when>
+
+            <c:otherwise>
+                <c:choose>
+                    <c:when test="${result.action().equals('/patient/upload')}">
+                        Non è stato possibile aggiornare l'avatar...
+                    </c:when>
+                    <c:when test="${result.action().equals('/patient/password')}">
+                        Non è stato possibile aggiornare la password...
+                    </c:when>
+                    <c:when test="${result.action().equals('/patient/general')}">
+                        Non è stato possibile modificare il medico generale...
+                    </c:when>
+                </c:choose>
+            </c:otherwise>
+        </c:choose>
+    </div>
+</c:if>
+
 <h3>Paziente</h3>
 <img src="${avatar}" alt="pic" width="160" height="160"/>
 

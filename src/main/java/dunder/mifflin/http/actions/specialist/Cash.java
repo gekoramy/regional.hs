@@ -1,4 +1,4 @@
-package dunder.mifflin.http.views.specialist;
+package dunder.mifflin.http.actions.specialist;
 
 import dunder.mifflin.persistence.daos.exceptions.DAOException;
 import dunder.mifflin.persistence.pojos.ExamPrescription;
@@ -20,9 +20,20 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static dunder.mifflin.utils.Locations.location;
+import static javax.servlet.http.HttpServletResponse.*;
 
 @WebServlet("/specialist/cash")
 public class Cash extends HttpServlet {
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        req.getSession().setAttribute(
+                "/specialist/cash",
+                action(req)
+        );
+
+        resp.sendRedirect(location(req, "/specialist/exams", Map.of("patient", req.getParameter("patient"))));
+    }
 
     @Inject
     DAOs daos;
@@ -32,8 +43,7 @@ public class Cash extends HttpServlet {
 
     private final BigDecimal amout = BigDecimal.valueOf(5000, 2);
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    private int action(HttpServletRequest req) {
         try {
             Auths.session(req).flatMap(daos.factory().specialist()::byKey).orElseThrow();
 
@@ -43,14 +53,13 @@ public class Cash extends HttpServlet {
             daos.factory().ticket().insert(prescription.id(), amout);
             emails.cash(patient, amout);
 
-            resp.sendRedirect(location(req, "/specialist/exams", Map.of("patient", patient.id())));
-
+            return SC_OK;
         } catch (NoSuchElementException e) {
-            resp.sendRedirect(location(req, "/specialist/people"));
+            return SC_UNAUTHORIZED;
         } catch (DAOException e) {
-            // TODO DAOException
+            return SC_INTERNAL_SERVER_ERROR;
         } catch (MessagingException e) {
-            // TODO MessagingException
+            return SC_PARTIAL_CONTENT;
         }
     }
 }
