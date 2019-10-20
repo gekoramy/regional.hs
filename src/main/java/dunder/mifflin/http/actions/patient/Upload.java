@@ -5,6 +5,7 @@ import dunder.mifflin.persistence.pojos.Avatar;
 import dunder.mifflin.services.DAOs;
 import dunder.mifflin.utils.Auths;
 
+import javax.imageio.ImageIO;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -12,12 +13,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import static dunder.mifflin.utils.Locations.location;
 import static javax.servlet.http.HttpServletResponse.*;
@@ -27,7 +30,7 @@ import static javax.servlet.http.HttpServletResponse.*;
 public class Upload extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         req.getSession().setAttribute(
                 "/patient/upload",
                 action(req)
@@ -39,15 +42,19 @@ public class Upload extends HttpServlet {
     @Inject
     DAOs daos;
 
-    private int action(HttpServletRequest req) throws IOException, ServletException {
+    private int action(HttpServletRequest req) {
         try (
                 final InputStream input = req.getPart("avatar").getInputStream()
         ) {
             final long id = Auths.session(req).orElseThrow();
             final File uploads = new File(String.format("%s/assets/img/avatar", req.getServletContext().getRealPath("/")));
-            final File file = File.createTempFile("avt", ".jpg", uploads);
+            final File file = File.createTempFile("avt.", ".jpg", uploads);
 
-            Files.copy(input, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            ImageIO.write(
+                    square(Optional.ofNullable(ImageIO.read(input)).orElseThrow(IOException::new)),
+                    "jpg",
+                    file
+            );
 
             daos.factory().avatar()
                     .remove(id)
@@ -68,8 +75,33 @@ public class Upload extends HttpServlet {
             return SC_OK;
         } catch (NoSuchElementException e) {
             return SC_UNAUTHORIZED;
-        } catch (DAOException e) {
+        } catch (DAOException | IOException | ServletException e) {
             return SC_INTERNAL_SERVER_ERROR;
         }
+    }
+
+    private static BufferedImage square(BufferedImage origin) {
+        final int maximum = 500;
+        final int side = Math.min(origin.getHeight(), origin.getWidth());
+
+        final BufferedImage square = origin.getSubimage(0, 0, side, side);
+
+        if (side <= maximum)
+            return square;
+
+        final BufferedImage result = new BufferedImage(500, 500, BufferedImage.TYPE_INT_RGB);
+        final Graphics graphics = result.getGraphics();
+        graphics.drawImage(
+                square.getScaledInstance(
+                        maximum,
+                        maximum,
+                        Image.SCALE_SMOOTH
+                ),
+                0,
+                0,
+                null
+        );
+        graphics.dispose();
+        return result;
     }
 }
