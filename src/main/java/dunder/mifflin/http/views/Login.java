@@ -3,6 +3,7 @@ package dunder.mifflin.http.views;
 import dunder.mifflin.persistence.daos.exceptions.DAOException;
 import dunder.mifflin.persistence.pojos.Secret;
 import dunder.mifflin.services.DAOs;
+import dunder.mifflin.utils.Auths;
 import org.mindrot.jbcrypt.BCrypt;
 
 import javax.inject.Inject;
@@ -28,7 +29,10 @@ public class Login extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        req.getServletContext().getRequestDispatcher(String.format("/%s", "login.jsp")).forward(req, resp);
+        if (Auths.session(req).isPresent())
+            resp.sendRedirect(location(req, "/patient/medicines"));
+        else
+            req.getServletContext().getRequestDispatcher(String.format("/%s", "login.jsp")).forward(req, resp);
     }
 
     @Override
