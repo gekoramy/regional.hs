@@ -38,10 +38,12 @@ public class People extends HttpServlet {
             final String email = Optional.ofNullable(req.getParameter("email")).orElse("");
             final String fc = Optional.ofNullable(req.getParameter("fc")).orElse("");
 
-            // only specialist and health service doctors can perform this request
-            Optional.<Long>empty()
-                    .or(() -> daos.factory().specialist().byKey(id).map(Person::id))
-                    .or(() -> daos.factory().hsDoctor().byKey(id).map(Person::id))
+            // this request can be performed only by:
+            // * specialists
+            // * health service doctors
+            Optional.empty()
+                    .or(() -> daos.factory().specialist().byKey(id))
+                    .or(() -> daos.factory().hsDoctor().byKey(id))
                     .orElseThrow();
 
             final List<Person> people = daos.factory().person().contains(name, email, fc).collect(toUnmodifiableList());
