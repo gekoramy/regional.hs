@@ -1,4 +1,4 @@
-package dunder.mifflin.services;
+package dunder.mifflin.beans;
 
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.WriterException;

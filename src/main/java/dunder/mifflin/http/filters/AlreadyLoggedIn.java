@@ -1,6 +1,6 @@
 package dunder.mifflin.http.filters;
 
-import dunder.mifflin.services.DAOs;
+import dunder.mifflin.beans.DAOs;
 
 import javax.inject.Inject;
 import javax.servlet.FilterChain;

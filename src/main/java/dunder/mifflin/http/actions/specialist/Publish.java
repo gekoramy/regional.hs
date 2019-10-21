@@ -1,11 +1,11 @@
 package dunder.mifflin.http.actions.specialist;
 
+import dunder.mifflin.beans.DAOs;
+import dunder.mifflin.beans.Emails;
 import dunder.mifflin.persistence.daos.exceptions.DAOException;
 import dunder.mifflin.persistence.pojos.ExamPrescription;
 import dunder.mifflin.persistence.pojos.Person;
 import dunder.mifflin.persistence.pojos.Specialist;
-import dunder.mifflin.services.DAOs;
-import dunder.mifflin.services.Emails;
 import dunder.mifflin.utils.Auths;
 
 import javax.inject.Inject;

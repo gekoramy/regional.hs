@@ -1,7 +1,7 @@
 package dunder.mifflin.http.views.admin;
 
+import dunder.mifflin.beans.DAOs;
 import dunder.mifflin.persistence.daos.exceptions.DAOException;
-import dunder.mifflin.services.DAOs;
 import dunder.mifflin.utils.Auths;
 import dunder.mifflin.utils.Fallbacks;
 

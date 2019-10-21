@@ -1,12 +1,12 @@
 package dunder.mifflin.http.docs.pdf;
 
 import com.itextpdf.text.DocumentException;
+import dunder.mifflin.beans.DAOs;
+import dunder.mifflin.beans.PDFs;
 import dunder.mifflin.persistence.pojos.ExamPrescription;
 import dunder.mifflin.persistence.pojos.Prescription;
 import dunder.mifflin.persistence.pojos.Province;
 import dunder.mifflin.persistence.pojos.Ticket;
-import dunder.mifflin.services.DAOs;
-import dunder.mifflin.services.PDFs;
 import dunder.mifflin.utils.Auths;
 
 import javax.inject.Inject;

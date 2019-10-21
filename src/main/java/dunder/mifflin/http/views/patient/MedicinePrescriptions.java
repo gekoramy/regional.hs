@@ -1,11 +1,11 @@
 package dunder.mifflin.http.views.patient;
 
+import dunder.mifflin.beans.DAOs;
 import dunder.mifflin.persistence.daos.exceptions.DAOException;
 import dunder.mifflin.persistence.pojos.MedicinePrescription;
 import dunder.mifflin.persistence.pojos.Person;
 import dunder.mifflin.persistence.pojos.Prescription;
 import dunder.mifflin.persistence.pojos.Ticket;
-import dunder.mifflin.services.DAOs;
 import dunder.mifflin.utils.Auths;
 import dunder.mifflin.utils.Avatars;
 import dunder.mifflin.utils.Fallbacks;

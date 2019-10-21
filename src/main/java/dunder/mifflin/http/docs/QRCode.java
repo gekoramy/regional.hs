@@ -1,12 +1,12 @@
 package dunder.mifflin.http.docs;
 
 import com.google.zxing.WriterException;
+import dunder.mifflin.beans.DAOs;
+import dunder.mifflin.beans.QRCodes;
 import dunder.mifflin.persistence.daos.exceptions.DAOException;
 import dunder.mifflin.persistence.pojos.General;
 import dunder.mifflin.persistence.pojos.MedicinePrescription;
 import dunder.mifflin.persistence.pojos.Person;
-import dunder.mifflin.services.DAOs;
-import dunder.mifflin.services.QRCodes;
 import dunder.mifflin.utils.Auths;
 
 import javax.imageio.ImageIO;

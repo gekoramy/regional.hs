@@ -1,4 +1,4 @@
-package dunder.mifflin.services;
+package dunder.mifflin.beans;
 
 import dunder.mifflin.persistence.pojos.ExamPrescription;
 import dunder.mifflin.persistence.pojos.General;

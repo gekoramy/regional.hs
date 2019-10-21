@@ -1,10 +1,10 @@
 package dunder.mifflin.http.views;
 
+import dunder.mifflin.beans.DAOs;
+import dunder.mifflin.beans.Emails;
 import dunder.mifflin.persistence.daos.exceptions.DAOException;
 import dunder.mifflin.persistence.pojos.Person;
 import dunder.mifflin.persistence.pojos.Recover;
-import dunder.mifflin.services.DAOs;
-import dunder.mifflin.services.Emails;
 import org.mindrot.jbcrypt.BCrypt;
 
 import javax.inject.Inject;

@@ -1,4 +1,4 @@
-package dunder.mifflin.services;
+package dunder.mifflin.beans;
 
 import dunder.mifflin.persistence.daos.generics.DAOFactory;
 import dunder.mifflin.persistence.jdbc.generics.JDBCFactory;

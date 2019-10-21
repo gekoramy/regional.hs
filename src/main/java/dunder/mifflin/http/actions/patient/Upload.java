@@ -1,8 +1,8 @@
 package dunder.mifflin.http.actions.patient;
 
+import dunder.mifflin.beans.DAOs;
 import dunder.mifflin.persistence.daos.exceptions.DAOException;
 import dunder.mifflin.persistence.pojos.Avatar;
-import dunder.mifflin.services.DAOs;
 import dunder.mifflin.utils.Auths;
 
 import javax.imageio.ImageIO;

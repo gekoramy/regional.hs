@@ -1,8 +1,8 @@
 package dunder.mifflin.http.views;
 
+import dunder.mifflin.beans.DAOs;
 import dunder.mifflin.persistence.daos.exceptions.DAOException;
 import dunder.mifflin.persistence.pojos.Secret;
-import dunder.mifflin.services.DAOs;
 import dunder.mifflin.utils.Auths;
 import org.mindrot.jbcrypt.BCrypt;
 

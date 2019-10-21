@@ -1,8 +1,8 @@
 package dunder.mifflin.http.actions;
 
+import dunder.mifflin.beans.DAOs;
+import dunder.mifflin.beans.Emails;
 import dunder.mifflin.persistence.daos.exceptions.DAOException;
-import dunder.mifflin.services.DAOs;
-import dunder.mifflin.services.Emails;
 
 import javax.inject.Inject;
 import javax.mail.MessagingException;
