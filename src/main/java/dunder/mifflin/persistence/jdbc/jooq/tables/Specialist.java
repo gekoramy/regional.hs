@@ -29,7 +29,7 @@ import java.util.List;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Specialist extends TableImpl<Record> {
 
-    private static final long serialVersionUID = 594911962;
+    private static final long serialVersionUID = -1139135526;
 
     /**
      * The reference instance of <code>public.specialist</code>

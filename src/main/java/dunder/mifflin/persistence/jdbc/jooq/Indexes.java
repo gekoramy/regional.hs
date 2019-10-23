@@ -40,24 +40,26 @@ public class Indexes {
     public static final Index HS_ADMIN_PKEY = Indexes0.HS_ADMIN_PKEY;
     public static final Index HS_DOCTOR_PKEY = Indexes0.HS_DOCTOR_PKEY;
     public static final Index HS_EXAM_PKEY = Indexes0.HS_EXAM_PKEY;
+    public static final Index HS_PRESCRIPTION_PKEY = Indexes0.HS_PRESCRIPTION_PKEY;
     public static final Index HS_QUALIFICATION_PKEY = Indexes0.HS_QUALIFICATION_PKEY;
     public static final Index HS_REPORT_PKEY = Indexes0.HS_REPORT_PKEY;
+    public static final Index HS_TICKET_PKEY = Indexes0.HS_TICKET_PKEY;
     public static final Index MEDICINE_NAME_KEY = Indexes0.MEDICINE_NAME_KEY;
     public static final Index MEDICINE_PKEY = Indexes0.MEDICINE_PKEY;
+    public static final Index MEDICINE_PRESCRIPTION_PKEY = Indexes0.MEDICINE_PRESCRIPTION_PKEY;
+    public static final Index MEDICINE_TICKET_PKEY = Indexes0.MEDICINE_TICKET_PKEY;
     public static final Index PERSON_PKEY = Indexes0.PERSON_PKEY;
-    public static final Index PR_HS_EXAM_PKEY = Indexes0.PR_HS_EXAM_PKEY;
-    public static final Index PR_MEDICINE_PKEY = Indexes0.PR_MEDICINE_PKEY;
-    public static final Index PR_SP_EXAM_PKEY = Indexes0.PR_SP_EXAM_PKEY;
     public static final Index PRESCRIPTION_PKEY = Indexes0.PRESCRIPTION_PKEY;
     public static final Index PROVINCE_PKEY = Indexes0.PROVINCE_PKEY;
-    public static final Index RECOVER_PKEY = Indexes0.RECOVER_PKEY;
-    public static final Index RECOVER_TOKEN_KEY = Indexes0.RECOVER_TOKEN_KEY;
     public static final Index REGION_PKEY = Indexes0.REGION_PKEY;
     public static final Index SP_EXAM_PKEY = Indexes0.SP_EXAM_PKEY;
+    public static final Index SP_PRESCRIPTION_PKEY = Indexes0.SP_PRESCRIPTION_PKEY;
     public static final Index SP_QUALIFICATION_PKEY = Indexes0.SP_QUALIFICATION_PKEY;
     public static final Index SP_REPORT_PKEY = Indexes0.SP_REPORT_PKEY;
+    public static final Index SP_TICKET_PKEY = Indexes0.SP_TICKET_PKEY;
     public static final Index SPECIALIST_PKEY = Indexes0.SPECIALIST_PKEY;
-    public static final Index TICKET_PKEY = Indexes0.TICKET_PKEY;
+    public static final Index TOKEN_PKEY = Indexes0.TOKEN_PKEY;
+    public static final Index TOKEN_TOKEN_KEY = Indexes0.TOKEN_TOKEN_KEY;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
@@ -75,23 +77,25 @@ public class Indexes {
         public static Index HS_ADMIN_PKEY = Internal.createIndex("hs_admin_pkey", HsAdmin.HS_ADMIN, new OrderField[] { HsAdmin.HS_ADMIN.ID }, true);
         public static Index HS_DOCTOR_PKEY = Internal.createIndex("hs_doctor_pkey", HsDoctor.HS_DOCTOR, new OrderField[] { HsDoctor.HS_DOCTOR.ID }, true);
         public static Index HS_EXAM_PKEY = Internal.createIndex("hs_exam_pkey", HsExam.HS_EXAM, new OrderField[] { HsExam.HS_EXAM.ID }, true);
+        public static Index HS_PRESCRIPTION_PKEY = Internal.createIndex("hs_prescription_pkey", HsPrescription.HS_PRESCRIPTION, new OrderField[] { HsPrescription.HS_PRESCRIPTION.PRESCRIPTION }, true);
         public static Index HS_QUALIFICATION_PKEY = Internal.createIndex("hs_qualification_pkey", HsQualification.HS_QUALIFICATION, new OrderField[] { HsQualification.HS_QUALIFICATION.DOCTOR, HsQualification.HS_QUALIFICATION.EXAM }, true);
-        public static Index HS_REPORT_PKEY = Internal.createIndex("hs_report_pkey", HsReport.HS_REPORT, new OrderField[] { HsReport.HS_REPORT.PRESCRIPTION }, true);
+        public static Index HS_REPORT_PKEY = Internal.createIndex("hs_report_pkey", HsReport.HS_REPORT, new OrderField[] { HsReport.HS_REPORT.TICKET }, true);
+        public static Index HS_TICKET_PKEY = Internal.createIndex("hs_ticket_pkey", HsTicket.HS_TICKET, new OrderField[] { HsTicket.HS_TICKET.PRESCRIPTION }, true);
         public static Index MEDICINE_NAME_KEY = Internal.createIndex("medicine_name_key", Medicine.MEDICINE, new OrderField[] { Medicine.MEDICINE.NAME }, true);
         public static Index MEDICINE_PKEY = Internal.createIndex("medicine_pkey", Medicine.MEDICINE, new OrderField[] { Medicine.MEDICINE.ID }, true);
+        public static Index MEDICINE_PRESCRIPTION_PKEY = Internal.createIndex("medicine_prescription_pkey", MedicinePrescription.MEDICINE_PRESCRIPTION, new OrderField[] { MedicinePrescription.MEDICINE_PRESCRIPTION.PRESCRIPTION }, true);
+        public static Index MEDICINE_TICKET_PKEY = Internal.createIndex("medicine_ticket_pkey", MedicineTicket.MEDICINE_TICKET, new OrderField[] { MedicineTicket.MEDICINE_TICKET.PRESCRIPTION }, true);
         public static Index PERSON_PKEY = Internal.createIndex("person_pkey", Person.PERSON, new OrderField[] { Person.PERSON.ID }, true);
-        public static Index PR_HS_EXAM_PKEY = Internal.createIndex("pr_hs_exam_pkey", PrHsExam.PR_HS_EXAM, new OrderField[] { PrHsExam.PR_HS_EXAM.PRESCRIPTION }, true);
-        public static Index PR_MEDICINE_PKEY = Internal.createIndex("pr_medicine_pkey", PrMedicine.PR_MEDICINE, new OrderField[] { PrMedicine.PR_MEDICINE.PRESCRIPTION }, true);
-        public static Index PR_SP_EXAM_PKEY = Internal.createIndex("pr_sp_exam_pkey", PrSpExam.PR_SP_EXAM, new OrderField[] { PrSpExam.PR_SP_EXAM.PRESCRIPTION }, true);
         public static Index PRESCRIPTION_PKEY = Internal.createIndex("prescription_pkey", Prescription.PRESCRIPTION, new OrderField[] { Prescription.PRESCRIPTION.ID }, true);
         public static Index PROVINCE_PKEY = Internal.createIndex("province_pkey", Province.PROVINCE, new OrderField[] { Province.PROVINCE.ID }, true);
-        public static Index RECOVER_PKEY = Internal.createIndex("recover_pkey", Recover.RECOVER, new OrderField[] { Recover.RECOVER.PERSON }, true);
-        public static Index RECOVER_TOKEN_KEY = Internal.createIndex("recover_token_key", Recover.RECOVER, new OrderField[] { Recover.RECOVER.TOKEN }, true);
         public static Index REGION_PKEY = Internal.createIndex("region_pkey", Region.REGION, new OrderField[] { Region.REGION.ID }, true);
         public static Index SP_EXAM_PKEY = Internal.createIndex("sp_exam_pkey", SpExam.SP_EXAM, new OrderField[] { SpExam.SP_EXAM.ID }, true);
+        public static Index SP_PRESCRIPTION_PKEY = Internal.createIndex("sp_prescription_pkey", SpPrescription.SP_PRESCRIPTION, new OrderField[] { SpPrescription.SP_PRESCRIPTION.PRESCRIPTION }, true);
         public static Index SP_QUALIFICATION_PKEY = Internal.createIndex("sp_qualification_pkey", SpQualification.SP_QUALIFICATION, new OrderField[] { SpQualification.SP_QUALIFICATION.SPECIALIST, SpQualification.SP_QUALIFICATION.EXAM }, true);
-        public static Index SP_REPORT_PKEY = Internal.createIndex("sp_report_pkey", SpReport.SP_REPORT, new OrderField[] { SpReport.SP_REPORT.PRESCRIPTION }, true);
+        public static Index SP_REPORT_PKEY = Internal.createIndex("sp_report_pkey", SpReport.SP_REPORT, new OrderField[] { SpReport.SP_REPORT.TICKET }, true);
+        public static Index SP_TICKET_PKEY = Internal.createIndex("sp_ticket_pkey", SpTicket.SP_TICKET, new OrderField[] { SpTicket.SP_TICKET.PRESCRIPTION }, true);
         public static Index SPECIALIST_PKEY = Internal.createIndex("specialist_pkey", Specialist.SPECIALIST, new OrderField[] { Specialist.SPECIALIST.ID }, true);
-        public static Index TICKET_PKEY = Internal.createIndex("ticket_pkey", Ticket.TICKET, new OrderField[] { Ticket.TICKET.PRESCRIPTION }, true);
+        public static Index TOKEN_PKEY = Internal.createIndex("token_pkey", Token.TOKEN, new OrderField[] { Token.TOKEN.PERSON }, true);
+        public static Index TOKEN_TOKEN_KEY = Internal.createIndex("token_token_key", Token.TOKEN, new OrderField[] { Token.TOKEN.TOKEN_ }, true);
     }
 }

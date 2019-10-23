@@ -29,7 +29,7 @@ import java.util.List;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class SpQualification extends TableImpl<Record> {
 
-    private static final long serialVersionUID = -1085397551;
+    private static final long serialVersionUID = 2078813905;
 
     /**
      * The reference instance of <code>public.sp_qualification</code>

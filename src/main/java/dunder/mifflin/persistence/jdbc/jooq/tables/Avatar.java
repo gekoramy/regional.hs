@@ -29,7 +29,7 @@ import java.util.List;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Avatar extends TableImpl<Record> {
 
-    private static final long serialVersionUID = 277043898;
+    private static final long serialVersionUID = 1145807802;
 
     /**
      * The reference instance of <code>public.avatar</code>
