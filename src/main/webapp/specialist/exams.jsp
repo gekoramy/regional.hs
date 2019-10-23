@@ -111,30 +111,40 @@
             <td>${tickets.get(it.id())}</td>
             <td>${reports.get(it.id())}</td>
             <c:if test="${qualified.contains(it.exam().id())}">
-                <td>
-                    <c:if test="${not tickets.containsKey(it.id())}">
-                        <form method="post" action="${pageContext.request.contextPath}/specialist/cash">
-                            <label>
-                                <input type="hidden" name="prescription" value="${it.id()}">
-                                <input type="hidden" name="patient" value="${patient.id()}">
-                                <input type="submit" value="incassa">
-                            </label>
-                        </form>
-                    </c:if>
-                </td>
-                <td>
-                    <c:if test="${not reports.containsKey(it.id())}">
-                        <form method="post" action="${pageContext.request.contextPath}/specialist/publish">
-                            <label>
-                                Anamnesi
-                                <input type="hidden" name="prescription" value="${it.id()}">
-                                <input type="hidden" name="patient" value="${patient.id()}">
-                                <input type="text" name="note" minlength="50">
-                                <input type="submit" value="pubblica">
-                            </label>
-                        </form>
-                    </c:if>
-                </td>
+                <c:choose>
+                    <c:when test="${reports.containsKey(it.id())}">
+                        <td></td>
+                        <td></td>
+                    </c:when>
+
+                    <c:when test="${not tickets.containsKey(it.id())}">
+                        <td>
+                            <form method="post" action="${pageContext.request.contextPath}/doctor/cash">
+                                <label>
+                                    <input type="hidden" name="prescription" value="${it.id()}">
+                                    <input type="hidden" name="patient" value="${patient.id()}">
+                                    <input type="submit" value="incassa">
+                                </label>
+                            </form>
+                        </td>
+                        <td></td>
+                    </c:when>
+
+                    <c:when test="${tickets.get(it.id()).responsible().equals(specialist.id())}">
+                        <td></td>
+                        <td>
+                            <form method="post" action="${pageContext.request.contextPath}/doctor/publish">
+                                <label>
+                                    Anamnesi
+                                    <input type="hidden" name="prescription" value="${it.id()}">
+                                    <input type="hidden" name="patient" value="${patient.id()}">
+                                    <input type="text" name="note" minlength="50">
+                                    <input type="submit" value="pubblica">
+                                </label>
+                            </form>
+                        </td>
+                    </c:when>
+                </c:choose>
             </c:if>
         </tr>
     </c:forEach>
