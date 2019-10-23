@@ -3,6 +3,7 @@
 \i queries/medicines.insert.sql
 \i queries/exams.insert.sql
 \i queries/people.insert.sql
+\i queries/avatars.insert.sql
 \i queries/doctors.insert.sql
 \i queries/follows.insert.sql
 \i queries/medicine_prescriptions.insert.sql
