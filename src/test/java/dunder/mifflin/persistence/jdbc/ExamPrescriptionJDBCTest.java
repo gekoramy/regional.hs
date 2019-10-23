@@ -50,7 +50,7 @@ class ExamPrescriptionJDBCTest {
 
         assertEquals(11L, store.place());
         assertEquals(LocalDate.now(), store.date().toLocalDate());
-        assertEquals(6L, store.concerns());
+        assertEquals(23L, store.concerns());
         assertEquals(1L, store.exam().id());
         assertEquals("Estrazione di dente deciduo", store.exam().name());
         assertEquals("Info Estrazione di dente deciduo (gratuita fino a 14 anni)", store.exam().info());
@@ -86,56 +86,58 @@ class ExamPrescriptionJDBCTest {
         Assertions.assertThrows(DAOException.class, () -> dao.insert(1L, 0L), "not existing exam");
 
         Assertions.assertThrows(DataAccessException.class, () -> dao.insert(0L, 134L), "not existing person");
-
-        Assertions.assertThrows(DataAccessException.class, () -> dao.insert(1L, 134L), "person with no general");
     }
 
     @Test
     void concerns() {
-        Assertions.assertEquals(6, dao.concerns(2L, "").count());
-        Assertions.assertEquals(5, dao.concerns(2L, "A").count());
+        Assertions.assertEquals(15, dao.concerns(2L, "").count());
+        Assertions.assertEquals(2, dao.concerns(2L, "B").count());
         Assertions.assertEquals(0, dao.concerns(2L, "X").count());
     }
 
     @Test
     void prescribedBy() {
-        Assertions.assertEquals(90L, dao.prescribedBy(22L).count());
+        Assertions.assertEquals(135, dao.prescribedBy(8L).count());
+        Assertions.assertEquals(145, dao.prescribedBy(39L).count());
+        Assertions.assertEquals(0, dao.prescribedBy(1L).count(), "not general");
     }
 
     @Test
     void tookIn() {
-        Assertions.assertEquals(180L, dao.tookIn(10L).count());
+        Assertions.assertEquals(263, dao.tookIn(10L).count());
+        Assertions.assertEquals(418, dao.tookIn(11L).count());
+        Assertions.assertEquals(0, dao.tookIn(1L).count());
     }
 
     @Test
     void count() {
-        Assertions.assertEquals(150L + 300L, dao.count());
+        Assertions.assertEquals(333L + 348L, dao.count());
     }
 
     @Test
     void byKey() {
-        dao.byKey(1L).ifPresentOrElse(
+        dao.byKey(1280L).ifPresentOrElse(
                 (prescription) -> {
-                    assertEquals(1L, prescription.id());
-                    assertEquals(10L, prescription.place());
-                    assertEquals(LocalDate.of(2018, 3, 8), prescription.date().toLocalDate());
-                    assertEquals(64, prescription.concerns());
-                    assertEquals(144L, prescription.exam().id());
-                    assertEquals("Alfa amilasi", prescription.exam().name());
-                    assertEquals("Info Alfa amilasi", prescription.exam().info());
+                    assertEquals(1280L, prescription.id());
+                    assertEquals(11L, prescription.place());
+                    assertEquals(LocalDate.of(2017, 11, 18), prescription.date().toLocalDate());
+                    assertEquals(1L, prescription.concerns());
+                    assertEquals(153L, prescription.exam().id());
+                    assertEquals("Creatinina", prescription.exam().name());
+                    assertEquals("Info Creatinina", prescription.exam().info());
                 },
                 Assertions::fail
         );
 
-        dao.byKey(301L).ifPresentOrElse(
+        dao.byKey(1628L).ifPresentOrElse(
                 (prescription) -> {
-                    assertEquals(301L, prescription.id());
-                    assertEquals(10L, prescription.place());
-                    assertEquals(LocalDate.of(2016, 2, 14), prescription.date().toLocalDate());
-                    assertEquals(64, prescription.concerns());
-                    assertEquals(122L, prescription.exam().id());
-                    assertEquals("Esercizi respiratori per seduta individuale", prescription.exam().name());
-                    assertEquals("Info Esercizi respiratori per seduta individuale", prescription.exam().info());
+                    assertEquals(1628L, prescription.id());
+                    assertEquals(11L, prescription.place());
+                    assertEquals(LocalDate.of(2014, 9, 30), prescription.date().toLocalDate());
+                    assertEquals(1L, prescription.concerns());
+                    assertEquals(55L, prescription.exam().id());
+                    assertEquals("Tipizzazione genomica HLA : DQB1 alta risoluzione", prescription.exam().name());
+                    assertEquals("Info Tipizzazione genomica HLA : DQB1 alta risoluzione", prescription.exam().info());
                 },
                 Assertions::fail
         );
@@ -145,34 +147,34 @@ class ExamPrescriptionJDBCTest {
 
     @Test
     void byKeys() {
-        final var results = dao.byKeys(0L, 1L, 301L);
+        final var results = dao.byKeys(0L, 1280L, 1628L);
 
         assertFalse(results.containsKey(0L));
 
-        Optional.ofNullable(results.get(1L))
+        Optional.ofNullable(results.get(1280L))
                 .ifPresentOrElse(
                         (prescription) -> {
-                            assertEquals(1L, prescription.id());
-                            assertEquals(10L, prescription.place());
-                            assertEquals(LocalDate.of(2018, 3, 8), prescription.date().toLocalDate());
-                            assertEquals(64, prescription.concerns());
-                            assertEquals(144L, prescription.exam().id());
-                            assertEquals("Alfa amilasi", prescription.exam().name());
-                            assertEquals("Info Alfa amilasi", prescription.exam().info());
+                            assertEquals(1280L, prescription.id());
+                            assertEquals(11L, prescription.place());
+                            assertEquals(LocalDate.of(2017, 11, 18), prescription.date().toLocalDate());
+                            assertEquals(1L, prescription.concerns());
+                            assertEquals(153L, prescription.exam().id());
+                            assertEquals("Creatinina", prescription.exam().name());
+                            assertEquals("Info Creatinina", prescription.exam().info());
                         },
                         Assertions::fail
                 );
 
-        Optional.ofNullable(results.get(301L))
+        Optional.ofNullable(results.get(1628L))
                 .ifPresentOrElse(
                         (prescription) -> {
-                            assertEquals(301L, prescription.id());
-                            assertEquals(10L, prescription.place());
-                            assertEquals(LocalDate.of(2016, 2, 14), prescription.date().toLocalDate());
-                            assertEquals(64, prescription.concerns());
-                            assertEquals(122L, prescription.exam().id());
-                            assertEquals("Esercizi respiratori per seduta individuale", prescription.exam().name());
-                            assertEquals("Info Esercizi respiratori per seduta individuale", prescription.exam().info());
+                            assertEquals(1628L, prescription.id());
+                            assertEquals(11L, prescription.place());
+                            assertEquals(LocalDate.of(2014, 9, 30), prescription.date().toLocalDate());
+                            assertEquals(1L, prescription.concerns());
+                            assertEquals(55L, prescription.exam().id());
+                            assertEquals("Tipizzazione genomica HLA : DQB1 alta risoluzione", prescription.exam().name());
+                            assertEquals("Info Tipizzazione genomica HLA : DQB1 alta risoluzione", prescription.exam().info());
                         },
                         Assertions::fail
                 );
@@ -180,6 +182,6 @@ class ExamPrescriptionJDBCTest {
 
     @Test
     void fetchAll() {
-        Assertions.assertEquals(150L + 300L, dao.fetchAll().count());
+        Assertions.assertEquals(333L + 348L, dao.fetchAll().count());
     }
 }

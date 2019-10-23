@@ -29,7 +29,7 @@ import java.util.List;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Province extends TableImpl<Record> {
 
-    private static final long serialVersionUID = 1531161805;
+    private static final long serialVersionUID = 1368274381;
 
     /**
      * The reference instance of <code>public.province</code>

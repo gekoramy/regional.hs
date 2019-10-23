@@ -1,6 +1,6 @@
 package dunder.mifflin.persistence.jdbc;
 
-import dunder.mifflin.persistence.daos.RecoverDAO;
+import dunder.mifflin.persistence.daos.TokenDAO;
 import dunder.mifflin.persistence.jdbc.config.Database;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
@@ -18,11 +18,11 @@ import java.time.temporal.ChronoUnit;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class RecoverJDBCTest {
+class TokenJDBCTest {
 
     private static Connection conn;
     private static DSLContext create;
-    private static RecoverDAO dao;
+    private static TokenDAO dao;
 
     @BeforeAll
     static void open() throws SQLException {
@@ -32,7 +32,7 @@ class RecoverJDBCTest {
                 Database.PASSWORD
         );
         create = DSL.using(conn, SQLDialect.POSTGRES);
-        dao = new RecoverJDBC(create);
+        dao = new TokenJDBC(create);
     }
 
     @AfterAll

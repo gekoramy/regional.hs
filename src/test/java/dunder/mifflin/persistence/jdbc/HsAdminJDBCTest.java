@@ -49,42 +49,44 @@ class HsAdminJDBCTest {
 
     @Test
     void byKey() {
-        dao.byKey(79L).ifPresentOrElse(
+        dao.byKey(1L).ifPresentOrElse(
                 (admin) -> {
-                    assertEquals(79L, admin.id());
-                    assertEquals("Sergio", admin.name());
-                    assertEquals("Colombo", admin.surname());
-                    assertEquals("sergio.colombo@dominio.com", admin.email());
-                    assertEquals(LocalDate.of(1968, 3, 26), admin.birthday());
-                    assertEquals(394L, admin.birthplace());
-                    assertEquals("CLMSRG68C26A023R", admin.fc());
+                    assertEquals(1L, admin.id());
+                    assertEquals("Giovanni", admin.name());
+                    assertEquals("Bianchi", admin.surname());
+                    assertEquals("giovanni.bianchi@dominio.com", admin.email());
+                    assertEquals(LocalDate.of(1961, 4, 1), admin.birthday());
+                    assertEquals(853L, admin.birthplace());
+                    assertEquals("BNCGNN61D01I066G", admin.fc());
                     assertEquals(true, admin.gender());
-                    assertEquals(1033L, admin.residence());
+                    assertEquals(1081L, admin.residence());
+                    assertEquals(11L, admin.workplace());
                 },
                 Assertions::fail
         );
 
-        Assertions.assertFalse(dao.byKey(1L).isPresent());
+        Assertions.assertFalse(dao.byKey(2L).isPresent());
     }
 
     @Test
     void byKeys() {
-        final var results = dao.byKeys(1L, 79L);
+        final var results = dao.byKeys(5L, 33L);
 
-        assertFalse(results.containsKey(1L));
+        assertFalse(results.containsKey(5L));
 
-        Optional.ofNullable(results.get(79L))
+        Optional.ofNullable(results.get(33L))
                 .ifPresentOrElse(
                         (admin) -> {
-                            assertEquals(79L, admin.id());
-                            assertEquals("Sergio", admin.name());
-                            assertEquals("Colombo", admin.surname());
-                            assertEquals("sergio.colombo@dominio.com", admin.email());
-                            assertEquals(LocalDate.of(1968, 3, 26), admin.birthday());
-                            assertEquals(394L, admin.birthplace());
-                            assertEquals("CLMSRG68C26A023R", admin.fc());
+                            assertEquals(33L, admin.id());
+                            assertEquals("Alessandro", admin.name());
+                            assertEquals("Grassi", admin.surname());
+                            assertEquals("alessandro.grassi@dominio.com", admin.email());
+                            assertEquals(LocalDate.of(1983, 10, 29), admin.birthday());
+                            assertEquals(400L, admin.birthplace());
+                            assertEquals("GRSLSN83R29A294A", admin.fc());
                             assertEquals(true, admin.gender());
-                            assertEquals(1033L, admin.residence());
+                            assertEquals(827L, admin.residence());
+                            assertEquals(10L, admin.workplace());
                         },
                         Assertions::fail
                 );

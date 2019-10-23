@@ -30,7 +30,7 @@ import java.util.List;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class SpReport extends TableImpl<Record> {
 
-    private static final long serialVersionUID = 1211100266;
+    private static final long serialVersionUID = -964172645;
 
     /**
      * The reference instance of <code>public.sp_report</code>
@@ -46,14 +46,9 @@ public class SpReport extends TableImpl<Record> {
     }
 
     /**
-     * The column <code>public.sp_report.prescription</code>.
+     * The column <code>public.sp_report.ticket</code>.
      */
-    public final TableField<Record, Long> PRESCRIPTION = createField(DSL.name("prescription"), org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
-
-    /**
-     * The column <code>public.sp_report.specialist</code>.
-     */
-    public final TableField<Record, Long> SPECIALIST = createField(DSL.name("specialist"), org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
+    public final TableField<Record, Long> TICKET = createField(DSL.name("ticket"), org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
      * The column <code>public.sp_report.date</code>.
@@ -120,15 +115,11 @@ public class SpReport extends TableImpl<Record> {
 
     @Override
     public List<ForeignKey<Record, ?>> getReferences() {
-        return Arrays.<ForeignKey<Record, ?>>asList(Keys.SP_REPORT__SP_REPORT_PRESCRIPTION_FKEY, Keys.SP_REPORT__SP_REPORT_SPECIALIST_FKEY);
+        return Arrays.<ForeignKey<Record, ?>>asList(Keys.SP_REPORT__SP_REPORT_TICKET_FKEY);
     }
 
-    public PrSpExam prSpExam() {
-        return new PrSpExam(this, Keys.SP_REPORT__SP_REPORT_PRESCRIPTION_FKEY);
-    }
-
-    public Specialist specialist() {
-        return new Specialist(this, Keys.SP_REPORT__SP_REPORT_SPECIALIST_FKEY);
+    public SpTicket spTicket() {
+        return new SpTicket(this, Keys.SP_REPORT__SP_REPORT_TICKET_FKEY);
     }
 
     @Override

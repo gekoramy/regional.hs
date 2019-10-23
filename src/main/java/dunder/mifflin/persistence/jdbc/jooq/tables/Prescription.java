@@ -30,7 +30,7 @@ import java.util.List;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Prescription extends TableImpl<Record> {
 
-    private static final long serialVersionUID = -568430521;
+    private static final long serialVersionUID = -966490297;
 
     /**
      * The reference instance of <code>public.prescription</code>

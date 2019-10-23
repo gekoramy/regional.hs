@@ -42,7 +42,7 @@ public class MedicinePrescriptions extends HttpServlet {
             final List<MedicinePrescription> medicines = daos.factory().medicinePrescription().concerns(patient.id(), "").collect(toUnmodifiableList());
 
             final Long[] prescriptions = medicines.stream().map(Prescription::id).toArray(Long[]::new);
-            final Map<Long, Ticket> tickets = daos.factory().ticket().byKeys(prescriptions);
+            final Map<Long, MedicineTicket> tickets = daos.factory().medicineTicket().byKeys(prescriptions);
 
             req.setAttribute("result", result(req, "/general/prescribe/medicine"));
             req.setAttribute("general", general);

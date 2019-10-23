@@ -3,7 +3,6 @@ package dunder.mifflin.http.actions.doctor;
 import dunder.mifflin.beans.DAOs;
 import dunder.mifflin.beans.Emails;
 import dunder.mifflin.persistence.daos.exceptions.DAOException;
-import dunder.mifflin.persistence.pojos.ExamPrescription;
 import dunder.mifflin.persistence.pojos.Person;
 import dunder.mifflin.utils.Auths;
 
@@ -45,12 +44,11 @@ public class Cash extends HttpServlet {
 
     protected int action(HttpServletRequest req) {
         try {
-            Auths.session(req).flatMap(daos.factory().hsDoctor()::byKey).orElseThrow();
-
+            final long responsible = Auths.session(req).orElseThrow();
+            final long prescription = Optional.ofNullable(req.getParameter("prescription")).map(Long::parseLong).orElseThrow();
             final Person patient = Optional.ofNullable(req.getParameter("patient")).map(Long::parseLong).flatMap(daos.factory().person()::byKey).orElseThrow();
-            final ExamPrescription prescription = Optional.ofNullable(req.getParameter("prescription")).map(Long::parseLong).flatMap(daos.factory().examPrescription()::byKey).orElseThrow();
 
-            daos.factory().ticket().insert(prescription.id(), amout);
+            daos.factory().examTicket().insert(prescription, amout, responsible);
             emails.cash(patient, amout);
 
             return SC_OK;

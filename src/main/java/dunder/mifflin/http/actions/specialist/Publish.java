@@ -3,7 +3,7 @@ package dunder.mifflin.http.actions.specialist;
 import dunder.mifflin.beans.DAOs;
 import dunder.mifflin.beans.Emails;
 import dunder.mifflin.persistence.daos.exceptions.DAOException;
-import dunder.mifflin.persistence.pojos.ExamPrescription;
+import dunder.mifflin.persistence.pojos.ExamTicket;
 import dunder.mifflin.persistence.pojos.Person;
 import dunder.mifflin.persistence.pojos.Specialist;
 import dunder.mifflin.utils.Auths;
@@ -45,10 +45,11 @@ public class Publish extends HttpServlet {
         try {
             final Specialist specialist = Auths.session(req).flatMap(daos.factory().specialist()::byKey).orElseThrow();
             final Person patient = Optional.ofNullable(req.getParameter("patient")).map(Long::parseLong).flatMap(daos.factory().person()::byKey).orElseThrow();
-            final ExamPrescription prescription = Optional.ofNullable(req.getParameter("prescription")).map(Long::parseLong).flatMap(daos.factory().examPrescription()::byKey).orElseThrow();
+            final long prescription = Optional.ofNullable(req.getParameter("prescription")).map(Long::parseLong).orElseThrow();
             final String note = Optional.ofNullable(req.getParameter("note")).orElseThrow();
 
-            daos.factory().report().insert(prescription.id(), specialist.id(), note);
+            daos.factory().examTicket().byKey(prescription).map(ExamTicket::responsible).filter(specialist.id()::equals).orElseThrow();
+            daos.factory().report().insert(prescription, note);
             emails.report(patient, specialist);
 
             return SC_OK;

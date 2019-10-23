@@ -1,6 +1,6 @@
 package dunder.mifflin.persistence.jdbc;
 
-import dunder.mifflin.persistence.daos.RecoverDAO;
+import dunder.mifflin.persistence.daos.TokenDAO;
 import dunder.mifflin.persistence.daos.exceptions.DAOException;
 import dunder.mifflin.persistence.jdbc.generics.JDBC;
 import dunder.mifflin.persistence.pojos.Recover;
@@ -12,11 +12,11 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Stream;
 
-import static dunder.mifflin.persistence.jdbc.jooq.Tables.RECOVER;
+import static dunder.mifflin.persistence.jdbc.jooq.Tables.TOKEN;
 
-public class RecoverJDBC extends JDBC implements RecoverDAO {
+public class TokenJDBC extends JDBC implements TokenDAO {
 
-    public RecoverJDBC(DSLContext context) {
+    public TokenJDBC(DSLContext context) {
         super(context);
     }
 
@@ -24,20 +24,20 @@ public class RecoverJDBC extends JDBC implements RecoverDAO {
     public Recover store(long person) throws DAOException {
         return context.transactionResult((config) -> {
             DSL.using(config)
-                    .deleteFrom(RECOVER)
-                    .where(RECOVER.PERSON.eq(person))
+                    .deleteFrom(TOKEN)
+                    .where(TOKEN.PERSON.eq(person))
                     .execute();
 
             return DSL.using(config)
-                    .insertInto(RECOVER)
-                    .columns(RECOVER.PERSON)
+                    .insertInto(TOKEN)
+                    .columns(TOKEN.PERSON)
                     .values(person)
-                    .returning(RECOVER.asterisk())
+                    .returning(TOKEN.asterisk())
                     .fetchOptional()
                     .map((r) -> new Recover(
-                            r.get(RECOVER.PERSON),
-                            r.get(RECOVER.TOKEN),
-                            r.get(RECOVER.EXPIRATION)
+                            r.get(TOKEN.PERSON),
+                            r.get(TOKEN.TOKEN_),
+                            r.get(TOKEN.EXPIRATION)
                     ))
                     .get();
         });
@@ -46,14 +46,14 @@ public class RecoverJDBC extends JDBC implements RecoverDAO {
     @Override
     public Optional<Recover> remove(long person) throws DAOException {
         return context
-                .deleteFrom(RECOVER)
-                .where(RECOVER.PERSON.eq(person))
-                .returning(RECOVER.asterisk())
+                .deleteFrom(TOKEN)
+                .where(TOKEN.PERSON.eq(person))
+                .returning(TOKEN.asterisk())
                 .fetchOptional()
                 .map((r) -> new Recover(
-                        r.get(RECOVER.PERSON),
-                        r.get(RECOVER.TOKEN),
-                        r.get(RECOVER.EXPIRATION)
+                        r.get(TOKEN.PERSON),
+                        r.get(TOKEN.TOKEN_),
+                        r.get(TOKEN.EXPIRATION)
                 ));
     }
 
@@ -61,23 +61,23 @@ public class RecoverJDBC extends JDBC implements RecoverDAO {
     public Optional<Recover> by(UUID token) throws DAOException {
         return context
                 .select()
-                .from(RECOVER)
-                .where(RECOVER.TOKEN.eq(token))
+                .from(TOKEN)
+                .where(TOKEN.TOKEN_.eq(token))
                 .fetchOptionalInto(Recover.class);
     }
 
     @Override
     public long count() throws DAOException {
         return context
-                .fetchCount(RECOVER);
+                .fetchCount(TOKEN);
     }
 
     @Override
     public Optional<Recover> byKey(Long key) throws DAOException {
         return context
                 .select()
-                .from(RECOVER)
-                .where(RECOVER.PERSON.eq(key))
+                .from(TOKEN)
+                .where(TOKEN.PERSON.eq(key))
                 .fetchOptionalInto(Recover.class);
     }
 
@@ -85,16 +85,16 @@ public class RecoverJDBC extends JDBC implements RecoverDAO {
     public Map<Long, Recover> byKeys(Long... keys) throws DAOException {
         return context
                 .select()
-                .from(RECOVER)
-                .where(RECOVER.PERSON.in(keys))
-                .fetchMap(RECOVER.PERSON, Recover.class);
+                .from(TOKEN)
+                .where(TOKEN.PERSON.in(keys))
+                .fetchMap(TOKEN.PERSON, Recover.class);
     }
 
     @Override
     public Stream<Recover> fetchAll() throws DAOException {
         return context
                 .select()
-                .from(RECOVER)
+                .from(TOKEN)
                 .fetchStreamInto(Recover.class);
     }
 }

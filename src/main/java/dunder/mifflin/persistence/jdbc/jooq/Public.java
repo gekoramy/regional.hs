@@ -29,7 +29,7 @@ import java.util.List;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Public extends SchemaImpl {
 
-    private static final long serialVersionUID = 1620862149;
+    private static final long serialVersionUID = -109911919;
 
     /**
      * The reference instance of <code>public</code>
@@ -77,6 +77,11 @@ public class Public extends SchemaImpl {
     public final HsExam HS_EXAM = dunder.mifflin.persistence.jdbc.jooq.tables.HsExam.HS_EXAM;
 
     /**
+     * The table <code>public.hs_prescription</code>.
+     */
+    public final HsPrescription HS_PRESCRIPTION = dunder.mifflin.persistence.jdbc.jooq.tables.HsPrescription.HS_PRESCRIPTION;
+
+    /**
      * The table <code>public.hs_qualification</code>.
      */
     public final HsQualification HS_QUALIFICATION = dunder.mifflin.persistence.jdbc.jooq.tables.HsQualification.HS_QUALIFICATION;
@@ -87,29 +92,29 @@ public class Public extends SchemaImpl {
     public final HsReport HS_REPORT = dunder.mifflin.persistence.jdbc.jooq.tables.HsReport.HS_REPORT;
 
     /**
+     * The table <code>public.hs_ticket</code>.
+     */
+    public final HsTicket HS_TICKET = dunder.mifflin.persistence.jdbc.jooq.tables.HsTicket.HS_TICKET;
+
+    /**
      * The table <code>public.medicine</code>.
      */
     public final Medicine MEDICINE = dunder.mifflin.persistence.jdbc.jooq.tables.Medicine.MEDICINE;
 
     /**
+     * The table <code>public.medicine_prescription</code>.
+     */
+    public final MedicinePrescription MEDICINE_PRESCRIPTION = dunder.mifflin.persistence.jdbc.jooq.tables.MedicinePrescription.MEDICINE_PRESCRIPTION;
+
+    /**
+     * The table <code>public.medicine_ticket</code>.
+     */
+    public final MedicineTicket MEDICINE_TICKET = dunder.mifflin.persistence.jdbc.jooq.tables.MedicineTicket.MEDICINE_TICKET;
+
+    /**
      * The table <code>public.person</code>.
      */
     public final Person PERSON = dunder.mifflin.persistence.jdbc.jooq.tables.Person.PERSON;
-
-    /**
-     * The table <code>public.pr_hs_exam</code>.
-     */
-    public final PrHsExam PR_HS_EXAM = dunder.mifflin.persistence.jdbc.jooq.tables.PrHsExam.PR_HS_EXAM;
-
-    /**
-     * The table <code>public.pr_medicine</code>.
-     */
-    public final PrMedicine PR_MEDICINE = dunder.mifflin.persistence.jdbc.jooq.tables.PrMedicine.PR_MEDICINE;
-
-    /**
-     * The table <code>public.pr_sp_exam</code>.
-     */
-    public final PrSpExam PR_SP_EXAM = dunder.mifflin.persistence.jdbc.jooq.tables.PrSpExam.PR_SP_EXAM;
 
     /**
      * The table <code>public.prescription</code>.
@@ -122,11 +127,6 @@ public class Public extends SchemaImpl {
     public final Province PROVINCE = dunder.mifflin.persistence.jdbc.jooq.tables.Province.PROVINCE;
 
     /**
-     * The table <code>public.recover</code>.
-     */
-    public final Recover RECOVER = dunder.mifflin.persistence.jdbc.jooq.tables.Recover.RECOVER;
-
-    /**
      * The table <code>public.region</code>.
      */
     public final Region REGION = dunder.mifflin.persistence.jdbc.jooq.tables.Region.REGION;
@@ -135,6 +135,11 @@ public class Public extends SchemaImpl {
      * The table <code>public.sp_exam</code>.
      */
     public final SpExam SP_EXAM = dunder.mifflin.persistence.jdbc.jooq.tables.SpExam.SP_EXAM;
+
+    /**
+     * The table <code>public.sp_prescription</code>.
+     */
+    public final SpPrescription SP_PRESCRIPTION = dunder.mifflin.persistence.jdbc.jooq.tables.SpPrescription.SP_PRESCRIPTION;
 
     /**
      * The table <code>public.sp_qualification</code>.
@@ -147,14 +152,19 @@ public class Public extends SchemaImpl {
     public final SpReport SP_REPORT = dunder.mifflin.persistence.jdbc.jooq.tables.SpReport.SP_REPORT;
 
     /**
+     * The table <code>public.sp_ticket</code>.
+     */
+    public final SpTicket SP_TICKET = dunder.mifflin.persistence.jdbc.jooq.tables.SpTicket.SP_TICKET;
+
+    /**
      * The table <code>public.specialist</code>.
      */
     public final Specialist SPECIALIST = dunder.mifflin.persistence.jdbc.jooq.tables.Specialist.SPECIALIST;
 
     /**
-     * The table <code>public.ticket</code>.
+     * The table <code>public.token</code>.
      */
-    public final Ticket TICKET = dunder.mifflin.persistence.jdbc.jooq.tables.Ticket.TICKET;
+    public final Token TOKEN = dunder.mifflin.persistence.jdbc.jooq.tables.Token.TOKEN;
 
     /**
      * No further instances allowed
@@ -205,21 +215,23 @@ public class Public extends SchemaImpl {
             HsAdmin.HS_ADMIN,
             HsDoctor.HS_DOCTOR,
             HsExam.HS_EXAM,
+            HsPrescription.HS_PRESCRIPTION,
             HsQualification.HS_QUALIFICATION,
             HsReport.HS_REPORT,
+            HsTicket.HS_TICKET,
             Medicine.MEDICINE,
+            MedicinePrescription.MEDICINE_PRESCRIPTION,
+            MedicineTicket.MEDICINE_TICKET,
             Person.PERSON,
-            PrHsExam.PR_HS_EXAM,
-            PrMedicine.PR_MEDICINE,
-            PrSpExam.PR_SP_EXAM,
             Prescription.PRESCRIPTION,
             Province.PROVINCE,
-            Recover.RECOVER,
             Region.REGION,
             SpExam.SP_EXAM,
+            SpPrescription.SP_PRESCRIPTION,
             SpQualification.SP_QUALIFICATION,
             SpReport.SP_REPORT,
+            SpTicket.SP_TICKET,
             Specialist.SPECIALIST,
-            Ticket.TICKET);
+            Token.TOKEN);
     }
 }

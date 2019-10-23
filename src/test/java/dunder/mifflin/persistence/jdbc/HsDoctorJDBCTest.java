@@ -49,17 +49,18 @@ class HsDoctorJDBCTest {
 
     @Test
     void byKey() {
-        dao.byKey(169L).ifPresentOrElse(
+        dao.byKey(10L).ifPresentOrElse(
                 (doctor) -> {
-                    assertEquals(169L, doctor.id());
-                    assertEquals("Valentina", doctor.name());
-                    assertEquals("Felce", doctor.surname());
-                    assertEquals("valentina.felce@dominio.com", doctor.email());
-                    assertEquals(LocalDate.of(1969, 7, 1), doctor.birthday());
-                    assertEquals(12L, doctor.birthplace());
-                    assertEquals("FLCVNT69L41A975G", doctor.fc());
+                    assertEquals(10L, doctor.id());
+                    assertEquals("Francesca", doctor.name());
+                    assertEquals("Ferrari", doctor.surname());
+                    assertEquals("francesca.ferrari@dominio.com", doctor.email());
+                    assertEquals(LocalDate.of(1990, 3, 24), doctor.birthday());
+                    assertEquals(1107L, doctor.birthplace());
+                    assertEquals("FRRFNC90C64A452V", doctor.fc());
                     assertEquals(false, doctor.gender());
-                    assertEquals(1014L, doctor.residence());
+                    assertEquals(1003L, doctor.residence());
+                    assertEquals(11L, doctor.workplace());
                 },
                 Assertions::fail
         );
@@ -69,22 +70,23 @@ class HsDoctorJDBCTest {
 
     @Test
     void byKeys() {
-        final var results = dao.byKeys(1L, 169L);
+        final var results = dao.byKeys(1L, 17L);
 
         assertFalse(results.containsKey(1L));
 
-        Optional.ofNullable(results.get(169L))
+        Optional.ofNullable(results.get(17L))
                 .ifPresentOrElse(
                         (doctor) -> {
-                            assertEquals(169L, doctor.id());
-                            assertEquals("Valentina", doctor.name());
-                            assertEquals("Felce", doctor.surname());
-                            assertEquals("valentina.felce@dominio.com", doctor.email());
-                            assertEquals(LocalDate.of(1969, 7, 1), doctor.birthday());
-                            assertEquals(12L, doctor.birthplace());
-                            assertEquals("FLCVNT69L41A975G", doctor.fc());
+                            assertEquals(17L, doctor.id());
+                            assertEquals("Eleonora", doctor.name());
+                            assertEquals("Gatti", doctor.surname());
+                            assertEquals("eleonora.gatti@dominio.com", doctor.email());
+                            assertEquals(LocalDate.of(1967, 1, 22), doctor.birthday());
+                            assertEquals(628L, doctor.birthplace());
+                            assertEquals("GTTLNR67A62D383Z", doctor.fc());
                             assertEquals(false, doctor.gender());
-                            assertEquals(1014L, doctor.residence());
+                            assertEquals(957L, doctor.residence());
+                            assertEquals(11L, doctor.workplace());
                         },
                         Assertions::fail
                 );

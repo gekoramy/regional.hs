@@ -230,6 +230,5 @@ VALUES ('Risonanza magnetica nucleare (RM) muscoloscheletrica',
 
 INSERT INTO sp_exam(id)
 SELECT examination.id
-FROM examination
-         LEFT JOIN hs_exam on examination.id = hs_exam.id
+FROM examination LEFT JOIN hs_exam on examination.id = hs_exam.id
 WHERE hs_exam.id IS NULL

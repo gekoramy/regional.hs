@@ -1,6 +1,6 @@
 package dunder.mifflin.persistence.jdbc;
 
-import dunder.mifflin.persistence.daos.TicketDAO;
+import dunder.mifflin.persistence.daos.MedicineTicketDAO;
 import dunder.mifflin.persistence.jdbc.config.Database;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
@@ -21,11 +21,11 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-class TicketJDBCTest {
+class MedicineTicketJDBCTest {
 
     private static Connection conn;
     private static DSLContext create;
-    private static TicketDAO dao;
+    private static MedicineTicketDAO dao;
 
     @BeforeAll
     static void open() throws SQLException {
@@ -35,7 +35,7 @@ class TicketJDBCTest {
                 Database.PASSWORD
         );
         create = DSL.using(conn, SQLDialect.POSTGRES);
-        dao = new TicketJDBC(create);
+        dao = new MedicineTicketJDBC(create);
     }
 
     @AfterAll
@@ -46,9 +46,9 @@ class TicketJDBCTest {
 
     @Test
     void testStoreRemove() {
-        final var store = dao.insert(591L, BigDecimal.valueOf(20));
+        final var store = dao.insert(1251, BigDecimal.valueOf(20));
 
-        assertEquals(591L, store.prescription());
+        assertEquals(1251L, store.prescription());
         assertEquals(LocalDate.now(), store.date().toLocalDate());
         assertEquals(BigDecimal.valueOf(2000, 2), store.amount());
 
@@ -74,12 +74,14 @@ class TicketJDBCTest {
 
         Assertions.assertThrows(DataAccessException.class, () -> dao.insert(0L, BigDecimal.valueOf(20)), "not existing prescription");
 
+        Assertions.assertThrows(DataAccessException.class, () -> dao.insert(1280L, BigDecimal.valueOf(20)), "not a medicine prescription");
+
         Assertions.assertThrows(DataAccessException.class, () -> dao.insert(1L, BigDecimal.valueOf(20)), "already payed prescription");
     }
 
     @Test
     void count() {
-        assertEquals(450, dao.count());
+        assertEquals(1250, dao.count());
     }
 
     @Test
@@ -87,8 +89,8 @@ class TicketJDBCTest {
         dao.byKey(104L).ifPresentOrElse(
                 (ticket) -> {
                     assertEquals(104L, ticket.prescription());
-                    assertEquals(LocalDate.of(2012, 8, 31), ticket.date().toLocalDate());
-                    assertEquals(BigDecimal.valueOf(5000, 2), ticket.amount());
+                    assertEquals(LocalDate.of(2015, 7, 23), ticket.date().toLocalDate());
+                    assertEquals(BigDecimal.valueOf(300, 2), ticket.amount());
                 },
                 Assertions::fail
         );
@@ -106,8 +108,8 @@ class TicketJDBCTest {
                 .ifPresentOrElse(
                         (ticket) -> {
                             assertEquals(104L, ticket.prescription());
-                            assertEquals(LocalDate.of(2012, 8, 31), ticket.date().toLocalDate());
-                            assertEquals(BigDecimal.valueOf(5000, 2), ticket.amount());
+                            assertEquals(LocalDate.of(2015, 7, 23), ticket.date().toLocalDate());
+                            assertEquals(BigDecimal.valueOf(300, 2), ticket.amount());
                         },
                         Assertions::fail
                 );
@@ -115,6 +117,7 @@ class TicketJDBCTest {
 
     @Test
     void fetchAll() {
-        assertEquals(450, dao.fetchAll().count());
+        assertEquals(1250, dao.fetchAll().count());
     }
+
 }

@@ -30,7 +30,7 @@ import java.util.List;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class HsReport extends TableImpl<Record> {
 
-    private static final long serialVersionUID = 163984767;
+    private static final long serialVersionUID = 771864345;
 
     /**
      * The reference instance of <code>public.hs_report</code>
@@ -46,14 +46,9 @@ public class HsReport extends TableImpl<Record> {
     }
 
     /**
-     * The column <code>public.hs_report.prescription</code>.
+     * The column <code>public.hs_report.ticket</code>.
      */
-    public final TableField<Record, Long> PRESCRIPTION = createField(DSL.name("prescription"), org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
-
-    /**
-     * The column <code>public.hs_report.doctor</code>.
-     */
-    public final TableField<Record, Long> DOCTOR = createField(DSL.name("doctor"), org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
+    public final TableField<Record, Long> TICKET = createField(DSL.name("ticket"), org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
      * The column <code>public.hs_report.date</code>.
@@ -120,15 +115,11 @@ public class HsReport extends TableImpl<Record> {
 
     @Override
     public List<ForeignKey<Record, ?>> getReferences() {
-        return Arrays.<ForeignKey<Record, ?>>asList(Keys.HS_REPORT__HS_REPORT_PRESCRIPTION_FKEY, Keys.HS_REPORT__HS_REPORT_DOCTOR_FKEY);
+        return Arrays.<ForeignKey<Record, ?>>asList(Keys.HS_REPORT__HS_REPORT_TICKET_FKEY);
     }
 
-    public PrHsExam prHsExam() {
-        return new PrHsExam(this, Keys.HS_REPORT__HS_REPORT_PRESCRIPTION_FKEY);
-    }
-
-    public HsDoctor hsDoctor() {
-        return new HsDoctor(this, Keys.HS_REPORT__HS_REPORT_DOCTOR_FKEY);
+    public HsTicket hsTicket() {
+        return new HsTicket(this, Keys.HS_REPORT__HS_REPORT_TICKET_FKEY);
     }
 
     @Override

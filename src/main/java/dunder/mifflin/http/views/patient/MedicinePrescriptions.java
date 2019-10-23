@@ -3,9 +3,9 @@ package dunder.mifflin.http.views.patient;
 import dunder.mifflin.beans.DAOs;
 import dunder.mifflin.persistence.daos.exceptions.DAOException;
 import dunder.mifflin.persistence.pojos.MedicinePrescription;
+import dunder.mifflin.persistence.pojos.MedicineTicket;
 import dunder.mifflin.persistence.pojos.Person;
 import dunder.mifflin.persistence.pojos.Prescription;
-import dunder.mifflin.persistence.pojos.Ticket;
 import dunder.mifflin.utils.Auths;
 import dunder.mifflin.utils.Avatars;
 import dunder.mifflin.utils.Fallbacks;
@@ -40,7 +40,7 @@ public class MedicinePrescriptions extends HttpServlet {
             final List<MedicinePrescription> medicines = daos.factory().medicinePrescription().concerns(person.id(), "").collect(toUnmodifiableList());
 
             final Long[] prescriptions = medicines.stream().map(Prescription::id).toArray(Long[]::new);
-            final Map<Long, Ticket> tickets = daos.factory().ticket().byKeys(prescriptions);
+            final Map<Long, MedicineTicket> tickets = daos.factory().medicineTicket().byKeys(prescriptions);
 
             req.setAttribute("person", person);
             req.setAttribute("avatar", avatar);

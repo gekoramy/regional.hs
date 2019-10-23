@@ -63,6 +63,11 @@ public class Tables {
     public static final HsExam HS_EXAM = HsExam.HS_EXAM;
 
     /**
+     * The table <code>public.hs_prescription</code>.
+     */
+    public static final HsPrescription HS_PRESCRIPTION = HsPrescription.HS_PRESCRIPTION;
+
+    /**
      * The table <code>public.hs_qualification</code>.
      */
     public static final HsQualification HS_QUALIFICATION = HsQualification.HS_QUALIFICATION;
@@ -73,29 +78,29 @@ public class Tables {
     public static final HsReport HS_REPORT = HsReport.HS_REPORT;
 
     /**
+     * The table <code>public.hs_ticket</code>.
+     */
+    public static final HsTicket HS_TICKET = HsTicket.HS_TICKET;
+
+    /**
      * The table <code>public.medicine</code>.
      */
     public static final Medicine MEDICINE = Medicine.MEDICINE;
 
     /**
+     * The table <code>public.medicine_prescription</code>.
+     */
+    public static final MedicinePrescription MEDICINE_PRESCRIPTION = MedicinePrescription.MEDICINE_PRESCRIPTION;
+
+    /**
+     * The table <code>public.medicine_ticket</code>.
+     */
+    public static final MedicineTicket MEDICINE_TICKET = MedicineTicket.MEDICINE_TICKET;
+
+    /**
      * The table <code>public.person</code>.
      */
     public static final Person PERSON = Person.PERSON;
-
-    /**
-     * The table <code>public.pr_hs_exam</code>.
-     */
-    public static final PrHsExam PR_HS_EXAM = PrHsExam.PR_HS_EXAM;
-
-    /**
-     * The table <code>public.pr_medicine</code>.
-     */
-    public static final PrMedicine PR_MEDICINE = PrMedicine.PR_MEDICINE;
-
-    /**
-     * The table <code>public.pr_sp_exam</code>.
-     */
-    public static final PrSpExam PR_SP_EXAM = PrSpExam.PR_SP_EXAM;
 
     /**
      * The table <code>public.prescription</code>.
@@ -108,11 +113,6 @@ public class Tables {
     public static final Province PROVINCE = Province.PROVINCE;
 
     /**
-     * The table <code>public.recover</code>.
-     */
-    public static final Recover RECOVER = Recover.RECOVER;
-
-    /**
      * The table <code>public.region</code>.
      */
     public static final Region REGION = Region.REGION;
@@ -121,6 +121,11 @@ public class Tables {
      * The table <code>public.sp_exam</code>.
      */
     public static final SpExam SP_EXAM = SpExam.SP_EXAM;
+
+    /**
+     * The table <code>public.sp_prescription</code>.
+     */
+    public static final SpPrescription SP_PRESCRIPTION = SpPrescription.SP_PRESCRIPTION;
 
     /**
      * The table <code>public.sp_qualification</code>.
@@ -133,12 +138,17 @@ public class Tables {
     public static final SpReport SP_REPORT = SpReport.SP_REPORT;
 
     /**
+     * The table <code>public.sp_ticket</code>.
+     */
+    public static final SpTicket SP_TICKET = SpTicket.SP_TICKET;
+
+    /**
      * The table <code>public.specialist</code>.
      */
     public static final Specialist SPECIALIST = Specialist.SPECIALIST;
 
     /**
-     * The table <code>public.ticket</code>.
+     * The table <code>public.token</code>.
      */
-    public static final Ticket TICKET = Ticket.TICKET;
+    public static final Token TOKEN = Token.TOKEN;
 }

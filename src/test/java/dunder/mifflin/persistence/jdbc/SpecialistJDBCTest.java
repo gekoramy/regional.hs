@@ -49,17 +49,17 @@ class SpecialistJDBCTest {
 
     @Test
     void byKey() {
-        dao.byKey(116L).ifPresentOrElse(
+        dao.byKey(26L).ifPresentOrElse(
                 (specialist) -> {
-                    assertEquals(116L, specialist.id());
-                    assertEquals("Marcello", specialist.name());
-                    assertEquals("Orlando", specialist.surname());
-                    assertEquals("marcello.orlando@dominio.com", specialist.email());
-                    assertEquals(LocalDate.of(1973, 6, 10), specialist.birthday());
-                    assertEquals(244L, specialist.birthplace());
-                    assertEquals("RLNMCL73H10E554H", specialist.fc());
+                    assertEquals(26L, specialist.id());
+                    assertEquals("Attilio", specialist.name());
+                    assertEquals("Guerra", specialist.surname());
+                    assertEquals("attilio.guerra@dominio.com", specialist.email());
+                    assertEquals(LocalDate.of(1983, 3, 1), specialist.birthday());
+                    assertEquals(172L, specialist.birthplace());
+                    assertEquals("GRRTTL83C01G827Z", specialist.fc());
                     assertEquals(true, specialist.gender());
-                    assertEquals(950L, specialist.residence());
+                    assertEquals(997L, specialist.residence());
                 },
                 Assertions::fail
         );
@@ -69,22 +69,22 @@ class SpecialistJDBCTest {
 
     @Test
     void byKeys() {
-        final var results = dao.byKeys(1L, 116L);
+        final var results = dao.byKeys(1L, 26L);
 
         assertFalse(results.containsKey(1L));
 
-        Optional.ofNullable(results.get(116L))
+        Optional.ofNullable(results.get(26L))
                 .ifPresentOrElse(
                         (specialist) -> {
-                            assertEquals(116L, specialist.id());
-                            assertEquals("Marcello", specialist.name());
-                            assertEquals("Orlando", specialist.surname());
-                            assertEquals("marcello.orlando@dominio.com", specialist.email());
-                            assertEquals(LocalDate.of(1973, 6, 10), specialist.birthday());
-                            assertEquals(244L, specialist.birthplace());
-                            assertEquals("RLNMCL73H10E554H", specialist.fc());
+                            assertEquals(26L, specialist.id());
+                            assertEquals("Attilio", specialist.name());
+                            assertEquals("Guerra", specialist.surname());
+                            assertEquals("attilio.guerra@dominio.com", specialist.email());
+                            assertEquals(LocalDate.of(1983, 3, 1), specialist.birthday());
+                            assertEquals(172L, specialist.birthplace());
+                            assertEquals("GRRTTL83C01G827Z", specialist.fc());
                             assertEquals(true, specialist.gender());
-                            assertEquals(950L, specialist.residence());
+                            assertEquals(997L, specialist.residence());
                         },
                         Assertions::fail
                 );

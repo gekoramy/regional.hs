@@ -10,9 +10,11 @@ import org.jooq.impl.DSL;
 
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import static dunder.mifflin.persistence.jdbc.jooq.Tables.*;
+import static org.jooq.impl.DSL.nvl;
 
 public class ExamPrescriptionJDBC extends JDBC implements ExamPrescriptionDAO {
 
@@ -24,22 +26,23 @@ public class ExamPrescriptionJDBC extends JDBC implements ExamPrescriptionDAO {
     public ExamPrescription insert(long patient, long exam) {
         return context.transactionResult((config) -> {
 
-            if (DSL.using(config).fetchExists(SP_EXAM, SP_EXAM.ID.eq(exam))) {
+            final var insert = DSL.using(config)
+                    .select()
+                    .from(EXAMINATION)
+                    .where(EXAMINATION.ID.eq(exam))
+                    .fetchOptional()
+                    .orElseThrow(() -> new DAOException(String.format("There is no examination with id : %d", exam)));
 
-                final var insert = DSL.using(config)
-                        .select()
-                        .from(EXAMINATION)
-                        .where(EXAMINATION.ID.eq(exam))
-                        .fetchOne();
+            if (DSL.using(config).fetchExists(SP_EXAM, SP_EXAM.ID.eq(exam))) {
 
                 final var prescription = Queries.prescription(patient).apply(DSL.using(config));
 
                 return DSL.using(config)
-                        .insertInto(PR_SP_EXAM)
-                        .columns(PR_SP_EXAM.PRESCRIPTION, PR_SP_EXAM.EXAM)
+                        .insertInto(SP_PRESCRIPTION)
+                        .columns(SP_PRESCRIPTION.PRESCRIPTION, SP_PRESCRIPTION.EXAM)
                         .values(prescription.id(), exam)
-                        .returning(PR_SP_EXAM.asterisk())
-                        .fetchOptional()
+                        .returning(SP_PRESCRIPTION.asterisk())
+                        .fetchOne()
                         .map((r) -> new ExamPrescription(
                                 prescription.id(),
                                 prescription.place(),
@@ -48,26 +51,19 @@ public class ExamPrescriptionJDBC extends JDBC implements ExamPrescriptionDAO {
                                 insert.get(EXAMINATION.ID),
                                 insert.get(EXAMINATION.NAME),
                                 insert.get(EXAMINATION.INFO)
-                        ))
-                        .get();
+                        ));
             }
 
             if (DSL.using(config).fetchExists(HS_EXAM, HS_EXAM.ID.eq(exam))) {
 
-                final var insert = DSL.using(config)
-                        .select()
-                        .from(EXAMINATION)
-                        .where(EXAMINATION.ID.eq(exam))
-                        .fetchOne();
-
                 final var prescription = Queries.prescription(patient).apply(DSL.using(config));
 
                 return DSL.using(config)
-                        .insertInto(PR_HS_EXAM)
-                        .columns(PR_HS_EXAM.PRESCRIPTION, PR_HS_EXAM.EXAM)
+                        .insertInto(HS_PRESCRIPTION)
+                        .columns(HS_PRESCRIPTION.PRESCRIPTION, HS_PRESCRIPTION.EXAM)
                         .values(prescription.id(), exam)
-                        .returning(PR_HS_EXAM.asterisk())
-                        .fetchOptional()
+                        .returning(HS_PRESCRIPTION.asterisk())
+                        .fetchOne()
                         .map((r) -> new ExamPrescription(
                                 prescription.id(),
                                 prescription.place(),
@@ -76,11 +72,10 @@ public class ExamPrescriptionJDBC extends JDBC implements ExamPrescriptionDAO {
                                 insert.get(EXAMINATION.ID),
                                 insert.get(EXAMINATION.NAME),
                                 insert.get(EXAMINATION.INFO)
-                        ))
-                        .get();
+                        ));
             }
 
-            throw new DAOException(String.format("There is no examination with id : %d", exam));
+            throw new DAOException("The examination %d is neither a specialist exam nor a health service exam");
         });
     }
 
@@ -88,23 +83,23 @@ public class ExamPrescriptionJDBC extends JDBC implements ExamPrescriptionDAO {
     public Optional<ExamPrescription> remove(long prescription) {
         return context.transactionResult((config) -> {
 
-            final var prExam = DSL.using(config)
-                    .deleteFrom(PR_SP_EXAM)
-                    .where(PR_SP_EXAM.PRESCRIPTION.eq(prescription))
-                    .returning(PR_SP_EXAM.EXAM)
+            final Supplier<Optional<Long>> sp = () -> DSL.using(config)
+                    .deleteFrom(SP_PRESCRIPTION)
+                    .where(SP_PRESCRIPTION.PRESCRIPTION.eq(prescription))
+                    .returning(SP_PRESCRIPTION.EXAM)
                     .fetchOptional()
-                    .map((r) -> r.get(PR_SP_EXAM.EXAM));
+                    .map((r) -> r.get(SP_PRESCRIPTION.EXAM));
 
-            final var prHsExam = DSL.using(config)
-                    .deleteFrom(PR_HS_EXAM)
-                    .where(PR_HS_EXAM.PRESCRIPTION.eq(prescription))
-                    .returning(PR_HS_EXAM.EXAM)
+            final Supplier<Optional<Long>> hs = () -> DSL.using(config)
+                    .deleteFrom(HS_PRESCRIPTION)
+                    .where(HS_PRESCRIPTION.PRESCRIPTION.eq(prescription))
+                    .returning(HS_PRESCRIPTION.EXAM)
                     .fetchOptional()
-                    .map((r) -> r.get(PR_HS_EXAM.EXAM));
+                    .map((r) -> r.get(HS_PRESCRIPTION.EXAM));
 
             return Optional.<Long>empty()
-                    .or(() -> prExam)
-                    .or(() -> prHsExam)
+                    .or(sp)
+                    .or(hs)
                     .flatMap((exam) -> DSL.using(config)
                             .select()
                             .from(EXAMINATION)
@@ -134,11 +129,11 @@ public class ExamPrescriptionJDBC extends JDBC implements ExamPrescriptionDAO {
         return context
                 .select(PRESCRIPTION.asterisk(), EXAMINATION.asterisk())
                 .from(PRESCRIPTION)
-                .leftJoin(PR_SP_EXAM).on(PRESCRIPTION.ID.eq(PR_SP_EXAM.PRESCRIPTION))
-                .leftJoin(PR_HS_EXAM).on(PRESCRIPTION.ID.eq(PR_HS_EXAM.PRESCRIPTION))
-                .innerJoin(EXAMINATION).on(EXAMINATION.ID.eq(PR_SP_EXAM.EXAM).or(EXAMINATION.ID.eq(PR_HS_EXAM.EXAM)))
+                .leftJoin(SP_PRESCRIPTION).on(PRESCRIPTION.ID.eq(SP_PRESCRIPTION.PRESCRIPTION))
+                .leftJoin(HS_PRESCRIPTION).on(PRESCRIPTION.ID.eq(HS_PRESCRIPTION.PRESCRIPTION))
+                .innerJoin(EXAMINATION).on(EXAMINATION.ID.eq(SP_PRESCRIPTION.EXAM).or(EXAMINATION.ID.eq(HS_PRESCRIPTION.EXAM)))
                 .innerJoin(FOLLOWS).on(PRESCRIPTION.CONCERNS.eq(FOLLOWS.ID))
-                .where(PR_SP_EXAM.EXAM.isNotNull().or(PR_HS_EXAM.EXAM.isNotNull()))
+                .where(nvl(SP_PRESCRIPTION.PRESCRIPTION, HS_PRESCRIPTION.PRESCRIPTION).isNotNull())
                 .and(FOLLOWS.PATIENT.eq(patient))
                 .and(EXAMINATION.NAME.containsIgnoreCase(filter).or(EXAMINATION.INFO.containsIgnoreCase(filter)))
                 .orderBy(PRESCRIPTION.DATE.desc())
@@ -150,11 +145,11 @@ public class ExamPrescriptionJDBC extends JDBC implements ExamPrescriptionDAO {
         return context
                 .select(PRESCRIPTION.asterisk(), EXAMINATION.asterisk())
                 .from(PRESCRIPTION)
-                .leftJoin(PR_SP_EXAM).on(PRESCRIPTION.ID.eq(PR_SP_EXAM.PRESCRIPTION))
-                .leftJoin(PR_HS_EXAM).on(PRESCRIPTION.ID.eq(PR_HS_EXAM.PRESCRIPTION))
-                .innerJoin(EXAMINATION).on(EXAMINATION.ID.eq(PR_SP_EXAM.EXAM).or(EXAMINATION.ID.eq(PR_HS_EXAM.EXAM)))
+                .leftJoin(SP_PRESCRIPTION).on(PRESCRIPTION.ID.eq(SP_PRESCRIPTION.PRESCRIPTION))
+                .leftJoin(HS_PRESCRIPTION).on(PRESCRIPTION.ID.eq(HS_PRESCRIPTION.PRESCRIPTION))
+                .innerJoin(EXAMINATION).on(EXAMINATION.ID.eq(SP_PRESCRIPTION.EXAM).or(EXAMINATION.ID.eq(HS_PRESCRIPTION.EXAM)))
                 .innerJoin(FOLLOWS).on(PRESCRIPTION.CONCERNS.eq(FOLLOWS.ID))
-                .where(PR_SP_EXAM.EXAM.isNotNull().or(PR_HS_EXAM.EXAM.isNotNull()))
+                .where(nvl(SP_PRESCRIPTION.PRESCRIPTION, HS_PRESCRIPTION.PRESCRIPTION).isNotNull())
                 .and(FOLLOWS.GENERAL.eq(general))
                 .orderBy(PRESCRIPTION.DATE.desc())
                 .fetchStreamInto(ExamPrescription.class);
@@ -165,10 +160,10 @@ public class ExamPrescriptionJDBC extends JDBC implements ExamPrescriptionDAO {
         return context
                 .select(PRESCRIPTION.asterisk(), EXAMINATION.asterisk())
                 .from(PRESCRIPTION)
-                .leftJoin(PR_SP_EXAM).on(PRESCRIPTION.ID.eq(PR_SP_EXAM.PRESCRIPTION))
-                .leftJoin(PR_HS_EXAM).on(PRESCRIPTION.ID.eq(PR_HS_EXAM.PRESCRIPTION))
-                .innerJoin(EXAMINATION).on(EXAMINATION.ID.eq(PR_SP_EXAM.EXAM).or(EXAMINATION.ID.eq(PR_HS_EXAM.EXAM)))
-                .where(PR_SP_EXAM.EXAM.isNotNull().or(PR_HS_EXAM.EXAM.isNotNull()))
+                .leftJoin(SP_PRESCRIPTION).on(PRESCRIPTION.ID.eq(SP_PRESCRIPTION.PRESCRIPTION))
+                .leftJoin(HS_PRESCRIPTION).on(PRESCRIPTION.ID.eq(HS_PRESCRIPTION.PRESCRIPTION))
+                .innerJoin(EXAMINATION).on(EXAMINATION.ID.eq(SP_PRESCRIPTION.EXAM).or(EXAMINATION.ID.eq(HS_PRESCRIPTION.EXAM)))
+                .where(nvl(SP_PRESCRIPTION.PRESCRIPTION, HS_PRESCRIPTION.PRESCRIPTION).isNotNull())
                 .and(PRESCRIPTION.PLACE.eq(province))
                 .orderBy(PRESCRIPTION.DATE.desc())
                 .fetchStreamInto(ExamPrescription.class);
@@ -176,7 +171,7 @@ public class ExamPrescriptionJDBC extends JDBC implements ExamPrescriptionDAO {
 
     @Override
     public long count() {
-        return context.fetchCount(PR_SP_EXAM) + context.fetchCount(PR_HS_EXAM);
+        return context.fetchCount(SP_PRESCRIPTION) + context.fetchCount(HS_PRESCRIPTION);
     }
 
     @Override
@@ -184,11 +179,10 @@ public class ExamPrescriptionJDBC extends JDBC implements ExamPrescriptionDAO {
         return context
                 .select(PRESCRIPTION.asterisk(), EXAMINATION.asterisk())
                 .from(PRESCRIPTION)
-                .leftJoin(PR_SP_EXAM).on(PRESCRIPTION.ID.eq(PR_SP_EXAM.PRESCRIPTION))
-                .leftJoin(PR_HS_EXAM).on(PRESCRIPTION.ID.eq(PR_HS_EXAM.PRESCRIPTION))
-                .innerJoin(EXAMINATION).on(EXAMINATION.ID.eq(PR_SP_EXAM.EXAM).or(EXAMINATION.ID.eq(PR_HS_EXAM.EXAM)))
-                .where(PR_SP_EXAM.EXAM.isNotNull().or(PR_HS_EXAM.EXAM.isNotNull()))
-                .and(PRESCRIPTION.ID.eq(key))
+                .leftJoin(SP_PRESCRIPTION).on(PRESCRIPTION.ID.eq(SP_PRESCRIPTION.PRESCRIPTION))
+                .leftJoin(HS_PRESCRIPTION).on(PRESCRIPTION.ID.eq(HS_PRESCRIPTION.PRESCRIPTION))
+                .innerJoin(EXAMINATION).on(EXAMINATION.ID.eq(SP_PRESCRIPTION.EXAM).or(EXAMINATION.ID.eq(HS_PRESCRIPTION.EXAM)))
+                .where(nvl(SP_PRESCRIPTION.PRESCRIPTION, HS_PRESCRIPTION.PRESCRIPTION).eq(key))
                 .fetchOptionalInto(ExamPrescription.class);
 
     }
@@ -198,11 +192,10 @@ public class ExamPrescriptionJDBC extends JDBC implements ExamPrescriptionDAO {
         return context
                 .select(PRESCRIPTION.asterisk(), EXAMINATION.asterisk())
                 .from(PRESCRIPTION)
-                .leftJoin(PR_SP_EXAM).on(PRESCRIPTION.ID.eq(PR_SP_EXAM.PRESCRIPTION))
-                .leftJoin(PR_HS_EXAM).on(PRESCRIPTION.ID.eq(PR_HS_EXAM.PRESCRIPTION))
-                .innerJoin(EXAMINATION).on(EXAMINATION.ID.eq(PR_SP_EXAM.EXAM).or(EXAMINATION.ID.eq(PR_HS_EXAM.EXAM)))
-                .where(PR_SP_EXAM.EXAM.isNotNull().or(PR_HS_EXAM.EXAM.isNotNull()))
-                .and(PRESCRIPTION.ID.in(keys))
+                .leftJoin(SP_PRESCRIPTION).on(PRESCRIPTION.ID.eq(SP_PRESCRIPTION.PRESCRIPTION))
+                .leftJoin(HS_PRESCRIPTION).on(PRESCRIPTION.ID.eq(HS_PRESCRIPTION.PRESCRIPTION))
+                .innerJoin(EXAMINATION).on(EXAMINATION.ID.eq(SP_PRESCRIPTION.EXAM).or(EXAMINATION.ID.eq(HS_PRESCRIPTION.EXAM)))
+                .where(nvl(SP_PRESCRIPTION.PRESCRIPTION, HS_PRESCRIPTION.PRESCRIPTION).in(keys))
                 .fetchMap(PRESCRIPTION.ID, ExamPrescription.class);
     }
 
@@ -211,10 +204,10 @@ public class ExamPrescriptionJDBC extends JDBC implements ExamPrescriptionDAO {
         return context
                 .select(PRESCRIPTION.asterisk(), EXAMINATION.asterisk())
                 .from(PRESCRIPTION)
-                .leftJoin(PR_SP_EXAM).on(PRESCRIPTION.ID.eq(PR_SP_EXAM.PRESCRIPTION))
-                .leftJoin(PR_HS_EXAM).on(PRESCRIPTION.ID.eq(PR_HS_EXAM.PRESCRIPTION))
-                .innerJoin(EXAMINATION).on(EXAMINATION.ID.eq(PR_SP_EXAM.EXAM).or(EXAMINATION.ID.eq(PR_HS_EXAM.EXAM)))
-                .where(PR_SP_EXAM.EXAM.isNotNull().or(PR_HS_EXAM.EXAM.isNotNull()))
+                .leftJoin(SP_PRESCRIPTION).on(PRESCRIPTION.ID.eq(SP_PRESCRIPTION.PRESCRIPTION))
+                .leftJoin(HS_PRESCRIPTION).on(PRESCRIPTION.ID.eq(HS_PRESCRIPTION.PRESCRIPTION))
+                .innerJoin(EXAMINATION).on(EXAMINATION.ID.eq(SP_PRESCRIPTION.EXAM).or(EXAMINATION.ID.eq(HS_PRESCRIPTION.EXAM)))
+                .where(nvl(SP_PRESCRIPTION.PRESCRIPTION, HS_PRESCRIPTION.PRESCRIPTION).isNotNull())
                 .orderBy(PRESCRIPTION.DATE.desc())
                 .fetchStreamInto(ExamPrescription.class);
     }

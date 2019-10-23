@@ -44,49 +44,51 @@ class GeneralJDBCTest {
 
     @Test
     void follows() {
-        dao.follows(33L).ifPresentOrElse(
+        dao.follows(8L).ifPresentOrElse(
                 (general) -> {
-                    assertEquals(99L, general.id());
-                    assertEquals("Arianna", general.name());
-                    assertEquals("Bonetti", general.surname());
-                    assertEquals("arianna.bonetti@dominio.com", general.email());
-                    assertEquals(LocalDate.of(1966, 8, 8), general.birthday());
-                    assertEquals(908L, general.birthplace());
-                    assertEquals("BNTRNN66M48B165D", general.fc());
+                    assertEquals(2L, general.id());
+                    assertEquals("Sara", general.name());
+                    assertEquals("Caruso", general.surname());
+                    assertEquals("sara.caruso@dominio.com", general.email());
+                    assertEquals(LocalDate.of(1979, 2, 1), general.birthday());
+                    assertEquals(17L, general.birthplace());
+                    assertEquals("CRSSRA79B41B674S", general.fc());
                     assertEquals(false, general.gender());
-                    assertEquals(946L, general.residence());
+                    assertEquals(899L, general.residence());
                     assertEquals(11L, general.workplace());
                 },
                 Assertions::fail
         );
 
-        Assertions.assertFalse(dao.follows(1L).isPresent());
+        Assertions.assertFalse(dao.follows(0L).isPresent());
     }
 
     @Test
     void suitable() {
-        assertEquals(2, dao.suitable(33L, "", "", "").count());
-        assertEquals(2, dao.suitable(33L, "", "@", "").count());
-        assertEquals(1, dao.suitable(33L, "G", "", "").count());
-        assertEquals(0, dao.suitable(33L, "", "X", "").count());
+        assertEquals(2, dao.suitable(1L, "", "", "").count());
+        assertEquals(2, dao.suitable(1L, "", "@", "").count());
+        assertEquals(1, dao.suitable(1L, "", "", "RSSR").count());
+        assertEquals(0, dao.suitable(1L, "G", "", "").count());
     }
 
     @Test
     void testEntrustsUndo() {
-        final var entrusts = dao.entrusts(33L, 86L);
 
-        assertEquals(86L, entrusts.id());
-        assertEquals("Simonetta", entrusts.name());
-        assertEquals("Monaco", entrusts.surname());
-        assertEquals("simonetta.monaco@dominio.com", entrusts.email());
-        assertEquals(LocalDate.of(1974, 10, 11), entrusts.birthday());
-        assertEquals(958L, entrusts.birthplace());
-        assertEquals("MNCSNT74R51D365A", entrusts.fc());
-        assertEquals(false, entrusts.gender());
-        assertEquals(832L, entrusts.residence());
+        final var before = dao.follows(1L).orElseThrow();
+        final var entrusts = dao.entrusts(1L, 8L);
+
+        assertEquals(8L, entrusts.id());
+        assertEquals("Mario", entrusts.name());
+        assertEquals("Rossetti", entrusts.surname());
+        assertEquals("mario.rossetti@dominio.com", entrusts.email());
+        assertEquals(LocalDate.of(1969, 8, 6), entrusts.birthday());
+        assertEquals(637L, entrusts.birthplace());
+        assertEquals("RSSMRA69M06A346L", entrusts.fc());
+        assertEquals(true, entrusts.gender());
+        assertEquals(890L, entrusts.residence());
         assertEquals(11L, entrusts.workplace());
 
-        dao.follows(33L).ifPresentOrElse(
+        dao.follows(1L).ifPresentOrElse(
                 (general) -> {
                     assertEquals(entrusts.id(), general.id());
                     assertEquals(entrusts.name(), general.name());
@@ -102,7 +104,7 @@ class GeneralJDBCTest {
                 Assertions::fail
         );
 
-        dao.undo(33L).ifPresentOrElse(
+        dao.undo(1L).ifPresentOrElse(
                 (general) -> {
                     assertEquals(entrusts.id(), general.id());
                     assertEquals(entrusts.name(), general.name());
@@ -118,41 +120,41 @@ class GeneralJDBCTest {
                 Assertions::fail
         );
 
-        dao.follows(33L).ifPresentOrElse(
+        dao.follows(1L).ifPresentOrElse(
                 (general) -> {
-                    assertEquals(99L, general.id());
-                    assertEquals("Arianna", general.name());
-                    assertEquals("Bonetti", general.surname());
-                    assertEquals("arianna.bonetti@dominio.com", general.email());
-                    assertEquals(LocalDate.of(1966, 8, 8), general.birthday());
-                    assertEquals(908L, general.birthplace());
-                    assertEquals("BNTRNN66M48B165D", general.fc());
-                    assertEquals(false, general.gender());
-                    assertEquals(946L, general.residence());
-                    assertEquals(11L, general.workplace());
+                    assertEquals(before.id(), general.id());
+                    assertEquals(before.name(), general.name());
+                    assertEquals(before.surname(), general.surname());
+                    assertEquals(before.email(), general.email());
+                    assertEquals(before.birthday(), general.birthday());
+                    assertEquals(before.birthplace(), general.birthplace());
+                    assertEquals(before.fc(), general.fc());
+                    assertEquals(before.gender(), general.gender());
+                    assertEquals(before.residence(), general.residence());
+                    assertEquals(before.workplace(), general.workplace());
                 },
                 Assertions::fail
         );
 
-        assertThrows(DAOException.class, () -> dao.entrusts(33L, 99L), "already following");
-        assertThrows(DAOException.class, () -> dao.entrusts(33L, 22L), "not suitable");
-        assertThrows(DAOException.class, () -> dao.entrusts(33L, 0L), "not existing general");
-        assertThrows(DAOException.class, () -> dao.entrusts(0L, 33L), "not existing patient");
+        assertThrows(DAOException.class, () -> dao.entrusts(1L, 13L), "already following");
+        assertThrows(DAOException.class, () -> dao.entrusts(1L, 39L), "not suitable - different residence and workplace");
+        assertThrows(DAOException.class, () -> dao.entrusts(1L, 3L), "not suitable - not a general");
+        assertThrows(DAOException.class, () -> dao.entrusts(0L, 8L), "not existing patient");
     }
 
     @Test
     void general() {
-        dao.general(6L).ifPresentOrElse(
+        dao.general(8L).ifPresentOrElse(
                 (general) -> {
-                    assertEquals(99L, general.id());
-                    assertEquals("Arianna", general.name());
-                    assertEquals("Bonetti", general.surname());
-                    assertEquals("arianna.bonetti@dominio.com", general.email());
-                    assertEquals(LocalDate.of(1966, 8, 8), general.birthday());
-                    assertEquals(908L, general.birthplace());
-                    assertEquals("BNTRNN66M48B165D", general.fc());
-                    assertEquals(false, general.gender());
-                    assertEquals(946L, general.residence());
+                    assertEquals(8L, general.id());
+                    assertEquals("Mario", general.name());
+                    assertEquals("Rossetti", general.surname());
+                    assertEquals("mario.rossetti@dominio.com", general.email());
+                    assertEquals(LocalDate.of(1969, 8, 6), general.birthday());
+                    assertEquals(637L, general.birthplace());
+                    assertEquals("RSSMRA69M06A346L", general.fc());
+                    assertEquals(true, general.gender());
+                    assertEquals(890L, general.residence());
                     assertEquals(11L, general.workplace());
                 },
                 Assertions::fail
@@ -176,18 +178,18 @@ class GeneralJDBCTest {
 
     @Test
     void byKey() {
-        dao.byKey(99L).ifPresentOrElse(
+        dao.byKey(8L).ifPresentOrElse(
                 (general) -> {
-                    assertEquals(99L, general.id());
-                    assertEquals("Arianna", general.name());
-                    assertEquals("Bonetti", general.surname());
-                    assertEquals("arianna.bonetti@dominio.com", general.email());
-                    assertEquals(LocalDate.of(1966, 8, 8), general.birthday());
-                    assertEquals(908L, general.birthplace());
-                    assertEquals("BNTRNN66M48B165D", general.fc());
-                    assertEquals(false, general.gender());
-                    assertEquals(946L, general.residence());
-                    assertEquals(11, general.workplace());
+                    assertEquals(8L, general.id());
+                    assertEquals("Mario", general.name());
+                    assertEquals("Rossetti", general.surname());
+                    assertEquals("mario.rossetti@dominio.com", general.email());
+                    assertEquals(LocalDate.of(1969, 8, 6), general.birthday());
+                    assertEquals(637L, general.birthplace());
+                    assertEquals("RSSMRA69M06A346L", general.fc());
+                    assertEquals(true, general.gender());
+                    assertEquals(890L, general.residence());
+                    assertEquals(11L, general.workplace());
                 },
                 Assertions::fail
         );
@@ -197,23 +199,23 @@ class GeneralJDBCTest {
 
     @Test
     void byKeys() {
-        final var results = dao.byKeys(1L, 99L);
+        final var results = dao.byKeys(1L, 8L);
 
         assertFalse(results.containsKey(1L));
 
-        Optional.ofNullable(results.get(99L))
+        Optional.ofNullable(results.get(8L))
                 .ifPresentOrElse(
                         (general) -> {
-                            assertEquals(99L, general.id());
-                            assertEquals("Arianna", general.name());
-                            assertEquals("Bonetti", general.surname());
-                            assertEquals("arianna.bonetti@dominio.com", general.email());
-                            assertEquals(LocalDate.of(1966, 8, 8), general.birthday());
-                            assertEquals(908L, general.birthplace());
-                            assertEquals("BNTRNN66M48B165D", general.fc());
-                            assertEquals(false, general.gender());
-                            assertEquals(946L, general.residence());
-                            assertEquals(11, general.workplace());
+                            assertEquals(8L, general.id());
+                            assertEquals("Mario", general.name());
+                            assertEquals("Rossetti", general.surname());
+                            assertEquals("mario.rossetti@dominio.com", general.email());
+                            assertEquals(LocalDate.of(1969, 8, 6), general.birthday());
+                            assertEquals(637L, general.birthplace());
+                            assertEquals("RSSMRA69M06A346L", general.fc());
+                            assertEquals(true, general.gender());
+                            assertEquals(890L, general.residence());
+                            assertEquals(11L, general.workplace());
                         },
                         Assertions::fail
                 );

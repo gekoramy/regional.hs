@@ -46,83 +46,72 @@ class ReportJDBCTest {
 
     @Test
     void testStoreRemove() {
-        final var store = dao.insert(450L, 169L, "note");
+        final var store = dao.insert(1957L, "note");
 
-        assertEquals(450L, store.prescription());
+        assertEquals(1957L, store.ticket());
         assertEquals(LocalDate.now(), store.date().toLocalDate());
-        assertEquals(169L, store.responsible());
         assertEquals("note", store.note());
 
-        dao.byKey(store.prescription()).ifPresentOrElse(
+        dao.byKey(store.ticket()).ifPresentOrElse(
                 (report) -> {
-                    assertEquals(store.prescription(), report.prescription());
+                    assertEquals(store.ticket(), report.ticket());
                     assertEquals(store.date(), report.date());
-                    assertEquals(store.responsible(), report.responsible());
                     assertEquals(store.note(), report.note());
                 },
                 Assertions::fail
         );
 
-        dao.remove(store.prescription()).ifPresentOrElse(
+        dao.remove(store.ticket()).ifPresentOrElse(
                 (report) -> {
-                    assertEquals(store.prescription(), report.prescription());
+                    assertEquals(store.ticket(), report.ticket());
                     assertEquals(store.date(), report.date());
-                    assertEquals(store.responsible(), report.responsible());
                     assertEquals(store.note(), report.note());
                 },
                 Assertions::fail
         );
 
-        Assertions.assertFalse(dao.byKey(store.prescription()).isPresent());
+        Assertions.assertFalse(dao.byKey(store.ticket()).isPresent());
 
-        Assertions.assertThrows(DAOException.class, () -> dao.insert(0L, 1L, "note"), "not existing prescription");
+        Assertions.assertThrows(DAOException.class, () -> dao.insert(0L, "note"), "not existing ticket");
 
-        Assertions.assertThrows(DAOException.class, () -> dao.insert(1L, 0L, "note"), "not existing responsible");
-
-        Assertions.assertThrows(DAOException.class, () -> dao.insert(450L, 116L, "note"), "specialist cannot report health service exam");
-
-        Assertions.assertThrows(DAOException.class, () -> dao.insert(1L, 169L, "note"), "health service doctor cannot report specialist exam");
-
-        Assertions.assertThrows(DataAccessException.class, () -> dao.insert(382L, 169L, "note"), "already reported exam");
+        Assertions.assertThrows(DataAccessException.class, () -> dao.insert(1280L, "note"), "already reported exam");
     }
 
     @Test
     void count() {
-        assertEquals(200 + 100, dao.count());
+        assertEquals(285 + 285, dao.count());
     }
 
     @Test
     void byKey() {
-        dao.byKey(104L).ifPresentOrElse(
+        dao.byKey(1280L).ifPresentOrElse(
                 (report) -> {
-                    assertEquals(104L, report.prescription());
-                    assertEquals(190L, report.responsible());
-                    assertEquals(LocalDate.of(2012, 9, 2), report.date().toLocalDate());
-                    assertEquals("Result of Aspartato aminotrasferiasi", report.note());
+                    assertEquals(1280L, report.ticket());
+                    assertEquals(LocalDate.of(2017, 11, 24), report.date().toLocalDate());
+                    assertEquals("Risultato di Creatinina", report.note());
                 },
                 Assertions::fail
         );
 
         assertFalse(dao.byKey(0L).isPresent(), "not existing prescription");
 
-        assertFalse(dao.byKey(1L).isPresent(), "not medicine prescription");
+        assertFalse(dao.byKey(1L).isPresent(), "not exam prescription");
     }
 
     @Test
     void byKeys() {
-        final var results = dao.byKeys(0L, 1L, 104L);
+        final var results = dao.byKeys(0L, 1L, 1280L);
 
         assertFalse(results.containsKey(0L));
 
         assertFalse(results.containsKey(1L));
 
-        Optional.ofNullable(results.get(104L))
+        Optional.ofNullable(results.get(1280L))
                 .ifPresentOrElse(
                         (report) -> {
-                            assertEquals(104L, report.prescription());
-                            assertEquals(190L, report.responsible());
-                            assertEquals(LocalDate.of(2012, 9, 2), report.date().toLocalDate());
-                            assertEquals("Result of Aspartato aminotrasferiasi", report.note());
+                            assertEquals(1280L, report.ticket());
+                            assertEquals(LocalDate.of(2017, 11, 24), report.date().toLocalDate());
+                            assertEquals("Risultato di Creatinina", report.note());
                         },
                         Assertions::fail
                 );
@@ -130,6 +119,6 @@ class ReportJDBCTest {
 
     @Test
     void fetchAll() {
-        assertEquals(200 + 100, dao.fetchAll().count());
+        assertEquals(285 + 285, dao.fetchAll().count());
     }
 }

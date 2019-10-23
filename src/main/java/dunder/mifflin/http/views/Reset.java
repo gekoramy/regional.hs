@@ -37,7 +37,7 @@ public class Reset extends HttpServlet {
         try {
             final UUID token = Optional.ofNullable(req.getParameter("token")).map(UUID::fromString).orElseThrow();
 
-            final Recover recover = daos.factory().recover().by(token)
+            final Recover recover = daos.factory().token().by(token)
                     .filter((r) -> r.expiration().isAfter(OffsetDateTime.now()))
                     .orElseThrow();
 
@@ -62,14 +62,14 @@ public class Reset extends HttpServlet {
             final UUID token = Optional.ofNullable(req.getParameter("token")).map(UUID::fromString).orElseThrow();
             final String password = Optional.ofNullable(req.getParameter("password")).orElseThrow();
 
-            final Recover recover = daos.factory().recover().by(token)
+            final Recover recover = daos.factory().token().by(token)
                     .filter((r) -> r.expiration().isAfter(OffsetDateTime.now()))
                     .orElseThrow();
 
             final Person person = daos.factory().person().byKey(recover.person()).orElseThrow();
 
             daos.factory().secret().store(recover.person(), BCrypt.hashpw(password, BCrypt.gensalt()));
-            daos.factory().recover().remove(recover.person());
+            daos.factory().token().remove(recover.person());
 
             emails.password(person);
 

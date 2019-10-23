@@ -40,7 +40,7 @@ public class Token extends HttpServlet {
             final var username = req.getParameter("username");
 
             final var person = daos.factory().person().by(username).orElseThrow();
-            final var recover = daos.factory().recover().store(person.id());
+            final var recover = daos.factory().token().store(person.id());
 
             final var reset = String.format("http://localhost:8080%s/%s?token=%s", req.getContextPath(), "reset", recover.token().toString());
 

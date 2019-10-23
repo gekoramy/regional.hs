@@ -43,7 +43,7 @@ class SpExamJDBCTest {
 
     @Test
     void qualifiedFor() {
-        assertEquals(20, dao.qualifiedFor(116L).count());
+        assertEquals(20, dao.qualifiedFor(26L).count());
         assertEquals(0, dao.qualifiedFor(1L).count());
     }
 

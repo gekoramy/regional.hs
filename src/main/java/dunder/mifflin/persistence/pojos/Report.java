@@ -8,24 +8,18 @@ import static java.util.Objects.requireNonNull;
 
 public class Report implements Serializable {
 
-    private final Long prescription;
-    private final Long responsible;
+    private final Long ticket;
     private final OffsetDateTime date;
     private final String note;
 
-    public Report(Long prescription, Long responsible, OffsetDateTime date, String note) {
-        this.prescription = requireNonNull(prescription);
-        this.responsible = requireNonNull(responsible);
+    public Report(Long ticket, OffsetDateTime date, String note) {
+        this.ticket = requireNonNull(ticket);
         this.date = requireNonNull(date);
         this.note = requireNonNull(note);
     }
 
-    public Long prescription() {
-        return prescription;
-    }
-
-    public Long responsible() {
-        return responsible;
+    public Long ticket() {
+        return ticket;
     }
 
     public OffsetDateTime date() {
@@ -39,8 +33,7 @@ public class Report implements Serializable {
     @Override
     public String toString() {
         return new StringJoiner(", ", Report.class.getSimpleName() + "[", "]")
-                .add("prescription=" + prescription)
-                .add("responsible=" + responsible)
+                .add("ticket=" + ticket)
                 .add("date=" + date)
                 .add("note='" + note + "'")
                 .toString();

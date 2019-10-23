@@ -43,7 +43,7 @@ public class MedicineTickets extends HttpServlet {
         try {
             final Long id = Auths.session(req).orElseThrow();
 
-            final List<Ticket> tickets = daos.factory().ticket().concerns(id).collect(toUnmodifiableList());
+            final List<Ticket> tickets = daos.factory().medicineTicket().concerns(id).collect(toUnmodifiableList());
 
             final Map<Long, MedicinePrescription> medicines = daos.factory().medicinePrescription().byKeys(
                     tickets

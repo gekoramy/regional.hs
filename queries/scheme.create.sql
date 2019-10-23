@@ -109,10 +109,10 @@ CREATE TABLE specialist
 
 CREATE TABLE follows
 (
-    id      BIGSERIAL                             NOT NULL,
-    patient BIGINT                                NOT NULL REFERENCES person (id) ON UPDATE CASCADE ON DELETE RESTRICT,
-    general BIGINT                                NOT NULL REFERENCES general (id) ON UPDATE CASCADE ON DELETE RESTRICT,
-    since   TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    id      BIGSERIAL   NOT NULL,
+    patient BIGINT      NOT NULL REFERENCES person (id) ON UPDATE CASCADE ON DELETE RESTRICT,
+    general BIGINT      NOT NULL REFERENCES general (id) ON UPDATE CASCADE ON DELETE RESTRICT,
+    since   TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CHECK ((patient <> general)),
     PRIMARY KEY (id)
 );
@@ -126,51 +126,25 @@ CREATE TABLE prescription
     PRIMARY KEY (id)
 );
 
-CREATE TABLE ticket
+CREATE TABLE medicine_prescription
 (
-    prescription BIGINT                                NOT NULL REFERENCES prescription (id) ON UPDATE CASCADE ON DELETE RESTRICT,
-    date         TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    amount       numeric(9, 2)                         NOT NULL,
+    prescription BIGINT  NOT NULL REFERENCES prescription (id) ON UPDATE CASCADE ON DELETE CASCADE,
+    medicine     BIGINT  NOT NULL REFERENCES medicine (id) ON UPDATE CASCADE ON DELETE RESTRICT,
+    quantity     integer NOT NULL DEFAULT 1,
     PRIMARY KEY (prescription)
 );
 
-CREATE TABLE pr_medicine
-(
-    prescription BIGINT            NOT NULL REFERENCES prescription (id) ON UPDATE CASCADE ON DELETE CASCADE,
-    medicine     BIGINT            NOT NULL REFERENCES medicine (id) ON UPDATE CASCADE ON DELETE RESTRICT,
-    quantity     integer DEFAULT 1 NOT NULL,
-    PRIMARY KEY (prescription)
-);
-
-CREATE TABLE pr_sp_exam
+CREATE TABLE sp_prescription
 (
     prescription BIGINT NOT NULL REFERENCES prescription (id) ON UPDATE CASCADE ON DELETE CASCADE,
     exam         BIGINT NOT NULL REFERENCES sp_exam (id) ON UPDATE CASCADE ON DELETE RESTRICT,
     PRIMARY KEY (prescription)
 );
 
-CREATE TABLE pr_hs_exam
+CREATE TABLE hs_prescription
 (
     prescription BIGINT NOT NULL REFERENCES prescription (id) ON UPDATE CASCADE ON DELETE CASCADE,
     exam         BIGINT NOT NULL REFERENCES hs_exam (id) ON UPDATE CASCADE ON DELETE RESTRICT,
-    PRIMARY KEY (prescription)
-);
-
-CREATE TABLE sp_report
-(
-    prescription BIGINT                                NOT NULL REFERENCES pr_sp_exam (prescription) ON UPDATE CASCADE ON DELETE RESTRICT,
-    specialist   BIGINT                                NOT NULL REFERENCES specialist (id) ON UPDATE CASCADE ON DELETE RESTRICT,
-    date         TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    note         TEXT                                  NOT NULL,
-    PRIMARY KEY (prescription)
-);
-
-CREATE TABLE hs_report
-(
-    prescription BIGINT                                NOT NULL REFERENCES pr_hs_exam (prescription) ON UPDATE CASCADE ON DELETE RESTRICT,
-    doctor       BIGINT                                NOT NULL REFERENCES hs_doctor (id) ON UPDATE CASCADE ON DELETE RESTRICT,
-    date         TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    note         TEXT                                  NOT NULL,
     PRIMARY KEY (prescription)
 );
 
@@ -188,9 +162,51 @@ CREATE TABLE hs_qualification
     PRIMARY KEY (doctor, exam)
 );
 
+CREATE TABLE sp_ticket
+(
+    prescription BIGINT        NOT NULL REFERENCES sp_prescription (prescription) ON UPDATE CASCADE ON DELETE RESTRICT,
+    responsible  BIGINT        NOT NULL REFERENCES specialist (id) ON UPDATE CASCADE ON DELETE RESTRICT,
+    date         TIMESTAMPTZ   NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    amount       numeric(9, 2) NOT NULL,
+    PRIMARY KEY (prescription)
+);
+
+CREATE TABLE hs_ticket
+(
+    prescription BIGINT        NOT NULL REFERENCES hs_prescription (prescription) ON UPDATE CASCADE ON DELETE RESTRICT,
+    responsible  BIGINT        NOT NULL REFERENCES hs_doctor (id) ON UPDATE CASCADE ON DELETE RESTRICT,
+    date         TIMESTAMPTZ   NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    amount       numeric(9, 2) NOT NULL,
+    PRIMARY KEY (prescription)
+);
+
+CREATE TABLE medicine_ticket
+(
+    prescription BIGINT        NOT NULL REFERENCES medicine_prescription (prescription) ON UPDATE CASCADE ON DELETE RESTRICT,
+    date         TIMESTAMPTZ   NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    amount       numeric(9, 2) NOT NULL,
+    PRIMARY KEY (prescription)
+);
+
+CREATE TABLE sp_report
+(
+    ticket BIGINT      NOT NULL REFERENCES sp_ticket (prescription) ON UPDATE CASCADE ON DELETE RESTRICT,
+    date   TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    note   TEXT        NOT NULL,
+    PRIMARY KEY (ticket)
+);
+
+CREATE TABLE hs_report
+(
+    ticket BIGINT      NOT NULL REFERENCES hs_ticket (prescription) ON UPDATE CASCADE ON DELETE RESTRICT,
+    date   TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    note   TEXT        NOT NULL,
+    PRIMARY KEY (ticket)
+);
+
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
-CREATE TABLE recover
+CREATE TABLE token
 (
     person     BIGINT      NOT NULL REFERENCES person ON UPDATE CASCADE ON DELETE CASCADE,
     token      UUID        NOT NULL UNIQUE DEFAULT uuid_generate_v4(),
