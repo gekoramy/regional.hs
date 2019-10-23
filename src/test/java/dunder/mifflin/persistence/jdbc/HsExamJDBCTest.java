@@ -43,7 +43,11 @@ class HsExamJDBCTest {
 
     @Test
     void qualifiedFor() {
-        assertEquals(50, dao.qualifiedFor(169L).count());
+        assertEquals(67, dao.qualifiedFor(10L).count());
+        assertEquals(33, dao.qualifiedFor(46L).count());
+        assertEquals(50, dao.qualifiedFor(48L).count());
+        assertEquals(50, dao.qualifiedFor(47L).count());
+        assertEquals(66, dao.qualifiedFor(17L).count());
         assertEquals(0, dao.qualifiedFor(1L).count());
     }
 

@@ -44,17 +44,17 @@ class PersonJDBCTest {
 
     @Test
     void by() {
-        dao.by("arianna.bonetti@dominio.com").ifPresentOrElse(
+        dao.by("marco.coppola@dominio.com").ifPresentOrElse(
                 (person) -> {
-                    assertEquals(99L, person.id());
-                    assertEquals("Arianna", person.name());
-                    assertEquals("Bonetti", person.surname());
-                    assertEquals("arianna.bonetti@dominio.com", person.email());
-                    assertEquals(LocalDate.of(1966, 8, 8), person.birthday());
-                    assertEquals(908L, person.birthplace());
-                    assertEquals("BNTRNN66M48B165D", person.fc());
-                    assertEquals(false, person.gender());
-                    assertEquals(946L, person.residence());
+                    assertEquals(3L, person.id());
+                    assertEquals("Marco", person.name());
+                    assertEquals("Coppola", person.surname());
+                    assertEquals("marco.coppola@dominio.com", person.email());
+                    assertEquals(LocalDate.of(1935, 12, 6), person.birthday());
+                    assertEquals(606L, person.birthplace());
+                    assertEquals("CPPMRC35T06G780O", person.fc());
+                    assertEquals(true, person.gender());
+                    assertEquals(981L, person.residence());
                 },
                 Assertions::fail
         );
@@ -64,10 +64,10 @@ class PersonJDBCTest {
 
     @Test
     void contains() {
-        assertEquals(257, dao.contains("", "", "").count());
-        assertEquals(1, dao.contains("Mario", "", "").count());
-        assertEquals(6, dao.contains("", "Bonetti", "").count());
-        assertEquals(7, dao.contains("", "", "LCU").count());
+        assertEquals(50, dao.contains("", "", "").count());
+        assertEquals(2, dao.contains("Mario", "", "").count());
+        assertEquals(2, dao.contains("", "", "DVD").count());
+        assertEquals(1, dao.contains("", "Bonetti", "").count());
         assertEquals(0, dao.contains("X", "", "").count());
     }
 
@@ -75,38 +75,39 @@ class PersonJDBCTest {
     void qualifiedFor() {
         assertEquals(2, dao.qualifiedFor(134L).count());
         assertEquals(2, dao.qualifiedFor(1L).count());
+        assertEquals(1, dao.qualifiedFor(135L).count());
         assertEquals(0, dao.qualifiedFor(0L).count());
     }
 
     @Test
     void patients() {
-        assertEquals(15, dao.patients(99L, "", "", "").count());
-        assertEquals(15, dao.patients(99L, "", "@", "").count());
-        assertEquals(1, dao.patients(99L, "Giuliana", "", "").count());
-        assertEquals(1, dao.patients(99L, "", "", "GLN").count());
-        assertEquals(0, dao.patients(99L, "", "marco", "").count());
+        assertEquals(10, dao.patients(39L, "", "", "").count());
+        assertEquals(10, dao.patients(39L, "", "@", "").count());
+        assertEquals(1, dao.patients(39L, "Davide", "", "").count());
+        assertEquals(1, dao.patients(39L, "", "", "DVD").count());
+        assertEquals(0, dao.patients(39L, "", "marco", "").count());
     }
 
     @Test
     void residence() {
-        assertEquals(88, dao.residence(10L).count());
-        assertEquals(169, dao.residence(11L).count());
+        assertEquals(20, dao.residence(10L).count());
+        assertEquals(30, dao.residence(11L).count());
         assertEquals(0, dao.residence(1L).count());
     }
 
     @Test
     void patient() {
-        dao.patient(6L).ifPresentOrElse(
+        dao.patient(11L).ifPresentOrElse(
                 (person) -> {
-                    assertEquals(2L, person.id());
-                    assertEquals("Gabriele", person.name());
-                    assertEquals("Colombo", person.surname());
-                    assertEquals("gabriele.colombo@dominio.com", person.email());
-                    assertEquals(LocalDate.of(1992, 1, 22), person.birthday());
-                    assertEquals(587L, person.birthplace());
-                    assertEquals("CLMGRL92A22C217L", person.fc());
+                    assertEquals(3L, person.id());
+                    assertEquals("Marco", person.name());
+                    assertEquals("Coppola", person.surname());
+                    assertEquals("marco.coppola@dominio.com", person.email());
+                    assertEquals(LocalDate.of(1935, 12, 6), person.birthday());
+                    assertEquals(606L, person.birthplace());
+                    assertEquals("CPPMRC35T06G780O", person.fc());
                     assertEquals(true, person.gender());
-                    assertEquals(1064, person.residence());
+                    assertEquals(981L, person.residence());
                 },
                 Assertions::fail
         );
@@ -124,22 +125,22 @@ class PersonJDBCTest {
 
     @Test
     void count() {
-        assertEquals(257, dao.count());
+        assertEquals(50, dao.count());
     }
 
     @Test
     void byKey() {
-        dao.byKey(99L).ifPresentOrElse(
+        dao.byKey(3L).ifPresentOrElse(
                 (person) -> {
-                    assertEquals(99L, person.id());
-                    assertEquals("Arianna", person.name());
-                    assertEquals("Bonetti", person.surname());
-                    assertEquals("arianna.bonetti@dominio.com", person.email());
-                    assertEquals(LocalDate.of(1966, 8, 8), person.birthday());
-                    assertEquals(908L, person.birthplace());
-                    assertEquals("BNTRNN66M48B165D", person.fc());
-                    assertEquals(false, person.gender());
-                    assertEquals(946L, person.residence());
+                    assertEquals(3L, person.id());
+                    assertEquals("Marco", person.name());
+                    assertEquals("Coppola", person.surname());
+                    assertEquals("marco.coppola@dominio.com", person.email());
+                    assertEquals(LocalDate.of(1935, 12, 6), person.birthday());
+                    assertEquals(606L, person.birthplace());
+                    assertEquals("CPPMRC35T06G780O", person.fc());
+                    assertEquals(true, person.gender());
+                    assertEquals(981L, person.residence());
                 },
                 Assertions::fail
         );
@@ -149,22 +150,22 @@ class PersonJDBCTest {
 
     @Test
     void byKeys() {
-        final var results = dao.byKeys(0L, 99L);
+        final var results = dao.byKeys(0L, 3L);
 
         assertFalse(results.containsKey(0L));
 
-        Optional.ofNullable(results.get(99L))
+        Optional.ofNullable(results.get(3L))
                 .ifPresentOrElse(
                         (person) -> {
-                            assertEquals(99L, person.id());
-                            assertEquals("Arianna", person.name());
-                            assertEquals("Bonetti", person.surname());
-                            assertEquals("arianna.bonetti@dominio.com", person.email());
-                            assertEquals(LocalDate.of(1966, 8, 8), person.birthday());
-                            assertEquals(908L, person.birthplace());
-                            assertEquals("BNTRNN66M48B165D", person.fc());
-                            assertEquals(false, person.gender());
-                            assertEquals(946L, person.residence());
+                            assertEquals(3L, person.id());
+                            assertEquals("Marco", person.name());
+                            assertEquals("Coppola", person.surname());
+                            assertEquals("marco.coppola@dominio.com", person.email());
+                            assertEquals(LocalDate.of(1935, 12, 6), person.birthday());
+                            assertEquals(606L, person.birthplace());
+                            assertEquals("CPPMRC35T06G780O", person.fc());
+                            assertEquals(true, person.gender());
+                            assertEquals(981L, person.residence());
                         },
                         Assertions::fail
                 );
@@ -172,6 +173,6 @@ class PersonJDBCTest {
 
     @Test
     void fetchAll() {
-        assertEquals(257, dao.fetchAll().count());
+        assertEquals(50, dao.fetchAll().count());
     }
 }

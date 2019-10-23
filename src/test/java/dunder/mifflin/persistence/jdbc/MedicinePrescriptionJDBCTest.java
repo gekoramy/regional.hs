@@ -50,7 +50,7 @@ class MedicinePrescriptionJDBCTest {
 
         assertEquals(11L, store.place());
         assertEquals(LocalDate.now(), store.date().toLocalDate());
-        assertEquals(6L, store.concerns());
+        assertEquals(23L, store.concerns());
         assertEquals(1L, store.medicine().id());
         assertEquals("Abacavir Sulfate", store.medicine().name());
         assertEquals("Info Abacavir Sulfate", store.medicine().info());
@@ -88,63 +88,66 @@ class MedicinePrescriptionJDBCTest {
         Assertions.assertThrows(DAOException.class, () -> dao.insert(1L, 0L, 1), "not existing medicine");
 
         Assertions.assertThrows(DataAccessException.class, () -> dao.insert(0L, 1L, 1), "not existing person");
-
-        Assertions.assertThrows(DataAccessException.class, () -> dao.insert(1L, 1L, 1), "person with no general");
     }
 
     @Test
     void concerns() {
-        Assertions.assertEquals(2, dao.concerns(2L, "").count());
-        Assertions.assertEquals(1, dao.concerns(2L, "A").count());
-        Assertions.assertEquals(0, dao.concerns(2L, "X").count());
+        Assertions.assertEquals(27, dao.concerns(2L, "").count());
+        Assertions.assertEquals(20, dao.concerns(2L, "A").count());
+        Assertions.assertEquals(3, dao.concerns(2L, "X").count());
+        Assertions.assertEquals(0, dao.concerns(2L, "XY").count());
     }
 
     @Test
     void tookIn() {
-        Assertions.assertEquals(60, dao.tookIn(10L).count());
+        Assertions.assertEquals(0, dao.tookIn(1L).count());
+        Assertions.assertEquals(494, dao.tookIn(10L).count());
+        Assertions.assertEquals(785, dao.tookIn(11L).count());
     }
 
     @Test
     void count() {
-        Assertions.assertEquals(150L, dao.count());
+        Assertions.assertEquals(494 + 785, dao.count());
     }
 
     @Test
     void byKey() {
-        dao.byKey(600L).ifPresentOrElse(
+        dao.byKey(1L).ifPresentOrElse(
                 (prescription) -> {
-                    assertEquals(600L, prescription.id());
-                    assertEquals(11L, prescription.place());
-                    assertEquals(LocalDate.of(2013, 4, 11), prescription.date().toLocalDate());
-                    assertEquals(12L, prescription.concerns());
-                    assertEquals(653L, prescription.medicine().id());
-                    assertEquals("Omnaris", prescription.medicine().name());
-                    assertEquals("Info Omnaris", prescription.medicine().info());
-                    assertEquals(2, prescription.quantity());
+                    assertEquals(1L, prescription.id());
+                    assertEquals(10L, prescription.place());
+                    assertEquals(LocalDate.of(2017, 2, 13), prescription.date().toLocalDate());
+                    assertEquals(33L, prescription.concerns());
+                    assertEquals(510L, prescription.medicine().id());
+                    assertEquals("Lipofen", prescription.medicine().name());
+                    assertEquals("Info Lipofen", prescription.medicine().info());
+                    assertEquals(3, prescription.quantity());
                 },
                 Assertions::fail
         );
 
-        Assertions.assertFalse(dao.byKey(1L).isPresent());
+        Assertions.assertFalse(dao.byKey(1280L).isPresent());
     }
 
     @Test
     void byKeys() {
-        final var results = dao.byKeys(1L, 600L);
+        final var results = dao.byKeys(0L, 1L, 1280L);
 
-        assertFalse(results.containsKey(1L));
+        assertFalse(results.containsKey(0L));
 
-        Optional.ofNullable(results.get(600L))
+        assertFalse(results.containsKey(1280L));
+
+        Optional.ofNullable(results.get(1L))
                 .ifPresentOrElse(
                         (prescription) -> {
-                            assertEquals(600L, prescription.id());
-                            assertEquals(11L, prescription.place());
-                            assertEquals(LocalDate.of(2013, 4, 11), prescription.date().toLocalDate());
-                            assertEquals(12L, prescription.concerns());
-                            assertEquals(653L, prescription.medicine().id());
-                            assertEquals("Omnaris", prescription.medicine().name());
-                            assertEquals("Info Omnaris", prescription.medicine().info());
-                            assertEquals(2, prescription.quantity());
+                            assertEquals(1L, prescription.id());
+                            assertEquals(10L, prescription.place());
+                            assertEquals(LocalDate.of(2017, 2, 13), prescription.date().toLocalDate());
+                            assertEquals(33L, prescription.concerns());
+                            assertEquals(510L, prescription.medicine().id());
+                            assertEquals("Lipofen", prescription.medicine().name());
+                            assertEquals("Info Lipofen", prescription.medicine().info());
+                            assertEquals(3, prescription.quantity());
                         },
                         Assertions::fail
                 );
@@ -152,6 +155,6 @@ class MedicinePrescriptionJDBCTest {
 
     @Test
     void fetchAll() {
-        Assertions.assertEquals(150L, dao.fetchAll().count());
+        Assertions.assertEquals(494 + 785, dao.fetchAll().count());
     }
 }

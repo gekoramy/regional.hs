@@ -2,6 +2,7 @@ package dunder.mifflin.persistence.jdbc;
 
 import dunder.mifflin.persistence.daos.SecretDao;
 import dunder.mifflin.persistence.jdbc.config.Database;
+import dunder.mifflin.persistence.pojos.Secret;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
@@ -43,10 +44,10 @@ class SecretJDBCTest {
 
     @Test
     void by() {
-        dao.by("arianna.bonetti@dominio.com").ifPresentOrElse(
+        dao.by("silvia.ruggiero@dominio.com").ifPresentOrElse(
                 (password) -> {
-                    assertEquals(99L, password.id());
-                    assertEquals("$2a$10$.gNhlbOp8If4MEgnZapIg.2PqHPKS1LB0LeIddTUrOpB//5XxGgUO", password.password());
+                    assertEquals(28L, password.id());
+                    assertEquals("$2a$10$3KRLqLN2Lpa7AGdNoBadwu.rYF9hQx9YkykKgqv./c4cmxHheOvnS", password.password());
                 },
                 Assertions::fail
         );
@@ -56,44 +57,47 @@ class SecretJDBCTest {
 
     @Test
     void store() {
-        dao.store(99L, "password").ifPresentOrElse(
+
+        final String before = dao.byKey(49L).map(Secret::password).orElseThrow();
+
+        dao.store(49L, "password").ifPresentOrElse(
                 (secret) -> {
-                    assertEquals(99L, secret.id());
+                    assertEquals(49L, secret.id());
                     assertEquals("password", secret.password());
                 },
                 Assertions::fail
         );
 
-        dao.byKey(99L).ifPresentOrElse(
+        dao.byKey(49L).ifPresentOrElse(
                 (secret) -> {
-                    assertEquals(99L, secret.id());
+                    assertEquals(49L, secret.id());
                     assertEquals("password", secret.password());
                 },
                 Assertions::fail
         );
 
-        dao.store(99L, "$2a$10$.gNhlbOp8If4MEgnZapIg.2PqHPKS1LB0LeIddTUrOpB//5XxGgUO").ifPresentOrElse(
+        dao.store(49L, before).ifPresentOrElse(
                 (secret) -> {
-                    assertEquals(99L, secret.id());
-                    assertEquals("$2a$10$.gNhlbOp8If4MEgnZapIg.2PqHPKS1LB0LeIddTUrOpB//5XxGgUO", secret.password());
+                    assertEquals(49L, secret.id());
+                    assertEquals(before, secret.password());
                 },
                 Assertions::fail
         );
 
-        assertFalse(dao.store(0L, "$2a$10$.gNhlbOp8If4MEgnZapIg.2PqHPKS1LB0LeIddTUrOpB//5XxGgUO").isPresent());
+        assertFalse(dao.store(51L, "prova").isPresent());
     }
 
     @Test
     void count() {
-        assertEquals(257, dao.count());
+        assertEquals(50, dao.count());
     }
 
     @Test
     void byKey() {
-        dao.byKey(99L).ifPresentOrElse(
+        dao.byKey(49L).ifPresentOrElse(
                 (password) -> {
-                    assertEquals(99L, password.id());
-                    assertEquals("$2a$10$.gNhlbOp8If4MEgnZapIg.2PqHPKS1LB0LeIddTUrOpB//5XxGgUO", password.password());
+                    assertEquals(49L, password.id());
+                    assertEquals("$2a$10$BIX5QbpAZiGHgmu3RXbtF.hYIeGk8GSOeYedmiFR9o51BGEoGtIEa", password.password());
                 },
                 Assertions::fail
         );
@@ -103,15 +107,15 @@ class SecretJDBCTest {
 
     @Test
     void byKeys() {
-        final var results = dao.byKeys(0L, 1L, 99L);
+        final var results = dao.byKeys(0L, 49L);
 
         assertFalse(results.containsKey(0L));
 
-        Optional.ofNullable(results.get(99L))
+        Optional.ofNullable(results.get(49L))
                 .ifPresentOrElse(
                         (password) -> {
-                            assertEquals(99L, password.id());
-                            assertEquals("$2a$10$.gNhlbOp8If4MEgnZapIg.2PqHPKS1LB0LeIddTUrOpB//5XxGgUO", password.password());
+                            assertEquals(49L, password.id());
+                            assertEquals("$2a$10$BIX5QbpAZiGHgmu3RXbtF.hYIeGk8GSOeYedmiFR9o51BGEoGtIEa", password.password());
                         },
                         Assertions::fail
                 );
@@ -119,6 +123,6 @@ class SecretJDBCTest {
 
     @Test
     void fetchAll() {
-        assertEquals(257, dao.fetchAll().count());
+        assertEquals(50, dao.fetchAll().count());
     }
 }
