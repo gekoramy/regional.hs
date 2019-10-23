@@ -14,8 +14,10 @@ import org.junit.jupiter.api.Test;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class AvatarJDBCTest {
 
@@ -42,12 +44,14 @@ class AvatarJDBCTest {
 
     @Test
     void testStoreRemove() {
+        final var before = dao.byKey(1L).orElseThrow();
+
         final var store = dao.store(1L, "url");
 
         assertEquals(1L, store.id());
         assertEquals("url", store.url());
 
-        dao.byKey(store.id()).ifPresentOrElse(
+        dao.byKey(1L).ifPresentOrElse(
                 (avatar) -> {
                     assertEquals(1L, avatar.id());
                     assertEquals("url", avatar.url());
@@ -55,7 +59,7 @@ class AvatarJDBCTest {
                 Assertions::fail
         );
 
-        dao.remove(store.id()).ifPresentOrElse(
+        dao.remove(1L).ifPresentOrElse(
                 (avatar) -> {
                     assertEquals(1L, avatar.id());
                     assertEquals("url", avatar.url());
@@ -65,26 +69,56 @@ class AvatarJDBCTest {
 
         Assertions.assertFalse(dao.byKey(store.id()).isPresent());
 
+        dao.store(before.id(), before.url());
+
         Assertions.assertThrows(DataAccessException.class, () -> dao.store(0L, "url"), "not existing person");
     }
 
     @Test
     void count() {
-        assertEquals(0, dao.count());
+        assertEquals(50, dao.count());
     }
 
     @Test
     void byKey() {
+        dao.byKey(1L).ifPresentOrElse(
+                (avatar) -> {
+                    assertEquals(1L, avatar.id());
+                    assertEquals("avt.16208920041690972286.jpg", avatar.url());
+                },
+                Assertions::fail
+        );
+
         Assertions.assertFalse(dao.byKey(0L).isPresent());
     }
 
     @Test
     void byKeys() {
-        // TODO
+        final var results = dao.byKeys(0L, 1L, 2L);
+
+        assertFalse(results.containsKey(0L));
+
+        Optional.ofNullable(results.get(1L))
+                .ifPresentOrElse(
+                        (avatar) -> {
+                            assertEquals(1L, avatar.id());
+                            assertEquals("avt.16208920041690972286.jpg", avatar.url());
+                        },
+                        Assertions::fail
+                );
+
+        Optional.ofNullable(results.get(2L))
+                .ifPresentOrElse(
+                        (avatar) -> {
+                            assertEquals(2L, avatar.id());
+                            assertEquals("avt.17139861944644222900.jpg", avatar.url());
+                        },
+                        Assertions::fail
+                );
     }
 
     @Test
     void fetchAll() {
-        assertEquals(0, dao.fetchAll().count());
+        assertEquals(50, dao.fetchAll().count());
     }
 }
