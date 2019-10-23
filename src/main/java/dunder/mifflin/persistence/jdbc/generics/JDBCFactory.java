@@ -19,43 +19,45 @@ public class JDBCFactory implements DAOFactory {
     private final AvatarDAO avatar;
     private final CityDAO city;
     private final ExamPrescriptionDAO examPrescription;
+    private final ExamTicketDAO examTicket;
     private final GeneralDAO general;
     private final HsAdminDAO hsAdmin;
     private final HsDoctorDAO hsDoctor;
     private final HsExamDAO hsExam;
     private final MedicineDAO medicine;
     private final MedicinePrescriptionDAO medicinePrescription;
-    private final SecretDao secret;
+    private final MedicineTicketDAO medicineTicket;
     private final PersonDAO person;
     private final ProvinceDAO province;
-    private final RecoverDAO recover;
     private final RegionDAO region;
+    private final SecretDao secret;
     private final ReportDAO report;
     private final SpecialistDAO specialist;
     private final SpExamDAO spExam;
-    private final TicketDAO ticket;
+    private final TokenDAO token;
 
     private JDBCFactory(DSLContext context) {
         requireNonNull(context);
 
         this.avatar = new AvatarJDBC(context);
         this.city = new CityJDBC(context);
-        this.spExam = new SpExamJDBC(context);
+        this.examPrescription = new ExamPrescriptionJDBC(context);
+        this.examTicket = new ExamTicketJDBC(context);
         this.general = new GeneralJDBC(context);
         this.hsAdmin = new HsAdminJDBC(context);
         this.hsDoctor = new HsDoctorJDBC(context);
         this.hsExam = new HsExamJDBC(context);
         this.medicine = new MedicineJDBC(context);
-        this.person = new PersonJDBC(context);
-        this.examPrescription = new ExamPrescriptionJDBC(context);
         this.medicinePrescription = new MedicinePrescriptionJDBC(context);
+        this.medicineTicket = new MedicineTicketJDBC(context);
+        this.person = new PersonJDBC(context);
         this.province = new ProvinceJDBC(context);
-        this.recover = new RecoverJDBC(context);
         this.region = new RegionJDBC(context);
-        this.report = new ReportJDBC(context);
         this.secret = new SecretJDBC(context);
+        this.report = new ReportJDBC(context);
         this.specialist = new SpecialistJDBC(context);
-        this.ticket = new TicketJDBC(context);
+        this.spExam = new SpExamJDBC(context);
+        this.token = new TokenJDBC(context);
     }
 
     public JDBCFactory(DataSource datasource) {
@@ -96,6 +98,11 @@ public class JDBCFactory implements DAOFactory {
     }
 
     @Override
+    public ExamTicketDAO examTicket() {
+        return examTicket;
+    }
+
+    @Override
     public GeneralDAO general() {
         return general;
     }
@@ -126,6 +133,11 @@ public class JDBCFactory implements DAOFactory {
     }
 
     @Override
+    public MedicineTicketDAO medicineTicket() {
+        return medicineTicket;
+    }
+
+    @Override
     public PersonDAO person() {
         return person;
     }
@@ -136,23 +148,18 @@ public class JDBCFactory implements DAOFactory {
     }
 
     @Override
-    public RecoverDAO recover() {
-        return recover;
-    }
-
-    @Override
     public RegionDAO region() {
         return region;
     }
 
     @Override
-    public ReportDAO report() {
-        return report;
+    public SecretDao secret() {
+        return secret;
     }
 
     @Override
-    public SecretDao secret() {
-        return secret;
+    public ReportDAO report() {
+        return report;
     }
 
     @Override
@@ -166,7 +173,7 @@ public class JDBCFactory implements DAOFactory {
     }
 
     @Override
-    public TicketDAO ticket() {
-        return ticket;
+    public TokenDAO token() {
+        return token;
     }
 }

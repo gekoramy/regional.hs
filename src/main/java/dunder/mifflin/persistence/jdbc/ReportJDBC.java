@@ -7,12 +7,13 @@ import dunder.mifflin.persistence.pojos.Report;
 import org.jooq.DSLContext;
 import org.jooq.impl.DSL;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import static dunder.mifflin.persistence.jdbc.jooq.Tables.*;
+import static org.jooq.impl.DSL.nvl;
 
 public class ReportJDBC extends JDBC implements ReportDAO {
 
@@ -21,80 +22,73 @@ public class ReportJDBC extends JDBC implements ReportDAO {
     }
 
     @Override
-    public Report insert(long prescription, long responsible, String note) {
+    public Report insert(long ticket, String note) {
         return context.transactionResult((config) -> {
-                    if (
-                            DSL.using(config).fetchExists(PR_SP_EXAM, PR_SP_EXAM.PRESCRIPTION.eq(prescription))
-                                    && DSL.using(config).fetchExists(SPECIALIST, SPECIALIST.ID.eq(responsible))
-                    ) {
+
+                    if (DSL.using(config).fetchExists(SP_TICKET, SP_TICKET.PRESCRIPTION.eq(ticket))) {
                         return DSL.using(config).insertInto(SP_REPORT)
-                                .columns(SP_REPORT.PRESCRIPTION, SP_REPORT.SPECIALIST, SP_REPORT.NOTE)
-                                .values(prescription, responsible, note)
+                                .columns(SP_REPORT.TICKET, SP_REPORT.NOTE)
+                                .values(ticket, note)
                                 .returning(SP_REPORT.asterisk())
-                                .fetchOptional()
+                                .fetchOne()
                                 .map((r) -> new Report(
-                                        r.get(SP_REPORT.PRESCRIPTION),
-                                        r.get(SP_REPORT.SPECIALIST),
+                                        r.get(SP_REPORT.TICKET),
                                         r.get(SP_REPORT.DATE),
                                         r.get(SP_REPORT.NOTE)
-                                ))
-                                .get();
+                                ));
                     }
 
-                    if (
-                            DSL.using(config).fetchExists(PR_HS_EXAM, PR_HS_EXAM.PRESCRIPTION.eq(prescription))
-                                    && DSL.using(config).fetchExists(HS_DOCTOR, HS_DOCTOR.ID.eq(responsible))
-                    ) {
+                    if (DSL.using(config).fetchExists(HS_TICKET, HS_TICKET.PRESCRIPTION.eq(ticket))) {
                         return DSL.using(config).insertInto(HS_REPORT)
-                                .columns(HS_REPORT.PRESCRIPTION, HS_REPORT.DOCTOR, HS_REPORT.NOTE)
-                                .values(prescription, responsible, note)
+                                .columns(HS_REPORT.TICKET, HS_REPORT.NOTE)
+                                .values(ticket, note)
                                 .returning(HS_REPORT.asterisk())
-                                .fetchOptional()
+                                .fetchOne()
                                 .map((r) -> new Report(
-                                        r.get(HS_REPORT.PRESCRIPTION),
-                                        r.get(HS_REPORT.DOCTOR),
+                                        r.get(HS_REPORT.TICKET),
                                         r.get(HS_REPORT.DATE),
                                         r.get(HS_REPORT.NOTE)
-                                ))
-                                .get();
+                                ));
                     }
 
                     throw new DAOException(String.format(
-                            "Invalid combination prescription : %d, responsible : %d",
-                            prescription,
-                            responsible
+                            "The exam ticket `%d` doesn't exist",
+                            ticket
                     ));
                 }
         );
     }
 
     @Override
-    public Optional<Report> remove(long prescription) {
-        final var report = context
-                .deleteFrom(SP_REPORT)
-                .where(SP_REPORT.PRESCRIPTION.eq(prescription))
-                .returning(SP_REPORT.asterisk())
-                .fetchOptional()
-                .map((r) -> new Report(
-                        r.get(SP_REPORT.PRESCRIPTION),
-                        r.get(SP_REPORT.SPECIALIST),
-                        r.get(SP_REPORT.DATE),
-                        r.get(SP_REPORT.NOTE)
-                ));
+    public Optional<Report> remove(long ticket) {
+        return context.transactionResult((config) -> {
 
-        final var hsReport = context
-                .deleteFrom(HS_REPORT)
-                .where(HS_REPORT.PRESCRIPTION.eq(prescription))
-                .returning(HS_REPORT.asterisk())
-                .fetchOptional()
-                .map((r) -> new Report(
-                        r.get(HS_REPORT.PRESCRIPTION),
-                        r.get(HS_REPORT.DOCTOR),
-                        r.get(HS_REPORT.DATE),
-                        r.get(HS_REPORT.NOTE)
-                ));
+            final Supplier<Optional<Report>> sp = () -> DSL.using(config)
+                    .deleteFrom(SP_REPORT)
+                    .where(SP_REPORT.TICKET.eq(ticket))
+                    .returning(SP_REPORT.asterisk())
+                    .fetchOptional()
+                    .map((r) -> new Report(
+                            r.get(SP_REPORT.TICKET),
+                            r.get(SP_REPORT.DATE),
+                            r.get(SP_REPORT.NOTE)
+                    ));
 
-        return report.or(() -> hsReport);
+            final Supplier<Optional<Report>> hs = () -> DSL.using(config)
+                    .deleteFrom(HS_REPORT)
+                    .where(HS_REPORT.TICKET.eq(ticket))
+                    .returning(HS_REPORT.asterisk())
+                    .fetchOptional()
+                    .map((r) -> new Report(
+                            r.get(HS_REPORT.TICKET),
+                            r.get(HS_REPORT.DATE),
+                            r.get(HS_REPORT.NOTE)
+                    ));
+
+            return Optional.<Report>empty()
+                    .or(sp)
+                    .or(hs);
+        });
     }
 
     @Override
@@ -104,52 +98,49 @@ public class ReportJDBC extends JDBC implements ReportDAO {
 
     @Override
     public Optional<Report> byKey(Long key) {
-        final var report = context.select()
-                .from(SP_REPORT)
-                .where(SP_REPORT.PRESCRIPTION.eq(key))
+        return context
+                .select(
+                        PRESCRIPTION.ID,
+                        nvl(SP_REPORT.DATE, HS_REPORT.DATE),
+                        nvl(SP_REPORT.NOTE, HS_REPORT.NOTE)
+                )
+                .from(PRESCRIPTION)
+                .leftJoin(SP_REPORT).on(PRESCRIPTION.ID.eq(SP_REPORT.TICKET))
+                .leftJoin(HS_REPORT).on(PRESCRIPTION.ID.eq(HS_REPORT.TICKET))
+                .where(nvl(SP_REPORT.TICKET, HS_REPORT.TICKET).eq(key))
+                .orderBy(nvl(SP_REPORT.DATE, HS_REPORT.DATE).desc())
                 .fetchOptionalInto(Report.class);
-
-        final var hsReport = context.select()
-                .from(HS_REPORT)
-                .where(HS_REPORT.PRESCRIPTION.eq(key))
-                .fetchOptionalInto(Report.class);
-
-        return Optional.<Report>empty()
-                .or(() -> report)
-                .or(() -> hsReport);
     }
 
     @Override
     public Map<Long, Report> byKeys(Long... keys) throws DAOException {
-        final var report = context.select()
-                .from(SP_REPORT)
-                .where(SP_REPORT.PRESCRIPTION.in(keys))
-                .fetchMap(SP_REPORT.PRESCRIPTION, Report.class);
-
-        final var hsReport = context.select()
-                .from(HS_REPORT)
-                .where(HS_REPORT.PRESCRIPTION.in(keys))
-                .fetchMap(HS_REPORT.PRESCRIPTION, Report.class);
-
-        final Map<Long, Report> results = new HashMap<>();
-        results.putAll(report);
-        results.putAll(hsReport);
-        return results;
+        return context
+                .select(
+                        PRESCRIPTION.ID,
+                        nvl(SP_REPORT.DATE, HS_REPORT.DATE),
+                        nvl(SP_REPORT.NOTE, HS_REPORT.NOTE)
+                )
+                .from(PRESCRIPTION)
+                .leftJoin(SP_REPORT).on(PRESCRIPTION.ID.eq(SP_REPORT.TICKET))
+                .leftJoin(HS_REPORT).on(PRESCRIPTION.ID.eq(HS_REPORT.TICKET))
+                .where(nvl(SP_REPORT.TICKET, HS_REPORT.TICKET).in(keys))
+                .orderBy(nvl(SP_REPORT.DATE, HS_REPORT.DATE).desc())
+                .fetchMap(PRESCRIPTION.ID, Report.class);
     }
 
     @Override
     public Stream<Report> fetchAll() {
-        final var rs = context.select()
-                .from(SP_REPORT)
+        return context
+                .select(
+                        PRESCRIPTION.ID,
+                        nvl(SP_REPORT.DATE, HS_REPORT.DATE),
+                        nvl(SP_REPORT.NOTE, HS_REPORT.NOTE)
+                )
+                .from(PRESCRIPTION)
+                .leftJoin(SP_REPORT).on(PRESCRIPTION.ID.eq(SP_REPORT.TICKET))
+                .leftJoin(HS_REPORT).on(PRESCRIPTION.ID.eq(HS_REPORT.TICKET))
+                .where(nvl(SP_REPORT.TICKET, HS_REPORT.TICKET).isNotNull())
+                .orderBy(nvl(SP_REPORT.DATE, HS_REPORT.DATE).desc())
                 .fetchStreamInto(Report.class);
-
-        final var hrs = context.select()
-                .from(HS_REPORT)
-                .fetchStreamInto(Report.class);
-
-        return Stream.concat(
-                rs,
-                hrs
-        );
     }
 }
