@@ -121,7 +121,7 @@ public class XLSs {
 
     public Consumer<Workbook> medicine(
             Stream<MedicinePrescription> prescriptions,
-            Map<Long, Ticket> tickets,
+            Map<Long, MedicineTicket> tickets,
             Map<Long, Person> patients,
             Map<Long, General> generals
     ) {
@@ -163,7 +163,7 @@ public class XLSs {
 
     public Consumer<Workbook> exams(
             Stream<ExamPrescription> prescriptions,
-            Map<Long, Ticket> tickets,
+            Map<Long, ExamTicket> tickets,
             Map<Long, Person> patients,
             Map<Long, General> generals
     ) {

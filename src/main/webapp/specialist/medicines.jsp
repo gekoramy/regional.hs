@@ -6,7 +6,7 @@
 <jsp:useBean id="avatar" scope="request" type="java.lang.String"/>
 <jsp:useBean id="patient" scope="request" type="dunder.mifflin.persistence.pojos.Person"/>
 <jsp:useBean id="medicines" scope="request" type="java.util.List<dunder.mifflin.persistence.pojos.MedicinePrescription>"/>
-<jsp:useBean id="tickets" scope="request" type="java.util.Map<java.lang.Long, dunder.mifflin.persistence.pojos.Ticket>"/>
+<jsp:useBean id="tickets" scope="request" type="java.util.Map<java.lang.Long, dunder.mifflin.persistence.pojos.MedicineTicket>"/>
 
 <html>
 <head>

@@ -40,11 +40,12 @@ public class XLS extends HttpServlet {
             final List<MedicinePrescription> medicines = daos.factory().medicinePrescription().tookIn(admin.workplace()).collect(Collectors.toUnmodifiableList());
             final List<ExamPrescription> exams = daos.factory().examPrescription().tookIn(admin.workplace()).collect(Collectors.toUnmodifiableList());
 
-            final Map<Long, Ticket> tickets = daos.factory().ticket().byKeys(
-                    Stream.concat(
-                            medicines.stream().map(Prescription::id),
-                            exams.stream().map(Prescription::id))
-                            .toArray(Long[]::new)
+            final Map<Long, MedicineTicket> medicineTickets = daos.factory().medicineTicket().byKeys(
+                    medicines.stream().map(Prescription::id).toArray(Long[]::new)
+            );
+
+            final Map<Long, ExamTicket> examTickets = daos.factory().examTicket().byKeys(
+                    exams.stream().map(Prescription::id).toArray(Long[]::new)
             );
 
             final Map<Long, General> generals = daos.factory().general().generals(
@@ -68,14 +69,14 @@ public class XLS extends HttpServlet {
                     (sheets) -> {
                         xlss.medicine(
                                 medicines.stream(),
-                                tickets,
+                                medicineTickets,
                                 patients,
                                 generals
                         ).accept(sheets);
 
                         xlss.exams(
                                 exams.stream(),
-                                tickets,
+                                examTickets,
                                 patients,
                                 generals
                         ).accept(sheets);

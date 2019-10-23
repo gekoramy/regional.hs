@@ -41,7 +41,7 @@ public class ExamPrescriptions extends HttpServlet {
             final Set<Long> qualified = daos.factory().spExam().qualifiedFor(specialist.id()).map(Examination::id).collect(toUnmodifiableSet());
 
             final Long[] prescriptions = exams.stream().map(Prescription::id).toArray(Long[]::new);
-            final Map<Long, Ticket> tickets = daos.factory().ticket().byKeys(prescriptions);
+            final Map<Long, ExamTicket> tickets = daos.factory().examTicket().byKeys(prescriptions);
             final Map<Long, Report> reports = daos.factory().report().byKeys(prescriptions);
 
             req.setAttribute("result", result(req, "/specialist/cash", "/specialist/publish"));
