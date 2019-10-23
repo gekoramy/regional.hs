@@ -8,8 +8,8 @@ import java.util.Optional;
 
 public interface ReportDAO extends DAO<Report, Long> {
 
-    Report insert(long prescription, long responsible, String note) throws DAOException;
+    Report insert(long ticket, String note) throws DAOException;
 
-    Optional<Report> remove(long prescription) throws DAOException;
+    Optional<Report> remove(long ticket) throws DAOException;
 
 }

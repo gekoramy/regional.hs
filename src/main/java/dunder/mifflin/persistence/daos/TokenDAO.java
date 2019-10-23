@@ -7,7 +7,7 @@ import dunder.mifflin.persistence.pojos.Recover;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface RecoverDAO extends DAO<Recover, Long> {
+public interface TokenDAO extends DAO<Recover, Long> {
 
     Recover store(long person) throws DAOException;
 

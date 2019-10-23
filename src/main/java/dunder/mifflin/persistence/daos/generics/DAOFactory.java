@@ -10,6 +10,8 @@ public interface DAOFactory {
 
     ExamPrescriptionDAO examPrescription();
 
+    ExamTicketDAO examTicket();
+
     GeneralDAO general();
 
     HsAdminDAO hsAdmin();
@@ -22,11 +24,11 @@ public interface DAOFactory {
 
     MedicinePrescriptionDAO medicinePrescription();
 
+    MedicineTicketDAO medicineTicket();
+
     PersonDAO person();
 
     ProvinceDAO province();
-
-    RecoverDAO recover();
 
     RegionDAO region();
 
@@ -38,6 +40,5 @@ public interface DAOFactory {
 
     SpExamDAO spExam();
 
-    TicketDAO ticket();
-
+    TokenDAO token();
 }
