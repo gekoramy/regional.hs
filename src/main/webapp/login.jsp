@@ -31,24 +31,24 @@
                             <h3 class="card-title">Login</h3>
                         </div>
                         <div class="form-group">
-                            <label for="1">Username</label>
-                            <input type="text" class="form-control" id="1">
+                            <label for="username">Username</label>
+                            <input type="text" class="form-control" name="username" id="username">
                         </div>
                         <div class="form-group">
-                            <label for="2">Password</label>
-                            <input type="text" class="form-control" id="2">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control <c:if test="${not empty wrong}"> is-invalid </c:if>" name="password" id="password">
                         </div>
                         <div class="form-check">
-                            <input id="checkbox1" type="checkbox">
-                            <label for="checkbox1">Ricordami</label>
+                            <input id="remember" type="checkbox" name="remember">
                         </div>
                         <div class="it-card-footer">
-                            <div class="row">
+                            <div class="row align-items-center">
                                 <div class="col">
-                                    <span class="card-signature">Password dimenticata?</span>
+                                    <a class="card-signature" href="${pageContext.request.contextPath}/forgot">Password
+                                        dimenticata?</a>
                                 </div>
-                                <div class="col align-items-end">
-                                    <button class="btn btn-outline-primary btn-sm">Accedi</button>
+                                <div class="col d-flex justify-content-end">
+                                    <input type="submit" class="btn btn-outline-primary btn-sm" value="Accedi">
                                 </div>
                             </div>
                         </div>
