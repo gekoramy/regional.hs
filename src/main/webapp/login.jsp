@@ -14,26 +14,26 @@
 
     <script src="./assets/bootstrap-italia/js/bootstrap-italia.bundle.min.js"></script>
 
-    <script>
-        $(document).ready(function () {
-            notificationShow('not4e');
-        });
-    </script>
+    <c:if test="${not empty wrong}">
+        <script>
+            $(document).ready(function () {
+                notificationShow('wrong');
+            });
+        </script>
+    </c:if>
 
 </head>
 <body>
 
-<c:if test="${not empty wrong}">
-    <div class="notification top-fix with-icon error" role="alert" aria-labelledby="not4e-title"
-         id="not4e">
-        <h5 id="not4e-title">
-            <svg class="icon">
-                <use xlink:href="./assets/bootstrap-italia/svg/sprite.svg#it-close-circle"></use>
-            </svg>
-            Sbagliasti, vecchio mio
-        </h5>
-    </div>
-</c:if>
+
+<div class="notification top-fix with-icon error" role="alert" id="wrong">
+    <h5>
+        <svg class="icon">
+            <use xlink:href="./assets/bootstrap-italia/svg/sprite.svg#it-close-circle"></use>
+        </svg>
+        Sbagliasti, vecchio mio
+    </h5>
+</div>
 
 <form method="post" action="${pageContext.request.contextPath}/login"
       class="container">
@@ -67,7 +67,7 @@
                             <a href="${pageContext.request.contextPath}/forgot">
                                 <span class="text">Password dimenticata?</span>
                             </a>
-                            <input type="submit" class="btn btn-outline-primary btn-sm" value="Accedi">
+                            <input type="submit" class="btn btn-primary btn-sm" value="Accedi">
                         </div>
                     </div>
                 </div>
