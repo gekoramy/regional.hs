@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%--@elvariable id="wrong" type="java.lang.Boolean"--%>
+<%--@elvariable id="wrong" type="java.lang.String"--%>
 
 <html>
 <head>
@@ -14,74 +14,67 @@
 
     <script src="./assets/bootstrap-italia/js/bootstrap-italia.bundle.min.js"></script>
 
+    <script>
+        $(document).ready(function () {
+            notificationShow('not4e');
+        });
+    </script>
+
 </head>
 <body>
 
+<c:if test="${not empty wrong}">
+    <div class="notification top-fix with-icon error" role="alert" aria-labelledby="not4e-title"
+         id="not4e">
+        <h5 id="not4e-title">
+            <svg class="icon">
+                <use xlink:href="./assets/bootstrap-italia/svg/sprite.svg#it-close-circle"></use>
+            </svg>
+            Sbagliasti, vecchio mio
+        </h5>
+    </div>
+</c:if>
 
-<form method="post" action="${pageContext.request.contextPath}/login">
-
-    <div class="container h-100">
-        <div class="row h-100 justify-content-center align-items-center">
-            <!--start card-->
+<form method="post" action="${pageContext.request.contextPath}/login"
+      class="container">
+    <div class="row" style="height: 15%"></div>
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10  col-lg-6">
             <div class="card-wrapper card-space">
                 <div class="card card-bg card-big no-after">
                     <div class="card-body">
-
                         <div class="form-group">
                             <h3 class="card-title">Login</h3>
                         </div>
                         <div class="form-group">
                             <label for="username">Username</label>
-                            <input type="text" class="form-control" name="username" id="username">
+                            <input type="text" class="form-control" name="username" id="username"
+                                   value="<c:if test="${not empty wrong}">${wrong}</c:if>">
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
-                            <input type="password" class="form-control <c:if test="${not empty wrong}"> is-invalid </c:if>" name="password" id="password">
+                            <input type="password" class="form-control"
+                                   name="password" id="password">
                         </div>
-                        <div class="form-check">
-                            <input id="remember" type="checkbox" name="remember">
+                        <div class="toggles">
+                            <label for="remember">
+                                Ricordami
+                                <input id="remember" type="checkbox" name="remember">
+                                <span class="lever"></span>
+                            </label>
                         </div>
-                        <div class="it-card-footer">
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    <a class="card-signature" href="${pageContext.request.contextPath}/forgot">Password
-                                        dimenticata?</a>
-                                </div>
-                                <div class="col d-flex justify-content-end">
-                                    <input type="submit" class="btn btn-outline-primary btn-sm" value="Accedi">
-                                </div>
-                            </div>
+                        <div class="it-card-footer justify-content-between">
+                            <a href="${pageContext.request.contextPath}/forgot">
+                                <span class="text">Password dimenticata?</span>
+                            </a>
+                            <input type="submit" class="btn btn-outline-primary btn-sm" value="Accedi">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!--end card-->
 </form>
-
-<%--    <label>--%>
-<%--        username--%>
-<%--        <input type="text" placeholder="username" name="username">--%>
-<%--    </label>--%>
-
-<%--    <label>--%>
-<%--        password--%>
-<%--        <input type="text" placeholder="password" name="password">--%>
-<%--    </label>--%>
-
-<%--    <label>--%>
-<%--        remember me--%>
-<%--        <input type="checkbox" name="remember">--%>
-<%--    </label>--%>
-
-<%--    <c:if test="${not empty wrong}">--%>
-<%--        <div>sbagliasti vecchio mio</div>--%>
-<%--    </c:if>--%>
-
-<%--    <a href="${pageContext.request.contextPath}/forgot">forgot password?</a>--%>
-
-<%--    <input type="submit" value="submit">--%>
 
 </body>
 </html>
