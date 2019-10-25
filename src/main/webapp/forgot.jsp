@@ -82,7 +82,7 @@
                             <input type="text" class="form-control" name="username" id="username">
                         </div>
                         <div class="it-card-footer justify-content-end">
-                            <input type="submit" class="btn btn-outline-primary btn-sm" value="Ripristina">
+                            <input type="submit" class="btn btn-primary btn-sm" value="Ripristina">
                         </div>
                     </div>
                 </div>
