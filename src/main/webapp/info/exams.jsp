@@ -62,38 +62,6 @@
             <div class="col-12">
                 <div class="it-header-slim-wrapper-content">
                     <span class="d-lg-block navbar-brand">Servizio Sanitario</span>
-                    <div class="nav-mobile">
-                        <nav>
-                            <a class="it-opener d-lg-none" data-toggle="collapse" href="#menu1" role="button"
-                               aria-expanded="false" aria-controls="menu1">
-                                <span>Prescrizioni</span>
-                                <svg class="icon">
-                                    <use xlink:href="../assets/bootstrap-italia/svg/sprite.svg#it-expand"></use>
-                                </svg>
-                            </a>
-                            <div class="link-list-wrapper collapse" id="menu1">
-                                <ul class="link-list">
-                                    <li><a class="list-item" href="#">Esami</a></li>
-                                    <li><a class="list-item active" href="#">Farmaci</a></li>
-                                </ul>
-                            </div>
-                        </nav>
-                    </div>
-                    <div class="it-header-slim-right-zone">
-                        <a href="#" class="btn btn-primary btn-icon btn-full">
-<%--                <span class="rounded-icon">--%>
-<%--                  <svg class="icon icon-primary">--%>
-<%--                    <use--%>
-<%--                            xlink:href="../assets/bootstrap-italia/svg/sprite.svg#it-user"--%>
-<%--                    ></use>--%>
-<%--                  </svg>--%>
-                    <div class="avatar size-lg">
-                        <img src="../assets/img/avatar/avt.248871942052528259.jpg" alt="avatar">
-                    </div>
-<%--                </span>--%>
-<%--                            <span class="d-none d-lg-block">Accedi all'area personale</span>--%>
-                        </a>
-                    </div>
                 </div>
             </div>
         </div>
