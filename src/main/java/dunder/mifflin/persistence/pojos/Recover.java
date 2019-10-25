@@ -4,6 +4,8 @@ import java.time.OffsetDateTime;
 import java.util.StringJoiner;
 import java.util.UUID;
 
+import static java.util.Objects.requireNonNull;
+
 public class Recover {
 
     private final Long person;
@@ -11,9 +13,9 @@ public class Recover {
     private final OffsetDateTime expiration;
 
     public Recover(Long person, UUID token, OffsetDateTime expiration) {
-        this.person = person;
-        this.token = token;
-        this.expiration = expiration;
+        this.person = requireNonNull(person);
+        this.token = requireNonNull(token);
+        this.expiration = requireNonNull(expiration);
     }
 
     public Long person() {
