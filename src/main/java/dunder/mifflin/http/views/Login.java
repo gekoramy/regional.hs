@@ -29,10 +29,12 @@ public class Login extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        if (Auths.session(req).isPresent())
+        try {
+            Auths.session(req).flatMap(daos.factory().person()::byKey).orElseThrow();
             resp.sendRedirect(location(req, "/patient/medicines"));
-        else
-            req.getServletContext().getRequestDispatcher(String.format("/%s", "login.jsp")).forward(req, resp);
+        } catch (NoSuchElementException | DAOException e) {
+            req.getServletContext().getRequestDispatcher("/login.jsp").forward(req, resp);
+        }
     }
 
     @Override
@@ -54,7 +56,7 @@ public class Login extends HttpServlet {
             resp.sendRedirect(location(req, "/patient/medicines"));
 
         } catch (NoSuchElementException e) {
-            req.setAttribute("wrong", new Object());
+            req.setAttribute("wrong", Optional.ofNullable(req.getParameter("username")).orElse(""));
             req.getServletContext().getRequestDispatcher("/login.jsp").forward(req, resp);
         } catch (DAOException e) {
             resp.sendError(SC_INTERNAL_SERVER_ERROR, e.getMessage());
