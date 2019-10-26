@@ -16,50 +16,42 @@
 
     <script src="${pageContext.request.contextPath}/assets/script/strings.js"></script>
     <script>
-        $(document).ready(function () {
-            $("#filter").keyup(function () {
-                $.getJSON(
-                    "${pageContext.request.contextPath}/api/people",
-                    {
-                        name: $("#filter").val()
-                    },
-                    function (result) {
+        const design = function () {
+            $.getJSON(
+                "${pageContext.request.contextPath}/api/people",
+                {
+                    name: $("#filter").val()
+                },
+                function (result) {
+                    $("#items").empty();
+
+                    $.each(result, function (i, it) {
                         $("#items")
-                            .empty()
                             .append(
                                 `
-                                <thead>
-                                <tr>
-                                <th>Data di nascita</th>
-                                <th>Avatar</th>
-                                <th>Nome</th>
-                                <th>Cognome</th>
-                                <th>Codice fiscale</th>
-                                <th>Email</th>
-                                <th>Visit</th>
-                                </tr>
-                                </thead>
-                                `
-                            );
-
-                        $.each(result, function (i, it) {
-                            $("#items")
-                                .append(
-                                    `
-                                    <tr>
-                                    <td>{birthday}</td>
-                                    <td><img src="{avatar}" alt="pic" width="40" height="40"/></td>
-                                    <td>{name}</td>
-                                    <td>{surname}</td>
-                                    <td>{fc}</td>
-                                    <td>{email}</td>
-                                    <td><input type="submit" name="patient" title="visita" value="{id}"/></td>
-                                    </tr>
+                                    <div class="col-6 col-lg-3">
+                                        <button type="submit" name="patient" value="{id}" class="bg-transparent border-0">
+                                            <div class="avatar-wrapper avatar-extra-text">
+                                                <div class="avatar size-xxl">
+                                                    <img src="{avatar}" alt="{name} {surname}">
+                                                </div>
+                                                <div class="extra-text">
+                                                    <h4>{name}</h4>
+                                                    <h4>{surname}</h4>
+                                                    <time datetime="{birthday}">{birthday}</time>
+                                                </div>
+                                            </div>
+                                        </button>
+                                    </div>
                                     `.formatUnicorn(it)
-                                );
-                        });
+                            );
                     });
-            });
+                });
+        };
+
+        $(document).ready(function () {
+            design.call();
+            $("#filter").keyup(design);
         });
     </script>
 </head>
@@ -74,9 +66,26 @@
                     <span class="d-lg-block navbar-brand">Servizio Sanitario</span>
                     <div class="nav-mobile">
                         <nav>
+                            <a class="it-opener d-lg-none" data-toggle="collapse" href="#menu2" role="button"
+                               aria-expanded="false" aria-controls="menu2">
+                                <span>Specialista</span>
+                                <svg class="icon">
+                                    <use xlink:href="../assets/bootstrap-italia/svg/sprite.svg#it-expand"></use>
+                                </svg>
+                            </a>
+                            <div class="link-list-wrapper collapse" id="menu2">
+                                <ul class="link-list">
+                                    <li><a class="list-item active"
+                                           href="${pageContext.request.contextPath}/specialist/people">Visita</a></li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                    <div class="nav-mobile">
+                        <nav>
                             <a class="it-opener d-lg-none" data-toggle="collapse" href="#menu1" role="button"
                                aria-expanded="false" aria-controls="menu1">
-                                <span>Prescrizioni</span>
+                                <span>Personale</span>
                                 <svg class="icon">
                                     <use xlink:href="../assets/bootstrap-italia/svg/sprite.svg#it-expand"></use>
                                 </svg>
@@ -87,8 +96,6 @@
                                     </li>
                                     <li><a class="list-item"
                                            href="${pageContext.request.contextPath}/patient/medicines">Farmaci</a></li>
-                                    <li><a class="list-item active"
-                                           href="${pageContext.request.contextPath}/specialist/people">Visita</a></li>
                                 </ul>
                             </div>
                         </nav>
@@ -116,9 +123,7 @@
             <div class="form-group">
                 <input type="search" class="autocomplete" placeholder="Cerca" id="filter">
                 <span class="autocomplete-icon" aria-hidden="true">
-
-                <svg class="icon icon-sm"><use
-                        xlink:href="../assets/bootstrap-italia/svg/sprite.svg#it-search"></use></svg>
+                <svg class="icon icon-sm"><use xlink:href="../assets/bootstrap-italia/svg/sprite.svg#it-search"></use></svg>
             </span>
             </div>
         </div>
@@ -126,26 +131,9 @@
 
 </div>
 
-
-<form method="get" action="${pageContext.request.contextPath}/specialist/medicines">
-    <table id="items"></table>
+<form method="get" action="${pageContext.request.contextPath}/specialist/medicines" class="container">
+    <div id="items" class="row"></div>
 </form>
-
-<div class="container">
-    <div class="row">
-        <div class="col-3 col-sm-1">
-            <div class="card-wrapper card-space">
-                <div class="card card-bg">
-                    <div class="card-body">
-                        Nome
-                        Cognome
-                        Via
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 </body>
 </html>
