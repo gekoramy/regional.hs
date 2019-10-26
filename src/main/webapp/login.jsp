@@ -5,14 +5,10 @@
 
 <html>
 <head>
-    <meta charset="UTF-8">
+    <%@ include file="./commons/meta.jsp" %>
+    <%@ include file="./commons/header.jsp" %>
+
     <title>Login</title>
-
-    <link rel="stylesheet" href="./assets/bootstrap-italia/css/bootstrap-italia.min.css">
-
-    <script>window.__PUBLIC_PATH__ = './assets/bootstrap-italia/fonts'</script>
-
-    <script src="./assets/bootstrap-italia/js/bootstrap-italia.bundle.min.js"></script>
 
     <c:if test="${not empty wrong}">
         <script>
@@ -21,18 +17,22 @@
             });
         </script>
     </c:if>
-
 </head>
 <body>
 
 
-<div class="notification top-fix with-icon error" role="alert" id="wrong">
+<div class="notification top-fix with-icon error dismissable" role="alert" id="wrong">
     <h5>
         <svg class="icon">
-            <use xlink:href="./assets/bootstrap-italia/svg/sprite.svg#it-close-circle"></use>
+            <use xlink:href="${bootstrap}/svg/sprite.svg#it-close-circle"></use>
         </svg>
         Sbagliasti, vecchio mio
     </h5>
+    <button type="button" class="btn notification-close">
+        <svg class="icon">
+            <use xlink:href="${bootstrap}/svg/sprite.svg#it-close"></use>
+        </svg>
+    </button>
 </div>
 
 <form method="post" action="${pageContext.request.contextPath}/login"
