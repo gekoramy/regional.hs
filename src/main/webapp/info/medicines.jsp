@@ -1,47 +1,47 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
+    <%@ include file="../commons/meta.jsp" %>
+    <%@ include file="../commons/header.jsp" %>
+    <%@ include file="../commons/scripts.jsp" %>
+
     <title>Farmaci</title>
 
-    <link rel="stylesheet" href="../assets/bootstrap-italia/css/bootstrap-italia.min.css">
-
-    <script>window.__PUBLIC_PATH__ = '../assets/bootstrap-italia/fonts'</script>
-
-    <script src="../assets/bootstrap-italia/js/bootstrap-italia.bundle.min.js"></script>
-
-    <script src="${pageContext.request.contextPath}/assets/script/strings.js"></script>
-
     <script>
-        $(document).ready(function () {
-            $("#filter").keyup(function () {
-                $.getJSON(
-                    "${pageContext.request.contextPath}/api/medicines",
-                    {
-                        pattern: $("#filter").val()
-                    },
-                    function (result) {
-                        $("#items")
-                            .empty();
 
-                        $.each(result, function (i, it) {
-                            $("#items")
-                                .append(
-                                    `
-                                    <div class="col-12 col-lg-4 col-md-6">
-                                            <div class="card-wrapper card-space">
-                                                <div class="card card-bg card-big border-bottom-card">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">{name}</h5>
-                                                        <p class="card-text">{info}</p>
-                                                    </div>
+        const design = function () {
+            $.getJSON(
+                "${pageContext.request.contextPath}/api/medicines",
+                {
+                    pattern: $("#filter").val()
+                },
+                function (result) {
+                    $("#items")
+                        .empty();
+
+                    $.each(result, function (i, it) {
+                        $("#items")
+                            .append(
+                                `
+                                <div class="col-12 col-lg-4 col-md-6">
+                                        <div class="card-wrapper card-space">
+                                            <div class="card card-bg card-big border-bottom-card">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">{name}</h5>
+                                                    <p class="card-text">{info}</p>
                                                 </div>
                                             </div>
                                         </div>
-                                    `.formatUnicorn(it)
-                                );
-                        });
+                                    </div>
+                                `.formatUnicorn(it)
+                            );
                     });
-            });
+                });
+        };
+
+        $(document).ready(function () {
+            design.call();
+            $("#filter").keyup(design);
         });
     </script>
 </head>
@@ -69,7 +69,7 @@
                 <input type="search" class="autocomplete" placeholder="Cerca" id="filter">
                 <span class="autocomplete-icon" aria-hidden="true">
 
-                <svg class="icon icon-sm"><use xlink:href="../assets/bootstrap-italia/svg/sprite.svg#it-search"></use></svg>
+                <svg class="icon icon-sm"><use xlink:href="${bootstrap}/svg/sprite.svg#it-search"></use></svg>
             </span>
             </div>
         </div>

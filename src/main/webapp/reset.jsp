@@ -4,38 +4,21 @@
 
 <html>
 <head>
+    <%@ include file="./commons/meta.jsp" %>
+    <%@ include file="./commons/header.jsp" %>
+
     <title>Change password</title>
-    <link rel="stylesheet" href="./assets/bootstrap-italia/css/bootstrap-italia.min.css">
-
-    <script>window.__PUBLIC_PATH__ = './assets/bootstrap-italia/fonts'</script>
-
-    <script src="./assets/bootstrap-italia/js/bootstrap-italia.bundle.min.js"></script>
-
-    <script>
-        $(document).ready(function () {
-            $('#password, #check').keyup(function () {
-                $('#submit').attr(
-                    'disabled',
-                    $('#password').val() !== $('#check').val()
-                );
-            });
-        });
-    </script>
-
 </head>
 <body>
 
 <form method="post" action="${pageContext.request.contextPath}/reset" class="container">
     <input type="hidden" name="token" value="${token}">
-
     <div class="row" style="height: 15%"></div>
-
     <div class="row justify-content-center">
         <div class="col-12 col-md-10  col-lg-6">
             <div class="card-wrapper card-space">
                 <div class="card card-bg card-big no-after">
                     <div class="card-body">
-
                         <div class="form-group">
                             <h3 class="card-title">Reset password</h3>
                         </div>
@@ -49,9 +32,9 @@
                                    name="password">
                             <span class="password-icon" aria-hidden="true">
                                 <svg class="password-icon-visible icon icon-sm"><use
-                                        xlink:href="./assets/bootstrap-italia/svg/sprite.svg#it-password-visible"></use></svg>
+                                        xlink:href="${bootstrap}/svg/sprite.svg#it-password-visible"></use></svg>
                                 <svg class="password-icon-invisible icon icon-sm d-none"><use
-                                        xlink:href="./assets/bootstrap-italia/svg/sprite.svg#it-password-invisible"></use></svg>
+                                        xlink:href="${bootstrap}/svg/sprite.svg#it-password-invisible"></use></svg>
                             </span>
                         </div>
 
@@ -64,9 +47,9 @@
                                    name="check">
                             <span class="password-icon" aria-hidden="true">
                                 <svg class="password-icon-visible icon icon-sm"><use
-                                        xlink:href="./assets/bootstrap-italia/svg/sprite.svg#it-password-visible"></use></svg>
+                                        xlink:href="${bootstrap}/svg/sprite.svg#it-password-visible"></use></svg>
                                 <svg class="password-icon-invisible icon icon-sm d-none"><use
-                                        xlink:href="./assets/bootstrap-italia/svg/sprite.svg#it-password-invisible"></use></svg>
+                                        xlink:href="${bootstrap}/svg/sprite.svg#it-password-invisible"></use></svg>
                             </span>
                         </div>
 
@@ -79,6 +62,17 @@
         </div>
     </div>
 </form>
+
+<script>
+    $(document).ready(function () {
+        $('#password, #check').keyup(function () {
+            $('#submit').attr(
+                'disabled',
+                $('#password').val() !== $('#check').val()
+            );
+        });
+    });
+</script>
 
 </body>
 </html>

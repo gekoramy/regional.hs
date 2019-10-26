@@ -5,66 +5,42 @@
 
 <html>
 <head>
-    <meta charset="UTF-8">
+    <%@ include file="./commons/meta.jsp" %>
+    <%@ include file="./commons/header.jsp" %>
+    <%@ include file="./commons/scripts.jsp" %>
+
     <title>Ripristina password</title>
-
-    <link rel="stylesheet" href="./assets/bootstrap-italia/css/bootstrap-italia.min.css">
-
-    <script>window.__PUBLIC_PATH__ = './assets/bootstrap-italia/fonts'</script>
-
-    <script src="./assets/bootstrap-italia/js/bootstrap-italia.bundle.min.js"></script>
-
-    <c:if test="${not empty result}">
-        <c:choose>
-            <c:when test="${200 le result.code() and result.code() < 300}">
-                <c:choose>
-                    <c:when test="${result.action().equals('/token')}">
-                        <script>
-                            $(document).ready(function () {
-                                notificationShow('token-200');
-                            });
-                        </script>
-                    </c:when>
-                </c:choose>
-            </c:when>
-
-            <c:otherwise>
-                <c:choose>
-                    <c:when test="${result.action().equals('/token')}">
-                        <script>
-                            $(document).ready(function () {
-                                notificationShow('token-500');
-                            });
-                        </script>
-                    </c:when>
-                </c:choose>
-            </c:otherwise>
-        </c:choose>
-    </c:if>
-
 </head>
 <body>
 
-<div class="notification top-fix with-icon success" role="alert" aria-labelledby="token-200-title"
-     id="token-200">
-    <h5 id="token-200-title">
+<div id="token-200" class="notification top-fix with-icon success dismissable" role="alert">
+    <h5>
         <svg class="icon">
-            <use xlink:href="./assets/bootstrap-italia/svg/sprite.svg#it-check-circle"></use>
+            <use xlink:href="${bootstrap}/svg/sprite.svg#it-check-circle"></use>
         </svg>
         Controlla l'email
     </h5>
-</div>
-
-<div class="notification top-fix with-icon error" role="alert" aria-labelledby="token-500-title"
-     id="token-500">
-    <h5 id="token-500-title">
+    <button type="button" class="btn notification-close">
         <svg class="icon">
-            <use xlink:href="./assets/bootstrap-italia/svg/sprite.svg#it-close-circle"></use>
+            <use xlink:href="${bootstrap}/svg/sprite.svg#it-close"></use>
         </svg>
-        Non è vero, però ti dico comunque di checkare l'email
-    </h5>
+    </button>
 </div>
 
+<div id="token-404" class="notification top-fix with-icon error dismissable" role="alert">
+    <h5>
+        <svg class="icon">
+            <use xlink:href="${bootstrap}/svg/sprite.svg#it-close-circle"></use>
+        </svg>
+        Errore
+    </h5>
+    <p>Non è stato possibile inviare l'email</p>
+    <button type="button" class="btn notification-close">
+        <svg class="icon">
+            <use xlink:href="${bootstrap}/svg/sprite.svg#it-close"></use>
+        </svg>
+    </button>
+</div>
 
 <form method="post" action="${pageContext.request.contextPath}/token" class="container">
 
@@ -89,7 +65,6 @@
             </div>
         </div>
     </div>
-
 
 </form>
 
