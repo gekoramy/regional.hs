@@ -144,7 +144,8 @@
                             </a>
                             <div class="link-list-wrapper collapse" id="menu1">
                                 <ul class="link-list">
-                                    <li><a class="list-item" href="${pageContext.request.contextPath}/patient/exams">Esami</a>
+                                    <li><a class="list-item"
+                                           href="${pageContext.request.contextPath}/patient/exams">Esami</a>
                                     </li>
                                     <li><a class="list-item"
                                            href="${pageContext.request.contextPath}/patient/medicines">Farmaci</a></li>
@@ -159,6 +160,38 @@
                                 <img src="${avatar}" alt="avatar">
                             </div>
                         </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="it-header-slim-wrapper theme-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="it-header-slim-wrapper-content">
+                    <span class="d-lg-block navbar-brand">${patient.name()} ${patient.surname()}</span>
+                    <div class="nav-mobile">
+                        <nav>
+                            <a class="it-opener d-lg-none" data-toggle="collapse" href="#menu3" role="button"
+                               aria-expanded="false" aria-controls="menu1">
+                                <span>Paziente</span>
+                                <svg class="icon">
+                                    <use xlink:href="${bootstrap}/svg/sprite.svg#it-expand"></use>
+                                </svg>
+                            </a>
+                            <div class="link-list-wrapper collapse" id="menu3">
+                                <ul class="link-list">
+                                    <li><a class="list-item active"
+                                           href="${pageContext.request.contextPath}/specialist/exams?patient=${patient.id()}">Esami</a>
+                                    </li>
+                                    <li><a class="list-item"
+                                           href="${pageContext.request.contextPath}/specialist/medicines?patient=${patient.id()}">Farmaci</a></li>
+                                </ul>
+                            </div>
+                        </nav>
                     </div>
                 </div>
             </div>
