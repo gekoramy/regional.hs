@@ -26,6 +26,18 @@ public class ExamTicketJDBC extends JDBC implements ExamTicketDAO {
     public ExamTicket insert(long prescription, BigDecimal amount, long responsible) {
         return context.transactionResult((config) -> {
 
+            DSL.using(config)
+                    .select()
+                    .from(PRESCRIPTION)
+                    .innerJoin(FOLLOWS).on(PRESCRIPTION.CONCERNS.eq(FOLLOWS.ID))
+                    .where(PRESCRIPTION.ID.eq(prescription))
+                    .and(FOLLOWS.PATIENT.ne(responsible))
+                    .fetchOptional()
+                    .orElseThrow(() -> new DAOException("any of those:\n" +
+                            "- the prescription does not exist\n" +
+                            "- the patient cannot be responsible for himself"
+                    ));
+
             if (
                     DSL.using(config)
                             .select()
@@ -75,7 +87,6 @@ public class ExamTicketJDBC extends JDBC implements ExamTicketDAO {
             }
 
             throw new DAOException("any of those:\n" +
-                    "- the prescription does not exist\n" +
                     "- the prescription is not an exam prescription\n" +
                     "- the responsible is not qualified for the exam");
         });
