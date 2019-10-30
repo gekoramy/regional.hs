@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static dunder.mifflin.utils.Results.result;
 import static java.util.stream.Collectors.toUnmodifiableList;
@@ -33,7 +35,6 @@ public class ExamPrescriptions extends HttpServlet {
         try {
             final long sid = Auths.session(req).orElseThrow();
             final Specialist specialist = daos.factory().specialist().byKey(sid).orElseThrow();
-            final String avatar = Avatars.avatar50(daos.factory().avatar(), req.getContextPath(), specialist);
 
             final long pid = Optional.ofNullable(req.getParameter("patient")).map(Long::parseLong).orElseThrow();
             final Person patient = daos.factory().person().byKey(pid).orElseThrow();
@@ -43,15 +44,26 @@ public class ExamPrescriptions extends HttpServlet {
             final Long[] prescriptions = exams.stream().map(Prescription::id).toArray(Long[]::new);
             final Map<Long, ExamTicket> tickets = daos.factory().examTicket().byKeys(prescriptions);
             final Map<Long, Report> reports = daos.factory().report().byKeys(prescriptions);
+            final Map<Long, Person> responsible = daos.factory().person().byKeys(tickets.values().stream().map(ExamTicket::responsible).toArray(Long[]::new));
+
+            final Map<Long, String> avatars = Avatars.avatars50(
+                    daos.factory().avatar(),
+                    req.getContextPath(),
+                    Stream.concat(
+                            Stream.of(specialist, patient),
+                            responsible.values().stream()
+                    ).collect(Collectors.toUnmodifiableList())
+            );
 
             req.setAttribute("result", result(req, "/specialist/cash", "/specialist/publish"));
             req.setAttribute("specialist", specialist);
-            req.setAttribute("avatar", avatar);
+            req.setAttribute("avatars", avatars);
             req.setAttribute("patient", patient);
             req.setAttribute("exams", exams);
             req.setAttribute("qualified", qualified);
             req.setAttribute("tickets", tickets);
             req.setAttribute("reports", reports);
+            req.setAttribute("responsible", responsible);
             req.getServletContext().getRequestDispatcher("/specialist/exams.jsp").forward(req, resp);
 
             Fallbacks.safe(req);
