@@ -20,7 +20,7 @@
     <%@ include file="../commons/header.jsp" %>
     <%@ include file="../commons/scripts.jsp" %>
 
-    <title>Storico</title>
+    <title>Storico esami</title>
 </head>
 
 <body>
