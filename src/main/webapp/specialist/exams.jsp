@@ -154,7 +154,11 @@
                             <td class="align-middle text-left">${tck}</td>
                             <td class="align-middle text-left">€${tickets.get(it.id()).amount()}</td>
                             <td class="align-middle text-center">
-                                <input type="button" class="btn btn-primary" value="Referto" data-toggle="modal" data-target="#R${it.id()}">
+                                <a data-toggle="modal" href="#" data-target="#R${it.id()}">
+                                    <svg class="icon">
+                                        <use xlink:href="${bootstrap}/svg/sprite.svg#it-note"></use>
+                                    </svg>
+                                </a>
                             </td>
                         </c:when>
 
