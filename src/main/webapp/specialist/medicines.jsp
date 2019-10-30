@@ -155,7 +155,7 @@
                             <fmt:formatDate value="${tmp}" type="both" dateStyle="short" timeStyle="short" var="tck"/>
 
                             <td class="align-middle">${tck}</td>
-                            <td class="align-middle">€ ${tickets.get(it.id()).amount()}</td>
+                            <td class="align-middle">€${tickets.get(it.id()).amount()}</td>
                         </c:when>
 
                         <c:otherwise>
