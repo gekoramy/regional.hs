@@ -127,8 +127,8 @@
             <tr>
                 <th>Prescrizione</th>
                 <th>Farmaco</th>
-                <th>Quantità</th>
-                <th>QR</th>
+                <th class="text-center">Quantità</th>
+                <th class="text-center">QR</th>
                 <th colspan="2" class="text-center">Ticket</th>
             </tr>
             </thead>
@@ -140,8 +140,8 @@
                 <tr>
                     <td class="align-middle">${out}</td>
                     <td class="align-middle">${it.medicine().name()}</td>
-                    <td class="align-middle">${it.quantity()}</td>
-                    <td class="align-middle">
+                    <td class="align-middle text-center">${it.quantity()}</td>
+                    <td class="align-middle text-center">
                         <a href="${pageContext.request.contextPath}/qr?size=500&prescription=${it.id()}" target="_blank">
                             <svg class="icon">
                                 <use xlink:href="${bootstrap}/svg/sprite.svg#it-camera"></use>
