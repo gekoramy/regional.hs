@@ -14,7 +14,7 @@
     <%@ include file="../commons/meta.jsp" %>
     <%@ include file="../commons/header.jsp" %>
 
-    <title>Storico</title>
+    <title>Storico farmaci</title>
 </head>
 
 <body>
