@@ -25,21 +25,18 @@
                         $("#items")
                             .append(
                                 `
-                                    <div class="col-6 col-lg-3">
-                                        <button type="submit" name="patient" value="{id}" class="bg-transparent border-0">
-                                            <div class="avatar-wrapper avatar-extra-text">
-                                                <div class="avatar size-xxl">
-                                                    <img src="{avatar}" alt="{name} {surname}">
-                                                </div>
-                                                <div class="extra-text">
-                                                    <h4>{name}</h4>
-                                                    <h4>{surname}</h4>
-                                                    <time datetime="{birthday}">{birthday}</time>
-                                                </div>
-                                            </div>
-                                        </button>
-                                    </div>
-                                    `.formatUnicorn(it)
+                                <div class="col-11 col-md-6 col-lg-4 d-flex justify-content-center">
+                                    <button type="submit" name="patient" value="{id}" class="bg-transparent border-0 avatar-wrapper avatar-extra-text">
+                                        <div class="avatar size-xl">
+                                            <img src="{avatar}" alt="{name} {surname}">
+                                        </div>
+                                        <div class="extra-text">
+                                            <h4 class="text-left">{name} {surname}</h4>
+                                            <code class="text-left">{fc}</code>
+                                        </div>
+                                    </button>
+                                </div>
+                                `.formatUnicorn(it)
                             );
                     });
                 });
