@@ -7,13 +7,13 @@ import dunder.mifflin.persistence.pojos.Person;
 import dunder.mifflin.utils.Auths;
 import dunder.mifflin.utils.Avatars;
 import dunder.mifflin.utils.Jsonify;
+import org.apache.commons.codec.CharEncoding;
 
 import javax.inject.Inject;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.util.List;
@@ -24,7 +24,6 @@ import java.util.Optional;
 import static java.util.stream.Collectors.toUnmodifiableList;
 
 @WebServlet("/api/patients")
-@Produces(MediaType.APPLICATION_JSON)
 public class Patients extends HttpServlet {
 
     @Inject
@@ -47,6 +46,8 @@ public class Patients extends HttpServlet {
                     .map((patient) -> Jsonify.json(patient, avatars))
                     .collect(Jsonify.array());
 
+            resp.setCharacterEncoding(CharEncoding.UTF_8);
+            resp.setContentType(MediaType.APPLICATION_JSON);
             array.toJson(resp.getWriter());
 
         } catch (NoSuchElementException e) {
