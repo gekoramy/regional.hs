@@ -5,13 +5,13 @@ import dunder.mifflin.beans.DAOs;
 import dunder.mifflin.persistence.daos.exceptions.DAOException;
 import dunder.mifflin.persistence.pojos.Examination;
 import dunder.mifflin.utils.Jsonify;
+import org.apache.commons.codec.CharEncoding;
 
 import javax.inject.Inject;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.util.Optional;
@@ -19,7 +19,6 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 
 @WebServlet("/api/exams")
-@Produces(MediaType.APPLICATION_JSON)
 public class Exams extends HttpServlet {
 
     @Inject
@@ -37,6 +36,8 @@ public class Exams extends HttpServlet {
                     .map(Jsonify::json)
                     .collect(Jsonify.array());
 
+            resp.setCharacterEncoding(CharEncoding.UTF_8);
+            resp.setContentType(MediaType.APPLICATION_JSON);
             array.toJson(resp.getWriter());
 
         } catch (DAOException e) {

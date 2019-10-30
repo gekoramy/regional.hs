@@ -14,6 +14,7 @@
     <Resource id="PostgreSQL" type="DataSource">
         JdbcDriver = org.postgresql.Driver
         JdbcUrl = jdbc:postgresql://localhost/regional.hs
+        characterEncoding = UTF-8
         UserName = ***REMOVED***
         Password = ***REMOVED***
     </Resource>
