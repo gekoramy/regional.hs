@@ -40,7 +40,8 @@ public class Avatars {
                         (p) -> Optional.ofNullable(stored.get(p.id()))
                                 .map(Avatar::url)
                                 .map((url) -> String.format("%s/assets/img/avatar/%s", path, url))
-                                .orElse(String.format("https://api.adorable.io/avatars/50/%s", p.email()))
+                                .orElse(String.format("https://api.adorable.io/avatars/50/%s", p.email())),
+                        (a, __) -> a
                 ));
     }
 }
