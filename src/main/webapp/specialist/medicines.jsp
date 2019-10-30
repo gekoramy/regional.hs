@@ -36,7 +36,7 @@
                             </a>
                             <div class="link-list-wrapper collapse" id="menu2">
                                 <ul class="link-list">
-                                    <li><a class="list-item active"
+                                    <li><a class="list-item"
                                            href="${pageContext.request.contextPath}/specialist/people">Visita</a></li>
                                 </ul>
                             </div>
