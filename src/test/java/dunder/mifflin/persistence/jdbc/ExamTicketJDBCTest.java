@@ -87,6 +87,8 @@ class ExamTicketJDBCTest {
         Assertions.assertThrows(DAOException.class, () -> dao.insert(1283L, BigDecimal.valueOf(20),42L), "specialist not qualified");
 
         Assertions.assertThrows(DAOException.class, () -> dao.insert(1283L, BigDecimal.valueOf(20),10L), "health service doctor cannot be responsible for specialist exam");
+
+        Assertions.assertThrows(DAOException.class, () -> dao.insert(1484L, BigDecimal.valueOf(20),26L), "the patient cannot be responsible for himself");
     }
 
     @Test
