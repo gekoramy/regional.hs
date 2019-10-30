@@ -321,7 +321,7 @@
                     <div class="modal-dialog modal-dialog-right w-100" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title">Report ~ ${it.exam().name()}</h5>
+                                <h5 class="modal-title">Referto ~ ${it.exam().name()}</h5>
                                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                                     <svg class="icon">
                                         <use xlink:href="${bootstrap}/svg/sprite.svg#it-close"></use>
