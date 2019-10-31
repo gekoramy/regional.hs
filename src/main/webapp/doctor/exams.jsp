@@ -3,152 +3,539 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%--@elvariable id="result" type="dunder.mifflin.utils.Result"--%>
+<%--@elvariable id="rsp" type="dunder.mifflin.persistence.pojos.Person"--%>
 
-<jsp:useBean id="doctor" scope="request" type="dunder.mifflin.persistence.pojos.HsDoctor"/>
-<jsp:useBean id="avatar" scope="request" type="java.lang.String"/>
-<jsp:useBean id="patient" scope="request" type="dunder.mifflin.persistence.pojos.Person"/>
-<jsp:useBean id="exams" scope="request" type="java.util.List<dunder.mifflin.persistence.pojos.ExamPrescription>"/>
-<jsp:useBean id="qualified" scope="request" type="java.util.Set<java.lang.Long>"/>
-<jsp:useBean id="tickets" scope="request" type="java.util.Map<java.lang.Long, dunder.mifflin.persistence.pojos.ExamTicket>"/>
-<jsp:useBean id="reports" scope="request" type="java.util.Map<java.lang.Long, dunder.mifflin.persistence.pojos.Report>"/>
+<jsp:useBean scope="request" id="doctor" type="dunder.mifflin.persistence.pojos.HsDoctor"/>
+<jsp:useBean scope="request" id="patient" type="dunder.mifflin.persistence.pojos.Person"/>
+<jsp:useBean scope="request" id="responsible" type="java.util.Map<java.lang.Long, dunder.mifflin.persistence.pojos.Person>"/>
+<jsp:useBean scope="request" id="avatars" type="java.util.Map<java.lang.Long, java.lang.String>"/>
+
+<jsp:useBean scope="request" id="birthplace_city" type="dunder.mifflin.persistence.pojos.City"/>
+<jsp:useBean scope="request" id="birthplace_province" type="dunder.mifflin.persistence.pojos.Province"/>
+<jsp:useBean scope="request" id="birthplace_region" type="dunder.mifflin.persistence.pojos.Region"/>
+
+<jsp:useBean scope="request" id="residence_city" type="dunder.mifflin.persistence.pojos.City"/>
+<jsp:useBean scope="request" id="residence_province" type="dunder.mifflin.persistence.pojos.Province"/>
+<jsp:useBean scope="request" id="residence_region" type="dunder.mifflin.persistence.pojos.Region"/>
+
+<jsp:useBean scope="request" id="qualified" type="java.util.Set<java.lang.Long>"/>
+<jsp:useBean scope="request" id="exams" type="java.util.List<dunder.mifflin.persistence.pojos.ExamPrescription>"/>
+<jsp:useBean scope="request" id="tickets" type="java.util.Map<java.lang.Long, dunder.mifflin.persistence.pojos.ExamTicket>"/>
+<jsp:useBean scope="request" id="reports" type="java.util.Map<java.lang.Long, dunder.mifflin.persistence.pojos.Report>"/>
 
 <html>
 <head>
-    <title>Storico</title>
+    <%@ include file="../commons/meta.jsp" %>
+    <%@ include file="../commons/header.jsp" %>
+    <%@ include file="../commons/scripts.jsp" %>
+
+    <title>Storico esami</title>
 </head>
 
 <body>
 
-<c:if test="${not empty result}">
-    <div>
-        <c:choose>
-            <c:when test="${200 == result.code()}">
-                <c:choose>
-                    <c:when test="${result.action().equals('/doctor/cash')}">
-                        Incassato
-                    </c:when>
-
-                    <c:when test="${result.action().equals('/doctor/publish')}">
-                        Pubblicato
-                    </c:when>
-                </c:choose>
-            </c:when>
-
-            <c:when test="${206 == result.code()}">
-                <c:choose>
-                    <c:when test="${result.action().equals('/doctor/cash')}">
-                        Incassato, ma non è stato possibile notificare il paziente
-                    </c:when>
-
-                    <c:when test="${result.action().equals('/doctor/publish')}">
-                        Pubblicato, ma non è stato possibile notificare il paziente
-                    </c:when>
-                </c:choose>
-            </c:when>
-
-            <c:otherwise>
-                <c:choose>
-                    <c:when test="${result.action().equals('/doctor/cash')}">
-                        Non è stato possibile incassare
-                    </c:when>
-
-                    <c:when test="${result.action().equals('/doctor/publish')}">
-                        Non è stato possibile pubblicare l'anamnesi
-                    </c:when>
-                </c:choose>
-            </c:otherwise>
-        </c:choose>
+<div class="it-header-slim-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="it-header-slim-wrapper-content">
+                    <span class="d-lg-block navbar-brand">Servizio Sanitario</span>
+                    <div class="nav-mobile">
+                        <nav>
+                            <a class="it-opener d-lg-none" data-toggle="collapse" href="#menu2" role="button"
+                               aria-expanded="false" aria-controls="menu2">
+                                <span>Medico</span>
+                                <svg class="icon">
+                                    <use xlink:href="${bootstrap}/svg/sprite.svg#it-expand"></use>
+                                </svg>
+                            </a>
+                            <div class="link-list-wrapper collapse" id="menu2">
+                                <ul class="link-list">
+                                    <li><a class="list-item"
+                                           href="${pageContext.request.contextPath}/doctor/people">Visita</a></li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                    <div class="nav-mobile">
+                        <nav>
+                            <a class="it-opener d-lg-none" data-toggle="collapse" href="#menu1" role="button"
+                               aria-expanded="false" aria-controls="menu1">
+                                <span>Personale</span>
+                                <svg class="icon">
+                                    <use xlink:href="${bootstrap}/svg/sprite.svg#it-expand"></use>
+                                </svg>
+                            </a>
+                            <div class="link-list-wrapper collapse" id="menu1">
+                                <ul class="link-list">
+                                    <li><a class="list-item"
+                                           href="${pageContext.request.contextPath}/patient/exams">Esami</a>
+                                    </li>
+                                    <li><a class="list-item"
+                                           href="${pageContext.request.contextPath}/patient/medicines">Farmaci</a></li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                    <div class="it-header-slim-right-zone">
+                        <a href="${pageContext.request.contextPath}/patient/profile" class="btn btn-primary btn-icon btn-full">
+                            <div class="avatar size-lg">
+                                <img src="${avatars.get(doctor.id())}" alt="avatar">
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</c:if>
+</div>
 
-<h3>Medico Servizio Sanitario</h3>
-<a href="${pageContext.request.contextPath}/doctor/people">
-    <img src="${avatar}" alt="pic" width="40" height="40"/>
-</a>
+<div class="it-header-slim-wrapper theme-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="it-header-slim-wrapper-content">
+                    <span class="d-lg-block navbar-brand">${patient.name()} ${patient.surname()}</span>
+                    <div class="nav-mobile">
+                        <nav>
+                            <a class="it-opener d-lg-none" data-toggle="collapse" href="#menu3" role="button"
+                               aria-expanded="false" aria-controls="menu1">
+                                <span>Paziente</span>
+                                <svg class="icon">
+                                    <use xlink:href="${bootstrap}/svg/sprite.svg#it-expand"></use>
+                                </svg>
+                            </a>
+                            <div class="link-list-wrapper collapse" id="menu3">
+                                <ul class="link-list">
+                                    <li><a class="list-item active"
+                                           href="${pageContext.request.contextPath}/doctor/exams?patient=${patient.id()}">Esami</a>
+                                    </li>
+                                    <li><a class="list-item"
+                                           href="${pageContext.request.contextPath}/doctor/medicines?patient=${patient.id()}">Farmaci</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                    <div class="it-header-slim-right-zone">
+                        <a href="#" class="btn btn-primary btn-icon btn-full" data-toggle="modal" data-target="#patient">
+                            <div class="avatar size-lg">
+                                <img src="${avatars.get(patient.id())}" alt="avatar">
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<table>
-    <thead>
-    <tr>
-        <th>Data di nascita</th>
-        <th>Nome</th>
-        <th>Cognome</th>
-        <th>Codice fiscale</th>
-        <th>Email</th>
-    </tr>
-    </thead>
-    <fmt:parseDate value="${patient.birthday()}" type="date" pattern="yyyy-MM-dd" var="tmp"/>
-    <fmt:formatDate value="${tmp}" type="date" pattern="yyyy/MM/dd" var="out"/>
-    <tr>
-        <td>${out}</td>
-        <td>${patient.name()}</td>
-        <td>${patient.surname()}</td>
-        <td>${patient.fc()}</td>
-        <td>${patient.email()}</td>
-    </tr>
-</table>
+<div class="modal it-dialog-scrollable fade" tabindex="-1" role="dialog" id="patient">
+    <div class="modal-dialog modal-dialog-right w-100" role="document">
+        <div class="modal-content">
 
-<form method="get" action="${pageContext.request.contextPath}/doctor/medicines">
-    <input type="submit" name="patient" value="${patient.id()}"/>
-</form>
+            <div class="modal-header">
+                <h5 class="modal-title">${patient.name()} ${patient.surname()}</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <svg class="icon">
+                        <use xlink:href="${bootstrap}/svg/sprite.svg#it-close"></use>
+                    </svg>
+                </button>
+            </div>
 
-<table>
-    <thead>
-    <tr>
-        <th>Data Prescrizione</th>
-        <th>Nome</th>
-        <th>Ricevuta</th>
-        <th>Risultati</th>
-        <th>Incassa</th>
-        <th>Prescrivi</th>
-    </tr>
-    </thead>
-    <c:forEach items="${exams}" var="it">
-        <fmt:parseDate value="${it.date()}" type="date" pattern="yyyy-MM-dd" var="tmp"/>
-        <fmt:formatDate value="${tmp}" type="date" pattern="yyyy/MM/dd" var="out"/>
-        <tr>
-            <td>${out}</td>
-            <td>${it.exam().name()}</td>
-            <td>${tickets.get(it.id())}</td>
-            <td>${reports.get(it.id())}</td>
-            <c:if test="${qualified.contains(it.exam().id())}">
-                <c:choose>
-                    <c:when test="${reports.containsKey(it.id())}">
-                        <td></td>
-                        <td></td>
-                    </c:when>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-wrapper">
+                            <div class="card card-img no-after">
+                                <div class="img-responsive-wrapper">
+                                    <div class="img-responsive">
+                                        <figure class="img-wrapper">
+                                            <img src="${avatars.get(patient.id())}" alt="${patient.name()} ${patient.surname()}">
+                                        </figure>
+                                    </div>
+                                </div>
+                                <div class="card-body p-0 pt-3">
 
-                    <c:when test="${not tickets.containsKey(it.id())}">
-                        <td>
-                            <form method="post" action="${pageContext.request.contextPath}/doctor/cash">
-                                <label>
-                                    <input type="hidden" name="prescription" value="${it.id()}">
-                                    <input type="hidden" name="patient" value="${patient.id()}">
-                                    <input type="submit" value="incassa">
-                                </label>
-                            </form>
-                        </td>
-                        <td></td>
-                    </c:when>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <p>
+                                                    ${patient.name()} ${patient.surname()}
+                                                </p>
+                                                <small class="text-muted">Nome</small>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <p>
+                                                    ${patient.email()}
+                                                </p>
+                                                <small class="text-muted">Email</small>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <p>
+                                                    ${patient.fc()}
+                                                </p>
+                                                <small class="text-muted">Codice Fiscale</small>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <p>
+                                                    ${patient.birthday()}
+                                                </p>
+                                                <small class="text-muted">Nascita</small>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <p>
+                                                    ${birthplace_city.name()}<br>
+                                                    ${birthplace_province.name()}<br>
+                                                    ${birthplace_region.name()}
+                                                </p>
+                                                <small class="text-muted">Luogo nativo</small>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <p>
+                                                    ${residence_city.name()}<br>
+                                                    ${residence_province.name()}<br>
+                                                    ${residence_region.name()}
+                                                </p>
+                                                <small class="text-muted">Residenza</small>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-                    <c:when test="${tickets.get(it.id()).responsible().equals(doctor.id())}">
-                        <td></td>
-                        <td>
-                            <form method="post" action="${pageContext.request.contextPath}/doctor/publish">
-                                <label>
-                                    Anamnesi
-                                    <input type="hidden" name="prescription" value="${it.id()}">
-                                    <input type="hidden" name="patient" value="${patient.id()}">
-                                    <input type="text" name="note" minlength="50">
-                                    <input type="submit" value="pubblica">
-                                </label>
-                            </form>
-                        </td>
-                    </c:when>
-                </c:choose>
-            </c:if>
-        </tr>
-    </c:forEach>
-</table>
+<div class="container">
+
+    <div class="row" style="height: 3%">
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Prescrizione</th>
+                <th>Esame</th>
+                <th colspan="2" class="text-center">Ticket</th>
+                <th>Referto</th>
+            </tr>
+            </thead>
+
+            <c:forEach items="${exams}" var="it">
+                <fmt:parseDate value="${it.date()}" type="both" pattern="yyyy-MM-dd'T'HH:mm" var="tmp"/>
+                <fmt:formatDate value="${tmp}" type="both" dateStyle="short" timeStyle="short" var="out"/>
+
+                <tr>
+                    <td class="align-middle text-left">${out}</td>
+                    <td class="align-middle text-left">${it.exam().name()}</td>
+
+                    <c:choose>
+                        <c:when test="${reports.containsKey(it.id())}">
+                            <fmt:parseDate value="${tickets.get(it.id()).date()}" type="both" pattern="yyyy-MM-dd'T'HH:mm"
+                                           var="tmp"/>
+                            <fmt:formatDate value="${tmp}" type="both" dateStyle="short" timeStyle="short" var="tck"/>
+
+                            <td class="align-middle text-left">${tck}</td>
+                            <td class="align-middle text-left">€${tickets.get(it.id()).amount()}</td>
+                            <td class="align-middle text-center">
+                                <a data-toggle="modal" href="#" data-target="#R${it.id()}">
+                                    <svg class="icon">
+                                        <use xlink:href="${bootstrap}/svg/sprite.svg#it-note"></use>
+                                    </svg>
+                                </a>
+                            </td>
+                        </c:when>
+
+                        <c:when test="${qualified.contains(it.exam().id())}">
+
+                            <c:choose>
+
+                                <c:when test="${tickets.containsKey(it.id()) and tickets.get(it.id()).responsible() eq doctor.id()}">
+                                    <fmt:parseDate value="${tickets.get(it.id()).date()}" type="both" pattern="yyyy-MM-dd'T'HH:mm"
+                                                   var="tmp"/>
+                                    <fmt:formatDate value="${tmp}" type="both" dateStyle="short" timeStyle="short" var="tck"/>
+
+                                    <td class="align-middle text-left">${tck}</td>
+                                    <td class="align-middle text-left">€${tickets.get(it.id()).amount()}</td>
+                                    <td class="align-middle text-center">
+                                        <input type="button" class="btn btn-primary" value="Scrivi" data-toggle="modal"
+                                               data-target="#P${it.id()}">
+                                    </td>
+                                </c:when>
+
+                                <c:when test="${tickets.containsKey(it.id())}">
+                                    <fmt:parseDate value="${tickets.get(it.id()).date()}" type="both" pattern="yyyy-MM-dd'T'HH:mm" var="tmp"/>
+                                    <fmt:formatDate value="${tmp}" type="both" dateStyle="short" timeStyle="short" var="tck"/>
+
+                                    <td class="align-middle text-left">${tck}</td>
+                                    <td class="align-middle text-left">€${tickets.get(it.id()).amount()}</td>
+                                    <td class="align-middle text-center">
+                                        <input type="button" class="btn btn-primary" value="Scrivi" disabled>
+                                    </td>
+                                </c:when>
+
+                                <c:otherwise>
+                                    <td class="align-middle text-center" colspan="3">
+                                        <input type="button" class="btn btn-primary btn-block" value="Incassa" data-toggle="modal"
+                                               data-target="#C${it.id()}">
+                                    </td>
+                                </c:otherwise>
+
+                            </c:choose>
+
+                        </c:when>
+
+                        <c:otherwise>
+
+                            <c:choose>
+
+                                <c:when test="${tickets.containsKey(it.id())}">
+                                    <fmt:parseDate value="${tickets.get(it.id()).date()}" type="both" pattern="yyyy-MM-dd'T'HH:mm" var="tmp"/>
+                                    <fmt:formatDate value="${tmp}" type="both" dateStyle="short" timeStyle="short" var="tck"/>
+
+                                    <td class="align-middle text-left">${tck}</td>
+                                    <td class="align-middle text-left">€${tickets.get(it.id()).amount()}</td>
+                                    <td class="align-middle text-center">
+                                        <input type="button" class="btn btn-primary" value="Scrivi" disabled>
+                                    </td>
+                                </c:when>
+
+                                <c:otherwise>
+                                    <td class="align-middle text-center" colspan="3">
+                                        <input type="button" class="btn btn-primary btn-block" value="Incassa" disabled>
+                                    </td>
+                                </c:otherwise>
+
+                            </c:choose>
+
+                        </c:otherwise>
+                    </c:choose>
+                </tr>
+            </c:forEach>
+
+        </table>
+    </div>
+</div>
+
+<c:forEach items="${exams}" var="it">
+
+    <c:if test="${not tickets.containsKey(it.id())}">
+        <form method="post" action="${pageContext.request.contextPath}/doctor/cash">
+
+            <div class="modal it-dialog-scrollable fade" tabindex="-1" role="dialog" id="C${it.id()}">
+                <div class="modal-dialog modal-dialog-right w-100" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Ticket ~ ${it.exam().name()}</h5>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <svg class="icon">
+                                    <use xlink:href="${bootstrap}/svg/sprite.svg#it-close"></use>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" name="prescription" value="${it.id()}">
+                            <input type="hidden" name="patient" value="${patient.id()}">
+                            Il prezzo del ticket è di <code>€50.00</code>
+                        </div>
+                        <div class="modal-footer">
+                            <input class="btn btn-primary btn-sm" type="submit" value="Incassa">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </c:if>
+
+    <c:choose>
+        <c:when test="${reports.containsKey(it.id())}">
+            <c:set var="rsp" value="${responsible.get(tickets.get(it.id()).responsible())}"/>
+
+            <fmt:parseDate value="${reports.get(it.id()).date()}" type="both" pattern="yyyy-MM-dd'T'HH:mm" var="tmp"/>
+            <fmt:formatDate value="${tmp}" type="both" dateStyle="short" timeStyle="short" var="rpt"/>
+
+            <div class="modal it-dialog-scrollable fade" tabindex="-1" role="dialog" id="R${it.id()}">
+                <div class="modal-dialog modal-dialog-right w-100" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Referto ~ ${it.exam().name()}</h5>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <svg class="icon">
+                                    <use xlink:href="${bootstrap}/svg/sprite.svg#it-close"></use>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <table>
+                                <tr>
+                                    <td>${rpt}</td>
+                                </tr>
+                                <tr>
+                                    <td><p style="white-space: pre-wrap">${reports.get(it.id()).note()}</p></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="modal-footer justify-content-between">
+
+                            <div class="link-list-wrapper">
+                                <ul class="link-list avatar-group" style="margin: 0">
+                                    <li>
+                                        <div class="list-item">
+                                            <div class="avatar size-md">
+                                                <img src="${avatars.get(rsp.id())}" alt="${rsp.name()} ${rsp.surname()}">
+                                            </div>
+                                            <span>${rsp.name()} ${rsp.surname()}</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <button class="btn btn-primary btn-sm" data-dismiss="modal" type="button">Ok</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </c:when>
+
+        <c:otherwise>
+            <form method="post" action="${pageContext.request.contextPath}/doctor/publish">
+
+                <div class="modal it-dialog-scrollable fade" tabindex="-1" role="dialog" id="P${it.id()}">
+                    <div class="modal-dialog modal-dialog-right w-100" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Referto ~ ${it.exam().name()}</h5>
+                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                    <svg class="icon">
+                                        <use xlink:href="${bootstrap}/svg/sprite.svg#it-close"></use>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row" style="height: 3%"></div>
+                                <input type="hidden" name="prescription" value="${it.id()}">
+                                <input type="hidden" name="patient" value="${patient.id()}">
+                                <div class="form-group">
+                                    <textarea id="PT${it.id()}" rows="10" name="note"></textarea>
+                                    <label for="PT${it.id()}">Anamnesi</label>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <input class="btn btn-primary btn-sm" type="submit" value="Pubblica">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </c:otherwise>
+    </c:choose>
+</c:forEach>
+
+<div id="cash-200" class="notification with-icon success dismissable" role="alert">
+    <h5>
+        <svg class="icon">
+            <use xlink:href="${bootstrap}/svg/sprite.svg#it-check-circle"></use>
+        </svg>
+        Incassato
+    </h5>
+    <button type="button" class="btn notification-close">
+        <svg class="icon">
+            <use xlink:href="${bootstrap}/svg/sprite.svg#it-close"></use>
+        </svg>
+    </button>
+</div>
+
+<div id="publish-200" class="notification with-icon success dismissable" role="alert">
+    <h5>
+        <svg class="icon">
+            <use xlink:href="${bootstrap}/svg/sprite.svg#it-check-circle"></use>
+        </svg>
+        Pubblicato
+    </h5>
+    <button type="button" class="btn notification-close">
+        <svg class="icon">
+            <use xlink:href="${bootstrap}/svg/sprite.svg#it-close"></use>
+        </svg>
+    </button>
+</div>
+
+<div id="cash-206" class="notification with-icon warning dismissable" role="alert">
+    <h5>
+        <svg class="icon">
+            <use xlink:href="${bootstrap}/svg/sprite.svg#it-error"></use>
+        </svg>
+        Incassato
+    </h5>
+    <p>Incassato, ma non è stato possibile notificare il paziente</p>
+    <button type="button" class="btn notification-close">
+        <svg class="icon">
+            <use xlink:href="${bootstrap}/svg/sprite.svg#it-close"></use>
+        </svg>
+    </button>
+</div>
+
+<div id="publish-206" class="notification with-icon warning dismissable" role="alert">
+    <h5>
+        <svg class="icon">
+            <use xlink:href="${bootstrap}/svg/sprite.svg#it-error"></use>
+        </svg>
+        Pubblicato
+    </h5>
+    <p>Pubblicato, ma non è stato possibile notificare il paziente</p>
+    <button type="button" class="btn notification-close">
+        <svg class="icon">
+            <use xlink:href="${bootstrap}/svg/sprite.svg#it-close"></use>
+        </svg>
+    </button>
+</div>
+
+<div id="cash-500" class="notification with-icon error dismissable" role="alert">
+    <h5>
+        <svg class="icon">
+            <use xlink:href="${bootstrap}/svg/sprite.svg#it-close-circle"></use>
+        </svg>
+        Errore
+    </h5>
+    <p>Non è stato possibile incassare</p>
+    <button type="button" class="btn notification-close">
+        <svg class="icon">
+            <use xlink:href="${bootstrap}/svg/sprite.svg#it-close"></use>
+        </svg>
+    </button>
+</div>
+
+<div id="publish-500" class="notification with-icon error dismissable" role="alert">
+    <h5>
+        <svg class="icon">
+            <use xlink:href="${bootstrap}/svg/sprite.svg#it-close-circle"></use>
+        </svg>
+        Errore
+    </h5>
+    <p>Non è stato possibile pubblicare l'anamnesi</p>
+    <button type="button" class="btn notification-close">
+        <svg class="icon">
+            <use xlink:href="${bootstrap}/svg/sprite.svg#it-close"></use>
+        </svg>
+    </button>
+</div>
 
 </body>
 </html>

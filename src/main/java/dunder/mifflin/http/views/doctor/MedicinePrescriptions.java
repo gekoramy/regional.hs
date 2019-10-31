@@ -14,10 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 
 import static java.util.stream.Collectors.toUnmodifiableList;
 import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
@@ -34,7 +31,6 @@ public class MedicinePrescriptions extends HttpServlet {
         try {
             final long did = Auths.session(req).orElseThrow();
             final HsDoctor doctor = daos.factory().hsDoctor().byKey(did).orElseThrow();
-            final String avatar = Avatars.avatar50(daos.factory().avatar(), req.getContextPath(), doctor);
 
             final long pid = Optional.ofNullable(req.getParameter("patient")).map(Long::parseLong).orElseThrow();
             final Person patient = daos.factory().person().byKey(pid).orElseThrow();
@@ -43,8 +39,34 @@ public class MedicinePrescriptions extends HttpServlet {
             final Long[] prescriptions = medicines.stream().map(Prescription::id).toArray(Long[]::new);
             final Map<Long, MedicineTicket> tickets = daos.factory().medicineTicket().byKeys(prescriptions);
 
+            final Map<Long, String> avatars = Avatars.avatars50(
+                    daos.factory().avatar(),
+                    req.getContextPath(),
+                    Arrays.asList(doctor, patient)
+            );
+
+            {
+                final City city = daos.factory().city().byKey(patient.birthplace()).orElseThrow();
+                final Province province = daos.factory().province().byKey(city.province()).orElseThrow();
+                final Region region = daos.factory().region().byKey(province.region()).orElseThrow();
+
+                req.setAttribute("birthplace_city", city);
+                req.setAttribute("birthplace_province", province);
+                req.setAttribute("birthplace_region", region);
+            }
+
+            {
+                final City city = daos.factory().city().byKey(patient.residence()).orElseThrow();
+                final Province province = daos.factory().province().byKey(city.province()).orElseThrow();
+                final Region region = daos.factory().region().byKey(province.region()).orElseThrow();
+
+                req.setAttribute("residence_city", city);
+                req.setAttribute("residence_province", province);
+                req.setAttribute("residence_region", region);
+            }
+
             req.setAttribute("doctor", doctor);
-            req.setAttribute("avatar", avatar);
+            req.setAttribute("avatars", avatars);
             req.setAttribute("patient", patient);
             req.setAttribute("medicines", medicines);
             req.setAttribute("tickets", tickets);
