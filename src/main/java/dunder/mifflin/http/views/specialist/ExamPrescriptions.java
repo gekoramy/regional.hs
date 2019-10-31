@@ -55,6 +55,26 @@ public class ExamPrescriptions extends HttpServlet {
                     ).collect(Collectors.toUnmodifiableList())
             );
 
+            {
+                final City city = daos.factory().city().byKey(patient.birthplace()).orElseThrow();
+                final Province province = daos.factory().province().byKey(city.province()).orElseThrow();
+                final Region region = daos.factory().region().byKey(province.region()).orElseThrow();
+
+                req.setAttribute("birthplace_city", city);
+                req.setAttribute("birthplace_province", province);
+                req.setAttribute("birthplace_region", region);
+            }
+
+            {
+                final City city = daos.factory().city().byKey(patient.residence()).orElseThrow();
+                final Province province = daos.factory().province().byKey(city.province()).orElseThrow();
+                final Region region = daos.factory().region().byKey(province.region()).orElseThrow();
+
+                req.setAttribute("residence_city", city);
+                req.setAttribute("residence_province", province);
+                req.setAttribute("residence_region", region);
+            }
+
             req.setAttribute("result", result(req, "/specialist/cash", "/specialist/publish"));
             req.setAttribute("specialist", specialist);
             req.setAttribute("avatars", avatars);

@@ -6,6 +6,14 @@
 <jsp:useBean scope="request" id="patient" type="dunder.mifflin.persistence.pojos.Person"/>
 <jsp:useBean scope="request" id="avatars" type="java.util.Map<java.lang.Long, java.lang.String>"/>
 
+<jsp:useBean scope="request" id="birthplace_city" type="dunder.mifflin.persistence.pojos.City"/>
+<jsp:useBean scope="request" id="birthplace_province" type="dunder.mifflin.persistence.pojos.Province"/>
+<jsp:useBean scope="request" id="birthplace_region" type="dunder.mifflin.persistence.pojos.Region"/>
+
+<jsp:useBean scope="request" id="residence_city" type="dunder.mifflin.persistence.pojos.City"/>
+<jsp:useBean scope="request" id="residence_province" type="dunder.mifflin.persistence.pojos.Province"/>
+<jsp:useBean scope="request" id="residence_region" type="dunder.mifflin.persistence.pojos.Region"/>
+
 <jsp:useBean scope="request" id="medicines" type="java.util.List<dunder.mifflin.persistence.pojos.MedicinePrescription>"/>
 <jsp:useBean scope="request" id="tickets" type="java.util.Map<java.lang.Long, dunder.mifflin.persistence.pojos.MedicineTicket>"/>
 
@@ -103,9 +111,100 @@
                         </nav>
                     </div>
                     <div class="it-header-slim-right-zone">
-                        <div class="btn btn-primary btn-icon btn-full">
+                        <a href="#" class="btn btn-primary btn-icon btn-full" data-toggle="modal" data-target="#patient">
                             <div class="avatar size-lg">
                                 <img src="${avatars.get(patient.id())}" alt="avatar">
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal it-dialog-scrollable fade" tabindex="-1" role="dialog" id="patient">
+    <div class="modal-dialog modal-dialog-right w-100" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">${patient.name()} ${patient.surname()}</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <svg class="icon">
+                        <use xlink:href="${bootstrap}/svg/sprite.svg#it-close"></use>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-wrapper">
+                            <div class="card card-img no-after">
+                                <div class="img-responsive-wrapper">
+                                    <div class="img-responsive">
+                                        <figure class="img-wrapper">
+                                            <img src="${avatars.get(patient.id())}" alt="${patient.name()} ${patient.surname()}">
+                                        </figure>
+                                    </div>
+                                </div>
+                                <div class="card-body p-0 pt-3">
+
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <p>
+                                                    ${patient.name()} ${patient.surname()}
+                                                </p>
+                                                <small class="text-muted">Nome</small>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <p>
+                                                    ${patient.email()}
+                                                </p>
+                                                <small class="text-muted">Email</small>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <p>
+                                                    ${patient.fc()}
+                                                </p>
+                                                <small class="text-muted">Codice Fiscale</small>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <p>
+                                                    ${patient.birthday()}
+                                                </p>
+                                                <small class="text-muted">Nascita</small>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <p>
+                                                    ${birthplace_city.name()}<br>
+                                                    ${birthplace_province.name()}<br>
+                                                    ${birthplace_region.name()}
+                                                </p>
+                                                <small class="text-muted">Luogo nativo</small>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <p>
+                                                    ${residence_city.name()}<br>
+                                                    ${residence_province.name()}<br>
+                                                    ${residence_region.name()}
+                                                </p>
+                                                <small class="text-muted">Residenza</small>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
