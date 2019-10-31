@@ -5,40 +5,67 @@
 
 <html>
 <head>
-    <title>Recover password</title>
+    <%@ include file="./commons/meta.jsp" %>
+    <%@ include file="./commons/header.jsp" %>
+    <%@ include file="./commons/scripts.jsp" %>
+
+    <title>Ripristina password</title>
 </head>
 <body>
 
-<form method="post" action="${pageContext.request.contextPath}/token">
+<div id="token-200" class="notification top-fix with-icon success dismissable" role="alert">
+    <h5>
+        <svg class="icon">
+            <use xlink:href="${bootstrap}/svg/sprite.svg#it-check-circle"></use>
+        </svg>
+        Controlla l'email
+    </h5>
+    <button type="button" class="btn notification-close">
+        <svg class="icon">
+            <use xlink:href="${bootstrap}/svg/sprite.svg#it-close"></use>
+        </svg>
+    </button>
+</div>
 
-    <c:if test="${not empty result}">
-        <div>
-            <c:choose>
-                <c:when test="${200 le result.code() and result.code() < 300}">
-                    <c:choose>
-                        <c:when test="${result.action().equals('/token')}">
-                            Checka l'email
-                        </c:when>
-                    </c:choose>
-                </c:when>
+<div id="token-404" class="notification top-fix with-icon error dismissable" role="alert">
+    <h5>
+        <svg class="icon">
+            <use xlink:href="${bootstrap}/svg/sprite.svg#it-close-circle"></use>
+        </svg>
+        Errore
+    </h5>
+    <p>Non è stato possibile inviare l'email</p>
+    <button type="button" class="btn notification-close">
+        <svg class="icon">
+            <use xlink:href="${bootstrap}/svg/sprite.svg#it-close"></use>
+        </svg>
+    </button>
+</div>
 
-                <c:otherwise>
-                    <c:choose>
-                        <c:when test="${result.action().equals('/token')}">
-                            Non è vero, però ti dico comunque di checkare l'email
-                        </c:when>
-                    </c:choose>
-                </c:otherwise>
-            </c:choose>
+<form method="post" action="${pageContext.request.contextPath}/token" class="container">
+
+    <div class="row" style="height: 15%"></div>
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10  col-lg-6">
+            <div class="card-wrapper card-space">
+                <div class="card card-bg card-big no-after">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <h3 class="card-title">Ripristina Password</h3>
+                        </div>
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" class="form-control" name="username" id="username">
+                        </div>
+                        <div class="it-card-footer justify-content-end">
+                            <input type="submit" class="btn btn-primary btn-sm" value="Ripristina">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </c:if>
+    </div>
 
-    <label>
-        username
-        <input type="text" name="username"/>
-    </label>
-
-    <input type="submit" value="submit">
 </form>
 
 </body>

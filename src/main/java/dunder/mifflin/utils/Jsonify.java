@@ -3,6 +3,7 @@ package dunder.mifflin.utils;
 import com.github.cliftonlabs.json_simple.JsonArray;
 import com.github.cliftonlabs.json_simple.JsonObject;
 import dunder.mifflin.persistence.pojos.Examination;
+import dunder.mifflin.persistence.pojos.HsExam;
 import dunder.mifflin.persistence.pojos.Medicine;
 import dunder.mifflin.persistence.pojos.Person;
 
@@ -17,7 +18,8 @@ public class Jsonify {
         return new JsonObject(Map.of(
                 "id", exam.id(),
                 "name", exam.name(),
-                "info", exam.info()
+                "info", exam.info(),
+                "hs", exam instanceof HsExam
         ));
     }
 
