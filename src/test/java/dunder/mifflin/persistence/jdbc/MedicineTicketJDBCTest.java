@@ -46,9 +46,9 @@ class MedicineTicketJDBCTest {
 
     @Test
     void testStoreRemove() {
-        final var store = dao.insert(1251, BigDecimal.valueOf(20));
+        final var store = dao.insert(1279L, BigDecimal.valueOf(20));
 
-        assertEquals(1251L, store.prescription());
+        assertEquals(1279L, store.prescription());
         assertEquals(LocalDate.now(), store.date().toLocalDate());
         assertEquals(BigDecimal.valueOf(2000, 2), store.amount());
 
