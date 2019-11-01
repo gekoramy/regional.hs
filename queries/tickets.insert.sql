@@ -34,4 +34,5 @@ SELECT prescription.id                      AS prescription,
        3.0                                  AS amount
 FROM medicine_prescription p
          INNER JOIN prescription on p.prescription = prescription.id
+ORDER BY date
 LIMIT 1250;
