@@ -35,21 +35,46 @@ public class MedicinePrescriptions extends HttpServlet {
         try {
             final long gid = Auths.session(req).orElseThrow();
             final General general = daos.factory().general().byKey(gid).orElseThrow();
-            final String avatar = Avatars.avatar50(daos.factory().avatar(), req.getContextPath(), general);
+            final String gAvatar = Avatars.avatar50(daos.factory().avatar(), req.getContextPath(), general);
 
             final long pid = Optional.ofNullable(req.getParameter("patient")).map(Long::parseLong).orElseThrow();
             final Person patient = daos.factory().person().byKey(pid).orElseThrow();
+            final String pAvatar = Avatars.avatar200(daos.factory().avatar(), req.getContextPath(), patient);
             final List<MedicinePrescription> medicines = daos.factory().medicinePrescription().concerns(patient.id(), "").collect(toUnmodifiableList());
 
             final Long[] prescriptions = medicines.stream().map(Prescription::id).toArray(Long[]::new);
             final Map<Long, MedicineTicket> tickets = daos.factory().medicineTicket().byKeys(prescriptions);
 
+            final List<Medicine> options = daos.factory().medicine().fetchAll().collect(toUnmodifiableList());
+
+            {
+                final City city = daos.factory().city().byKey(patient.birthplace()).orElseThrow();
+                final Province province = daos.factory().province().byKey(city.province()).orElseThrow();
+                final Region region = daos.factory().region().byKey(province.region()).orElseThrow();
+
+                req.setAttribute("birthplace_city", city);
+                req.setAttribute("birthplace_province", province);
+                req.setAttribute("birthplace_region", region);
+            }
+
+            {
+                final City city = daos.factory().city().byKey(patient.residence()).orElseThrow();
+                final Province province = daos.factory().province().byKey(city.province()).orElseThrow();
+                final Region region = daos.factory().region().byKey(province.region()).orElseThrow();
+
+                req.setAttribute("residence_city", city);
+                req.setAttribute("residence_province", province);
+                req.setAttribute("residence_region", region);
+            }
+
             req.setAttribute("result", result(req, "/general/prescribe/medicine"));
             req.setAttribute("general", general);
-            req.setAttribute("avatar", avatar);
+            req.setAttribute("general_avatar", gAvatar);
+            req.setAttribute("patient_avatar", pAvatar);
             req.setAttribute("patient", patient);
             req.setAttribute("medicines", medicines);
             req.setAttribute("tickets", tickets);
+            req.setAttribute("options", options);
             req.getServletContext().getRequestDispatcher("/general/medicines.jsp").forward(req, resp);
 
             Fallbacks.safe(req);
