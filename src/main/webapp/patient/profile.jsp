@@ -12,10 +12,12 @@
 
 <html>
 <head>
+    <%@ include file="../commons/meta.jsp" %>
+    <%@ include file="../commons/base.jsp" %>
+    <%@ include file="../commons/scripts.jsp" %>
+
     <title>Profilo</title>
 
-    <script src="${pageContext.request.contextPath}/assets/script/strings.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
         $(document).ready(function () {
             $("#filter").keyup(function () {
@@ -67,6 +69,8 @@
 
 <body>
 
+<%@ include file="../commons/header.jsp" %>
+
 <c:if test="${not empty result}">
     <div>
         <c:choose>
@@ -115,7 +119,6 @@
     </div>
 </c:if>
 
-<h3>Paziente</h3>
 <img src="${avatar}" alt="pic" width="160" height="160"/>
 
 <br/> ${person.name()}
@@ -129,12 +132,12 @@
 <br/> ${general.name()}
 <br/> ${general.surname()}
 <br/>
-<form method="post" action="${pageContext.request.contextPath}/patient/upload" enctype="multipart/form-data">
+<form accept-charset="UTF-8" method="post" action="${pageContext.request.contextPath}/patient/upload" enctype="multipart/form-data">
     <input type="file" name="avatar" accept="jpg">
     <input type="submit" value="upload">
 </form>
 <br/>
-<form method="post" action="${pageContext.request.contextPath}/patient/password">
+<form accept-charset="UTF-8" method="post" action="${pageContext.request.contextPath}/patient/password">
     <label>
         current
         <input type="password" name="current">
@@ -150,7 +153,7 @@
     <input type="submit" value="change">
 </form>
 <br/>
-<form method="post" action="${pageContext.request.contextPath}/patient/general">
+<form accept-charset="UTF-8" method="post" action="${pageContext.request.contextPath}/patient/general">
     <h3>general</h3>
     <label>
         Filtro

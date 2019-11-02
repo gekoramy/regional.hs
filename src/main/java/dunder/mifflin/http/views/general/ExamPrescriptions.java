@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static dunder.mifflin.utils.Results.result;
@@ -37,9 +36,11 @@ public class ExamPrescriptions extends HttpServlet {
         try {
             final long gid = Auths.session(req).orElseThrow();
             final General general = daos.factory().general().byKey(gid).orElseThrow();
+            final String avatar = Avatars.avatar50(daos.factory().avatar(), req.getContextPath(), general);
 
             final long pid = Optional.ofNullable(req.getParameter("patient")).map(Long::parseLong).orElseThrow();
             final Person patient = daos.factory().person().byKey(pid).orElseThrow();
+            final String pAvatar = Avatars.avatar200(daos.factory().avatar(), req.getContextPath(), patient);
             final List<ExamPrescription> exams = daos.factory().examPrescription().concerns(patient.id(), "").collect(toUnmodifiableList());
 
             final Long[] prescriptions = exams.stream().map(Prescription::id).toArray(Long[]::new);
@@ -50,10 +51,7 @@ public class ExamPrescriptions extends HttpServlet {
             final Map<Long, String> avatars = Avatars.avatars50(
                     daos.factory().avatar(),
                     req.getContextPath(),
-                    Stream.concat(
-                            Stream.of(general, patient),
-                            responsible.values().stream()
-                    ).collect(Collectors.toUnmodifiableList())
+                    List.copyOf(responsible.values())
             );
 
             final List<Examination> options = Stream.concat(
@@ -83,12 +81,14 @@ public class ExamPrescriptions extends HttpServlet {
 
             req.setAttribute("result", result(req, "/general/prescribe/exam"));
             req.setAttribute("general", general);
-            req.setAttribute("avatars", avatars);
+            req.setAttribute("avatar", avatar);
             req.setAttribute("patient", patient);
+            req.setAttribute("patient_avatar", pAvatar);
             req.setAttribute("exams", exams);
             req.setAttribute("tickets", tickets);
             req.setAttribute("reports", reports);
             req.setAttribute("responsible", responsible);
+            req.setAttribute("avatars", avatars);
             req.setAttribute("options", options);
             req.getServletContext().getRequestDispatcher("/general/exams.jsp").forward(req, resp);
 

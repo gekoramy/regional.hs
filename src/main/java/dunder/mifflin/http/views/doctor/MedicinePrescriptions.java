@@ -14,7 +14,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import static java.util.stream.Collectors.toUnmodifiableList;
 import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
@@ -31,19 +34,15 @@ public class MedicinePrescriptions extends HttpServlet {
         try {
             final long did = Auths.session(req).orElseThrow();
             final HsDoctor doctor = daos.factory().hsDoctor().byKey(did).orElseThrow();
+            final String avatar = Avatars.avatar50(daos.factory().avatar(), req.getContextPath(), doctor);
 
             final long pid = Optional.ofNullable(req.getParameter("patient")).map(Long::parseLong).orElseThrow();
             final Person patient = daos.factory().person().byKey(pid).orElseThrow();
+            final String pAvatar = Avatars.avatar200(daos.factory().avatar(), req.getContextPath(), patient);
             final List<MedicinePrescription> medicines = daos.factory().medicinePrescription().concerns(patient.id(), "").collect(toUnmodifiableList());
 
             final Long[] prescriptions = medicines.stream().map(Prescription::id).toArray(Long[]::new);
             final Map<Long, MedicineTicket> tickets = daos.factory().medicineTicket().byKeys(prescriptions);
-
-            final Map<Long, String> avatars = Avatars.avatars50(
-                    daos.factory().avatar(),
-                    req.getContextPath(),
-                    Arrays.asList(doctor, patient)
-            );
 
             {
                 final City city = daos.factory().city().byKey(patient.birthplace()).orElseThrow();
@@ -66,8 +65,9 @@ public class MedicinePrescriptions extends HttpServlet {
             }
 
             req.setAttribute("doctor", doctor);
-            req.setAttribute("avatars", avatars);
+            req.setAttribute("avatar", avatar);
             req.setAttribute("patient", patient);
+            req.setAttribute("patient_avatar", pAvatar);
             req.setAttribute("medicines", medicines);
             req.setAttribute("tickets", tickets);
             req.getServletContext().getRequestDispatcher("/doctor/medicines.jsp").forward(req, resp);

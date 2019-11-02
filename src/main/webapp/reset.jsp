@@ -5,13 +5,13 @@
 <html>
 <head>
     <%@ include file="./commons/meta.jsp" %>
-    <%@ include file="./commons/header.jsp" %>
+    <%@ include file="./commons/base.jsp" %>
 
     <title>Change password</title>
 </head>
 <body>
 
-<form method="post" action="${pageContext.request.contextPath}/reset" class="container">
+<form accept-charset="UTF-8" method="post" action="${pageContext.request.contextPath}/reset" class="container">
     <input type="hidden" name="token" value="${token}">
     <div class="row" style="height: 15%"></div>
     <div class="row justify-content-center">

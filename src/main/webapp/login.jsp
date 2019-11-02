@@ -6,7 +6,7 @@
 <html>
 <head>
     <%@ include file="./commons/meta.jsp" %>
-    <%@ include file="./commons/header.jsp" %>
+    <%@ include file="./commons/base.jsp" %>
 
     <title>Login</title>
 
@@ -35,7 +35,7 @@
     </button>
 </div>
 
-<form method="post" action="${pageContext.request.contextPath}/login"
+<form accept-charset="UTF-8" method="post" action="${pageContext.request.contextPath}/login"
       class="container">
     <div class="row" style="height: 15%"></div>
     <div class="row justify-content-center">

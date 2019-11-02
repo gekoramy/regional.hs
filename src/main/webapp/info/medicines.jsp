@@ -2,7 +2,7 @@
 <html>
 <head>
     <%@ include file="../commons/meta.jsp" %>
-    <%@ include file="../commons/header.jsp" %>
+    <%@ include file="../commons/base.jsp" %>
     <%@ include file="../commons/scripts.jsp" %>
 
     <title>Farmaci</title>

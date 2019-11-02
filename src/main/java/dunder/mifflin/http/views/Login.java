@@ -4,6 +4,7 @@ import dunder.mifflin.beans.DAOs;
 import dunder.mifflin.persistence.daos.exceptions.DAOException;
 import dunder.mifflin.persistence.pojos.Secret;
 import dunder.mifflin.utils.Auths;
+import dunder.mifflin.utils.Qualification;
 import org.mindrot.jbcrypt.BCrypt;
 
 import javax.inject.Inject;
@@ -53,6 +54,15 @@ public class Login extends HttpServlet {
             ));
 
             req.getSession().setAttribute("auth", id);
+            req.getSession().setAttribute(
+                    "qualification",
+                    Optional.empty()
+                            .or(() -> daos.factory().general().byKey(id).map((__) -> Qualification.GENERAL))
+                            .or(() -> daos.factory().hsAdmin().byKey(id).map((__) -> Qualification.HS_ADMIN))
+                            .or(() -> daos.factory().hsDoctor().byKey(id).map((__) -> Qualification.HS_DOCTOR))
+                            .or(() -> daos.factory().specialist().byKey(id).map((__) -> Qualification.SPECIALIST))
+                            .orElse(Qualification.NONE)
+            );
             resp.sendRedirect(location(req, "/patient/medicines"));
 
         } catch (NoSuchElementException e) {
