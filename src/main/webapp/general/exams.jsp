@@ -9,6 +9,8 @@
 <jsp:useBean scope="request" id="patient" type="dunder.mifflin.persistence.pojos.Person"/>
 <jsp:useBean scope="request" id="responsible" type="java.util.Map<java.lang.Long, dunder.mifflin.persistence.pojos.Person>"/>
 
+<jsp:useBean scope="request" id="avatar" type="java.lang.String"/>
+<jsp:useBean scope="request" id="patient_avatar" type="java.lang.String"/>
 <jsp:useBean scope="request" id="avatars" type="java.util.Map<java.lang.Long,java.lang.String>"/>
 
 <jsp:useBean scope="request" id="birthplace_city" type="dunder.mifflin.persistence.pojos.City"/>
@@ -28,7 +30,7 @@
 <html>
 <head>
     <%@ include file="../commons/meta.jsp" %>
-    <%@ include file="../commons/header.jsp" %>
+    <%@ include file="../commons/base.jsp" %>
     <%@ include file="../commons/scripts.jsp" %>
 
     <title>Storico esami</title>
@@ -36,197 +38,14 @@
 
 <body>
 
-<div class="it-header-slim-wrapper">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="it-header-slim-wrapper-content">
-                    <span class="d-lg-block navbar-brand">Servizio Sanitario</span>
-                    <div class="nav-mobile">
-                        <nav>
-                            <a class="it-opener d-lg-none" data-toggle="collapse" href="#menu2" role="button"
-                               aria-expanded="false" aria-controls="menu2">
-                                <span>Generale</span>
-                                <svg class="icon">
-                                    <use xlink:href="${bootstrap}/svg/sprite.svg#it-expand"></use>
-                                </svg>
-                            </a>
-                            <div class="link-list-wrapper collapse" id="menu2">
-                                <ul class="link-list">
-                                    <li><a class="list-item"
-                                           href="${pageContext.request.contextPath}/general/patients">Visita</a></li>
-                                </ul>
-                            </div>
-                        </nav>
-                    </div>
-                    <div class="nav-mobile">
-                        <nav>
-                            <a class="it-opener d-lg-none" data-toggle="collapse" href="#menu1" role="button"
-                               aria-expanded="false" aria-controls="menu1">
-                                <span>Personale</span>
-                                <svg class="icon">
-                                    <use xlink:href="${bootstrap}/svg/sprite.svg#it-expand"></use>
-                                </svg>
-                            </a>
-                            <div class="link-list-wrapper collapse" id="menu1">
-                                <ul class="link-list">
-                                    <li><a class="list-item"
-                                           href="${pageContext.request.contextPath}/patient/exams">Esami</a>
-                                    </li>
-                                    <li><a class="list-item"
-                                           href="${pageContext.request.contextPath}/patient/medicines">Farmaci</a></li>
-                                </ul>
-                            </div>
-                        </nav>
-                    </div>
-                    <div class="it-header-slim-right-zone">
-                        <a href="${pageContext.request.contextPath}/patient/profile" class="btn btn-primary btn-icon btn-full">
-                            <div class="avatar size-lg">
-                                <img src="${avatars.get(general.id())}" alt="avatar">
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<%@include file="partial/header.jsp"%>
 
-<div class="it-header-slim-wrapper theme-light">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="it-header-slim-wrapper-content">
-                    <span class="d-lg-block navbar-brand">${patient.name()} ${patient.surname()}</span>
-                    <div class="nav-mobile">
-                        <nav>
-                            <a class="it-opener d-lg-none" data-toggle="collapse" href="#menu3" role="button"
-                               aria-expanded="false" aria-controls="menu1">
-                                <span>Paziente</span>
-                                <svg class="icon">
-                                    <use xlink:href="${bootstrap}/svg/sprite.svg#it-expand"></use>
-                                </svg>
-                            </a>
-                            <div class="link-list-wrapper collapse" id="menu3">
-                                <ul class="link-list">
-                                    <li><a class="list-item active"
-                                           href="${pageContext.request.contextPath}/general/exams?patient=${patient.id()}">Esami</a>
-                                    </li>
-                                    <li><a class="list-item"
-                                           href="${pageContext.request.contextPath}/general/medicines?patient=${patient.id()}">Farmaci</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </nav>
-                    </div>
-                    <div class="it-header-slim-right-zone">
-                        <a href="#" class="btn btn-primary btn-icon btn-full" data-toggle="modal" data-target="#patient">
-                            <div class="avatar size-lg">
-                                <img src="${avatars.get(patient.id())}" alt="avatar">
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<%@include file="partial/patient.jsp"%>
 
-<div class="modal it-dialog-scrollable fade" tabindex="-1" role="dialog" id="patient">
-    <div class="modal-dialog modal-dialog-right w-100" role="document">
-        <div class="modal-content">
+<div class="container">
 
-            <div class="modal-header">
-                <h5 class="modal-title">${patient.name()} ${patient.surname()}</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <svg class="icon">
-                        <use xlink:href="${bootstrap}/svg/sprite.svg#it-close"></use>
-                    </svg>
-                </button>
-            </div>
-
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card-wrapper">
-                            <div class="card card-img no-after">
-                                <div class="img-responsive-wrapper">
-                                    <div class="img-responsive">
-                                        <figure class="img-wrapper">
-                                            <img src="${avatars.get(patient.id())}" alt="${patient.name()} ${patient.surname()}">
-                                        </figure>
-                                    </div>
-                                </div>
-                                <div class="card-body p-0 pt-3">
-
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">
-                                            <div class="d-flex w-100 justify-content-between">
-                                                <p>
-                                                    ${patient.name()} ${patient.surname()}
-                                                </p>
-                                                <small class="text-muted">Nome</small>
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <div class="d-flex w-100 justify-content-between">
-                                                <p>
-                                                    ${patient.email()}
-                                                </p>
-                                                <small class="text-muted">Email</small>
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <div class="d-flex w-100 justify-content-between">
-                                                <p>
-                                                    ${patient.fc()}
-                                                </p>
-                                                <small class="text-muted">Codice Fiscale</small>
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <div class="d-flex w-100 justify-content-between">
-                                                <p>
-                                                    ${patient.birthday()}
-                                                </p>
-                                                <small class="text-muted">Nascita</small>
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <div class="d-flex w-100 justify-content-between">
-                                                <p>
-                                                    ${birthplace_city.name()}<br>
-                                                    ${birthplace_province.name()}<br>
-                                                    ${birthplace_region.name()}
-                                                </p>
-                                                <small class="text-muted">Luogo nativo</small>
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <div class="d-flex w-100 justify-content-between">
-                                                <p>
-                                                    ${residence_city.name()}<br>
-                                                    ${residence_province.name()}<br>
-                                                    ${residence_region.name()}
-                                                </p>
-                                                <small class="text-muted">Residenza</small>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="container mt-3">
-    <div class="row">
+    <div class="row mt-3">
         <div class="col-12">
-
             <div id="collapseDiv1-sc1" class="collapse-div collapse-background-active" role="tablist">
                 <div class="collapse-header" id="heading1-sc1">
                     <button
@@ -238,7 +57,7 @@
                     </button>
                 </div>
                 <div id="collapse1-sc1" class="collapse" role="tabpanel" aria-labelledby="heading1-sc1">
-                    <form class="collapse-body d-flex flex-column justify-content-end m-0" method="post"
+                    <form accept-charset="UTF-8" class="collapse-body d-flex flex-column justify-content-end m-0" method="post"
                           action="${pageContext.request.contextPath}/general/prescribe/exam">
 
                         <input type="hidden" name="patient" value="${patient.id()}">
@@ -268,13 +87,14 @@
                     </form>
                 </div>
             </div>
-
         </div>
     </div>
+
 </div>
 
-<div class="container mt-3">
-    <div class="row">
+<div class="container">
+
+    <div class="row mt-3">
         <div class="col-12">
             <div class="table-responsive">
                 <table class="table table-striped">
@@ -338,6 +158,7 @@
             </div>
         </div>
     </div>
+
 </div>
 
 <c:forEach items="${exams}" var="it">

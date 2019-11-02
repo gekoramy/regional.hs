@@ -6,7 +6,7 @@
 <html>
 <head>
     <%@ include file="./commons/meta.jsp" %>
-    <%@ include file="./commons/header.jsp" %>
+    <%@ include file="./commons/base.jsp" %>
     <%@ include file="./commons/scripts.jsp" %>
 
     <title>Ripristina password</title>
@@ -42,7 +42,7 @@
     </button>
 </div>
 
-<form method="post" action="${pageContext.request.contextPath}/token" class="container">
+<form accept-charset="UTF-8" method="post" action="${pageContext.request.contextPath}/token" class="container">
 
     <div class="row" style="height: 15%"></div>
     <div class="row justify-content-center">

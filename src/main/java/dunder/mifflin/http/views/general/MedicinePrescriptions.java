@@ -35,7 +35,7 @@ public class MedicinePrescriptions extends HttpServlet {
         try {
             final long gid = Auths.session(req).orElseThrow();
             final General general = daos.factory().general().byKey(gid).orElseThrow();
-            final String gAvatar = Avatars.avatar50(daos.factory().avatar(), req.getContextPath(), general);
+            final String avatar = Avatars.avatar50(daos.factory().avatar(), req.getContextPath(), general);
 
             final long pid = Optional.ofNullable(req.getParameter("patient")).map(Long::parseLong).orElseThrow();
             final Person patient = daos.factory().person().byKey(pid).orElseThrow();
@@ -69,9 +69,9 @@ public class MedicinePrescriptions extends HttpServlet {
 
             req.setAttribute("result", result(req, "/general/prescribe/medicine"));
             req.setAttribute("general", general);
-            req.setAttribute("general_avatar", gAvatar);
-            req.setAttribute("patient_avatar", pAvatar);
+            req.setAttribute("avatar", avatar);
             req.setAttribute("patient", patient);
+            req.setAttribute("patient_avatar", pAvatar);
             req.setAttribute("medicines", medicines);
             req.setAttribute("tickets", tickets);
             req.setAttribute("options", options);

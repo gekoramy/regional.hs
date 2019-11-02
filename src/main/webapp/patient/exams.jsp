@@ -10,17 +10,15 @@
 
 <html>
 <head>
+    <%@ include file="../commons/meta.jsp" %>
+    <%@ include file="../commons/base.jsp" %>
+
     <title>Dashboard</title>
 </head>
 
 <body>
 
-<h3>Paziente</h3>
-<a href="${pageContext.request.contextPath}/patient/profile">
-    <img src="${avatar}" alt="pic" width="40" height="40"/>
-</a>
-
-<a href="${pageContext.request.contextPath}/patient/medicines">farmaci</a>
+<%@ include file="../commons/header.jsp" %>
 
 <table>
     <thead>
