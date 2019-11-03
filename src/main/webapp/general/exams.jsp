@@ -212,64 +212,25 @@
     </c:if>
 </c:forEach>
 
-<div id="exam-200" class="notification with-icon success dismissable" role="alert">
-    <h5>
-        <svg class="icon">
-            <use xlink:href="${bootstrap}/svg/sprite.svg#it-check-circle"></use>
-        </svg>
-        Esame prescritto
-    </h5>
-    <button type="button" class="btn notification-close">
-        <svg class="icon">
-            <use xlink:href="${bootstrap}/svg/sprite.svg#it-close"></use>
-        </svg>
-    </button>
-</div>
+<jsp:include page="../commons/notifications/success.jsp">
+    <jsp:param name="n_id" value="exam-200"/>
+    <jsp:param name="n_body" value="Esame prescritto"/>
+</jsp:include>
 
-<div id="exam-206" class="notification with-icon warning dismissable" role="alert">
-    <h5>
-        <svg class="icon">
-            <use xlink:href="${bootstrap}/svg/sprite.svg#it-error"></use>
-        </svg>
-        Esame prescritto
-    </h5>
-    <p>Esame prescritto, ma non è stato possibile notificare il paziente</p>
-    <button type="button" class="btn notification-close">
-        <svg class="icon">
-            <use xlink:href="${bootstrap}/svg/sprite.svg#it-close"></use>
-        </svg>
-    </button>
-</div>
+<jsp:include page="../commons/notifications/warning.jsp">
+    <jsp:param name="n_id" value="exam-206"/>
+    <jsp:param name="n_body" value="Esame prescritto, ma non &egrave; stato possibile notificare il paziente"/>
+</jsp:include>
 
-<div id="exam-401" class="notification with-icon error dismissable" role="alert">
-    <h5>
-        <svg class="icon">
-            <use xlink:href="${bootstrap}/svg/sprite.svg#it-close-circle"></use>
-        </svg>
-        Errore
-    </h5>
-    <p>Non è stato possibile prescrivere l'esame. Controlla di aver inserito i dati correttamente</p>
-    <button type="button" class="btn notification-close">
-        <svg class="icon">
-            <use xlink:href="${bootstrap}/svg/sprite.svg#it-close"></use>
-        </svg>
-    </button>
-</div>
+<jsp:include page="../commons/notifications/error.jsp">
+    <jsp:param name="n_id" value="exam-401"/>
+    <jsp:param name="n_body" value="Non &egrave; stato possibile prescrivere l'esame. Controlla di aver inserito i dati correttamente"/>
+</jsp:include>
 
-<div id="exam-500" class="notification with-icon error dismissable" role="alert">
-    <h5>
-        <svg class="icon">
-            <use xlink:href="${bootstrap}/svg/sprite.svg#it-close-circle"></use>
-        </svg>
-        Errore
-    </h5>
-    <p>Non è stato possibile prescrivere l'esame</p>
-    <button type="button" class="btn notification-close">
-        <svg class="icon">
-            <use xlink:href="${bootstrap}/svg/sprite.svg#it-close"></use>
-        </svg>
-    </button>
-</div>
+<jsp:include page="../commons/notifications/error.jsp">
+    <jsp:param name="n_id" value="exam-500"/>
+    <jsp:param name="n_body" value="Non &egrave; stato possibile prescrivere l'esame. Errore del server"/>
+</jsp:include>
 
 </body>
 </html>

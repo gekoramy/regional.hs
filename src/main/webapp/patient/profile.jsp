@@ -71,54 +71,6 @@
 
 <%@ include file="../commons/header.jsp" %>
 
-<c:if test="${not empty result}">
-    <div>
-        <c:choose>
-            <c:when test="${200 == result.code()}">
-                <c:choose>
-                    <c:when test="${result.action().equals('/patient/upload')}">
-                        Avatar aggiornato
-                    </c:when>
-                    <c:when test="${result.action().equals('/patient/password')}">
-                        Password aggiornata
-                    </c:when>
-                    <c:when test="${result.action().equals('/patient/general')}">
-                        Medico generale aggiornato
-                    </c:when>
-                </c:choose>
-            </c:when>
-
-            <c:when test="${206 == result.code()}">
-                <c:choose>
-                    <c:when test="${result.action().equals('/patient/upload')}">
-                        Avatar aggiornato, ma non è stato possibile notificarti via mail
-                    </c:when>
-                    <c:when test="${result.action().equals('/patient/password')}">
-                        Password aggiornata, ma non è stato possibile notificarti via mail
-                    </c:when>
-                    <c:when test="${result.action().equals('/patient/general')}">
-                        Medico generale aggiornato, ma non è stato possibile notificarti via mail
-                    </c:when>
-                </c:choose>
-            </c:when>
-
-            <c:otherwise>
-                <c:choose>
-                    <c:when test="${result.action().equals('/patient/upload')}">
-                        Non è stato possibile aggiornare l'avatar...
-                    </c:when>
-                    <c:when test="${result.action().equals('/patient/password')}">
-                        Non è stato possibile aggiornare la password...
-                    </c:when>
-                    <c:when test="${result.action().equals('/patient/general')}">
-                        Non è stato possibile modificare il medico generale...
-                    </c:when>
-                </c:choose>
-            </c:otherwise>
-        </c:choose>
-    </div>
-</c:if>
-
 <img src="${avatar}" alt="pic" width="160" height="160"/>
 
 <br/> ${person.name()}
@@ -132,7 +84,8 @@
 <br/> ${general.name()}
 <br/> ${general.surname()}
 <br/>
-<form accept-charset="UTF-8" method="post" action="${pageContext.request.contextPath}/patient/upload" enctype="multipart/form-data">
+<form accept-charset="UTF-8" method="post" action="${pageContext.request.contextPath}/patient/upload"
+      enctype="multipart/form-data">
     <input type="file" name="avatar" accept="jpg">
     <input type="submit" value="upload">
 </form>
@@ -161,6 +114,80 @@
     </label>
     <table id="items"></table>
 </form>
+
+<%-- region upload --%>
+
+<jsp:include page="../commons/notifications/success.jsp">
+    <jsp:param name="n_id" value="upload-200"/>
+    <jsp:param name="n_body" value="Avatar aggiornato"/>
+</jsp:include>
+
+<jsp:include page="../commons/notifications/warning.jsp">
+    <jsp:param name="n_id" value="upload-206"/>
+    <jsp:param name="n_body" value="Avatar aggiornato, ma non &egrave; stato possibile notificarti via email"/>
+</jsp:include>
+
+<jsp:include page="../commons/notifications/error.jsp">
+    <jsp:param name="n_id" value="upload-401"/>
+    <jsp:param name="n_body" value="Non &egrave; stato possibile aggiornare l'avatar. Prova con un altro formato"/>
+</jsp:include>
+
+<jsp:include page="../commons/notifications/error.jsp">
+    <jsp:param name="n_id" value="upload-500"/>
+    <jsp:param name="n_body" value="Non &egrave; stato possibile aggiornare l'avatar. Errore del server"/>
+</jsp:include>
+
+<%-- endregion --%>
+
+<%-- region password --%>
+
+<jsp:include page="../commons/notifications/success.jsp">
+    <jsp:param name="n_id" value="password-200"/>
+    <jsp:param name="n_body" value="Password aggiornata"/>
+</jsp:include>
+
+<jsp:include page="../commons/notifications/warning.jsp">
+    <jsp:param name="n_id" value="password-206"/>
+    <jsp:param name="n_body" value="Password aggiornata, ma non &egrave; stato possibile notificarti via email"/>
+</jsp:include>
+
+<jsp:include page="../commons/notifications/error.jsp">
+    <jsp:param name="n_id" value="password-401"/>
+    <jsp:param name="n_body"
+               value="Non &egrave; stato possibile aggiornare la password. Controlla di aver inserito i dati correttamente"/>
+</jsp:include>
+
+<jsp:include page="../commons/notifications/error.jsp">
+    <jsp:param name="n_id" value="password-500"/>
+    <jsp:param name="n_body" value="Non &egrave; stato possibile aggiornare la password. Errore del server"/>
+</jsp:include>
+
+<%-- endregion --%>
+
+<%-- region general --%>
+
+<jsp:include page="../commons/notifications/success.jsp">
+    <jsp:param name="n_id" value="general-200"/>
+    <jsp:param name="n_body" value="Medico di base aggiornato"/>
+</jsp:include>
+
+<jsp:include page="../commons/notifications/warning.jsp">
+    <jsp:param name="n_id" value="general-206"/>
+    <jsp:param name="n_body" value="Medico di base aggiornato, ma non &egrave; stato possibile notificarti via email"/>
+</jsp:include>
+
+<jsp:include page="../commons/notifications/error.jsp">
+    <jsp:param name="n_id" value="general-401"/>
+    <jsp:param name="n_body"
+               value="Non &egrave; stato possibile aggiornare il medico di base. Controlla di aver inserito i dati correttamente"/>
+</jsp:include>
+
+<jsp:include page="../commons/notifications/error.jsp">
+    <jsp:param name="n_id" value="general-500"/>
+    <jsp:param name="n_body" value="Non &egrave; stato possibile aggiornare il medico di base. Errore del server"/>
+</jsp:include>
+
+<%-- endregion --%>
 
 </body>
 </html>

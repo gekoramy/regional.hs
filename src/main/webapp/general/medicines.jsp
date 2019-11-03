@@ -34,9 +34,9 @@
 
 <body>
 
-<%@include file="partial/header.jsp"%>
+<%@include file="partial/header.jsp" %>
 
-<%@include file="partial/patient.jsp"%>
+<%@include file="partial/patient.jsp" %>
 
 <div class="container">
 
@@ -157,64 +157,25 @@
 
 </div>
 
-<div id="medicine-200" class="notification with-icon success dismissable" role="alert">
-    <h5>
-        <svg class="icon">
-            <use xlink:href="${bootstrap}/svg/sprite.svg#it-check-circle"></use>
-        </svg>
-        Farmaco prescritto
-    </h5>
-    <button type="button" class="btn notification-close">
-        <svg class="icon">
-            <use xlink:href="${bootstrap}/svg/sprite.svg#it-close"></use>
-        </svg>
-    </button>
-</div>
+<jsp:include page="../commons/notifications/success.jsp">
+    <jsp:param name="n_id" value="medicine-200"/>
+    <jsp:param name="n_body" value="Farmaco prescritto"/>
+</jsp:include>
 
-<div id="medicine-206" class="notification with-icon warning dismissable" role="alert">
-    <h5>
-        <svg class="icon">
-            <use xlink:href="${bootstrap}/svg/sprite.svg#it-error"></use>
-        </svg>
-        Farmaco prescritto
-    </h5>
-    <p>Farmaco prescritto, ma non è stato possibile notificare il paziente</p>
-    <button type="button" class="btn notification-close">
-        <svg class="icon">
-            <use xlink:href="${bootstrap}/svg/sprite.svg#it-close"></use>
-        </svg>
-    </button>
-</div>
+<jsp:include page="../commons/notifications/warning.jsp">
+    <jsp:param name="n_id" value="medicine-206"/>
+    <jsp:param name="n_body" value="Farmaco prescritto, ma non &egrave; stato possibile notificare il paziente"/>
+</jsp:include>
 
-<div id="medicine-401" class="notification with-icon error dismissable" role="alert">
-    <h5>
-        <svg class="icon">
-            <use xlink:href="${bootstrap}/svg/sprite.svg#it-close-circle"></use>
-        </svg>
-        Errore
-    </h5>
-    <p>Non è stato possibile prescrivere il farmaco. Controlla di aver inserito i dati correttamente</p>
-    <button type="button" class="btn notification-close">
-        <svg class="icon">
-            <use xlink:href="${bootstrap}/svg/sprite.svg#it-close"></use>
-        </svg>
-    </button>
-</div>
+<jsp:include page="../commons/notifications/error.jsp">
+    <jsp:param name="n_id" value="medicine-401"/>
+    <jsp:param name="n_body" value="Non &egrave; stato possibile prescrivere il farmaco. Controlla di aver inserito i dati correttamente"/>
+</jsp:include>
 
-<div id="medicine-500" class="notification with-icon error dismissable" role="alert">
-    <h5>
-        <svg class="icon">
-            <use xlink:href="${bootstrap}/svg/sprite.svg#it-close-circle"></use>
-        </svg>
-        Errore
-    </h5>
-    <p>Non è stato possibile prescrivere il farmaco</p>
-    <button type="button" class="btn notification-close">
-        <svg class="icon">
-            <use xlink:href="${bootstrap}/svg/sprite.svg#it-close"></use>
-        </svg>
-    </button>
-</div>
+<jsp:include page="../commons/notifications/error.jsp">
+    <jsp:param name="n_id" value="medicine-500"/>
+    <jsp:param name="n_body" value="Non &egrave; stato possibile prescrivere il farmaco. Errore del server"/>
+</jsp:include>
 
 </body>
 </html>

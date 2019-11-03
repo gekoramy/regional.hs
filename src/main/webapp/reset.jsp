@@ -64,14 +64,14 @@
 </form>
 
 <script>
-    $(document).ready(function () {
-        $('#password, #check').keyup(function () {
-            $('#submit').attr(
+    $(document).ready(
+        () => $('#password, #check').keyup(
+            () => $('#submit').attr(
                 'disabled',
                 $('#password').val() !== $('#check').val()
-            );
-        });
-    });
+            )
+        )
+    );
 </script>
 
 </body>
