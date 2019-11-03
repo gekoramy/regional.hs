@@ -62,7 +62,7 @@
 
 <jsp:include page="commons/notifications/error.jsp">
     <jsp:param name="n_id" value="wrong"/>
-    <jsp:param name="n_id" value="Username o password sbagliati"/>
+    <jsp:param name="n_body" value="Username o password sbagliati"/>
 </jsp:include>
 
 </body>
