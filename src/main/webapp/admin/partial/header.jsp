@@ -24,8 +24,9 @@
                             <div class="link-list-wrapper collapse" id="menu1">
                                 <ul class="link-list">
                                     <li>
-                                        <a class="list-item <c:if test="${fn:contains(pageContext.request.requestURI, '/specialist/people')}">active</c:if>"
-                                           href="${pageContext.request.contextPath}/tickets/xls" target="_top">xls</a></li>
+                                        <a class="list-item"
+                                           href="${pageContext.request.contextPath}/tickets/xls" target="_blank" download>xls</a>
+                                    </li>
                                     <li>
                                         <a class="list-item <c:if test="${fn:contains(pageContext.request.requestURI, '/patient/profile')}">active</c:if>"
                                            href="${pageContext.request.contextPath}/patient/profile">Profilo</a>
