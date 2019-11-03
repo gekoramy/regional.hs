@@ -39,12 +39,21 @@ public class ExamPrescriptions extends HttpServlet {
             final Long[] prescriptions = exams.stream().map(Prescription::id).toArray(Long[]::new);
             final Map<Long, ExamTicket> tickets = daos.factory().examTicket().byKeys(prescriptions);
             final Map<Long, Report> reports = daos.factory().report().byKeys(prescriptions);
+            final Map<Long, Person> responsible = daos.factory().person().byKeys(tickets.values().stream().map(ExamTicket::responsible).toArray(Long[]::new));
+
+            final Map<Long, String> avatars = Avatars.avatars50(
+                    daos.factory().avatar(),
+                    req.getContextPath(),
+                    List.copyOf(responsible.values())
+            );
 
             req.setAttribute("person", person);
             req.setAttribute("avatar", avatar);
             req.setAttribute("exams", exams);
             req.setAttribute("tickets", tickets);
             req.setAttribute("reports", reports);
+            req.setAttribute("responsible", responsible);
+            req.setAttribute("avatars", avatars);
             req.getServletContext().getRequestDispatcher("/patient/exams.jsp").forward(req, resp);
 
             Fallbacks.safe(req);

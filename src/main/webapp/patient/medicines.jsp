@@ -19,28 +19,72 @@
 
 <%@ include file="../commons/header.jsp" %>
 
-<table>
-    <thead>
-    <tr>
-        <th>Data Prescrizione</th>
-        <th>Nome</th>
-        <th>Quantita</th>
-        <th>Ricevuta</th>
-        <th>QR code</th>
-    </tr>
-    </thead>
-    <c:forEach items="${medicines}" var="it">
-        <tr>
-            <fmt:parseDate value="${it.date()}" type="date" pattern="yyyy-MM-dd" var="tmp"/>
-            <fmt:formatDate value="${tmp}" type="date" pattern="yyyy/MM/dd" var="out"/>
-            <td>${out}</td>
-            <td>${it.medicine().name()}</td>
-            <td>${it.quantity()}</td>
-            <td>${tickets.get(it.id())}</td>
-            <td><a href="${pageContext.request.contextPath}/qr?size=500&prescription=${it.id()}" target="_blank">qr</a></td>
-        </tr>
-    </c:forEach>
-</table>
+<div class="container">
+
+    <div class="row mt-3">
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table table-striped">
+
+                    <thead>
+                    <tr>
+                        <th>Prescrizione</th>
+                        <th>Farmaco</th>
+                        <th class="text-center">Quantità</th>
+                        <th class="text-center">QR</th>
+                        <th colspan="2" class="text-center">Ticket</th>
+                        <th style="width: 60px">
+                            <a href="${pageContext.request.contextPath}/pdf/medicines" download
+                               class="text-decoration-none font-weight-bold">
+                                PDF
+                            </a>
+                        </th>
+                    </tr>
+                    </thead>
+
+                    <c:forEach items="${medicines}" var="it">
+                        <fmt:parseDate value="${it.date()}" type="both" pattern="yyyy-MM-dd'T'HH:mm" var="tmp"/>
+                        <fmt:formatDate value="${tmp}" type="both" dateStyle="short" timeStyle="short" var="out"/>
+
+                        <tr>
+                            <td class="align-middle">${out}</td>
+                            <td class="align-middle">${it.medicine().name()}</td>
+                            <td class="align-middle text-center">${it.quantity()}</td>
+                            <td class="align-middle text-center">
+                                <a href="${pageContext.request.contextPath}/qr?size=500&prescription=${it.id()}" target="_blank">
+                                    <svg class="icon">
+                                        <use xlink:href="${bootstrap}/svg/sprite.svg#it-camera"></use>
+                                    </svg>
+                                </a>
+                            </td>
+
+                            <c:choose>
+                                <c:when test="${tickets.containsKey(it.id())}">
+                                    <fmt:parseDate value="${tickets.get(it.id()).date()}" type="both" pattern="yyyy-MM-dd'T'HH:mm"
+                                                   var="tmp"/>
+                                    <fmt:formatDate value="${tmp}" type="both" dateStyle="short" timeStyle="short" var="tck"/>
+
+                                    <td class="align-middle">${tck}</td>
+                                    <td class="align-middle">€${tickets.get(it.id()).amount()}</td>
+                                </c:when>
+
+                                <c:otherwise>
+                                    <td class="align-middle" colspan="2">
+                                        <input type="button" class="btn btn-primary btn-block" value="Incassa" disabled>
+                                    </td>
+                                </c:otherwise>
+                            </c:choose>
+
+                            <td></td>
+                        </tr>
+
+                    </c:forEach>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
 
 </body>
 </html>
