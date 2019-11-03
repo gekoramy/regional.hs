@@ -40,7 +40,7 @@
                             Ticket
                         </th>
                         <th>Referto</th>
-                        <th>
+                        <th style="width: 60px">
                             <a href="${pageContext.request.contextPath}/pdf/exams" download
                                class="text-decoration-none font-weight-bold">
                                 PDF
