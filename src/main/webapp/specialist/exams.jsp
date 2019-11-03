@@ -277,93 +277,45 @@
     </c:choose>
 </c:forEach>
 
-<div id="cash-200" class="notification with-icon success dismissable" role="alert">
-    <h5>
-        <svg class="icon">
-            <use xlink:href="${bootstrap}/svg/sprite.svg#it-check-circle"></use>
-        </svg>
-        Incassato
-    </h5>
-    <button type="button" class="btn notification-close">
-        <svg class="icon">
-            <use xlink:href="${bootstrap}/svg/sprite.svg#it-close"></use>
-        </svg>
-    </button>
-</div>
+<jsp:include page="../commons/notifications/success.jsp">
+    <jsp:param name="n_id" value="cash-200"/>
+    <jsp:param name="n_body" value="Ticket incassato"/>
+</jsp:include>
 
-<div id="publish-200" class="notification with-icon success dismissable" role="alert">
-    <h5>
-        <svg class="icon">
-            <use xlink:href="${bootstrap}/svg/sprite.svg#it-check-circle"></use>
-        </svg>
-        Pubblicato
-    </h5>
-    <button type="button" class="btn notification-close">
-        <svg class="icon">
-            <use xlink:href="${bootstrap}/svg/sprite.svg#it-close"></use>
-        </svg>
-    </button>
-</div>
+<jsp:include page="../commons/notifications/warning.jsp">
+    <jsp:param name="n_id" value="cash-206"/>
+    <jsp:param name="n_body" value="Ticket incassato, ma non &egrave; stato possibile notificare il paziente"/>
+</jsp:include>
 
-<div id="cash-206" class="notification with-icon warning dismissable" role="alert">
-    <h5>
-        <svg class="icon">
-            <use xlink:href="${bootstrap}/svg/sprite.svg#it-error"></use>
-        </svg>
-        Incassato
-    </h5>
-    <p>Incassato, ma non è stato possibile notificare il paziente</p>
-    <button type="button" class="btn notification-close">
-        <svg class="icon">
-            <use xlink:href="${bootstrap}/svg/sprite.svg#it-close"></use>
-        </svg>
-    </button>
-</div>
+<jsp:include page="../commons/notifications/error.jsp">
+    <jsp:param name="n_id" value="cash-401"/>
+    <jsp:param name="n_body" value="Non &egrave; stato possibile incassare il ticket. Controlla di aver inserito i dati correttamente"/>
+</jsp:include>
 
-<div id="publish-206" class="notification with-icon warning dismissable" role="alert">
-    <h5>
-        <svg class="icon">
-            <use xlink:href="${bootstrap}/svg/sprite.svg#it-error"></use>
-        </svg>
-        Pubblicato
-    </h5>
-    <p>Pubblicato, ma non è stato possibile notificare il paziente</p>
-    <button type="button" class="btn notification-close">
-        <svg class="icon">
-            <use xlink:href="${bootstrap}/svg/sprite.svg#it-close"></use>
-        </svg>
-    </button>
-</div>
+<jsp:include page="../commons/notifications/error.jsp">
+    <jsp:param name="n_id" value="cash-500"/>
+    <jsp:param name="n_body" value="Non &egrave; stato possibile incassare il ticket. Errore del server"/>
+</jsp:include>
 
-<div id="cash-500" class="notification with-icon error dismissable" role="alert">
-    <h5>
-        <svg class="icon">
-            <use xlink:href="${bootstrap}/svg/sprite.svg#it-close-circle"></use>
-        </svg>
-        Errore
-    </h5>
-    <p>Non è stato possibile incassare</p>
-    <button type="button" class="btn notification-close">
-        <svg class="icon">
-            <use xlink:href="${bootstrap}/svg/sprite.svg#it-close"></use>
-        </svg>
-    </button>
-</div>
+<jsp:include page="../commons/notifications/success.jsp">
+    <jsp:param name="n_id" value="publish-200"/>
+    <jsp:param name="n_body" value="Referto pubblicato"/>
+</jsp:include>
 
-<div id="publish-500" class="notification with-icon error dismissable" role="alert">
-    <h5>
-        <svg class="icon">
-            <use xlink:href="${bootstrap}/svg/sprite.svg#it-close-circle"></use>
-        </svg>
-        Errore
-    </h5>
-    <p>Non è stato possibile pubblicare l'anamnesi</p>
-    <button type="button" class="btn notification-close">
-        <svg class="icon">
-            <use xlink:href="${bootstrap}/svg/sprite.svg#it-close"></use>
-        </svg>
-    </button>
-</div>
+<jsp:include page="../commons/notifications/warning.jsp">
+    <jsp:param name="n_id" value="publish-206"/>
+    <jsp:param name="n_body" value="Referto pubblicato, ma non &egrave; stato possibile notificare il paziente"/>
+</jsp:include>
+
+<jsp:include page="../commons/notifications/error.jsp">
+    <jsp:param name="n_id" value="publish-401"/>
+    <jsp:param name="n_body" value="Non &egrave; stato possibile pubblicare il referto. Controlla di aver inserito i dati correttamente"/>
+</jsp:include>
+
+<jsp:include page="../commons/notifications/error.jsp">
+    <jsp:param name="n_id" value="publish-500"/>
+    <jsp:param name="n_body" value="Non &egrave; stato possibile pubblicare il referto. Errore del server"/>
+</jsp:include>
 
 </body>
 </html>

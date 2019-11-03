@@ -20,23 +20,7 @@
 </head>
 <body>
 
-
-<div class="notification top-fix with-icon error dismissable" role="alert" id="wrong">
-    <h5>
-        <svg class="icon">
-            <use xlink:href="${bootstrap}/svg/sprite.svg#it-close-circle"></use>
-        </svg>
-        Sbagliasti, vecchio mio
-    </h5>
-    <button type="button" class="btn notification-close">
-        <svg class="icon">
-            <use xlink:href="${bootstrap}/svg/sprite.svg#it-close"></use>
-        </svg>
-    </button>
-</div>
-
-<form accept-charset="UTF-8" method="post" action="${pageContext.request.contextPath}/login"
-      class="container">
+<form accept-charset="UTF-8" method="post" action="${pageContext.request.contextPath}/login" class="container">
     <div class="row" style="height: 15%"></div>
     <div class="row justify-content-center">
         <div class="col-12 col-md-10  col-lg-6">
@@ -75,6 +59,11 @@
         </div>
     </div>
 </form>
+
+<jsp:include page="commons/notifications/error.jsp">
+    <jsp:param name="n_id" value="wrong"/>
+    <jsp:param name="n_id" value="Username o password sbagliati"/>
+</jsp:include>
 
 </body>
 </html>
