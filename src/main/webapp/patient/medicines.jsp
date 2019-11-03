@@ -12,7 +12,7 @@
     <%@ include file="../commons/meta.jsp" %>
     <%@ include file="../commons/base.jsp" %>
 
-    <title>Dashboard</title>
+    <title>Storico farmaci</title>
 </head>
 
 <body>
