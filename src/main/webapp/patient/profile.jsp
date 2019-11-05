@@ -66,6 +66,30 @@
         });
     </script>
 
+    <style>
+        .size-nice {
+            width: 80px;
+            height: 80px;
+        }
+
+        .avatar.size-nice .icon {
+            height: 40px;
+            width: 40px
+        }
+
+        @media (min-width: 576px) {
+            .size-nice {
+                width: 128px;
+                height: 128px;
+            }
+
+            .avatar.size-nice .icon {
+                height: 62px;
+                width: 62px
+            }
+        }
+    </style>
+
 </head>
 
 <body>
@@ -75,15 +99,15 @@
 <div class="container" style="margin-top: 50px;">
 
     <!--Informazioni e immagine profilo-->
-    <div class="row px-3 px-md-0">
+    <div class="row px-3 px-md-0 justify-content-around">
         <div class="col-lg-10 ">
-            <div class="row flex-nowrap">
-                <div class="col-4 col-md-3 col-sm-4">
-                    <div class="avatar size-xxl mb-3">
+            <div class="row">
+                <div class="col-4 col-md-3">
+                    <div class="avatar size-nice mb-3">
                         <img src="${avatar}" alt="${person.name()} ${person.surname()}">
                     </div>
                 </div>
-                <div class="col-8 col-md-9 col-sm-8">
+                <div class="col-8 col-md-9">
                     <div class="row">
                         <div class="col-md-6">
                             <p class="text-muted mb-0"><small>Nome</small></p>
@@ -116,15 +140,15 @@
 
     <!--Medico di base-->
 
-    <div class="row px-3 px-md-0">
+    <div class="row px-3 px-md-0 justify-content-around">
         <div class="col-lg-10">
-            <div class="row flex-nowrap">
-                <div class="col-4 col-md-3 col-sm-4">
-                    <div class="avatar size-xxl mb-3">
+            <div class="row">
+                <div class="col-4 col-md-3">
+                    <div class="avatar size-nice mb-3">
                         <img src="${avatar}" alt="${general.name()} ${general.surname()}">
                     </div>
                 </div>
-                <div class="col-8 col-md-9 col-sm-8">
+                <div class="col-8 col-md-9">
                     <div class="row">
                         <div class="col-md-6">
                             <p class="text-muted mb-0"><small>Medico di base</small></p>
@@ -147,16 +171,17 @@
 
     <!--Modifica Password-->
 
-    <div class="row px-3 px-md-0">
+    <div class="row px-3 px-md-0 justify-content-around">
         <div class="col-lg-10">
-            <div class="row flex-nowrap ">
-                <div class="col-4 col-md-3 col-sm-4">
-                    <div class="avatar size-xxl mb-3">
-
-                        <svg class="icon icon-xl"><use xlink:href="${bootstrap}/svg/sprite.svg#it-locked"></use></svg>
+            <div class="row ">
+                <div class="col-4 col-md-3">
+                    <div class="avatar size-nice mb-3">
+                        <svg class="icon icon-secondary">
+                            <use xlink:href="${bootstrap}/svg/sprite.svg#it-locked"></use>
+                        </svg>
                     </div>
                 </div>
-                <div class="col-8 col-md-9 col-sm-8">
+                <div class="col-8 col-md-9">
                     <p class="text-muted"><small>Password</small></p>
                     <p>**********</p>
                 </div>
@@ -164,7 +189,8 @@
         </div>
         <div class="col-lg-2 align-self-end">
             <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal"
-                    data-target="#modalPassword">Modifica</button>
+                    data-target="#modalPassword">Modifica
+            </button>
         </div>
     </div>
 </div>
