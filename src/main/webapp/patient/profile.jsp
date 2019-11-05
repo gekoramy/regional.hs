@@ -38,37 +38,21 @@
                         },
                         function (result) {
 
-                            const items = $("#items");
-
-                            items
-                                .empty()
-                                .append(
-                                    `
-                                <thead>
-                                <tr>
-                                <th>Data di nascita</th>
-                                <th>Avatar</th>
-                                <th>Nome</th>
-                                <th>Cognome</th>
-                                <th>Codice fiscale</th>
-                                <th>Email</th>
-                                <th>Choose</th>
-                                </tr>
-                                </thead>
-                                `
-                                );
+                            const items = $("#items").empty();
 
                             $.each(result, (i, it) => items.append(
                                     `
-                                    <tr>
-                                    <td>{birthday}</td>
-                                    <td><img src="{avatar}" alt="pic" width="40" height="40"/></td>
-                                    <td>{name}</td>
-                                    <td>{surname}</td>
-                                    <td>{fc}</td>
-                                    <td>{email}</td>
-                                    <td><input type="submit" name="purpose" value="{id}"/></td>
-                                    </tr>
+                                    <div class="col-12 d-flex justify-content-around">
+                                        <button type="submit" name="purpose" value="{id}" class="bg-transparent border-0 avatar-wrapper avatar-extra-text">
+                                            <div class="avatar size-xl">
+                                                <img src="{avatar}" alt="{name} {surname}">
+                                            </div>
+                                            <div class="extra-text">
+                                                <h4 class="text-left">{name} {surname}</h4>
+                                                <code class="text-left">{fc}</code>
+                                            </div>
+                                        </button>
+                                    </div>
                                     `.formatUnicorn(it)
                                 )
                             );
@@ -214,7 +198,9 @@
             </div>
         </div>
         <div class="col-lg-2 align-self-end">
-            <button type="button" class="btn btn-primary btn-lg btn-block">Modifica</button>
+            <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#general">
+                Modifica
+            </button>
         </div>
     </div>
 
@@ -242,6 +228,45 @@
             <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal"
                     data-target="#modalPassword">Modifica
             </button>
+        </div>
+    </div>
+</div>
+
+<div class="modal it-dialog-scrollable fade" tabindex="-1" role="dialog" id="general">
+    <div class="modal-dialog modal-dialog-right w-100" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Cambia medico di base</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <svg class="icon">
+                        <use xlink:href="${bootstrap}/svg/sprite.svg#it-close"></use>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="container">
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <input type="search" class="autocomplete" placeholder="Cerca" id="filter">
+                                <span class="autocomplete-icon" aria-hidden="true">
+                                        <svg class="icon icon-sm">
+                                            <use xlink:href="${bootstrap}/svg/sprite.svg#it-search"></use>
+                                        </svg>
+                                    </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <form accept-charset="UTF-8" method="post" action="${pageContext.request.contextPath}/patient/general"
+                      class="container">
+                    <div id="items" class="row"></div>
+                </form>
+
+            </div>
         </div>
     </div>
 </div>
