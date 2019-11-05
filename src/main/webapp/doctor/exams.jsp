@@ -37,7 +37,7 @@
 
 <body>
 
-<%@include file="partial/header.jsp" %>
+<%@include file="../commons/header.jsp" %>
 
 <%@include file="partial/patient.jsp" %>
 

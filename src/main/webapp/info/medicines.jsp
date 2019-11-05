@@ -47,17 +47,7 @@
 </head>
 <body>
 
-<div class="it-header-slim-wrapper">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="it-header-slim-wrapper-content">
-                    <span class="d-lg-block navbar-brand">Servizio Sanitario</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<%@ include file="../commons/header.jsp" %>
 
 <div class="container">
 
