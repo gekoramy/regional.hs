@@ -65,55 +65,140 @@
             });
         });
     </script>
+
 </head>
 
 <body>
 
 <%@ include file="../commons/header.jsp" %>
 
-<img src="${avatar}" alt="pic" width="160" height="160"/>
+<div class="container" style="margin-top: 50px;">
 
-<br/> ${person.name()}
-<br/> ${person.surname()}
-<br/> ${person.fc()}
-<br/> ${person.gender()}
-<br/> ${person.email()}
-<br/> ${person.birthday()}
-<br/> ${person.birthplace()}
-<br/> ${residence.name()}
-<br/> ${general.name()}
-<br/> ${general.surname()}
-<br/>
-<form accept-charset="UTF-8" method="post" action="${pageContext.request.contextPath}/patient/upload"
-      enctype="multipart/form-data">
-    <input type="file" name="avatar" accept="jpg">
-    <input type="submit" value="upload">
-</form>
-<br/>
-<form accept-charset="UTF-8" method="post" action="${pageContext.request.contextPath}/patient/password">
-    <label>
-        current
-        <input type="password" name="current">
-    </label>
-    <label>
-        new
-        <input type="password" name="request">
-    </label>
-    <label>
-        check
-        <input type="password">
-    </label>
-    <input type="submit" value="change">
-</form>
-<br/>
-<form accept-charset="UTF-8" method="post" action="${pageContext.request.contextPath}/patient/general">
-    <h3>general</h3>
-    <label>
-        Filtro
-        <input type="text" id="filter" placeholder="filtro">
-    </label>
-    <table id="items"></table>
-</form>
+    <!--Informazioni e immagine profilo-->
+    <div class="row px-3 px-md-0">
+        <div class="col-lg-10 ">
+            <div class="row flex-nowrap">
+                <div class="col-4 col-md-3 col-sm-4">
+                    <div class="avatar size-xxl mb-3">
+                        <img src="${avatar}" alt="${person.name()} ${person.surname()}">
+                    </div>
+                </div>
+                <div class="col-8 col-md-9 col-sm-8">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p class="text-muted mb-0"><small>Nome</small></p>
+                            <p>${person.name()} ${person.surname()}</p>
+                            <p class="text-muted mb-0"><small>Codice fiscale</small></p>
+                            <p>${person.fc()}</p>
+                            <p class="text-muted mb-0"><small>Sesso</small></p>
+                            <p>${person.gender()? "Maschio" : "Femmina"}</p>
+                            <p class="text-muted mb-0"><small>Email</small></p>
+                            <p>${person.email()}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="text-muted mb-0"><small>Data di nascita</small></p>
+                            <p>${person.birthday()}</p>
+                            <p class="text-muted mb-0"><small>Provincia</small></p>
+                            <p>${residence.name()}</p>
+                            <p class="text-muted mb-0"><small>Luogo di nascita</small></p>
+                            <p>${person.birthplace()}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2 align-self-end">
+            <button type="button" class="btn btn-primary btn-lg btn-block">Modifica</button>
+        </div>
+    </div>
+
+    <hr class="my-5">
+
+    <!--Medico di base-->
+
+    <div class="row px-3 px-md-0">
+        <div class="col-lg-10">
+            <div class="row flex-nowrap">
+                <div class="col-4 col-md-3 col-sm-4">
+                    <div class="avatar size-xxl mb-3">
+                        <img src="${avatar}" alt="${general.name()} ${general.surname()}">
+                    </div>
+                </div>
+                <div class="col-8 col-md-9 col-sm-8">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p class="text-muted mb-0"><small>Medico di base</small></p>
+                            <p>${general.name()} ${general.surname()}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="text-muted mb-0"><small>Email</small></p>
+                            <p>${general.email()}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2 align-self-end">
+            <button type="button" class="btn btn-primary btn-lg btn-block">Modifica</button>
+        </div>
+    </div>
+
+    <hr class="my-5">
+
+    <!--Modifica Password-->
+
+    <div class="row px-3 px-md-0">
+        <div class="col-lg-10">
+            <div class="row flex-nowrap ">
+                <div class="col-4 col-md-3 col-sm-4">
+                    <div class="avatar size-xxl mb-3">
+
+                        <svg class="icon icon-xl"><use xlink:href="${bootstrap}/svg/sprite.svg#it-locked"></use></svg>
+                    </div>
+                </div>
+                <div class="col-8 col-md-9 col-sm-8">
+                    <p class="text-muted"><small>Password</small></p>
+                    <p>**********</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2 align-self-end">
+            <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal"
+                    data-target="#modalPassword">Modifica</button>
+        </div>
+    </div>
+</div>
+
+<%--<form accept-charset="UTF-8" method="post" action="${pageContext.request.contextPath}/patient/upload"--%>
+<%--      enctype="multipart/form-data">--%>
+<%--    <input type="file" name="avatar" accept="jpg">--%>
+<%--    <input type="submit" value="upload">--%>
+<%--</form>--%>
+<%--<br/>--%>
+<%--<form accept-charset="UTF-8" method="post" action="${pageContext.request.contextPath}/patient/password">--%>
+<%--    <label>--%>
+<%--        current--%>
+<%--        <input type="password" name="current">--%>
+<%--    </label>--%>
+<%--    <label>--%>
+<%--        new--%>
+<%--        <input type="password" name="request">--%>
+<%--    </label>--%>
+<%--    <label>--%>
+<%--        check--%>
+<%--        <input type="password">--%>
+<%--    </label>--%>
+<%--    <input type="submit" value="change">--%>
+<%--</form>--%>
+<%--<br/>--%>
+<%--<form accept-charset="UTF-8" method="post" action="${pageContext.request.contextPath}/patient/general">--%>
+<%--    <h3>general</h3>--%>
+<%--    <label>--%>
+<%--        Filtro--%>
+<%--        <input type="text" id="filter" placeholder="filtro">--%>
+<%--    </label>--%>
+<%--    <table id="items"></table>--%>
+<%--</form>--%>
 
 <%-- region upload --%>
 
