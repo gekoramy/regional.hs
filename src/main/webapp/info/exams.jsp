@@ -8,47 +8,51 @@
     <title>Esami</title>
 
     <script>
-        const design = function () {
-            $.getJSON(
-                "${pageContext.request.contextPath}/api/exams",
-                {
-                    pattern: $("#filter").val()
-                },
-                function (result) {
-                    $("#items")
-                        .empty();
+        $(document).ready(() => {
 
-                    $.each(result, function (i, it) {
-                        $("#items")
-                            .append(
-                                `
-                                <div class="col-12 col-lg-4 col-md-6">
-                                    <div class="card-wrapper card-space">
-                                        <div class="card card-bg card-big border-bottom-card">
-                                            <div class="card-body">
-                                                <div class="category-top">
-                                                  <h5><span class="badge badge-pill {class}">{hs}</span></h5>
+            const filter = $("#filter");
+            const items = $("#items");
+
+            filter
+                .keyup(
+                    () => $.getJSON(
+                        "${pageContext.request.contextPath}/api/exams",
+                        {
+                            pattern: filter.val()
+                        },
+                        (result) => {
+
+                            items.empty();
+
+                            $.each(
+                                result,
+                                (i, it) => items.append(
+                                    `
+                                    <div class="col-12 col-lg-4 col-md-6">
+                                        <div class="card-wrapper card-space">
+                                            <div class="card card-bg card-big border-bottom-card">
+                                                <div class="card-body">
+                                                    <div class="category-top">
+                                                      <h5><span class="badge badge-pill {class}">{hs}</span></h5>
+                                                    </div>
+                                                    <h5 class="card-title">{name}</h5>
+                                                    <p class="card-text">{info}</p>
                                                 </div>
-                                                <h5 class="card-title">{name}</h5>
-                                                <p class="card-text">{info}</p>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                `.formatUnicorn({
-                                    name: it.name,
-                                    info: it.info,
-                                    class: it.hs === true ? 'badge-primary' : 'badge-secondary',
-                                    hs: it.hs === true ? 'Servizio Sanitario' : 'Servizio Specialistico'
-                                })
+                                    `.formatUnicorn({
+                                        name: it.name,
+                                        info: it.info,
+                                        class: it.hs === true ? 'badge-primary' : 'badge-secondary',
+                                        hs: it.hs === true ? 'Servizio Sanitario' : 'Servizio Specialistico'
+                                    })
+                                )
                             );
-                    });
-                });
-        };
-
-        $(document).ready(function () {
-            design.call();
-            $("#filter").keyup(design);
+                        }
+                    )
+                )
+                .keyup()
         });
     </script>
 </head>

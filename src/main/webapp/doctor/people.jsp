@@ -12,40 +12,15 @@
 
     <title>Persone</title>
     <script>
-        const design = function () {
-            $.getJSON(
-                "${pageContext.request.contextPath}/api/people",
-                {
-                    name: $("#filter").val()
-                },
-                function (result) {
-                    $("#items").empty();
-
-                    $.each(result, function (i, it) {
-                        $("#items")
-                            .append(
-                                `
-                                <div class="col-11 col-md-6 col-lg-4 d-flex justify-content-center">
-                                    <button type="submit" name="patient" value="{id}" class="bg-transparent border-0 avatar-wrapper avatar-extra-text">
-                                        <div class="avatar size-xl">
-                                            <img src="{avatar}" alt="{name} {surname}">
-                                        </div>
-                                        <div class="extra-text">
-                                            <h4 class="text-left">{name} {surname}</h4>
-                                            <code class="text-left">{fc}</code>
-                                        </div>
-                                    </button>
-                                </div>
-                                `.formatUnicorn(it)
-                            );
-                    });
-                });
-        };
-
-        $(document).ready(function () {
-            design.call();
-            $("#filter").keyup(design);
-        });
+        $(document).ready(() => {
+                peoplePage(
+                    "${pageContext.request.contextPath}/api/people",
+                    $("#filter"),
+                    $("#items"),
+                    "patient"
+                );
+            }
+        );
     </script>
 </head>
 

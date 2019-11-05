@@ -3,7 +3,7 @@
 
 <%--@elvariable id="result" type="dunder.mifflin.utils.Result"--%>
 
-<script src="${pageContext.request.contextPath}/assets/script/strings.js"></script>
+<script src="${pageContext.request.contextPath}/assets/script/ajax.js"></script>
 
 <c:if test="${not empty result}">
     <script type="text/javascript">

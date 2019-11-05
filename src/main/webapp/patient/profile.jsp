@@ -32,7 +32,6 @@
 
     <script>
         $(document).ready(() => {
-
             $(window)
                 .resize(() => {
                     if ($(window).width() <= 576)
@@ -42,36 +41,12 @@
                 })
                 .resize();
 
-            $("#filter")
-                .keyup(() => {
-                    $.getJSON(
-                        "${pageContext.request.contextPath}/api/suitable",
-                        {
-                            name: $("#filter").val()
-                        },
-                        function (result) {
-
-                            const items = $("#items").empty();
-
-                            $.each(result, (i, it) => items.append(
-                                `
-                                <div class="col-12 pl-3 pl-lg-5">
-                                    <button type="submit" name="purpose" value="{id}" class="bg-transparent border-0 avatar-wrapper avatar-extra-text">
-                                        <div class="avatar size-xl">
-                                            <img src="{avatar}" alt="{name} {surname}">
-                                        </div>
-                                        <div class="extra-text">
-                                            <h4 class="text-left">{name} {surname}</h4>
-                                            <code class="text-left">{fc}</code>
-                                        </div>
-                                    </button>
-                                </div>
-                                `.formatUnicorn(it)
-                                )
-                            );
-                        });
-                })
-                .keyup();
+            peopleModal(
+                "${pageContext.request.contextPath}/api/suitable",
+                $("#filter"),
+                $("#items"),
+                "purpose"
+            );
 
             $('#request, #check').keyup(
                 () => $('#submit').attr(
@@ -302,9 +277,9 @@
                 </div>
                 <div class="modal-body">
                     <div class="container">
-                        <div class="row mt-3">
+                        <div class="row">
 
-                            <div class="col-12">
+                            <div class="col-12 mt-3">
                                 <div class="form-group">
                                     <label for="current">Password attuale</label>
                                     <input type="password"
@@ -343,7 +318,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-12">
+                            <div class="col-12 mt-3">
                                 <div class="form-group">
                                     <label for="check">Ripeti password</label>
                                     <input type="password"

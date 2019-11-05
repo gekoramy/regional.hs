@@ -8,40 +8,43 @@
     <title>Farmaci</title>
 
     <script>
+        $(document).ready(() => {
 
-        const design = function () {
-            $.getJSON(
-                "${pageContext.request.contextPath}/api/medicines",
-                {
-                    pattern: $("#filter").val()
-                },
-                function (result) {
-                    $("#items")
-                        .empty();
+            const filter = $("#filter");
+            const items = $("#items");
 
-                    $.each(result, function (i, it) {
-                        $("#items")
-                            .append(
-                                `
-                                <div class="col-12 col-lg-4 col-md-6">
-                                        <div class="card-wrapper card-space">
-                                            <div class="card card-bg card-big border-bottom-card">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">{name}</h5>
-                                                    <p class="card-text">{info}</p>
+            filter
+                .keyup(
+                    () => $.getJSON(
+                        "${pageContext.request.contextPath}/api/exams",
+                        {
+                            pattern: filter.val()
+                        },
+                        (result) => {
+
+                            items.empty();
+
+                            $.each(
+                                result,
+                                (i, it) => items.append(
+                                    `
+                                    <div class="col-12 col-lg-4 col-md-6">
+                                            <div class="card-wrapper card-space">
+                                                <div class="card card-bg card-big border-bottom-card">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">{name}</h5>
+                                                        <p class="card-text">{info}</p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                `.formatUnicorn(it)
+                                    `.formatUnicorn(it)
+                                )
                             );
-                    });
-                });
-        };
-
-        $(document).ready(function () {
-            design.call();
-            $("#filter").keyup(design);
+                        }
+                    )
+                )
+                .keyup()
         });
     </script>
 </head>
