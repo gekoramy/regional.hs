@@ -19,6 +19,9 @@
 <jsp:useBean scope="request" id="residence_province" type="dunder.mifflin.persistence.pojos.Province"/>
 <jsp:useBean scope="request" id="residence_region" type="dunder.mifflin.persistence.pojos.Region"/>
 
+<jsp:useBean scope="request" id="workplace_province" type="dunder.mifflin.persistence.pojos.Province"/>
+<jsp:useBean scope="request" id="workplace_region" type="dunder.mifflin.persistence.pojos.Region"/>
+
 <html>
 <head>
     <%@ include file="../commons/meta.jsp" %>
@@ -29,6 +32,16 @@
 
     <script>
         $(document).ready(() => {
+
+            $(window)
+                .resize(() => {
+                    if ($(window).width() <= 576)
+                        $('#wrapper').addClass('size-sm');
+                    else
+                        $('#wrapper').removeClass('size-sm')
+                })
+                .resize();
+
             $("#filter")
                 .keyup(() => {
                     $.getJSON(
@@ -42,7 +55,7 @@
 
                             $.each(result, (i, it) => items.append(
                                     `
-                                    <div class="col-12 d-flex justify-content-around">
+                                    <div class="col-12 pl-3 pl-lg-5">
                                         <button type="submit" name="purpose" value="{id}" class="bg-transparent border-0 avatar-wrapper avatar-extra-text">
                                             <div class="avatar size-xl">
                                                 <img src="{avatar}" alt="{name} {surname}">
@@ -60,14 +73,12 @@
                 })
                 .keyup();
 
-            $(window)
-                .resize(() => {
-                    if ($(window).width() <= 576)
-                        $('#wrapper').addClass('size-sm');
-                    else
-                        $('#wrapper').removeClass('size-sm')
-                })
-                .resize();
+            $('#request, #check').keyup(
+                () => $('#submit').attr(
+                    'disabled',
+                    $('#request').val() !== $('#check').val()
+                )
+            );
         });
     </script>
 
@@ -103,7 +114,7 @@
 
 <div class="container" style="margin-top: 50px;">
 
-    <!--Informazioni e immagine profilo-->
+    <!--info-->
 
     <div class="row px-3 px-md-0">
         <div class="col-lg-10 ">
@@ -173,7 +184,7 @@
 
     <hr class="my-5">
 
-    <!--Medico di base-->
+    <!--general-->
 
     <div class="row px-3 px-md-0">
         <div class="col-lg-10">
@@ -188,10 +199,15 @@
                         <div class="col-md-6">
                             <p class="text-muted mb-0"><small>Medico di base</small></p>
                             <p>${general.name()} ${general.surname()}</p>
-                        </div>
-                        <div class="col-md-6">
                             <p class="text-muted mb-0"><small>Email</small></p>
                             <p>${general.email()}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="text-muted mb-0"><small>Servizio Sanitario</small></p>
+                            <p>
+                                ${workplace_province.name()}<br>
+                                ${workplace_region.name()}
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -199,14 +215,14 @@
         </div>
         <div class="col-lg-2 align-self-end">
             <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#general">
-                Modifica
+                Cambia
             </button>
         </div>
     </div>
 
     <hr class="my-5">
 
-    <!--Modifica Password-->
+    <!--password-->
 
     <div class="row px-3 px-md-0">
         <div class="col-lg-10">
@@ -225,8 +241,8 @@
             </div>
         </div>
         <div class="col-lg-2 align-self-end">
-            <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal"
-                    data-target="#modalPassword">Modifica
+            <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#password">
+                Cambia
             </button>
         </div>
     </div>
@@ -236,7 +252,7 @@
     <div class="modal-dialog modal-dialog-right w-100" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Cambia medico di base</h5>
+                <h5 class="modal-title">Medici disponibili</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <svg class="icon">
                         <use xlink:href="${bootstrap}/svg/sprite.svg#it-close"></use>
@@ -252,10 +268,10 @@
                             <div class="form-group">
                                 <input type="search" class="autocomplete" placeholder="Cerca" id="filter">
                                 <span class="autocomplete-icon" aria-hidden="true">
-                                        <svg class="icon icon-sm">
-                                            <use xlink:href="${bootstrap}/svg/sprite.svg#it-search"></use>
-                                        </svg>
-                                    </span>
+                                    <svg class="icon icon-sm">
+                                        <use xlink:href="${bootstrap}/svg/sprite.svg#it-search"></use>
+                                    </svg>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -271,36 +287,89 @@
     </div>
 </div>
 
-<%--<form accept-charset="UTF-8" method="post" action="${pageContext.request.contextPath}/patient/upload"--%>
-<%--      enctype="multipart/form-data">--%>
-<%--    <input type="file" name="avatar" accept="jpg">--%>
-<%--    <input type="submit" value="upload">--%>
-<%--</form>--%>
-<%--<br/>--%>
-<%--<form accept-charset="UTF-8" method="post" action="${pageContext.request.contextPath}/patient/password">--%>
-<%--    <label>--%>
-<%--        current--%>
-<%--        <input type="password" name="current">--%>
-<%--    </label>--%>
-<%--    <label>--%>
-<%--        new--%>
-<%--        <input type="password" name="request">--%>
-<%--    </label>--%>
-<%--    <label>--%>
-<%--        check--%>
-<%--        <input type="password">--%>
-<%--    </label>--%>
-<%--    <input type="submit" value="change">--%>
-<%--</form>--%>
-<%--<br/>--%>
-<%--<form accept-charset="UTF-8" method="post" action="${pageContext.request.contextPath}/patient/general">--%>
-<%--    <h3>general</h3>--%>
-<%--    <label>--%>
-<%--        Filtro--%>
-<%--        <input type="text" id="filter" placeholder="filtro">--%>
-<%--    </label>--%>
-<%--    <table id="items"></table>--%>
-<%--</form>--%>
+<form accept-charset="UTF-8" method="post" action="${pageContext.request.contextPath}/patient/password">
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="password">
+        <div class="modal-dialog modal-dialog-right w-100" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Cambia password</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <svg class="icon">
+                            <use xlink:href="${bootstrap}/svg/sprite.svg#it-close"></use>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row mt-3">
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <input type="password"
+                                           class="form-control input-password"
+                                           aria-labelledby="infoPassword"
+                                           name="current">
+                                    <span class="password-icon" aria-hidden="true">
+                                        <svg class="password-icon-visible icon icon-sm">
+                                            <use xlink:href="${bootstrap}/svg/sprite.svg#it-password-visible"></use>
+                                        </svg>
+                                        <svg class="password-icon-invisible icon icon-sm d-none">
+                                            <use xlink:href="${bootstrap}/svg/sprite.svg#it-password-invisible"></use>
+                                        </svg>
+                                    </span>
+                                    <label for="check">Password attuale</label>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <input type="password"
+                                           class="form-control input-password input-password-strength-meter"
+                                           data-enter-pass="Sicurezza della tua password"
+                                           id="request"
+                                           name="request">
+                                    <span class="password-icon" aria-hidden="true">
+                                        <svg class="password-icon-visible icon icon-sm">
+                                            <use xlink:href="${bootstrap}/svg/sprite.svg#it-password-visible"></use>
+                                        </svg>
+                                        <svg class="password-icon-invisible icon icon-sm d-none">
+                                            <use xlink:href="${bootstrap}/svg/sprite.svg#it-password-invisible"></use>
+                                        </svg>
+                                    </span>
+                                    <label for="request">Nuova password</label>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <input type="password"
+                                           class="form-control input-password"
+                                           id="check"
+                                           aria-labelledby="infoPassword"
+                                           name="check">
+                                    <span class="password-icon" aria-hidden="true">
+                                        <svg class="password-icon-visible icon icon-sm">
+                                            <use xlink:href="${bootstrap}/svg/sprite.svg#it-password-visible"></use>
+                                        </svg>
+                                        <svg class="password-icon-invisible icon icon-sm d-none">
+                                            <use xlink:href="${bootstrap}/svg/sprite.svg#it-password-invisible"></use>
+                                        </svg>
+                                    </span>
+                                    <label for="check">Ripeti password</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input id="submit" type="submit" class="btn btn-primary btn-sm" value="Cambia">
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
 
 <%-- region upload --%>
 

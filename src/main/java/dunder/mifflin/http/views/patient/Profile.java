@@ -55,6 +55,14 @@ public class Profile extends HttpServlet {
                 req.setAttribute("residence_region", region);
             }
 
+            {
+                final Province province = daos.factory().province().byKey(general.workplace()).orElseThrow();
+                final Region region = daos.factory().region().byKey(province.region()).orElseThrow();
+
+                req.setAttribute("workplace_province", province);
+                req.setAttribute("workplace_region", region);
+            }
+
             req.setAttribute("result", result(req, "/patient/general", "/patient/password", "/patient/upload"));
             req.setAttribute("person", person);
             req.setAttribute("avatar", avatar);
