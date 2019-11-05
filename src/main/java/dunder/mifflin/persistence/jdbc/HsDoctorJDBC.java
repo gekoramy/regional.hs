@@ -51,6 +51,7 @@ public class HsDoctorJDBC extends JDBC implements HsDoctorDAO {
                 .select(PERSON.asterisk().except(PERSON.PASSWORD), HS_DOCTOR.WORKPLACE)
                 .from(PERSON)
                 .naturalJoin(HS_DOCTOR)
+                .orderBy(PERSON.NAME)
                 .fetchStreamInto(HsDoctor.class);
     }
 }
