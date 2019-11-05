@@ -11,6 +11,8 @@
 </head>
 <body>
 
+<%@include file="./commons/cookiebar.jsp" %>
+
 <form accept-charset="UTF-8" method="post" action="${pageContext.request.contextPath}/reset" class="container">
     <input type="hidden" name="token" value="${token}">
     <div class="row" style="height: 15%"></div>

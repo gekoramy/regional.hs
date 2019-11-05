@@ -51,7 +51,7 @@
 
 <body>
 
-<%@include file="partial/header.jsp"%>
+<%@include file="../commons/header.jsp" %>
 
 <div class="container">
 

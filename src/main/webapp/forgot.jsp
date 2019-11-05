@@ -13,6 +13,8 @@
 </head>
 <body>
 
+<%@include file="./commons/cookiebar.jsp" %>
+
 <form accept-charset="UTF-8" method="post" action="${pageContext.request.contextPath}/token" class="container">
 
     <div class="row" style="height: 15%"></div>
