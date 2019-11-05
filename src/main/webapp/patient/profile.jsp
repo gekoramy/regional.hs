@@ -54,19 +54,19 @@
                             const items = $("#items").empty();
 
                             $.each(result, (i, it) => items.append(
-                                    `
-                                    <div class="col-12 pl-3 pl-lg-5">
-                                        <button type="submit" name="purpose" value="{id}" class="bg-transparent border-0 avatar-wrapper avatar-extra-text">
-                                            <div class="avatar size-xl">
-                                                <img src="{avatar}" alt="{name} {surname}">
-                                            </div>
-                                            <div class="extra-text">
-                                                <h4 class="text-left">{name} {surname}</h4>
-                                                <code class="text-left">{fc}</code>
-                                            </div>
-                                        </button>
-                                    </div>
-                                    `.formatUnicorn(it)
+                                `
+                                <div class="col-12 pl-3 pl-lg-5">
+                                    <button type="submit" name="purpose" value="{id}" class="bg-transparent border-0 avatar-wrapper avatar-extra-text">
+                                        <div class="avatar size-xl">
+                                            <img src="{avatar}" alt="{name} {surname}">
+                                        </div>
+                                        <div class="extra-text">
+                                            <h4 class="text-left">{name} {surname}</h4>
+                                            <code class="text-left">{fc}</code>
+                                        </div>
+                                    </button>
+                                </div>
+                                `.formatUnicorn(it)
                                 )
                             );
                         });
