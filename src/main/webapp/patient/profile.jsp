@@ -306,11 +306,13 @@
 
                             <div class="col-12">
                                 <div class="form-group">
+                                    <label for="current">Password attuale</label>
                                     <input type="password"
+                                           id="current"
+                                           name="current"
                                            class="form-control input-password"
-                                           aria-labelledby="infoPassword"
-                                           name="current">
-                                    <span class="password-icon" aria-hidden="true">
+                                           placeholder="Password">
+                                    <span class="password-icon">
                                         <svg class="password-icon-visible icon icon-sm">
                                             <use xlink:href="${bootstrap}/svg/sprite.svg#it-password-visible"></use>
                                         </svg>
@@ -318,17 +320,18 @@
                                             <use xlink:href="${bootstrap}/svg/sprite.svg#it-password-invisible"></use>
                                         </svg>
                                     </span>
-                                    <label for="check">Password attuale</label>
                                 </div>
                             </div>
 
                             <div class="col-12">
                                 <div class="form-group">
+                                    <label for="request">Nuova password</label>
                                     <input type="password"
+                                           id="request"
+                                           name="request"
                                            class="form-control input-password input-password-strength-meter"
                                            data-enter-pass="Sicurezza della tua password"
-                                           id="request"
-                                           name="request">
+                                           placeholder="Nuova">
                                     <span class="password-icon" aria-hidden="true">
                                         <svg class="password-icon-visible icon icon-sm">
                                             <use xlink:href="${bootstrap}/svg/sprite.svg#it-password-visible"></use>
@@ -337,17 +340,17 @@
                                             <use xlink:href="${bootstrap}/svg/sprite.svg#it-password-invisible"></use>
                                         </svg>
                                     </span>
-                                    <label for="request">Nuova password</label>
                                 </div>
                             </div>
 
                             <div class="col-12">
                                 <div class="form-group">
+                                    <label for="check">Ripeti password</label>
                                     <input type="password"
-                                           class="form-control input-password"
                                            id="check"
-                                           aria-labelledby="infoPassword"
-                                           name="check">
+                                           name="check"
+                                           class="form-control input-password"
+                                           placeholder="Controllo">
                                     <span class="password-icon" aria-hidden="true">
                                         <svg class="password-icon-visible icon icon-sm">
                                             <use xlink:href="${bootstrap}/svg/sprite.svg#it-password-visible"></use>
@@ -356,7 +359,6 @@
                                             <use xlink:href="${bootstrap}/svg/sprite.svg#it-password-invisible"></use>
                                         </svg>
                                     </span>
-                                    <label for="check">Ripeti password</label>
                                 </div>
                             </div>
                         </div>
