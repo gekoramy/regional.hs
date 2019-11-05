@@ -51,6 +51,7 @@ public class HsAdminJDBC extends JDBC implements HsAdminDAO {
                 .select(PERSON.asterisk().except(PERSON.PASSWORD), HS_ADMIN.WORKPLACE)
                 .from(PERSON)
                 .naturalJoin(HS_ADMIN)
+                .orderBy(PERSON.NAME)
                 .fetchStreamInto(HsAdmin.class);
     }
 }

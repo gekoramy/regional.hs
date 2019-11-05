@@ -46,6 +46,7 @@ public class GeneralJDBC extends JDBC implements GeneralDAO {
                     .and(DSL.concat(gen.NAME.concat(" "), gen.SURNAME).containsIgnoreCase(name))
                     .and(gen.EMAIL.containsIgnoreCase(email))
                     .and(gen.FC.containsIgnoreCase(fc))
+                    .orderBy(gen.NAME)
                     .fetchStreamInto(General.class);
         });
     }
@@ -176,6 +177,7 @@ public class GeneralJDBC extends JDBC implements GeneralDAO {
                 .select(PERSON.asterisk().except(PERSON.PASSWORD), GENERAL.WORKPLACE)
                 .from(PERSON)
                 .naturalJoin(GENERAL)
+                .orderBy(PERSON.NAME)
                 .fetchStreamInto(General.class);
     }
 }

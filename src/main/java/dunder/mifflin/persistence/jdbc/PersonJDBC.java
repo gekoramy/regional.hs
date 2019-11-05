@@ -36,6 +36,7 @@ public class PersonJDBC extends JDBC implements PersonDAO {
                 .where(DSL.concat(PERSON.NAME.concat(" "), PERSON.SURNAME).containsIgnoreCase(name))
                 .and(PERSON.EMAIL.containsIgnoreCase(email))
                 .and(PERSON.FC.containsIgnoreCase(fc))
+                .orderBy(PERSON.NAME)
                 .fetchStreamInto(Person.class);
     }
 
@@ -47,6 +48,7 @@ public class PersonJDBC extends JDBC implements PersonDAO {
                 .leftJoin(SP_QUALIFICATION).on(SP_QUALIFICATION.SPECIALIST.eq(PERSON.ID))
                 .leftJoin(HS_QUALIFICATION).on(HS_QUALIFICATION.DOCTOR.eq(PERSON.ID))
                 .where(SP_QUALIFICATION.EXAM.eq(exam).or(HS_QUALIFICATION.EXAM.eq(exam)))
+                .orderBy(PERSON.NAME)
                 .fetchStreamInto(Person.class);
     }
 
@@ -60,6 +62,7 @@ public class PersonJDBC extends JDBC implements PersonDAO {
                 .and(DSL.concat(PERSON.NAME.concat(" "), PERSON.SURNAME).containsIgnoreCase(name))
                 .and(PERSON.EMAIL.containsIgnoreCase(email))
                 .and(PERSON.FC.containsIgnoreCase(fc))
+                .orderBy(PERSON.NAME)
                 .fetchStreamInto(Person.class);
     }
 
@@ -70,6 +73,7 @@ public class PersonJDBC extends JDBC implements PersonDAO {
                 .from(PERSON)
                 .innerJoin(CITY).on(PERSON.RESIDENCE.eq(CITY.ID))
                 .where(CITY.PROVINCE.eq(province))
+                .orderBy(PERSON.NAME)
                 .fetchStreamInto(Person.class);
     }
 
@@ -80,6 +84,7 @@ public class PersonJDBC extends JDBC implements PersonDAO {
                 .from(PERSON)
                 .innerJoin(FOLLOWS).on(PERSON.ID.eq(FOLLOWS.PATIENT))
                 .where(FOLLOWS.ID.eq(follows))
+                .orderBy(PERSON.NAME)
                 .fetchOptionalInto(Person.class);
     }
 
@@ -132,6 +137,7 @@ public class PersonJDBC extends JDBC implements PersonDAO {
         return context
                 .select(PERSON.asterisk().except(PERSON.PASSWORD))
                 .from(PERSON)
+                .orderBy(PERSON.NAME)
                 .fetchStreamInto(Person.class);
     }
 }
