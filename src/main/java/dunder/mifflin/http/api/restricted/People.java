@@ -51,6 +51,7 @@ public class People extends HttpServlet {
 
             final JsonArray array = people
                     .stream()
+                    .filter((person) -> person.id() != id)
                     .map((person) -> Jsonify.json(person, avatars))
                     .collect(Jsonify.array());
 
