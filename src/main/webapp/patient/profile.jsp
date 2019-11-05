@@ -7,8 +7,17 @@
 
 <jsp:useBean id="person" scope="request" type="dunder.mifflin.persistence.pojos.Person"/>
 <jsp:useBean id="avatar" scope="request" type="java.lang.String"/>
-<jsp:useBean id="residence" scope="request" type="dunder.mifflin.persistence.pojos.City"/>
+
 <jsp:useBean id="general" scope="request" type="dunder.mifflin.persistence.pojos.General"/>
+<jsp:useBean id="general_avatar" scope="request" type="java.lang.String"/>
+
+<jsp:useBean scope="request" id="birthplace_city" type="dunder.mifflin.persistence.pojos.City"/>
+<jsp:useBean scope="request" id="birthplace_province" type="dunder.mifflin.persistence.pojos.Province"/>
+<jsp:useBean scope="request" id="birthplace_region" type="dunder.mifflin.persistence.pojos.Region"/>
+
+<jsp:useBean scope="request" id="residence_city" type="dunder.mifflin.persistence.pojos.City"/>
+<jsp:useBean scope="request" id="residence_province" type="dunder.mifflin.persistence.pojos.Province"/>
+<jsp:useBean scope="request" id="residence_region" type="dunder.mifflin.persistence.pojos.Region"/>
 
 <html>
 <head>
@@ -19,18 +28,22 @@
     <title>Profilo</title>
 
     <script>
-        $(document).ready(function () {
-            $("#filter").keyup(function () {
-                $.getJSON(
-                    "${pageContext.request.contextPath}/api/suitable",
-                    {
-                        name: $("#filter").val()
-                    },
-                    function (result) {
-                        $("#items")
-                            .empty()
-                            .append(
-                                `
+        $(document).ready(() => {
+            $("#filter")
+                .keyup(() => {
+                    $.getJSON(
+                        "${pageContext.request.contextPath}/api/suitable",
+                        {
+                            name: $("#filter").val()
+                        },
+                        function (result) {
+
+                            const items = $("#items");
+
+                            items
+                                .empty()
+                                .append(
+                                    `
                                 <thead>
                                 <tr>
                                 <th>Data di nascita</th>
@@ -43,11 +56,9 @@
                                 </tr>
                                 </thead>
                                 `
-                            );
+                                );
 
-                        $.each(result, function (i, it) {
-                            $("#items")
-                                .append(
+                            $.each(result, (i, it) => items.append(
                                     `
                                     <tr>
                                     <td>{birthday}</td>
@@ -59,10 +70,20 @@
                                     <td><input type="submit" name="purpose" value="{id}"/></td>
                                     </tr>
                                     `.formatUnicorn(it)
-                                );
+                                )
+                            );
                         });
-                    });
-            });
+                })
+                .keyup();
+
+            $(window)
+                .resize(() => {
+                    if ($(window).width() <= 576)
+                        $('#wrapper').addClass('size-sm');
+                    else
+                        $('#wrapper').removeClass('size-sm')
+                })
+                .resize();
         });
     </script>
 
@@ -99,13 +120,39 @@
 <div class="container" style="margin-top: 50px;">
 
     <!--Informazioni e immagine profilo-->
-    <div class="row px-3 px-md-0 justify-content-around">
+
+    <div class="row px-3 px-md-0">
         <div class="col-lg-10 ">
             <div class="row">
                 <div class="col-4 col-md-3">
-                    <div class="avatar size-nice mb-3">
-                        <img src="${avatar}" alt="${person.name()} ${person.surname()}">
+
+                    <div id="wrapper" class="avatar-upload-wrapper">
+
+                        <div class="avatar size-nice avatar-upload">
+                            <img src="${avatar}" alt="${person.name()} ${person.surname()}">
+
+                            <form method="post" action="${pageContext.request.contextPath}/patient/upload"
+                                  class="upload-avatar-container m-0" enctype="multipart/form-data">
+                                <input type="file" name="avatar" id="avatar" class="upload-avatar" onchange="form.submit()"/>
+                                <label for="avatar">
+                                    <svg class="icon icon-sm" aria-hidden="true">
+                                        <use xlink:href="${bootstrap}/svg/sprite.svg#it-camera"></use>
+                                    </svg>
+                                    <span>
+                                        Aggiorna<span class="sr-only"> foto dell'Avatar</span>
+                                    </span>
+                                </label>
+                            </form>
+                        </div>
+
+                        <div class="avatar-upload-icon">
+                            <svg class="icon icon-sm" aria-hidden="true">
+                                <use xlink:href="${bootstrap}/svg/sprite.svg#it-camera"></use>
+                            </svg>
+                        </div>
+
                     </div>
+
                 </div>
                 <div class="col-8 col-md-9">
                     <div class="row">
@@ -114,25 +161,29 @@
                             <p>${person.name()} ${person.surname()}</p>
                             <p class="text-muted mb-0"><small>Codice fiscale</small></p>
                             <p>${person.fc()}</p>
-                            <p class="text-muted mb-0"><small>Sesso</small></p>
-                            <p>${person.gender()? "Maschio" : "Femmina"}</p>
+                            <p class="text-muted mb-0"><small>Data di nascita</small></p>
+                            <p>${person.birthday()}</p>
                             <p class="text-muted mb-0"><small>Email</small></p>
                             <p>${person.email()}</p>
                         </div>
                         <div class="col-md-6">
-                            <p class="text-muted mb-0"><small>Data di nascita</small></p>
-                            <p>${person.birthday()}</p>
-                            <p class="text-muted mb-0"><small>Provincia</small></p>
-                            <p>${residence.name()}</p>
                             <p class="text-muted mb-0"><small>Luogo di nascita</small></p>
-                            <p>${person.birthplace()}</p>
+                            <p>
+                                ${birthplace_city.name()}<br>
+                                ${birthplace_province.name()}<br>
+                                ${birthplace_region.name()}
+                            </p>
+
+                            <p class="text-muted mb-0"><small>Residenza</small></p>
+                            <p>
+                                ${residence_city.name()}<br>
+                                ${residence_province.name()}<br>
+                                ${residence_region.name()}
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-lg-2 align-self-end">
-            <button type="button" class="btn btn-primary btn-lg btn-block">Modifica</button>
         </div>
     </div>
 
@@ -140,12 +191,12 @@
 
     <!--Medico di base-->
 
-    <div class="row px-3 px-md-0 justify-content-around">
+    <div class="row px-3 px-md-0">
         <div class="col-lg-10">
             <div class="row">
                 <div class="col-4 col-md-3">
                     <div class="avatar size-nice mb-3">
-                        <img src="${avatar}" alt="${general.name()} ${general.surname()}">
+                        <img src="${general_avatar}" alt="${general.name()} ${general.surname()}">
                     </div>
                 </div>
                 <div class="col-8 col-md-9">
@@ -171,7 +222,7 @@
 
     <!--Modifica Password-->
 
-    <div class="row px-3 px-md-0 justify-content-around">
+    <div class="row px-3 px-md-0">
         <div class="col-lg-10">
             <div class="row ">
                 <div class="col-4 col-md-3">

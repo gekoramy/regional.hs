@@ -2,9 +2,7 @@ package dunder.mifflin.http.views.patient;
 
 import dunder.mifflin.beans.DAOs;
 import dunder.mifflin.persistence.daos.exceptions.DAOException;
-import dunder.mifflin.persistence.pojos.City;
-import dunder.mifflin.persistence.pojos.General;
-import dunder.mifflin.persistence.pojos.Person;
+import dunder.mifflin.persistence.pojos.*;
 import dunder.mifflin.utils.Auths;
 import dunder.mifflin.utils.Avatars;
 import dunder.mifflin.utils.Fallbacks;
@@ -33,14 +31,35 @@ public class Profile extends HttpServlet {
             final long id = Auths.session(req).orElseThrow();
             final Person person = daos.factory().person().byKey(id).orElseThrow();
             final String avatar = Avatars.avatar200(daos.factory().avatar(), req.getContextPath(), person);
-            final City residence = daos.factory().city().byKey(person.residence()).orElseThrow();
+
             final General general = daos.factory().general().follows(person.id()).orElseThrow();
+            final String general_avatar = Avatars.avatar200(daos.factory().avatar(), req.getContextPath(), general);
+
+            {
+                final City city = daos.factory().city().byKey(person.birthplace()).orElseThrow();
+                final Province province = daos.factory().province().byKey(city.province()).orElseThrow();
+                final Region region = daos.factory().region().byKey(province.region()).orElseThrow();
+
+                req.setAttribute("birthplace_city", city);
+                req.setAttribute("birthplace_province", province);
+                req.setAttribute("birthplace_region", region);
+            }
+
+            {
+                final City city = daos.factory().city().byKey(person.residence()).orElseThrow();
+                final Province province = daos.factory().province().byKey(city.province()).orElseThrow();
+                final Region region = daos.factory().region().byKey(province.region()).orElseThrow();
+
+                req.setAttribute("residence_city", city);
+                req.setAttribute("residence_province", province);
+                req.setAttribute("residence_region", region);
+            }
 
             req.setAttribute("result", result(req, "/patient/general", "/patient/password", "/patient/upload"));
             req.setAttribute("person", person);
             req.setAttribute("avatar", avatar);
-            req.setAttribute("residence", residence);
             req.setAttribute("general", general);
+            req.setAttribute("general_avatar", general_avatar);
             req.getServletContext().getRequestDispatcher("/patient/profile.jsp").forward(req, resp);
 
             Fallbacks.safe(req);
