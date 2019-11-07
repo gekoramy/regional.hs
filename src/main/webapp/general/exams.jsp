@@ -212,6 +212,8 @@
     </c:if>
 </c:forEach>
 
+<%@include file="../commons/footer.jsp" %>
+
 <jsp:include page="../commons/notifications/success.jsp">
     <jsp:param name="n_id" value="exam-200"/>
     <jsp:param name="n_body" value="Esame prescritto"/>

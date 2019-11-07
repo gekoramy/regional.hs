@@ -348,6 +348,8 @@
 
 </form>
 
+<%@include file="../commons/footer.jsp" %>
+
 <%-- region upload --%>
 
 <jsp:include page="../commons/notifications/success.jsp">

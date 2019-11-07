@@ -41,6 +41,8 @@
 
 </form>
 
+<%@include file="./commons/footer.jsp" %>
+
 <jsp:include page="commons/notifications/success.jsp">
     <jsp:param name="n_id" value="token-200"/>
     <jsp:param name="n_body" value="Controlla l'email"/>

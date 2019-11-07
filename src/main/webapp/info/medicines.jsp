@@ -71,5 +71,7 @@
     <div id="items" class="row"></div>
 </div>
 
+<%@include file="../commons/footer.jsp" %>
+
 </body>
 </html>
