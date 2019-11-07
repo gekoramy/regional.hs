@@ -47,5 +47,7 @@
     <div id="items" class="row"></div>
 </form>
 
+<%@include file="../commons/footer.jsp" %>
+
 </body>
 </html>

@@ -62,6 +62,8 @@
     </div>
 </form>
 
+<%@include file="./commons/footer.jsp" %>
+
 <jsp:include page="commons/notifications/error.jsp">
     <jsp:param name="n_id" value="wrong"/>
     <jsp:param name="n_body" value="Username o password sbagliati"/>

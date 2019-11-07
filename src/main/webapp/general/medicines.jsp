@@ -157,6 +157,8 @@
 
 </div>
 
+<%@include file="../commons/footer.jsp" %>
+
 <jsp:include page="../commons/notifications/success.jsp">
     <jsp:param name="n_id" value="medicine-200"/>
     <jsp:param name="n_body" value="Farmaco prescritto"/>

@@ -157,5 +157,7 @@
     </c:if>
 </c:forEach>
 
+<%@include file="../commons/footer.jsp" %>
+
 </body>
 </html>

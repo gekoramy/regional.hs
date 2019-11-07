@@ -65,6 +65,8 @@
     </div>
 </form>
 
+<%@include file="./commons/footer.jsp" %>
+
 <script>
     $(document).ready(
         () => $('#password, #check').keyup(
