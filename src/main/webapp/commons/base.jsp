@@ -14,7 +14,7 @@
 <script>
     $(document).ready(() => {
         $("form").submit(() => $.blockUI({
-            message: "<img src=\"${pageContext.request.contextPath}/assets/img/loading/giphy.gif\" width=\"400px\" height=\"400px\" alt=\"loading\">\n",
+            message: $('#loading'),
             css: {
                 top: '20%',
                 left: ($(window).width() - 400) / 2 + 'px',
