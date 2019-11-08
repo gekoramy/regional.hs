@@ -15,3 +15,5 @@
         </div>
     </div>
 </footer>
+
+<img id="loading" style="display: none" src="${pageContext.request.contextPath}/assets/img/loading/giphy.gif" width="400px" height="400px" alt="loading">
