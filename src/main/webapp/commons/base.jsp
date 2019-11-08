@@ -14,7 +14,13 @@
 <script>
     $(document).ready(() => {
         $("form").submit(() => $.blockUI({
-            message: null
+            message: "<img src=\"${pageContext.request.contextPath}/assets/img/loading/giphy.gif\" width=\"400px\" height=\"400px\" alt=\"loading\">\n",
+            css: {
+                top: '20%',
+                left: ($(window).width() - 400) / 2 + 'px',
+                width: '400px',
+                border: 'none'
+            }
         }));
     });
 </script>
