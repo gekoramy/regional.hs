@@ -2,7 +2,7 @@ package dunder.mifflin.http.views.doctor;
 
 import dunder.mifflin.beans.DAOs;
 import dunder.mifflin.persistence.daos.exceptions.DAOException;
-import dunder.mifflin.persistence.pojos.HsDoctor;
+import dunder.mifflin.persistence.pojos.Person;
 import dunder.mifflin.utils.Auths;
 import dunder.mifflin.utils.Avatars;
 import dunder.mifflin.utils.Fallbacks;
@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 import static javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
@@ -29,7 +30,10 @@ public class People extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             final long id = Auths.session(req).orElseThrow();
-            final HsDoctor doctor = daos.factory().hsDoctor().byKey(id).orElseThrow();
+            final Person doctor = Optional.<Person>empty()
+                    .or(() -> daos.factory().hsDoctor().byKey(id))
+                    .or(() -> daos.factory().specialist().byKey(id))
+                    .orElseThrow();
             final String avatar = Avatars.avatar50(daos.factory().avatar(), req.getContextPath(), doctor);
 
             req.setAttribute("doctor", doctor);

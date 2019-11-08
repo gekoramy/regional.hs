@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<jsp:useBean id="doctor" scope="request" type="dunder.mifflin.persistence.pojos.HsDoctor"/>
+<jsp:useBean id="doctor" scope="request" type="dunder.mifflin.persistence.pojos.Person"/>
 <jsp:useBean scope="request" id="patient" type="dunder.mifflin.persistence.pojos.Person"/>
 
 <jsp:useBean scope="request" id="avatar" type="java.lang.String"/>

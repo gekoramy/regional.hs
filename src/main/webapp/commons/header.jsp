@@ -21,7 +21,7 @@
     </c:when>
 
     <c:when test="${qualification eq Qualification.SPECIALIST}">
-        <%@include file="../specialist/partial/header.jsp" %>
+        <%@include file="../doctor/partial/header.jsp" %>
     </c:when>
 
     <c:when test="${qualification eq Qualification.NONE}">

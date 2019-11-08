@@ -4,7 +4,6 @@ import dunder.mifflin.beans.DAOs;
 import dunder.mifflin.beans.Emails;
 import dunder.mifflin.persistence.daos.exceptions.DAOException;
 import dunder.mifflin.persistence.pojos.ExamTicket;
-import dunder.mifflin.persistence.pojos.HsDoctor;
 import dunder.mifflin.persistence.pojos.Person;
 import dunder.mifflin.utils.Auths;
 
@@ -43,7 +42,12 @@ public class Publish extends HttpServlet {
 
     private int action(HttpServletRequest req) {
         try {
-            final HsDoctor doctor = Auths.session(req).flatMap(daos.factory().hsDoctor()::byKey).orElseThrow();
+            final long did = Auths.session(req).orElseThrow();
+            final Person doctor = Optional.<Person>empty()
+                    .or(() -> daos.factory().hsDoctor().byKey(did))
+                    .or(() -> daos.factory().specialist().byKey(did))
+                    .orElseThrow();
+
             final Person patient = Optional.ofNullable(req.getParameter("patient")).map(Long::parseLong).flatMap(daos.factory().person()::byKey).orElseThrow();
             final long prescription = Optional.ofNullable(req.getParameter("prescription")).map(Long::parseLong).orElseThrow();
             final String note = Optional.ofNullable(req.getParameter("note")).orElseThrow();

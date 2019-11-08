@@ -40,16 +40,22 @@ public class Cash extends HttpServlet {
     @Inject
     Emails emails;
 
-    private final BigDecimal amout = BigDecimal.valueOf(1100, 2);
+    private static final BigDecimal HEALTH_SERVICE = BigDecimal.valueOf(1100, 2);
+    private static final BigDecimal SPECIALIST = BigDecimal.valueOf(5000, 2);
 
-    protected int action(HttpServletRequest req) {
+    private int action(HttpServletRequest req) {
         try {
             final long responsible = Auths.session(req).orElseThrow();
+            final BigDecimal amount = Optional.<BigDecimal>empty()
+                    .or(() -> daos.factory().hsDoctor().byKey(responsible).map((__) -> HEALTH_SERVICE))
+                    .or(() -> daos.factory().specialist().byKey(responsible).map((__) -> SPECIALIST))
+                    .orElseThrow();
+
             final long prescription = Optional.ofNullable(req.getParameter("prescription")).map(Long::parseLong).orElseThrow();
             final Person patient = Optional.ofNullable(req.getParameter("patient")).map(Long::parseLong).flatMap(daos.factory().person()::byKey).orElseThrow();
 
-            daos.factory().examTicket().insert(prescription, amout, responsible);
-            emails.cash(patient, amout);
+            daos.factory().examTicket().insert(prescription, amount, responsible);
+            emails.cash(patient, amount);
 
             return SC_OK;
         } catch (NoSuchElementException e) {
