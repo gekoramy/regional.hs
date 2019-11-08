@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 import static dunder.mifflin.utils.Results.result;
 import static java.util.stream.Collectors.toUnmodifiableList;
@@ -54,11 +53,6 @@ public class ExamPrescriptions extends HttpServlet {
                     List.copyOf(responsible.values())
             );
 
-            final List<Examination> options = Stream.concat(
-                    daos.factory().hsExam().fetchAll(),
-                    daos.factory().spExam().fetchAll()
-            ).collect(toUnmodifiableList());
-
             {
                 final City city = daos.factory().city().byKey(patient.birthplace()).orElseThrow();
                 final Province province = daos.factory().province().byKey(city.province()).orElseThrow();
@@ -89,7 +83,6 @@ public class ExamPrescriptions extends HttpServlet {
             req.setAttribute("reports", reports);
             req.setAttribute("responsible", responsible);
             req.setAttribute("avatars", avatars);
-            req.setAttribute("options", options);
             req.getServletContext().getRequestDispatcher("/general/exams.jsp").forward(req, resp);
 
             Fallbacks.safe(req);
