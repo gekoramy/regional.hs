@@ -41,7 +41,7 @@ public class PrescribeExam extends HttpServlet {
     @Inject
     Emails emails;
 
-    protected int action(HttpServletRequest req) {
+    private int action(HttpServletRequest req) {
         try {
             final General general = Auths.session(req).flatMap(daos.factory().general()::byKey).orElseThrow();
             final Person patient = Optional.ofNullable(req.getParameter("patient")).map(Long::parseLong).flatMap(daos.factory().person()::byKey).orElseThrow();

@@ -33,7 +33,10 @@ public class MedicinePrescriptions extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         try {
             final long did = Auths.session(req).orElseThrow();
-            final HsDoctor doctor = daos.factory().hsDoctor().byKey(did).orElseThrow();
+            final Person doctor = Optional.<Person>empty()
+                    .or(() -> daos.factory().hsDoctor().byKey(did))
+                    .or(() -> daos.factory().specialist().byKey(did))
+                    .orElseThrow();
             final String avatar = Avatars.avatar50(daos.factory().avatar(), req.getContextPath(), doctor);
 
             final long pid = Optional.ofNullable(req.getParameter("patient")).map(Long::parseLong).orElseThrow();

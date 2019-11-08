@@ -2,10 +2,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<%--@elvariable id="qualification" type="dunder.mifflin.utils.Qualification"--%>
 <%--@elvariable id="result" type="dunder.mifflin.utils.Result"--%>
 <%--@elvariable id="rsp" type="dunder.mifflin.persistence.pojos.Person"--%>
 
-<jsp:useBean scope="request" id="doctor" type="dunder.mifflin.persistence.pojos.HsDoctor"/>
+<jsp:useBean scope="request" id="doctor" type="dunder.mifflin.persistence.pojos.Person"/>
 <jsp:useBean scope="request" id="patient" type="dunder.mifflin.persistence.pojos.Person"/>
 <jsp:useBean scope="request" id="responsible" type="java.util.Map<java.lang.Long, dunder.mifflin.persistence.pojos.Person>"/>
 
@@ -181,7 +182,18 @@
                         <div class="modal-body">
                             <input type="hidden" name="prescription" value="${it.id()}">
                             <input type="hidden" name="patient" value="${patient.id()}">
-                            Il prezzo del ticket è di <code>€50.00</code>
+                            Il prezzo del ticket è di
+                            <code>
+                                <c:choose>
+                                    <c:when test="${qualification eq Qualification.HS_DOCTOR}">
+                                        €11.00
+                                    </c:when>
+
+                                    <c:when test="${qualification eq Qualification.SPECIALIST}">
+                                        €50.00
+                                    </c:when>
+                                </c:choose>
+                            </code>
                         </div>
                         <div class="modal-footer">
                             <input class="btn btn-primary btn-sm" type="submit" value="Incassa">
@@ -292,7 +304,8 @@
 
 <jsp:include page="../commons/notifications/error.jsp">
     <jsp:param name="n_id" value="cash-401"/>
-    <jsp:param name="n_body" value="Non &egrave; stato possibile incassare il ticket. Controlla di aver inserito i dati correttamente"/>
+    <jsp:param name="n_body"
+               value="Non &egrave; stato possibile incassare il ticket. Controlla di aver inserito i dati correttamente"/>
 </jsp:include>
 
 <jsp:include page="../commons/notifications/error.jsp">
@@ -312,7 +325,8 @@
 
 <jsp:include page="../commons/notifications/error.jsp">
     <jsp:param name="n_id" value="publish-401"/>
-    <jsp:param name="n_body" value="Non &egrave; stato possibile pubblicare il referto. Controlla di aver inserito i dati correttamente"/>
+    <jsp:param name="n_body"
+               value="Non &egrave; stato possibile pubblicare il referto. Controlla di aver inserito i dati correttamente"/>
 </jsp:include>
 
 <jsp:include page="../commons/notifications/error.jsp">

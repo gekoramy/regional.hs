@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Stream;
 
 import static dunder.mifflin.utils.Results.result;
 import static java.util.stream.Collectors.toUnmodifiableList;
@@ -32,14 +33,22 @@ public class ExamPrescriptions extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         try {
             final long did = Auths.session(req).orElseThrow();
-            final HsDoctor doctor = daos.factory().hsDoctor().byKey(did).orElseThrow();
+            final Person doctor = Optional.<Person>empty()
+                    .or(() -> daos.factory().hsDoctor().byKey(did))
+                    .or(() -> daos.factory().specialist().byKey(did))
+                    .orElseThrow();
             final String avatar = Avatars.avatar50(daos.factory().avatar(), req.getContextPath(), doctor);
 
             final long pid = Optional.ofNullable(req.getParameter("patient")).map(Long::parseLong).orElseThrow();
             final Person patient = daos.factory().person().byKey(pid).orElseThrow();
             final String pAvatar = Avatars.avatar200(daos.factory().avatar(), req.getContextPath(), patient);
             final List<ExamPrescription> exams = daos.factory().examPrescription().concerns(patient.id(), "").collect(toUnmodifiableList());
-            final Set<Long> qualified = daos.factory().hsExam().qualifiedFor(doctor.id()).map(Examination::id).collect(toUnmodifiableSet());
+            final Set<Long> qualified = Stream
+                    .concat(
+                            daos.factory().hsExam().qualifiedFor(doctor.id()),
+                            daos.factory().spExam().qualifiedFor(doctor.id())
+                    )
+                    .map(Examination::id).collect(toUnmodifiableSet());
 
             final Long[] prescriptions = exams.stream().map(Prescription::id).toArray(Long[]::new);
             final Map<Long, ExamTicket> tickets = daos.factory().examTicket().byKeys(prescriptions);
