@@ -25,13 +25,41 @@
 <jsp:useBean scope="request" id="reports" type="java.util.Map<java.lang.Long, dunder.mifflin.persistence.pojos.Report>"/>
 <jsp:useBean scope="request" id="tickets" type="java.util.Map<java.lang.Long, dunder.mifflin.persistence.pojos.ExamTicket>"/>
 
-<jsp:useBean scope="request" id="options" type="java.util.List<dunder.mifflin.persistence.pojos.Examination>"/>
-
 <html>
 <head>
     <%@ include file="../commons/meta.jsp" %>
     <%@ include file="../commons/base.jsp" %>
     <%@ include file="../commons/scripts.jsp" %>
+    <%@ include file="../commons/select2.jsp" %>
+
+    <script>
+        $(document).ready(() =>
+            $('#exam').select2({
+                ajax: {
+                    url: "${pageContext.request.contextPath}/api/exams",
+                    dataType: 'json',
+                    data: (params) => {
+                        return {
+                            pattern: params.term
+                        }
+                    },
+                    processResults: (data) => {
+                        return {
+                            results: $.map(
+                                data,
+                                (it) => {
+                                    return {
+                                        id: it.id,
+                                        text: it.name
+                                    };
+                                }
+                            )
+                        }
+                    }
+                }
+            })
+        );
+    </script>
 
     <title>Storico esami</title>
 </head>
@@ -40,7 +68,7 @@
 
 <%@include file="../commons/header.jsp" %>
 
-<%@include file="partial/patient.jsp"%>
+<%@include file="partial/patient.jsp" %>
 
 <div class="container">
 
@@ -65,17 +93,9 @@
                         <div class="row">
 
                             <div class="col-12 mt-3">
-                                <div id="medicine" class="bootstrap-select-wrapper mt-3">
-                                    <label>Esame</label>
-                                    <select name="exam"
-                                            title="Scegli un esame"
-                                            data-live-search="true"
-                                            data-live-search-placeholder="Cerca esame"
-                                            required>
-                                        <c:forEach items="${options}" var="option">
-                                            <option value="${option.id()}">${option.name()}</option>
-                                        </c:forEach>
-                                    </select>
+                                <label for="exam" class="input-number-label">Esame</label>
+                                <div class="w-100">
+                                    <select id="exam" name="exam" required style="width: 100%"></select>
                                 </div>
                             </div>
 

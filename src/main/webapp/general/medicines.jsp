@@ -21,13 +21,41 @@
 <jsp:useBean scope="request" id="medicines" type="java.util.List<dunder.mifflin.persistence.pojos.MedicinePrescription>"/>
 <jsp:useBean scope="request" id="tickets" type="java.util.Map<java.lang.Long, dunder.mifflin.persistence.pojos.MedicineTicket>"/>
 
-<jsp:useBean scope="request" id="options" type="java.util.List<dunder.mifflin.persistence.pojos.Medicine>"/>
-
 <html>
 <head>
     <%@ include file="../commons/meta.jsp" %>
     <%@ include file="../commons/base.jsp" %>
     <%@ include file="../commons/scripts.jsp" %>
+    <%@ include file="../commons/select2.jsp" %>
+
+    <script>
+        $(document).ready(() =>
+            $('#medicine').select2({
+                ajax: {
+                    url: "${pageContext.request.contextPath}/api/medicines",
+                    dataType: 'json',
+                    data: (params) => {
+                        return {
+                            pattern: params.term
+                        }
+                    },
+                    processResults: (data) => {
+                        return {
+                            results: $.map(
+                                data,
+                                (it) => {
+                                    return {
+                                        id: it.id,
+                                        text: it.name
+                                    };
+                                }
+                            )
+                        }
+                    }
+                }
+            })
+        );
+    </script>
 
     <title>Storico farmaci</title>
 </head>
@@ -61,17 +89,9 @@
                         <div class="row">
 
                             <div class="col-12 mt-3">
-                                <div id="medicine" class="bootstrap-select-wrapper mt-3">
-                                    <label>Farmaco</label>
-                                    <select name="medicine"
-                                            title="Scegli un farmaco"
-                                            data-live-search="true"
-                                            data-live-search-placeholder="Cerca faramaco"
-                                            required>
-                                        <c:forEach items="${options}" var="option">
-                                            <option value="${option.id()}">${option.name()}</option>
-                                        </c:forEach>
-                                    </select>
+                                <label for="medicine" class="input-number-label">Farmaco</label>
+                                <div class="w-100">
+                                    <select id="medicine" name="medicine" required style="width: 100%"></select>
                                 </div>
                             </div>
 

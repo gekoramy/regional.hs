@@ -45,8 +45,6 @@ public class MedicinePrescriptions extends HttpServlet {
             final Long[] prescriptions = medicines.stream().map(Prescription::id).toArray(Long[]::new);
             final Map<Long, MedicineTicket> tickets = daos.factory().medicineTicket().byKeys(prescriptions);
 
-            final List<Medicine> options = daos.factory().medicine().fetchAll().collect(toUnmodifiableList());
-
             {
                 final City city = daos.factory().city().byKey(patient.birthplace()).orElseThrow();
                 final Province province = daos.factory().province().byKey(city.province()).orElseThrow();
@@ -74,7 +72,6 @@ public class MedicinePrescriptions extends HttpServlet {
             req.setAttribute("patient_avatar", pAvatar);
             req.setAttribute("medicines", medicines);
             req.setAttribute("tickets", tickets);
-            req.setAttribute("options", options);
             req.getServletContext().getRequestDispatcher("/general/medicines.jsp").forward(req, resp);
 
             Fallbacks.safe(req);
