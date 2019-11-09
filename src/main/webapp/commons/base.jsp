@@ -9,8 +9,6 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/bootstrap-italia/css/bootstrap-italia.min.css">
 
-<c:set var="bootstrap" scope="request" value="${pageContext.request.contextPath}/assets/bootstrap-italia"/>
-
 <script src="${pageContext.request.contextPath}/assets/script/jquery.blockUI.min.js"></script>
 
 <script>
@@ -26,3 +24,6 @@
         }));
     });
 </script>
+
+<c:set scope="request" var="bootstrap" value="${pageContext.request.contextPath}/assets/bootstrap-italia"/>
+<c:set scope="request" var="logo" value="${pageContext.request.contextPath}/assets/img/logo/regional.hs.white.svg"/>
