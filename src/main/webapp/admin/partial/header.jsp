@@ -25,7 +25,7 @@
                                 <ul class="link-list">
                                     <li>
                                         <a class="list-item"
-                                           href="${pageContext.request.contextPath}/tickets/xls" target="_blank" download>xls</a>
+                                           href="${pageContext.request.contextPath}/tickets/xls" target="_blank" download>Xls</a>
                                     </li>
                                     <li>
                                         <a class="list-item <c:if test="${fn:contains(pageContext.request.requestURI, '/patient/profile')}">active</c:if>"

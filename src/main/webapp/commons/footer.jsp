@@ -1,16 +1,16 @@
 <footer>
     <div class="container w-100">
         <hr class="mb-0 mt-5">
-        <div class="row my-4">
-            <div class="text-center col-12 col-md-4 text-md-left">
-                <span>&copy; 2019 Dunder Mifflin</span>
+        <div class="row my-4 justify-content-between">
+            <div class="col-2 text-left">
+                <img class="mx-2 align-middle" src="${pageContext.request.contextPath}/assets/img/logo/regional.hs.svg" alt="logo" height="40" width="40">
             </div>
 
-            <div class="text-center col-12 col-md-8 text-md-right mt-3 mt-md-0">
-                <a class="text-decoration-none mx-2" href="${pageContext.request.contextPath}/policy/privacy">Privacy</a>
-                <a class="text-decoration-none mx-2" href="${pageContext.request.contextPath}/policy/cookies">Cookie</a>
-                <a class="text-decoration-none mx-2" href="${pageContext.request.contextPath}/info/exams">Esami</a>
-                <a class="text-decoration-none mx-2" href="${pageContext.request.contextPath}/info/medicines">Medicine</a>
+            <div class="col text-right d-flex justify-content-end align-items-center">
+                <a class="mx-2 text-decoration-none" href="${pageContext.request.contextPath}/policy/privacy">Privacy</a>
+                <a class="mx-2 text-decoration-none" href="${pageContext.request.contextPath}/policy/cookies">Cookie</a>
+                <a class="mx-2 text-decoration-none" href="${pageContext.request.contextPath}/info/exams">Esami</a>
+                <a class="mx-2 text-decoration-none" href="${pageContext.request.contextPath}/info/medicines">Medicine</a>
             </div>
         </div>
     </div>
