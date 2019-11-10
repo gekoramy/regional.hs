@@ -88,11 +88,11 @@
                             Costantemente aggiornato
                         </h5>
                         <p class="card-text">
-                            regional hs ti mantiene aggiornato in tempo reale notificando via email nuove prescrizioni e referti
+                            Regional HS ti mantiene aggiornato in tempo reale notificando via email nuove prescrizioni e referti
                             <br>
                             <br>
-                            All'interno di questo sito trovi un'intera sezione dedicata a raccogliere le informarti sugli esami e
-                            i medicinali prescrivibili
+                            All'interno di questo sito trovi un'intera sezione dedicata a raccogliere le informazioni sugli esami
+                            e i medicinali prescrivibili
                             <br>
                             Prova a darci un'occhiata
                         </p>
