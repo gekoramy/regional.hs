@@ -43,14 +43,15 @@
                             Quadro clinico
                         </h5>
                         <p class="card-text">
-                            Il tuo quadro clinico a portata di mano, sempre e ovunque
+                            Il tuo quadro clinico <strong>a portata di mano</strong>, sempre e ovunque
                             <br>
                             <br>
-                            Visualizza lo storico delle prescrizioni mediche e tutti i tuoi referti,
+                            Visualizza lo storico delle <strong>prescrizioni mediche</strong> e tutti i tuoi
+                            <strong>referti</strong>,
                             organizzati e ordinati in una comoda tabella
                             <br>
                             <br>
-                            Monitora lo stato dei ticket ed esporta la spesa in formato pdf
+                            Monitora lo stato dei <strong>ticket</strong> ed esporta la spesa in formato pdf
                         </p>
                     </div>
                 </div>
@@ -64,17 +65,21 @@
                             Gestione account
                         </h5>
                         <p class="card-text">
-                            Aggiorna la tua foto profilo in ogni momento
+                            Aggiorna la tua <strong>foto profilo</strong> in ogni momento
                             <br>
                             <br>
-                            Visualizza medici di base disponibili e cambia il tuo in pochi click
+                            Visualizza <strong>medici di base</strong> disponibili e cambia il tuo in pochi click
                             <br>
                             Senza lasciare il sito e senza bisogno di operatori
                             <br>
                             <br>
-                            Password dimenticata? Nessun problema
+                            <a class="font-weight-bold text-decoration-none" href="${pageContext.request.contextPath}/forgot">
+                                Password dimenticata?
+                            </a>
+                            Nessun problema
                             <br>
-                            Resettare la password impiega solo pochi secondi, il tutto garantendo la massima sicurezza
+                            Resettare la password impiega solo <strong>pochi secondi</strong>,
+                            il tutto garantendo la massima sicurezza
                         </p>
                     </div>
                 </div>
@@ -88,11 +93,12 @@
                             Costantemente aggiornato
                         </h5>
                         <p class="card-text">
-                            Regional HS ti mantiene aggiornato in tempo reale notificando via email nuove prescrizioni e referti
+                            <strong>Regional HS</strong> ti mantiene aggiornato in tempo reale notificando
+                            via <strong>email</strong> nuove prescrizioni e referti
                             <br>
                             <br>
-                            All'interno di questo sito trovi un'intera sezione dedicata a raccogliere le informazioni sugli esami
-                            e i medicinali prescrivibili
+                            All'interno di questo sito trovi un'intera sezione dedicata a raccogliere
+                            le <strong>informazioni sugli esami e i medicinali</strong> prescrivibili
                             <br>
                             Prova a darci un'occhiata
                         </p>
@@ -132,7 +138,7 @@
                     <strong>JQuery</strong> e il framework <strong>Bootstrap Italia</strong>
                     <br>
                     <br>
-                    Punta ad essere mobile-first, senza limare alcuna funzionalità
+                    Punta ad essere <strong>mobile-first</strong>, senza limare alcuna funzionalità
                 </div>
             </div>
         </div>
