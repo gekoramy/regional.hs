@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%--@elvariable id="bootstrap" type="java.lang.String"--%>
 <%--@elvariable id="patient" type="dunder.mifflin.persistence.pojos.Person"--%>
@@ -12,6 +13,9 @@
 <%--@elvariable id="residence_city" type="dunder.mifflin.persistence.pojos.City"--%>
 <%--@elvariable id="residence_province" type="dunder.mifflin.persistence.pojos.Province"--%>
 <%--@elvariable id="residence_region" type="dunder.mifflin.persistence.pojos.Region"--%>
+
+<fmt:parseDate value="${patient.birthday()}" type="date" pattern="yyyy-MM-dd" var="tmp"/>
+<fmt:formatDate value="${tmp}" type="date" dateStyle="medium" var="out"/>
 
 <div class="it-header-slim-wrapper theme-light">
     <div class="container">
@@ -117,7 +121,7 @@
                                         <li class="list-group-item">
                                             <div class="d-flex w-100 justify-content-between">
                                                 <p>
-                                                    ${patient.birthday()}
+                                                    ${out}
                                                 </p>
                                                 <small class="text-muted">Nascita</small>
                                             </div>
