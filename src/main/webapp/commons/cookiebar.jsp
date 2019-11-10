@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:if test="${empty cookie['consent']}">
-    <form method="post" action="${pageContext.request.contextPath}/cookies/accept">
+    <form method="post" action="${pageContext.request.contextPath}/cookies/accept" class="m-0">
         <div class="cookiebar">
             <p>
                 Questo sito utilizza cookie tecnici.
