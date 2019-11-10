@@ -22,6 +22,9 @@
 <jsp:useBean scope="request" id="workplace_province" type="dunder.mifflin.persistence.pojos.Province"/>
 <jsp:useBean scope="request" id="workplace_region" type="dunder.mifflin.persistence.pojos.Region"/>
 
+<fmt:parseDate value="${person.birthday()}" type="date" pattern="yyyy-MM-dd" var="tmp"/>
+<fmt:formatDate value="${tmp}" type="date" dateStyle="long" var="out"/>
+
 <html>
 <head>
     <%@ include file="../commons/meta.jsp" %>
@@ -132,7 +135,7 @@
                             <p class="text-muted mb-0"><small>Codice fiscale</small></p>
                             <p>${person.fc()}</p>
                             <p class="text-muted mb-0"><small>Data di nascita</small></p>
-                            <p>${person.birthday()}</p>
+                            <p>${out}</p>
                             <p class="text-muted mb-0"><small>Email</small></p>
                             <p>${person.email()}</p>
                         </div>
