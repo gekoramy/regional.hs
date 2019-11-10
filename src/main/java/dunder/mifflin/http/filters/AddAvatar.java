@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {"/info/*", "/policy/*"})
+@WebFilter(urlPatterns = {"/info/*", "/policy/*", "/home"})
 public class AddAvatar extends HttpFilter {
 
     @Inject
