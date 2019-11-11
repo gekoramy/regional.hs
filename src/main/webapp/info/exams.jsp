@@ -28,16 +28,17 @@
                                 result,
                                 (i, it) => items.append(
                                     `
-                                    <div class="col-12 col-lg-4 col-md-6">
-                                        <div class="card-wrapper card-space">
-                                            <div class="card card-bg card-big border-bottom-card">
-                                                <div class="card-body">
-                                                    <div class="category-top">
-                                                      <h5><span class="badge badge-pill {class}">{hs}</span></h5>
-                                                    </div>
-                                                    <h5 class="card-title">{name}</h5>
-                                                    <p class="card-text">{info}</p>
+                                    <div class="card-wrapper card-space">
+                                        <div class="card card-bg border-bottom-card">
+                                            <div class="card-body">
+                                                <div class="head-tags mb-4">
+                                                    <h5><span class="badge badge-pill {class}">{hs}</span></h5>
+                                                    <ul class="avatar-group-stacked">
+                                                        {qualified}
+                                                    </ul>
                                                 </div>
+                                                <h5 class="card-title">{name}</h5>
+                                                <p class="card-text">{info}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -45,16 +46,50 @@
                                         name: it.name,
                                         info: it.info,
                                         class: it.hs === true ? 'badge-primary' : 'badge-secondary',
-                                        hs: it.hs === true ? 'Servizio Sanitario' : 'Servizio Specialistico'
+                                        hs: it.hs === true ? 'S.Sanitario' : 'S.Specialistico',
+                                        qualified: it.qualified
+                                            .map((p) =>
+                                                `
+                                                <li>
+                                                    <div class="avatar size-md" data-container="body" data-toggle="popover"
+                                                    data-trigger="hover" data-placement="bottom" data-html="true"
+                                                    data-content="{name} {surname}">
+                                                        <img src="{avatar}" alt="{name} {surname}">
+                                                    </div>
+                                                </li>
+                                                `.formatUnicorn(p)
+                                            ).join('\n')
                                     })
                                 )
                             );
+
+                            $('[data-toggle="popover"]').popover()
                         }
                     )
                 )
                 .keyup()
         });
     </script>
+
+    <style>
+        @media (min-width: 576px) {
+            .card-columns {
+                column-count: 1;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .card-columns {
+                column-count: 2;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .card-columns {
+                column-count: 3;
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -76,7 +111,7 @@
         </div>
     </div>
 
-    <div id="items" class="row"></div>
+    <div id="items" class="card-columns"></div>
 </div>
 
 <%@include file="../commons/footer.jsp" %>
