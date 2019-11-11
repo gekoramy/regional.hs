@@ -7,11 +7,13 @@ import dunder.mifflin.persistence.pojos.Person;
 import org.jooq.DSLContext;
 import org.jooq.impl.DSL;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
 import static dunder.mifflin.persistence.jdbc.jooq.Tables.*;
+import static org.jooq.impl.DSL.nvl;
 
 public class PersonJDBC extends JDBC implements PersonDAO {
 
@@ -41,15 +43,25 @@ public class PersonJDBC extends JDBC implements PersonDAO {
     }
 
     @Override
-    public Stream<Person> qualifiedFor(long exam) {
+    public Map<Long, List<Person>> qualifiedFor(Long... exams) throws DAOException {
         return context
-                .select(PERSON.asterisk().except(PERSON.PASSWORD))
+                .select(nvl(SP_QUALIFICATION.EXAM, HS_QUALIFICATION.EXAM), PERSON.asterisk().except(PERSON.PASSWORD))
                 .from(PERSON)
                 .leftJoin(SP_QUALIFICATION).on(SP_QUALIFICATION.SPECIALIST.eq(PERSON.ID))
                 .leftJoin(HS_QUALIFICATION).on(HS_QUALIFICATION.DOCTOR.eq(PERSON.ID))
-                .where(SP_QUALIFICATION.EXAM.eq(exam).or(HS_QUALIFICATION.EXAM.eq(exam)))
+                .where(nvl(SP_QUALIFICATION.EXAM, HS_QUALIFICATION.EXAM).in(exams))
                 .orderBy(PERSON.NAME)
-                .fetchStreamInto(Person.class);
+                .fetchGroups(nvl(SP_QUALIFICATION.EXAM, HS_QUALIFICATION.EXAM), (r) -> new Person(
+                        r.get(PERSON.ID),
+                        r.get(PERSON.EMAIL),
+                        r.get(PERSON.NAME),
+                        r.get(PERSON.SURNAME),
+                        r.get(PERSON.BIRTHDAY),
+                        r.get(PERSON.BIRTHPLACE),
+                        r.get(PERSON.FC),
+                        r.get(PERSON.GENDER),
+                        r.get(PERSON.RESIDENCE)
+                ));
     }
 
     @Override
