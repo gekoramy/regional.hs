@@ -28,16 +28,14 @@
                                 result,
                                 (i, it) => items.append(
                                     `
-                                    <div class="col-12 col-lg-4 col-md-6">
-                                            <div class="card-wrapper card-space">
-                                                <div class="card card-bg card-big border-bottom-card">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">{name}</h5>
-                                                        <p class="card-text">{info}</p>
-                                                    </div>
-                                                </div>
+                                    <div class="card-wrapper card-space">
+                                        <div class="card card-bg border-bottom-card">
+                                            <div class="card-body">
+                                                <h5 class="card-title">{name}</h5>
+                                                <p class="card-text">{info}</p>
                                             </div>
                                         </div>
+                                    </div>
                                     `.formatUnicorn(it)
                                 )
                             );
@@ -47,6 +45,26 @@
                 .keyup()
         });
     </script>
+
+    <style>
+        @media (min-width: 576px) {
+            .card-columns {
+                column-count: 1;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .card-columns {
+                column-count: 2;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .card-columns {
+                column-count: 3;
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -68,7 +86,7 @@
         </div>
     </div>
 
-    <div id="items" class="row"></div>
+    <div id="items" class="card-columns"></div>
 </div>
 
 <%@include file="../commons/footer.jsp" %>

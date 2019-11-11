@@ -7,6 +7,7 @@ import dunder.mifflin.persistence.pojos.HsExam;
 import dunder.mifflin.persistence.pojos.Medicine;
 import dunder.mifflin.persistence.pojos.Person;
 
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collector;
 
@@ -14,12 +15,13 @@ import static java.time.format.DateTimeFormatter.ISO_DATE;
 
 public class Jsonify {
 
-    public static JsonObject json(Examination exam) {
+    public static JsonObject json(Examination exam, List<Person> qualified, Map<Long, String> avatars) {
         return new JsonObject(Map.of(
                 "id", exam.id(),
                 "name", exam.name(),
                 "info", exam.info(),
-                "hs", exam instanceof HsExam
+                "hs", exam instanceof HsExam,
+                "qualified", qualified.stream().map((p) -> json(p, avatars)).collect(array())
         ));
     }
 
