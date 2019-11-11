@@ -1,8 +1,10 @@
 package dunder.mifflin.persistence.jdbc;
 
 import dunder.mifflin.persistence.daos.GeneralDAO;
+import dunder.mifflin.persistence.daos.PersonDAO;
 import dunder.mifflin.persistence.daos.exceptions.DAOException;
 import dunder.mifflin.persistence.jdbc.config.Database;
+import dunder.mifflin.persistence.pojos.Person;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
@@ -72,7 +74,20 @@ class GeneralJDBCTest {
     }
 
     @Test
-    void testEntrustsUndo() {
+    void testEntrustsPatientsUndo() {
+
+        final PersonDAO person = new PersonJDBC(create);
+
+        Assertions.assertTrue(
+                person.patients(8L, "", "", "")
+                        .map(Person::id)
+                        .noneMatch(Long.valueOf(1L)::equals),
+                String.format(
+                        "%d should not be already following %d",
+                        8L,
+                        1L
+                )
+        );
 
         final var before = dao.follows(1L).orElseThrow();
         final var entrusts = dao.entrusts(1L, 8L);
@@ -87,6 +102,17 @@ class GeneralJDBCTest {
         assertEquals(true, entrusts.gender());
         assertEquals(890L, entrusts.residence());
         assertEquals(11L, entrusts.workplace());
+
+        Assertions.assertTrue(
+                person.patients(8L, "", "", "")
+                        .map(Person::id)
+                        .anyMatch(Long.valueOf(1L)::equals),
+                String.format(
+                        "%d should not be already following %d",
+                        8L,
+                        1L
+                )
+        );
 
         dao.follows(1L).ifPresentOrElse(
                 (general) -> {
@@ -118,6 +144,17 @@ class GeneralJDBCTest {
                     assertEquals(entrusts.workplace(), general.workplace());
                 },
                 Assertions::fail
+        );
+
+        Assertions.assertTrue(
+                person.patients(8L, "", "", "")
+                        .map(Person::id)
+                        .noneMatch(Long.valueOf(1L)::equals),
+                String.format(
+                        "%d should not be already following %d",
+                        8L,
+                        1L
+                )
         );
 
         dao.follows(1L).ifPresentOrElse(

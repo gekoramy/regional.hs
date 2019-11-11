@@ -13,6 +13,8 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 import static dunder.mifflin.persistence.jdbc.jooq.Tables.*;
+import static dunder.mifflin.persistence.jdbc.utils.Queries.current;
+import static dunder.mifflin.persistence.jdbc.utils.Queries.uncheckedField;
 import static org.jooq.impl.DSL.nvl;
 
 public class PersonJDBC extends JDBC implements PersonDAO {
@@ -70,6 +72,7 @@ public class PersonJDBC extends JDBC implements PersonDAO {
                 .select(PERSON.asterisk().except(PERSON.PASSWORD))
                 .from(PERSON)
                 .innerJoin(FOLLOWS).on(FOLLOWS.PATIENT.eq(PERSON.ID))
+                .innerJoin(current()).on(FOLLOWS.ID.eq(uncheckedField(current(), FOLLOWS.ID)))
                 .where(FOLLOWS.GENERAL.eq(general))
                 .and(DSL.concat(PERSON.NAME.concat(" "), PERSON.SURNAME).containsIgnoreCase(name))
                 .and(PERSON.EMAIL.containsIgnoreCase(email))

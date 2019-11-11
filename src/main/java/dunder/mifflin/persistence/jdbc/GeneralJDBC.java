@@ -4,7 +4,6 @@ import dunder.mifflin.persistence.daos.GeneralDAO;
 import dunder.mifflin.persistence.daos.exceptions.DAOException;
 import dunder.mifflin.persistence.jdbc.generics.JDBC;
 import dunder.mifflin.persistence.pojos.General;
-import dunder.mifflin.persistence.pojos.Person;
 import org.jooq.DSLContext;
 import org.jooq.impl.DSL;
 
@@ -13,7 +12,7 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 import static dunder.mifflin.persistence.jdbc.jooq.Tables.*;
-import static dunder.mifflin.persistence.jdbc.utils.Queries.actual;
+import static dunder.mifflin.persistence.jdbc.utils.Queries.*;
 
 public class GeneralJDBC extends JDBC implements GeneralDAO {
 
@@ -23,39 +22,40 @@ public class GeneralJDBC extends JDBC implements GeneralDAO {
 
     @Override
     public Optional<General> follows(long patient) {
-        return actual(patient).apply(context);
+        return currentGeneral(patient).apply(context);
     }
 
     @Override
     public Stream<General> suitable(long patient, String name, String email, String fc) throws DAOException {
-        return context.transactionResult((config) -> {
-            final var actual = actual(patient).apply(DSL.using(config)).map(Person::id).orElse(null);
+        final var current = DSL.select(FOLLOWS.GENERAL)
+                .from(FOLLOWS)
+                .innerJoin(current()).on(FOLLOWS.ID.eq(uncheckedField(current(), FOLLOWS.ID)))
+                .where(FOLLOWS.PATIENT.eq(patient));
 
-            final var gen = PERSON.as("g");
-            final var pat = PERSON.as("p");
+        final var gen = PERSON.as("g");
+        final var pat = PERSON.as("p");
 
-            return DSL.using(config)
-                    .select(gen.asterisk().except(gen.PASSWORD), GENERAL.WORKPLACE)
-                    .from(pat)
-                    .innerJoin(CITY).on(pat.RESIDENCE.eq(CITY.ID))
-                    .innerJoin(GENERAL).on(CITY.PROVINCE.eq(GENERAL.WORKPLACE))
-                    .innerJoin(gen).on(GENERAL.ID.eq(gen.ID))
-                    .where(pat.ID.eq(patient))
-                    .and(gen.ID.notEqual(patient))
-                    .and(gen.ID.notEqual(actual))
-                    .and(DSL.concat(gen.NAME.concat(" "), gen.SURNAME).containsIgnoreCase(name))
-                    .and(gen.EMAIL.containsIgnoreCase(email))
-                    .and(gen.FC.containsIgnoreCase(fc))
-                    .orderBy(gen.NAME)
-                    .fetchStreamInto(General.class);
-        });
+        return context
+                .select(gen.asterisk().except(gen.PASSWORD), GENERAL.WORKPLACE)
+                .from(pat)
+                .innerJoin(CITY).on(pat.RESIDENCE.eq(CITY.ID))
+                .innerJoin(GENERAL).on(CITY.PROVINCE.eq(GENERAL.WORKPLACE))
+                .innerJoin(gen).on(GENERAL.ID.eq(gen.ID))
+                .where(pat.ID.eq(patient))
+                .and(gen.ID.notEqual(patient))
+                .and(gen.ID.notEqual(current))
+                .and(DSL.concat(gen.NAME.concat(" "), gen.SURNAME).containsIgnoreCase(name))
+                .and(gen.EMAIL.containsIgnoreCase(email))
+                .and(gen.FC.containsIgnoreCase(fc))
+                .orderBy(gen.NAME)
+                .fetchStreamInto(General.class);
     }
 
     @Override
     public General entrusts(long patient, long general) throws DAOException {
         return context.transactionResult((config) -> {
 
-            actual(patient).apply(DSL.using(config))
+            currentGeneral(patient).apply(DSL.using(config))
                     .filter((g) -> !g.id().equals(general))
                     .orElseThrow(
                             () -> new DAOException(String.format(
@@ -87,7 +87,7 @@ public class GeneralJDBC extends JDBC implements GeneralDAO {
                     .values(general, patient)
                     .execute();
 
-            return actual(patient).apply(DSL.using(config)).orElseThrow(
+            return currentGeneral(patient).apply(DSL.using(config)).orElseThrow(
                     () -> new DAOException("uncovered case")
             );
         });
@@ -96,7 +96,7 @@ public class GeneralJDBC extends JDBC implements GeneralDAO {
     @Override
     public Optional<General> undo(long patient) throws DAOException {
         return context.transactionResult((config) -> {
-            final var general = actual(patient).apply(DSL.using(config));
+            final var general = currentGeneral(patient).apply(DSL.using(config));
 
             general.ifPresent(
                     (g) -> DSL.using(config)
