@@ -20,6 +20,10 @@
     <%@ include file="../commons/base.jsp" %>
 
     <title>Storico esami</title>
+
+    <script>
+        $(document).ready(() => $('[data-toggle="popover"]').popover('enable'))
+    </script>
 </head>
 
 <body>
@@ -84,14 +88,30 @@
                                     <td class="align-middle text-left">${tck}</td>
                                     <td class="align-middle text-left">€${tickets.get(it.id()).amount()}</td>
                                     <td class="align-middle text-center">
-                                        <input type="button" class="btn btn-primary" value="Scrivi" disabled>
+                                        <span class="w-100 d-inline-block"
+                                              data-container="body"
+                                              data-toggle="popover"
+                                              data-trigger="hover"
+                                              data-placement="top"
+                                              data-content="Il medico responsabile deve ancora pubblicare il referto">
+                                            <input type="button" class="btn btn-primary btn-block" value="Scrivi" disabled
+                                                   style="pointer-events: none;">
+                                        </span>
                                     </td>
                                     <td></td>
                                 </c:when>
 
                                 <c:otherwise>
                                     <td class="align-middle text-center" colspan="3">
-                                        <input type="button" class="btn btn-primary btn-block" value="Incassa" disabled>
+                                        <span class="w-100 d-inline-block"
+                                              data-container="body"
+                                              data-toggle="popover"
+                                              data-trigger="hover"
+                                              data-placement="top"
+                                              data-content="Per trovare medici qualificati a svolgere questo esame visita la sezione - info esami">
+                                            <input type="button" class="btn btn-primary btn-block" value="Incassa" disabled
+                                                 style="pointer-events: none;">
+                                        </span>
                                     </td>
                                     <td></td>
                                 </c:otherwise>

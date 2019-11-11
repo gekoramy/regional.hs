@@ -13,6 +13,10 @@
     <%@ include file="../commons/base.jsp" %>
 
     <title>Storico farmaci</title>
+
+    <script>
+        $(document).ready(() => $('[data-toggle="popover"]').popover('enable'))
+    </script>
 </head>
 
 <body>
@@ -70,7 +74,15 @@
 
                                 <c:otherwise>
                                     <td class="align-middle" colspan="2">
-                                        <input type="button" class="btn btn-primary btn-block" value="Incassa" disabled>
+                                        <span class="w-100 d-inline-block"
+                                              data-container="body"
+                                              data-toggle="popover"
+                                              data-trigger="hover"
+                                              data-placement="top"
+                                              data-content="Per pagare il ticket, recati in farmacia">
+                                            <input type="button" class="btn btn-primary btn-block" value="Incassa" disabled
+                                                   style="pointer-events: none;">
+                                        </span>
                                     </td>
                                 </c:otherwise>
                             </c:choose>
