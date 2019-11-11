@@ -28,7 +28,7 @@
                                 result,
                                 (i, it) => items.append(
                                     `
-                                    <div class="card-wrapper card-space">
+                                    <div class="card-wrapper card-space d-inline-block w-100">
                                         <div class="card card-bg border-bottom-card">
                                             <div class="card-body">
                                                 <div class="head-tags mb-4">
