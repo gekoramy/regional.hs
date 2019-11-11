@@ -2,6 +2,7 @@ package dunder.mifflin.persistence.jdbc;
 
 import dunder.mifflin.persistence.daos.PersonDAO;
 import dunder.mifflin.persistence.jdbc.config.Database;
+import dunder.mifflin.persistence.pojos.Person;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
@@ -14,6 +15,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -73,10 +76,24 @@ class PersonJDBCTest {
 
     @Test
     void qualifiedFor() {
-        assertEquals(2, dao.qualifiedFor(134L).count());
-        assertEquals(2, dao.qualifiedFor(1L).count());
-        assertEquals(1, dao.qualifiedFor(135L).count());
-        assertEquals(0, dao.qualifiedFor(0L).count());
+        final Map<Long, List<Person>> qualified = dao.qualifiedFor(0L, 1L, 134L, 135L);
+
+        assertFalse(qualified.containsKey(0L));
+
+        Optional.ofNullable(qualified.get(1L)).map(List::size).ifPresentOrElse(
+                (size) -> assertEquals(2, size),
+                Assertions::fail
+        );
+
+        Optional.ofNullable(qualified.get(134L)).map(List::size).ifPresentOrElse(
+                (size) -> assertEquals(2, size),
+                Assertions::fail
+        );
+
+        Optional.ofNullable(qualified.get(135L)).map(List::size).ifPresentOrElse(
+                (size) -> assertEquals(1, size),
+                Assertions::fail
+        );
     }
 
     @Test
