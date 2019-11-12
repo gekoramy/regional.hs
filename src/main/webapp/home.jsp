@@ -130,7 +130,7 @@
     <video autoplay loop muted playsinline src="${pageContext.request.contextPath}/assets/img/home/team.mp4" type="video/mp4">
     </video>
 
-    <div class="section" style="z-index: 1">
+    <div class="section" style="z-index: 1; background-color: rgba(0, 0, 0, 0.3);">
         <div class="section-content">
             <div class="container white-color">
                 <div class="row">
@@ -147,11 +147,11 @@
                     <div class="col-12 col-lg-4 pr-0 pr-md-5 mb-3">
                         Il gruppo di lavoro è composto da tre studenti:
                         <br>
-                        - <a class="font-weight-bold text-decoration-none" href="https://github.com/Gabrielenones">Gabriele Nones</a>
+                        - <a class="font-weight-bold text-decoration-none white-color" href="https://github.com/Gabrielenones">Gabriele Nones</a>
                         <br>
-                        - <a class="font-weight-bold text-decoration-none" href="https://github.com/gekoramy">Luca Mosetti</a>
+                        - <a class="font-weight-bold text-decoration-none white-color" href="https://github.com/gekoramy">Luca Mosetti</a>
                         <br>
-                        - <a class="font-weight-bold text-decoration-none" href="https://github.com/raffaelepojer">Raffaele Pojer</a>
+                        - <a class="font-weight-bold text-decoration-none white-color" href="https://github.com/raffaelepojer">Raffaele Pojer</a>
                         <br>
                     </div>
                     <div class="col-12 col-lg-4 pr-0 pr-md-5">
