@@ -6,6 +6,22 @@
 
     <title>Home</title>
 </head>
+
+<style>
+    video {
+        height: 100%;
+        width: 177.9359430604982206405693950177935943060498220640569395017vh; /* 100 * 500 / 281 */
+        min-height: 56.2vw; /* 100 * 281 / 500 */
+        min-width: 100%;
+        z-index: -1;
+
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+</style>
+
 <body>
 
 <%@ include file="commons/header.jsp" %>
@@ -109,36 +125,42 @@
     </div>
 </div>
 
-<div class="section section-image" style="background-image: url('${pageContext.request.contextPath}/assets/img/home/team.gif')">
-    <div class="section-content">
-        <div class="container white-color">
-            <div class="row">
-                <div class="col-12">
-                    <h4>Conosci il team di sviluppo</h4>
+<div class="overflow-hidden position-relative">
+
+    <video autoplay loop muted playsinline src="${pageContext.request.contextPath}/assets/img/home/team.mp4" type="video/mp4">
+    </video>
+
+    <div class="section" style="z-index: 1">
+        <div class="section-content">
+            <div class="container white-color">
+                <div class="row">
+                    <div class="col-12">
+                        <h4>Conosci il team di sviluppo</h4>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-12 col-lg-4 pr-0 pr-md-5 mb-3">
-                    <strong>Regional HS</strong> è un progetto universitario, porzione d'esame per il corso
-                    <strong>Introduzione alla programmazione Web</strong>
-                    tenuto all'Università degli studi di Trento DISI
-                </div>
-                <div class="col-12 col-lg-4 pr-0 pr-md-5 mb-3">
-                    Il gruppo di lavoro è composto da tre studenti:
-                    <br>
-                    - <a class="font-weight-bold text-decoration-none" href="https://github.com/Gabrielenones">Gabriele Nones</a>
-                    <br>
-                    - <a class="font-weight-bold text-decoration-none" href="https://github.com/gekoramy">Luca Mosetti</a>
-                    <br>
-                    - <a class="font-weight-bold text-decoration-none" href="https://github.com/raffaelepojer">Raffaele Pojer</a>
-                    <br>
-                </div>
-                <div class="col-12 col-lg-4 pr-0 pr-md-5">
-                    <strong>Regional HS</strong> si basa su database <strong>PostreSQL</strong>, <strong>JavaEE 8</strong>,
-                    <strong>JQuery</strong> e il framework <strong>Bootstrap Italia</strong>
-                    <br>
-                    <br>
-                    Punta ad essere <strong>mobile-first</strong>, senza limare alcuna funzionalità
+                <div class="row">
+                    <div class="col-12 col-lg-4 pr-0 pr-md-5 mb-3">
+                        <strong>Regional HS</strong> è un progetto universitario, porzione d'esame per il corso
+                        <strong>Introduzione alla programmazione Web</strong>
+                        tenuto all'Università degli studi di Trento DISI
+                    </div>
+                    <div class="col-12 col-lg-4 pr-0 pr-md-5 mb-3">
+                        Il gruppo di lavoro è composto da tre studenti:
+                        <br>
+                        - <a class="font-weight-bold text-decoration-none" href="https://github.com/Gabrielenones">Gabriele Nones</a>
+                        <br>
+                        - <a class="font-weight-bold text-decoration-none" href="https://github.com/gekoramy">Luca Mosetti</a>
+                        <br>
+                        - <a class="font-weight-bold text-decoration-none" href="https://github.com/raffaelepojer">Raffaele Pojer</a>
+                        <br>
+                    </div>
+                    <div class="col-12 col-lg-4 pr-0 pr-md-5">
+                        <strong>Regional HS</strong> si basa su database <strong>PostreSQL</strong>, <strong>JavaEE 8</strong>,
+                        <strong>JQuery</strong> e il framework <strong>Bootstrap Italia</strong>
+                        <br>
+                        <br>
+                        Punta ad essere <strong>mobile-first</strong>, senza limare alcuna funzionalità
+                    </div>
                 </div>
             </div>
         </div>
