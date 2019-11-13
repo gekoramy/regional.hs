@@ -16,4 +16,4 @@
     </div>
 </footer>
 
-<img id="loading" style="display: none" src="${pageContext.request.contextPath}/assets/img/loading/giphy.gif" width="400px" height="400px" alt="loading">
+<video id="loading" style="display: none" autoplay loop muted playsinline src="${pageContext.request.contextPath}/assets/img/loading/loading.mp4" type="video/mp4"></video>
