@@ -49,11 +49,9 @@
                                 <span class="lever"></span>
                             </label>
                         </div>
-                        <div class="it-card-footer justify-content-between">
-                            <a href="${pageContext.request.contextPath}/forgot">
-                                <span class="text">Password dimenticata?</span>
-                            </a>
-                            <input type="submit" class="btn btn-primary btn-sm" value="Accedi">
+                        <div class="it-card-footer justify-content-between align-content-center">
+                            <a href="${pageContext.request.contextPath}/forgot">Password dimenticata?</a>
+                            <input type="submit" class="btn btn-primary btn-sm ml-1" value="Accedi">
                         </div>
                     </div>
                 </div>
