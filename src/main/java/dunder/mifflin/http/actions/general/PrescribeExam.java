@@ -43,10 +43,11 @@ public class PrescribeExam extends HttpServlet {
 
     private int action(HttpServletRequest req) {
         try {
-            final General general = Auths.session(req).flatMap(daos.factory().general()::byKey).orElseThrow();
+            final long id = Auths.session(req).orElseThrow();
             final Person patient = Optional.ofNullable(req.getParameter("patient")).map(Long::parseLong).flatMap(daos.factory().person()::byKey).orElseThrow();
             final long exam = Optional.ofNullable(req.getParameter("exam")).map(Long::parseLong).orElseThrow();
 
+            final General general = daos.factory().general().follows(patient.id()).filter((g) -> g.id().equals(id)).orElseThrow();
             final ExamPrescription prescription = daos.factory().examPrescription().insert(patient.id(), exam);
             emails.prescription(patient, general, prescription);
 

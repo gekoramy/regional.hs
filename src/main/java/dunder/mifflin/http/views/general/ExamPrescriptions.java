@@ -34,10 +34,11 @@ public class ExamPrescriptions extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         try {
             final long gid = Auths.session(req).orElseThrow();
-            final General general = daos.factory().general().byKey(gid).orElseThrow();
+            final long pid = Optional.ofNullable(req.getParameter("patient")).map(Long::parseLong).orElseThrow();
+
+            final General general = daos.factory().general().follows(pid).filter((g) -> g.id().equals(gid)).orElseThrow();
             final String avatar = Avatars.avatar50(daos.factory().avatar(), req.getContextPath(), general);
 
-            final long pid = Optional.ofNullable(req.getParameter("patient")).map(Long::parseLong).orElseThrow();
             final Person patient = daos.factory().person().byKey(pid).orElseThrow();
             final String pAvatar = Avatars.avatar200(daos.factory().avatar(), req.getContextPath(), patient);
             final List<ExamPrescription> exams = daos.factory().examPrescription().concerns(patient.id(), "").collect(toUnmodifiableList());
