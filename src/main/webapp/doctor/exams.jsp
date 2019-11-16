@@ -302,7 +302,7 @@
                                 <input type="hidden" name="prescription" value="${it.id()}">
                                 <input type="hidden" name="patient" value="${patient.id()}">
                                 <div class="form-group">
-                                    <textarea id="PT${it.id()}" rows="10" name="note"></textarea>
+                                    <textarea id="PT${it.id()}" rows="10" name="note" placeholder="Anamnesi"></textarea>
                                     <label for="PT${it.id()}">Anamnesi</label>
                                 </div>
                             </div>
