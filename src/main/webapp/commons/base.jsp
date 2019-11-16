@@ -15,6 +15,7 @@
     $(document).ready(() => {
         $("form").submit(() => $.blockUI({
             message: $('#loading'),
+            baseZ: 10000,
             css: {
                 top: '20%',
                 left: ($(window).width() - 400) / 2 + 'px',
