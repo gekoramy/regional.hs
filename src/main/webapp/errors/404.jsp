@@ -43,3 +43,4 @@
 
 </body>
 </html>
+<c:remove var="fallback" scope="session"/>
