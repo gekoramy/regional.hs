@@ -35,10 +35,10 @@ public class Cash extends HttpServlet {
     }
 
     @Inject
-    DAOs daos;
+    private DAOs daos;
 
     @Inject
-    Emails emails;
+    private Emails emails;
 
     private static final BigDecimal HEALTH_SERVICE = BigDecimal.valueOf(1100, 2);
     private static final BigDecimal SPECIALIST = BigDecimal.valueOf(5000, 2);

@@ -34,10 +34,10 @@ import static javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
 public class QRCode extends HttpServlet {
 
     @Inject
-    DAOs daos;
+    private DAOs daos;
 
     @Inject
-    QRCodes qr;
+    private QRCodes qr;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

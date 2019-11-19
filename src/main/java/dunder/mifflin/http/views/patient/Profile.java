@@ -24,7 +24,7 @@ import static javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
 public class Profile extends HttpServlet {
 
     @Inject
-    DAOs daos;
+    private DAOs daos;
 
     private void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {

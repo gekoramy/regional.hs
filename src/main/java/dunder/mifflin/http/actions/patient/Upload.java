@@ -40,7 +40,7 @@ public class Upload extends HttpServlet {
     }
 
     @Inject
-    DAOs daos;
+    private DAOs daos;
 
     private int action(HttpServletRequest req) {
         try (

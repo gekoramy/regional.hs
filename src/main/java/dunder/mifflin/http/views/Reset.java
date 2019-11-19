@@ -27,10 +27,10 @@ import static javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
 public class Reset extends HttpServlet {
 
     @Inject
-    DAOs daos;
+    private DAOs daos;
 
     @Inject
-    Emails emails;
+    private Emails emails;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
