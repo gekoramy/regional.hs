@@ -35,10 +35,10 @@ public class Publish extends HttpServlet {
     }
 
     @Inject
-    DAOs daos;
+    private DAOs daos;
 
     @Inject
-    Emails emails;
+    private Emails emails;
 
     private int action(HttpServletRequest req) {
         try {

@@ -28,10 +28,10 @@ import static javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
 public class XLS extends HttpServlet {
 
     @Inject
-    DAOs daos;
+    private DAOs daos;
 
     @Inject
-    XLSs xlss;
+    private XLSs xlss;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

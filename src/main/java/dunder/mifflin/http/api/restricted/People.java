@@ -27,7 +27,7 @@ import static java.util.stream.Collectors.toUnmodifiableList;
 public class People extends HttpServlet {
 
     @Inject
-    DAOs daos;
+    private DAOs daos;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {

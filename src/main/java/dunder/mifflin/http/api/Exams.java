@@ -25,7 +25,7 @@ import java.util.stream.Stream;
 public class Exams extends HttpServlet {
 
     @Inject
-    DAOs daos;
+    private DAOs daos;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
