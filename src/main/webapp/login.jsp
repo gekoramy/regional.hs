@@ -39,8 +39,18 @@
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
-                            <input type="password" class="form-control"
-                                   name="password" id="password">
+                            <input type="password"
+                                   id="password"
+                                   name="password"
+                                   class="form-control input-password">
+                            <span class="password-icon" aria-hidden="true">
+                                <svg class="password-icon-visible icon icon-sm">
+                                    <use xlink:href="${bootstrap}/svg/sprite.svg#it-password-visible"></use>
+                                </svg>
+                                <svg class="password-icon-invisible icon icon-sm d-none">
+                                    <use xlink:href="${bootstrap}/svg/sprite.svg#it-password-invisible"></use>
+                                </svg>
+                            </span>
                         </div>
                         <div class="toggles">
                             <label for="remember">
