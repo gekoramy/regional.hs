@@ -309,7 +309,8 @@
                                            name="request"
                                            class="form-control input-password input-password-strength-meter"
                                            data-enter-pass="Sicurezza della tua password"
-                                           placeholder="Nuova">
+                                           placeholder="Nuova"
+                                           required>
                                     <span class="password-icon" aria-hidden="true">
                                         <svg class="password-icon-visible icon icon-sm">
                                             <use xlink:href="${bootstrap}/svg/sprite.svg#it-password-visible"></use>
