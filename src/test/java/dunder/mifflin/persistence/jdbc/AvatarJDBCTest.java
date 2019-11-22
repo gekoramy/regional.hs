@@ -94,7 +94,7 @@ class AvatarJDBCTest {
 
     @Test
     void byKeys() {
-        final var results = dao.byKeys(0L, 1L, 2L);
+        final var results = dao.byKeys(new Long[]{0L, 1L, 2L});
 
         assertFalse(results.containsKey(0L));
 

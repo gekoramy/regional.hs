@@ -70,7 +70,7 @@ class HsDoctorJDBCTest {
 
     @Test
     void byKeys() {
-        final var results = dao.byKeys(1L, 17L);
+        final var results = dao.byKeys(new Long[]{1L, 17L});
 
         assertFalse(results.containsKey(1L));
 

@@ -70,7 +70,7 @@ class HsAdminJDBCTest {
 
     @Test
     void byKeys() {
-        final var results = dao.byKeys(5L, 33L);
+        final var results = dao.byKeys(new Long[]{5L, 33L});
 
         assertFalse(results.containsKey(5L));
 

@@ -100,7 +100,7 @@ class MedicineTicketJDBCTest {
 
     @Test
     void byKeys() {
-        final var results = dao.byKeys(0L, 104L);
+        final var results = dao.byKeys(new Long[]{0L, 104L});
 
         assertFalse(results.containsKey(0L));
 

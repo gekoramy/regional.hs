@@ -70,7 +70,7 @@ class MedicineJDBCTest {
 
     @Test
     void byKeys() {
-        final var results = dao.byKeys(0L, 963L);
+        final var results = dao.byKeys(new Long[]{0L, 963L});
 
         assertFalse(results.containsKey(0L));
 

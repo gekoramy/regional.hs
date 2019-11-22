@@ -147,7 +147,7 @@ class ExamPrescriptionJDBCTest {
 
     @Test
     void byKeys() {
-        final var results = dao.byKeys(0L, 1280L, 1628L);
+        final var results = dao.byKeys(new Long[]{0L, 1280L, 1628L});
 
         assertFalse(results.containsKey(0L));
 

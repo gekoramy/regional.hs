@@ -61,7 +61,7 @@ class RegionJDBCTest {
 
     @Test
     void byKeys() {
-        final var results = dao.byKeys(1L, 21L);
+        final var results = dao.byKeys(new Long[]{1L, 21L});
 
         assertFalse(results.containsKey(21L));
 
