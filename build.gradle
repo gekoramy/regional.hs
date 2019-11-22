@@ -13,6 +13,10 @@ repositories {
     mavenCentral()
 }
 
+war {
+    archiveFileName = 'regional.hs.war'
+}
+
 test {
     useJUnitPlatform()
 }
