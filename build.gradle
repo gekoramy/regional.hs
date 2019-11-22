@@ -1,7 +1,6 @@
 plugins {
     id 'java'
     id 'war'
-    id 'nu.studer.jooq' version '3.0.3'
 }
 
 group 'dunder.mifflin'
@@ -12,10 +11,6 @@ sourceCompatibility = 11
 repositories {
     jcenter()
     mavenCentral()
-}
-
-jooq {
-    version = '3.12.1'
 }
 
 test {
@@ -46,11 +41,10 @@ dependencies {
     compile group: 'org.apache.poi', name: 'poi-ooxml', version: '4.1.0'
 
     // Persistance
-    compile group: 'org.jooq', name: 'jooq'
-    compile group: 'org.jooq', name: 'jooq-meta'
-    compile group: 'org.jooq', name: 'jooq-codegen'
+    compile group: 'org.jooq', name: 'jooq', version: '3.12.1'
+    compile group: 'org.jooq', name: 'jooq-meta', version: '3.12.1'
+    compile group: 'org.jooq', name: 'jooq-codegen', version: '3.12.1'
 
-    jooqRuntime group: 'org.postgresql', name: 'postgresql', version: '42.2.7'
     compile group: 'org.postgresql', name: 'postgresql', version: '42.2.7'
 
     // Hashing
