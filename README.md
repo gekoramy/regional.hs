@@ -1,15 +1,12 @@
-# regional.hs
+# Regional HS
+
+## Sviluppatori
 
 |     #    |                |               @                  |
 |:--------:|----------------|---------------------------------:|
 | `193726` | Raffaele Pojer | raffaele.pojer@studenti.unitn.it |
 | `195275` | Luca Mosetti   | luca.mosetti-1@studenti.unitn.it |
 | `195497` | Gabriele Nones | nones.gabriele@studenti.unitn.it |
-
-## Tecnologie
-
-* TomEE
-* PostgreSQL
 
 ## Linguaggi
 
@@ -67,7 +64,8 @@ Popola entrambi con il medesimo dump
 > psql "test-regional.hs" < dump.sql
 ```
 
-Completa le configurazioni necessarie ai test `Database.java`
+Completa le configurazioni necessarie ai test in `Database.java`
+
 Quindi fai partire i test
 
 ```
@@ -77,7 +75,7 @@ Quindi fai partire i test
 Completa il file di configurazioni `resource.xml`
 
 * account gmail utilizzato per l'invio delle email alle utenze
-* email utilizzato per il debug, tutte le email da inviare alle utenze, vengono invece inoltrate a questa di debug
+* email utilizzato per il debug, se configurato tutte le email da inviare alle utenze, vengono invece inoltrate all'email di debug
 * account db
 
 Quindi compila la web-application
@@ -238,6 +236,7 @@ Tutte le servlet rispettano questo standard, fatta eccezione per:
 ## Gestione avatar
 
 Il progetto permette all'utente di aggiornare la propria immagine profilo
+
 Una volta aggiornata, l'immagine precedente viene eliminata
 
 L'immagine caricata viene:
