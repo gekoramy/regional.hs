@@ -107,7 +107,7 @@ class SecretJDBCTest {
 
     @Test
     void byKeys() {
-        final var results = dao.byKeys(0L, 49L);
+        final var results = dao.byKeys(new Long[]{0L, 49L});
 
         assertFalse(results.containsKey(0L));
 

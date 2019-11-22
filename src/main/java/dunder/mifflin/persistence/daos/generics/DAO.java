@@ -32,7 +32,7 @@ public interface DAO<T, K> {
      * @return foreach keys passed as parameter, an entry, which have {@code K} as key and the {@code T} instance of the storage system record with the same primary key
      * @throws DAOException if an error occurred during the information retrieving
      */
-    Map<K, T> byKeys(K... keys) throws DAOException;
+    Map<K, T> byKeys(K[] keys) throws DAOException;
 
     /**
      * @return the list of all the valid entities of type {@code T}.

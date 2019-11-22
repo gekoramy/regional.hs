@@ -93,7 +93,7 @@ class TokenJDBCTest {
 
     @Test
     void byKeys() {
-        assertEquals(0, dao.byKeys(-1L, 0L).size(), "not existing people");
+        assertEquals(0, dao.byKeys(new Long[]{-1L, 0L}).size(), "not existing people");
     }
 
     @Test

@@ -62,7 +62,7 @@ class CityJDBCTest {
 
     @Test
     void byKeys() {
-        final var results = dao.byKeys(0L, 5L, 10L);
+        final var results = dao.byKeys(new Long[]{0L, 5L, 10L});
 
         assertFalse(results.containsKey(0L));
 

@@ -69,7 +69,7 @@ class SpecialistJDBCTest {
 
     @Test
     void byKeys() {
-        final var results = dao.byKeys(1L, 26L);
+        final var results = dao.byKeys(new Long[]{1L, 26L});
 
         assertFalse(results.containsKey(1L));
 
