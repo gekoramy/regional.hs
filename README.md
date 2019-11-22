@@ -194,6 +194,8 @@ Il dump.sql prevede di popolare il db per:
 
 ## Database
 
+<img src="scheme.png" alt="db scheme">
+
 Il progetto poggia le basi su uno schema db saldo
 
 Per come è definito, lo schema esclude:
