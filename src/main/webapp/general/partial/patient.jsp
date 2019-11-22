@@ -17,7 +17,7 @@
 <fmt:parseDate value="${patient.birthday()}" type="date" pattern="yyyy-MM-dd" var="tmp"/>
 <fmt:formatDate value="${tmp}" type="date" dateStyle="medium" var="out"/>
 
-<div class="it-header-slim-wrapper theme-light">
+<div class="it-header-slim-wrapper theme-light sticky-top">
     <div class="container">
         <div class="row">
             <div class="col-12">
