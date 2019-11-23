@@ -97,9 +97,10 @@ Il progetto non è un gestionale prenotazioni
 Non prevede di gestire appuntamenti e/o visite
 
 Il progetto mira ad aiutare:
-- i medici, per avere un quadro clinico completo del paziente e nella registrazione di prescrizioni, di referti e di pagamenti
-- i pazienti, nella visualizzazione dei propri dati personali e del proprio quadro clinico
-- gli amministratori del servizio sanitario per le statistiche dei ticket
+
+* i medici, per avere un quadro clinico completo del paziente e nella registrazione di prescrizioni, di referti e di pagamenti
+* i pazienti, nella visualizzazione dei propri dati personali e del proprio quadro clinico
+* gli amministratori del servizio sanitario per le statistiche dei ticket
 
 Il progetto distingue
 
