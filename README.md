@@ -97,7 +97,7 @@ Il progetto non è un gestionale prenotazioni
 Non prevede di gestire appuntamenti e/o visite
 
 Il progetto mira ad aiutare:
-- i medici, per avere un quadro clinico completo del paziente in visita e nella registrazione di prescrizioni, di referti e di pagamenti
+- i medici, per avere un quadro clinico completo del paziente e nella registrazione di prescrizioni, di referti e di pagamenti
 - i pazienti, nella visualizzazione dei propri dati personali e del proprio quadro clinico
 - gli amministratori del servizio sanitario per le statistiche dei ticket
 
@@ -213,7 +213,7 @@ Lo schema da solo garantisce, tra le altre cose:
 
 Al fine di evitare trigger specifici, l'applicazione deve garantire altri aspetti:
 
-* le prescrizione mediche di un paziente posso essere registrare esclusivamente dall'attuale medico di base dello stesso
+* le prescrizione mediche di un paziente possono essere registrate esclusivamente dall'attuale medico di base dello stesso
 * solo il medico che ha incassato il prezzo del ticket può pubblicare un referto a riguardo
 * un esame `x` può essere svolto esclusivamente da un medico qualificato per l'esame `x`
 * un paziente residente nella provincia `x` può essere seguito esclusivamente da un medico di base che lavora nella medesima provincia `x`
