@@ -225,7 +225,7 @@ Tali test vanno a toccare svariate casistiche limite
 
 ## Architettura
 
-In generale distinguiamo 3 tipi di servlet, designati a svolgere un unico compito:
+In generale, distinguiamo 3 tipi di servlet, ciascuna designata a un compito specifico:
 
 * JSP, rappresentare visivamente il contenuto della request corrente
 * Http Servlet - view, popolare la request con gli attributi richiesti, inoltrando il tutto a una JSP. Rispondono esclusivamente a richieste POST
@@ -235,6 +235,11 @@ Tutte le servlet rispettano questo standard, fatta eccezione per:
 
 * login
 * reset
+
+Esistono inoltre altri 2 tipi di servlet:
+
+* Http Servlet - api, restituiscono esclusivamente codice JSON
+* Http Servlet - docs, restituiscono documenti, quali PDFs, XLSs, PNGs
 
 ## Gestione avatar
 
