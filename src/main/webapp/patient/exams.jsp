@@ -3,6 +3,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%--@elvariable id="rsp" type="dunder.mifflin.persistence.pojos.Person"--%>
+<%--@elvariable id="after" type="java.time.OffsetDateTime"--%>
+<%--@elvariable id="before" type="java.time.OffsetDateTime"--%>
 
 <jsp:useBean scope="request" id="person" type="dunder.mifflin.persistence.pojos.Person"/>
 <jsp:useBean scope="request" id="responsible" type="java.util.Map<java.lang.Long, dunder.mifflin.persistence.pojos.Person>"/>
@@ -176,6 +178,53 @@
         </div>
     </c:if>
 </c:forEach>
+
+<div class="container">
+
+    <div class="d-flex justify-content-center">
+
+        <form method="get" action="${pageContext.request.contextPath}/patient/exams" class="m-0">
+
+            <div class="btn-group" role="group">
+
+                <c:choose>
+
+                    <c:when test="${not empty after}">
+                        <button type="submit" class="btn btn-primary" name="after" value="${after.toString()}">
+                            Più recenti
+                        </button>
+                    </c:when>
+
+                    <c:otherwise>
+                        <button type="button" class="btn btn-primary" disabled>
+                            Più recenti
+                        </button>
+                    </c:otherwise>
+
+                </c:choose>
+
+                <c:choose>
+
+                    <c:when test="${not empty before}">
+                        <button type="submit" class="btn btn-primary" name="before" value="${before.toString()}">
+                            Più datati
+                        </button>
+                    </c:when>
+
+                    <c:otherwise>
+                        <button type="button" class="btn btn-primary" disabled>
+                            Più datati
+                        </button>
+                    </c:otherwise>
+
+                </c:choose>
+
+            </div>
+        </form>
+
+    </div>
+
+</div>
 
 <%@include file="../commons/footer.jsp" %>
 

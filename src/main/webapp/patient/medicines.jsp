@@ -2,6 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<%--@elvariable id="after" type="java.time.OffsetDateTime"--%>
+<%--@elvariable id="before" type="java.time.OffsetDateTime"--%>
+
 <jsp:useBean id="person" scope="request" type="dunder.mifflin.persistence.pojos.Person"/>
 <jsp:useBean id="avatar" scope="request" type="java.lang.String"/>
 <jsp:useBean id="medicines" scope="request" type="java.util.List<dunder.mifflin.persistence.pojos.MedicinePrescription>"/>
@@ -94,6 +97,53 @@
                 </table>
             </div>
         </div>
+    </div>
+
+</div>
+
+<div class="container">
+
+    <div class="d-flex justify-content-center">
+
+        <form method="get" action="${pageContext.request.contextPath}/patient/medicines" class="m-0">
+
+            <div class="btn-group" role="group">
+
+                <c:choose>
+
+                    <c:when test="${not empty after}">
+                        <button type="submit" class="btn btn-primary" name="after" value="${after.toString()}">
+                            Più recenti
+                        </button>
+                    </c:when>
+
+                    <c:otherwise>
+                        <button type="button" class="btn btn-primary" disabled>
+                            Più recenti
+                        </button>
+                    </c:otherwise>
+
+                </c:choose>
+
+                <c:choose>
+
+                    <c:when test="${not empty before}">
+                        <button type="submit" class="btn btn-primary" name="before" value="${before.toString()}">
+                            Più datati
+                        </button>
+                    </c:when>
+
+                    <c:otherwise>
+                        <button type="button" class="btn btn-primary" disabled>
+                            Più datati
+                        </button>
+                    </c:otherwise>
+
+                </c:choose>
+
+            </div>
+        </form>
+
     </div>
 
 </div>

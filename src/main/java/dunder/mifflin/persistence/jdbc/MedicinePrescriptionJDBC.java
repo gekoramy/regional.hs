@@ -8,9 +8,14 @@ import dunder.mifflin.persistence.pojos.MedicinePrescription;
 import org.jooq.DSLContext;
 import org.jooq.impl.DSL;
 
+import java.time.OffsetDateTime;
+import java.util.ArrayDeque;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Spliterators;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import static dunder.mifflin.persistence.jdbc.jooq.Tables.*;
 
@@ -83,7 +88,7 @@ public class MedicinePrescriptionJDBC extends JDBC implements MedicinePrescripti
     }
 
     @Override
-    public Stream<MedicinePrescription> concerns(long patient, String filter) {
+    public Stream<MedicinePrescription> concerns(long patient) {
         return context
                 .select(PRESCRIPTION.asterisk(), MEDICINE.asterisk(), MEDICINE_PRESCRIPTION.QUANTITY)
                 .from(PRESCRIPTION)
@@ -91,8 +96,40 @@ public class MedicinePrescriptionJDBC extends JDBC implements MedicinePrescripti
                 .innerJoin(MEDICINE).on(MEDICINE_PRESCRIPTION.MEDICINE.eq(MEDICINE.ID))
                 .innerJoin(FOLLOWS).on(PRESCRIPTION.CONCERNS.eq(FOLLOWS.ID))
                 .where(FOLLOWS.PATIENT.eq(patient))
-                .and(MEDICINE.NAME.containsIgnoreCase(filter).or(MEDICINE.INFO.containsIgnoreCase(filter)))
                 .orderBy(PRESCRIPTION.DATE.desc())
+                .fetchStreamInto(MedicinePrescription.class);
+    }
+
+    @Override
+    public Stream<MedicinePrescription> concernsAfter(Long patient, OffsetDateTime after, int limit) {
+        final ArrayDeque<MedicinePrescription> tmp = context
+                .select(PRESCRIPTION.asterisk(), MEDICINE.asterisk(), MEDICINE_PRESCRIPTION.QUANTITY)
+                .from(PRESCRIPTION)
+                .innerJoin(MEDICINE_PRESCRIPTION).on(PRESCRIPTION.ID.eq(MEDICINE_PRESCRIPTION.PRESCRIPTION))
+                .innerJoin(MEDICINE).on(MEDICINE_PRESCRIPTION.MEDICINE.eq(MEDICINE.ID))
+                .innerJoin(FOLLOWS).on(PRESCRIPTION.CONCERNS.eq(FOLLOWS.ID))
+                .where(FOLLOWS.PATIENT.eq(patient))
+                .orderBy(PRESCRIPTION.DATE.asc())
+                .seek(after)
+                .limit(limit)
+                .fetchStreamInto(MedicinePrescription.class)
+                .collect(Collectors.toCollection(ArrayDeque::new));
+
+        return StreamSupport.stream(Spliterators.spliteratorUnknownSize(tmp.descendingIterator(), 0), false);
+    }
+
+    @Override
+    public Stream<MedicinePrescription> concernsBefore(Long patient, OffsetDateTime before, int limit) {
+        return context
+                .select(PRESCRIPTION.asterisk(), MEDICINE.asterisk(), MEDICINE_PRESCRIPTION.QUANTITY)
+                .from(PRESCRIPTION)
+                .innerJoin(MEDICINE_PRESCRIPTION).on(PRESCRIPTION.ID.eq(MEDICINE_PRESCRIPTION.PRESCRIPTION))
+                .innerJoin(MEDICINE).on(MEDICINE_PRESCRIPTION.MEDICINE.eq(MEDICINE.ID))
+                .innerJoin(FOLLOWS).on(PRESCRIPTION.CONCERNS.eq(FOLLOWS.ID))
+                .where(FOLLOWS.PATIENT.eq(patient))
+                .orderBy(PRESCRIPTION.DATE.desc())
+                .seek(before)
+                .limit(limit)
                 .fetchStreamInto(MedicinePrescription.class);
     }
 

@@ -14,11 +14,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Stream;
 
+import static dunder.mifflin.utils.Functional.maybe;
+import static dunder.mifflin.utils.Limits.*;
 import static java.util.stream.Collectors.toUnmodifiableList;
 import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 import static javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
@@ -39,10 +43,18 @@ public class MedicinePrescriptions extends HttpServlet {
                     .orElseThrow();
             final String avatar = Avatars.avatar50(daos.factory().avatar(), req.getContextPath(), doctor);
 
+            final Optional<OffsetDateTime> before = Optional.ofNullable(req.getParameter("before")).flatMap(maybe(OffsetDateTime::parse));
+            final Optional<OffsetDateTime> after = Optional.ofNullable(req.getParameter("after")).flatMap(maybe(OffsetDateTime::parse));
+
             final long pid = Optional.ofNullable(req.getParameter("patient")).map(Long::parseLong).orElseThrow();
             final Person patient = daos.factory().person().byKey(pid).orElseThrow();
             final String pAvatar = Avatars.avatar200(daos.factory().avatar(), req.getContextPath(), patient);
-            final List<MedicinePrescription> medicines = daos.factory().medicinePrescription().concerns(patient.id(), "").collect(toUnmodifiableList());
+
+            final List<MedicinePrescription> medicines = Optional.<Stream<MedicinePrescription>>empty()
+                    .or(() -> after.map((date) -> daos.factory().medicinePrescription().concernsAfter(patient.id(), date, ROWS)))
+                    .or(() -> before.map((date) -> daos.factory().medicinePrescription().concernsBefore(patient.id(), date, ROWS)))
+                    .orElseGet(() -> daos.factory().medicinePrescription().concernsBefore(patient.id(), MAX, ROWS))
+                    .collect(toUnmodifiableList());
 
             final Long[] prescriptions = medicines.stream().map(Prescription::id).toArray(Long[]::new);
             final Map<Long, MedicineTicket> tickets = daos.factory().medicineTicket().byKeys(prescriptions);
@@ -66,6 +78,18 @@ public class MedicinePrescriptions extends HttpServlet {
                 req.setAttribute("residence_province", province);
                 req.setAttribute("residence_region", region);
             }
+
+            Optional.<OffsetDateTime>empty()
+                    .or(() -> Optional.of(medicines).flatMap(maybe((xs) -> xs.get(0))).map(Prescription::date))
+                    .or(() -> Optional.of(MIN))
+                    .filter((date) -> daos.factory().medicinePrescription().concernsAfter(patient.id(), date, 1).findAny().isPresent())
+                    .ifPresent((nextAfter) -> req.setAttribute("after", nextAfter));
+
+            Optional.<OffsetDateTime>empty()
+                    .or(() -> Optional.of(medicines).flatMap(maybe((xs) -> xs.get(xs.size() - 1))).map(Prescription::date))
+                    .or(() -> Optional.of(MAX))
+                    .filter((date) -> daos.factory().medicinePrescription().concernsBefore(patient.id(), date, 1).findAny().isPresent())
+                    .ifPresent((nextBefore) -> req.setAttribute("before", nextBefore));
 
             req.setAttribute("doctor", doctor);
             req.setAttribute("avatar", avatar);

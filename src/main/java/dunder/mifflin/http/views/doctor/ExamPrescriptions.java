@@ -14,9 +14,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.OffsetDateTime;
 import java.util.*;
 import java.util.stream.Stream;
 
+import static dunder.mifflin.utils.Functional.maybe;
+import static dunder.mifflin.utils.Limits.*;
 import static dunder.mifflin.utils.Results.result;
 import static java.util.stream.Collectors.toUnmodifiableList;
 import static java.util.stream.Collectors.toUnmodifiableSet;
@@ -39,10 +42,19 @@ public class ExamPrescriptions extends HttpServlet {
                     .orElseThrow();
             final String avatar = Avatars.avatar50(daos.factory().avatar(), req.getContextPath(), doctor);
 
+            final Optional<OffsetDateTime> before = Optional.ofNullable(req.getParameter("before")).flatMap(maybe(OffsetDateTime::parse));
+            final Optional<OffsetDateTime> after = Optional.ofNullable(req.getParameter("after")).flatMap(maybe(OffsetDateTime::parse));
+
             final long pid = Optional.ofNullable(req.getParameter("patient")).map(Long::parseLong).orElseThrow();
             final Person patient = daos.factory().person().byKey(pid).orElseThrow();
             final String pAvatar = Avatars.avatar200(daos.factory().avatar(), req.getContextPath(), patient);
-            final List<ExamPrescription> exams = daos.factory().examPrescription().concerns(patient.id(), "").collect(toUnmodifiableList());
+
+            final List<ExamPrescription> exams = Optional.<Stream<ExamPrescription>>empty()
+                    .or(() -> after.map((date) -> daos.factory().examPrescription().concernsAfter(patient.id(), date, ROWS)))
+                    .or(() -> before.map((date) -> daos.factory().examPrescription().concernsBefore(patient.id(), date, ROWS)))
+                    .orElseGet(() -> daos.factory().examPrescription().concernsBefore(patient.id(), MAX, ROWS))
+                    .collect(toUnmodifiableList());
+
             final Set<Long> qualified = Stream
                     .concat(
                             daos.factory().hsExam().qualifiedFor(doctor.id()),
@@ -80,6 +92,18 @@ public class ExamPrescriptions extends HttpServlet {
                 req.setAttribute("residence_province", province);
                 req.setAttribute("residence_region", region);
             }
+
+            Optional.<OffsetDateTime>empty()
+                    .or(() -> Optional.of(exams).flatMap(maybe((xs) -> xs.get(0))).map(Prescription::date))
+                    .or(() -> Optional.of(MIN))
+                    .filter((date) -> daos.factory().examPrescription().concernsAfter(patient.id(), date, 1).findAny().isPresent())
+                    .ifPresent((nextAfter) -> req.setAttribute("after", nextAfter));
+
+            Optional.<OffsetDateTime>empty()
+                    .or(() -> Optional.of(exams).flatMap(maybe((xs) -> xs.get(xs.size() - 1))).map(Prescription::date))
+                    .or(() -> Optional.of(MAX))
+                    .filter((date) -> daos.factory().examPrescription().concernsBefore(patient.id(), date, 1).findAny().isPresent())
+                    .ifPresent((nextBefore) -> req.setAttribute("before", nextBefore));
 
             req.setAttribute("result", result(req, "/doctor/cash", "/doctor/publish"));
             req.setAttribute("doctor", doctor);
