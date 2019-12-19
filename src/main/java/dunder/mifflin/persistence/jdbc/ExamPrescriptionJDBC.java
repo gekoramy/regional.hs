@@ -8,10 +8,15 @@ import dunder.mifflin.persistence.pojos.ExamPrescription;
 import org.jooq.DSLContext;
 import org.jooq.impl.DSL;
 
+import java.time.OffsetDateTime;
+import java.util.ArrayDeque;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Spliterators;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import static dunder.mifflin.persistence.jdbc.jooq.Tables.*;
 import static org.jooq.impl.DSL.nvl;
@@ -125,7 +130,7 @@ public class ExamPrescriptionJDBC extends JDBC implements ExamPrescriptionDAO {
     }
 
     @Override
-    public Stream<ExamPrescription> concerns(long patient, String filter) {
+    public Stream<ExamPrescription> concerns(long patient) {
         return context
                 .select(PRESCRIPTION.asterisk(), EXAMINATION.asterisk())
                 .from(PRESCRIPTION)
@@ -135,8 +140,44 @@ public class ExamPrescriptionJDBC extends JDBC implements ExamPrescriptionDAO {
                 .innerJoin(FOLLOWS).on(PRESCRIPTION.CONCERNS.eq(FOLLOWS.ID))
                 .where(nvl(SP_PRESCRIPTION.PRESCRIPTION, HS_PRESCRIPTION.PRESCRIPTION).isNotNull())
                 .and(FOLLOWS.PATIENT.eq(patient))
-                .and(EXAMINATION.NAME.containsIgnoreCase(filter).or(EXAMINATION.INFO.containsIgnoreCase(filter)))
                 .orderBy(PRESCRIPTION.DATE.desc())
+                .fetchStreamInto(ExamPrescription.class);
+    }
+
+    @Override
+    public Stream<ExamPrescription> concernsAfter(long patient, OffsetDateTime after, int limit) {
+        final ArrayDeque<ExamPrescription> tmp = context
+                .select(PRESCRIPTION.asterisk(), EXAMINATION.asterisk())
+                .from(PRESCRIPTION)
+                .leftJoin(SP_PRESCRIPTION).on(PRESCRIPTION.ID.eq(SP_PRESCRIPTION.PRESCRIPTION))
+                .leftJoin(HS_PRESCRIPTION).on(PRESCRIPTION.ID.eq(HS_PRESCRIPTION.PRESCRIPTION))
+                .innerJoin(EXAMINATION).on(EXAMINATION.ID.eq(SP_PRESCRIPTION.EXAM).or(EXAMINATION.ID.eq(HS_PRESCRIPTION.EXAM)))
+                .innerJoin(FOLLOWS).on(PRESCRIPTION.CONCERNS.eq(FOLLOWS.ID))
+                .where(nvl(SP_PRESCRIPTION.PRESCRIPTION, HS_PRESCRIPTION.PRESCRIPTION).isNotNull())
+                .and(FOLLOWS.PATIENT.eq(patient))
+                .orderBy(PRESCRIPTION.DATE.asc())
+                .seek(after)
+                .limit(limit)
+                .fetchStreamInto(ExamPrescription.class)
+                .collect(Collectors.toCollection(ArrayDeque::new));
+
+        return StreamSupport.stream(Spliterators.spliteratorUnknownSize(tmp.descendingIterator(), 0), false);
+    }
+
+    @Override
+    public Stream<ExamPrescription> concernsBefore(long patient, OffsetDateTime before, int limit) {
+        return context
+                .select(PRESCRIPTION.asterisk(), EXAMINATION.asterisk())
+                .from(PRESCRIPTION)
+                .leftJoin(SP_PRESCRIPTION).on(PRESCRIPTION.ID.eq(SP_PRESCRIPTION.PRESCRIPTION))
+                .leftJoin(HS_PRESCRIPTION).on(PRESCRIPTION.ID.eq(HS_PRESCRIPTION.PRESCRIPTION))
+                .innerJoin(EXAMINATION).on(EXAMINATION.ID.eq(SP_PRESCRIPTION.EXAM).or(EXAMINATION.ID.eq(HS_PRESCRIPTION.EXAM)))
+                .innerJoin(FOLLOWS).on(PRESCRIPTION.CONCERNS.eq(FOLLOWS.ID))
+                .where(nvl(SP_PRESCRIPTION.PRESCRIPTION, HS_PRESCRIPTION.PRESCRIPTION).isNotNull())
+                .and(FOLLOWS.PATIENT.eq(patient))
+                .orderBy(PRESCRIPTION.DATE.desc())
+                .seek(before)
+                .limit(limit)
                 .fetchStreamInto(ExamPrescription.class);
     }
 
