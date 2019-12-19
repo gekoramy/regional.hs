@@ -17,9 +17,9 @@
             message: $('#loading'),
             baseZ: 10000,
             css: {
-                top: '20%',
-                left: ($(window).width() - 400) / 2 + 'px',
-                width: '400px',
+                top: '25%',
+                left: ($(window).width() - 300) / 2 + 'px',
+                width: '300px',
                 border: 'none'
             }
         }));

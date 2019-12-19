@@ -16,4 +16,4 @@
     </div>
 </footer>
 
-<video id="loading" style="display: none" autoplay loop muted playsinline src="${pageContext.request.contextPath}/assets/img/loading/loading.mp4" type="video/mp4"></video>
+<video id="loading" width="300" height="300" style="display: none" autoplay loop muted playsinline src="${pageContext.request.contextPath}/assets/img/loading/loading.mp4" type="video/mp4"></video>
