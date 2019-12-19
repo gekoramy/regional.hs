@@ -38,20 +38,22 @@
     </div>
 
     <div>
-        <div class="collapse-div collapse-background-active" role="tablist">
-            <div class="collapse-header">
-                <button
-                        data-toggle="collapse"
-                        data-target="#body"
-                        aria-expanded="false"
-                        aria-controls="body">
-                    Exception
-                </button>
+        <c:if test="${not empty(requestScope['javax.servlet.error.message'])}">
+            <div class="collapse-div collapse-background-active" role="tablist">
+                <div class="collapse-header">
+                    <button
+                            data-toggle="collapse"
+                            data-target="#body"
+                            aria-expanded="false"
+                            aria-controls="body">
+                        Exception
+                    </button>
+                </div>
+                <div id="body" class="collapse" role="tabpanel">
+                    <p class="m-3">${requestScope['javax.servlet.error.message']}</p>
+                </div>
             </div>
-            <div id="body" class="collapse" role="tabpanel">
-                <p class="m-3">${requestScope['javax.servlet.error.message']}</p>
-            </div>
-        </div>
+        </c:if>
 
         <a href="${pageContext.request.contextPath}" class="btn btn-primary btn-lg btn-block">
             Torna in salvo
