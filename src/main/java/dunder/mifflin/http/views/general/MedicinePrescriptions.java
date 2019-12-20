@@ -21,7 +21,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import static dunder.mifflin.utils.Functional.maybe;
+import static dunder.mifflin.utils.Functional.optionally;
 import static dunder.mifflin.utils.Limits.*;
 import static dunder.mifflin.utils.Results.result;
 import static java.util.stream.Collectors.toUnmodifiableList;
@@ -38,10 +38,10 @@ public class MedicinePrescriptions extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         try {
             final long gid = Auths.session(req).orElseThrow();
-            final long pid = Optional.ofNullable(req.getParameter("patient")).map(Long::parseLong).orElseThrow();
+            final long pid = Optional.ofNullable(req.getParameter("patient")).flatMap(optionally(Long::parseLong)).orElseThrow();
 
-            final Optional<OffsetDateTime> before = Optional.ofNullable(req.getParameter("before")).flatMap(maybe(OffsetDateTime::parse));
-            final Optional<OffsetDateTime> after = Optional.ofNullable(req.getParameter("after")).flatMap(maybe(OffsetDateTime::parse));
+            final Optional<OffsetDateTime> before = Optional.ofNullable(req.getParameter("before")).flatMap(optionally(OffsetDateTime::parse));
+            final Optional<OffsetDateTime> after = Optional.ofNullable(req.getParameter("after")).flatMap(optionally(OffsetDateTime::parse));
 
             final General general = daos.factory().general().follows(pid).filter((g) -> g.id().equals(gid)).orElseThrow();
             final String avatar = Avatars.avatar50(daos.factory().avatar(), req.getContextPath(), general);
@@ -79,13 +79,13 @@ public class MedicinePrescriptions extends HttpServlet {
             }
 
             Optional.<OffsetDateTime>empty()
-                    .or(() -> Optional.of(medicines).flatMap(maybe((xs) -> xs.get(0))).map(Prescription::date))
+                    .or(() -> Optional.of(medicines).flatMap(optionally((xs) -> xs.get(0))).map(Prescription::date))
                     .or(() -> Optional.of(MIN))
                     .filter((date) -> daos.factory().medicinePrescription().concernsAfter(patient.id(), date, 1).findAny().isPresent())
                     .ifPresent((nextAfter) -> req.setAttribute("after", nextAfter));
 
             Optional.<OffsetDateTime>empty()
-                    .or(() -> Optional.of(medicines).flatMap(maybe((xs) -> xs.get(xs.size() - 1))).map(Prescription::date))
+                    .or(() -> Optional.of(medicines).flatMap(optionally((xs) -> xs.get(xs.size() - 1))).map(Prescription::date))
                     .or(() -> Optional.of(MAX))
                     .filter((date) -> daos.factory().medicinePrescription().concernsBefore(patient.id(), date, 1).findAny().isPresent())
                     .ifPresent((nextBefore) -> req.setAttribute("before", nextBefore));

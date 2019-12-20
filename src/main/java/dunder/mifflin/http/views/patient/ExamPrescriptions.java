@@ -21,7 +21,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import static dunder.mifflin.utils.Functional.maybe;
+import static dunder.mifflin.utils.Functional.optionally;
 import static dunder.mifflin.utils.Limits.*;
 import static java.util.stream.Collectors.toUnmodifiableList;
 import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
@@ -38,8 +38,8 @@ public class ExamPrescriptions extends HttpServlet {
         try {
             final long id = Auths.session(req).orElseThrow();
 
-            final Optional<OffsetDateTime> before = Optional.ofNullable(req.getParameter("before")).flatMap(maybe(OffsetDateTime::parse));
-            final Optional<OffsetDateTime> after = Optional.ofNullable(req.getParameter("after")).flatMap(maybe(OffsetDateTime::parse));
+            final Optional<OffsetDateTime> before = Optional.ofNullable(req.getParameter("before")).flatMap(optionally(OffsetDateTime::parse));
+            final Optional<OffsetDateTime> after = Optional.ofNullable(req.getParameter("after")).flatMap(optionally(OffsetDateTime::parse));
 
             final Person person = daos.factory().person().byKey(id).orElseThrow();
             final String avatar = Avatars.avatar50(daos.factory().avatar(), req.getContextPath(), person);
@@ -62,13 +62,13 @@ public class ExamPrescriptions extends HttpServlet {
             );
 
             Optional.<OffsetDateTime>empty()
-                    .or(() -> Optional.of(exams).flatMap(maybe((xs) -> xs.get(0))).map(Prescription::date))
+                    .or(() -> Optional.of(exams).flatMap(optionally((xs) -> xs.get(0))).map(Prescription::date))
                     .or(() -> Optional.of(MIN))
                     .filter((date) -> daos.factory().examPrescription().concernsAfter(person.id(), date, 1).findAny().isPresent())
                     .ifPresent((nextAfter) -> req.setAttribute("after", nextAfter));
 
             Optional.<OffsetDateTime>empty()
-                    .or(() -> Optional.of(exams).flatMap(maybe((xs) -> xs.get(xs.size() - 1))).map(Prescription::date))
+                    .or(() -> Optional.of(exams).flatMap(optionally((xs) -> xs.get(xs.size() - 1))).map(Prescription::date))
                     .or(() -> Optional.of(MAX))
                     .filter((date) -> daos.factory().examPrescription().concernsBefore(person.id(), date, 1).findAny().isPresent())
                     .ifPresent((nextBefore) -> req.setAttribute("before", nextBefore));

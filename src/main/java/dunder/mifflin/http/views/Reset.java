@@ -20,6 +20,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.UUID;
 
+import static dunder.mifflin.utils.Functional.optionally;
 import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 import static javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
 
@@ -35,7 +36,7 @@ public class Reset extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            final UUID token = Optional.ofNullable(req.getParameter("token")).map(UUID::fromString).orElseThrow();
+            final UUID token = Optional.ofNullable(req.getParameter("token")).flatMap(optionally(UUID::fromString)).orElseThrow();
 
             final Recover recover = daos.factory().token().by(token)
                     .filter((r) -> r.expiration().isAfter(OffsetDateTime.now()))
@@ -59,7 +60,7 @@ public class Reset extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            final UUID token = Optional.ofNullable(req.getParameter("token")).map(UUID::fromString).orElseThrow();
+            final UUID token = Optional.ofNullable(req.getParameter("token")).flatMap(optionally(UUID::fromString)).orElseThrow();
             final String password = Optional.ofNullable(req.getParameter("password")).orElseThrow();
 
             final Recover recover = daos.factory().token().by(token)

@@ -18,6 +18,7 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import static dunder.mifflin.utils.Functional.optionally;
 import static dunder.mifflin.utils.Locations.location;
 import static javax.servlet.http.HttpServletResponse.*;
 
@@ -48,8 +49,8 @@ public class Publish extends HttpServlet {
                     .or(() -> daos.factory().specialist().byKey(did))
                     .orElseThrow();
 
-            final Person patient = Optional.ofNullable(req.getParameter("patient")).map(Long::parseLong).flatMap(daos.factory().person()::byKey).orElseThrow();
-            final long prescription = Optional.ofNullable(req.getParameter("prescription")).map(Long::parseLong).orElseThrow();
+            final Person patient = Optional.ofNullable(req.getParameter("patient")).flatMap(optionally(Long::parseLong)).flatMap(daos.factory().person()::byKey).orElseThrow();
+            final long prescription = Optional.ofNullable(req.getParameter("prescription")).flatMap(optionally(Long::parseLong)).orElseThrow();
             final String note = Optional.ofNullable(req.getParameter("note")).orElseThrow();
 
             daos.factory().examTicket().byKey(prescription).map(ExamTicket::responsible).filter(doctor.id()::equals).orElseThrow();

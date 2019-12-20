@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import static dunder.mifflin.utils.Functional.optionally;
 import static dunder.mifflin.utils.Locations.location;
 import static javax.servlet.http.HttpServletResponse.*;
 
@@ -40,7 +41,7 @@ public class General extends HttpServlet {
     private int action(HttpServletRequest req) {
         try {
             final long id = Auths.session(req).orElseThrow();
-            final long purpose = Optional.ofNullable(req.getParameter("purpose")).map(Long::parseLong).orElseThrow();
+            final long purpose = Optional.ofNullable(req.getParameter("purpose")).flatMap(optionally(Long::parseLong)).orElseThrow();
 
             final var person = daos.factory().person().byKey(id).orElseThrow();
             final var general = daos.factory().general().entrusts(id, purpose);

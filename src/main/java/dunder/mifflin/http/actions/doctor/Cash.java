@@ -18,6 +18,7 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import static dunder.mifflin.utils.Functional.optionally;
 import static dunder.mifflin.utils.Locations.location;
 import static javax.servlet.http.HttpServletResponse.*;
 
@@ -51,8 +52,8 @@ public class Cash extends HttpServlet {
                     .or(() -> daos.factory().specialist().byKey(responsible).map((__) -> SPECIALIST))
                     .orElseThrow();
 
-            final long prescription = Optional.ofNullable(req.getParameter("prescription")).map(Long::parseLong).orElseThrow();
-            final Person patient = Optional.ofNullable(req.getParameter("patient")).map(Long::parseLong).flatMap(daos.factory().person()::byKey).orElseThrow();
+            final long prescription = Optional.ofNullable(req.getParameter("prescription")).flatMap(optionally(Long::parseLong)).orElseThrow();
+            final Person patient = Optional.ofNullable(req.getParameter("patient")).flatMap(optionally(Long::parseLong)).flatMap(daos.factory().person()::byKey).orElseThrow();
 
             daos.factory().examTicket().insert(prescription, amount, responsible);
             emails.cash(patient, amount);

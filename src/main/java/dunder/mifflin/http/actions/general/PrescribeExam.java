@@ -19,6 +19,7 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import static dunder.mifflin.utils.Functional.optionally;
 import static dunder.mifflin.utils.Locations.location;
 import static javax.servlet.http.HttpServletResponse.*;
 
@@ -44,8 +45,8 @@ public class PrescribeExam extends HttpServlet {
     private int action(HttpServletRequest req) {
         try {
             final long id = Auths.session(req).orElseThrow();
-            final Person patient = Optional.ofNullable(req.getParameter("patient")).map(Long::parseLong).flatMap(daos.factory().person()::byKey).orElseThrow();
-            final long exam = Optional.ofNullable(req.getParameter("exam")).map(Long::parseLong).orElseThrow();
+            final Person patient = Optional.ofNullable(req.getParameter("patient")).flatMap(optionally(Long::parseLong)).flatMap(daos.factory().person()::byKey).orElseThrow();
+            final long exam = Optional.ofNullable(req.getParameter("exam")).flatMap(optionally(Long::parseLong)).orElseThrow();
 
             final General general = daos.factory().general().follows(patient.id()).filter((g) -> g.id().equals(id)).orElseThrow();
             final ExamPrescription prescription = daos.factory().examPrescription().insert(patient.id(), exam);

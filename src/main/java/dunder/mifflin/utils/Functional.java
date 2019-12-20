@@ -5,7 +5,7 @@ import java.util.function.Function;
 
 public class Functional {
 
-    public static <I, O> Function<I, Optional<O>> maybe(Function<I, O> apply) {
+    public static <I, O> Function<I, Optional<O>> optionally(Function<I, O> apply) {
         return (I i) -> {
             try {
                 return Optional.of(apply.apply(i));

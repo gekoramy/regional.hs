@@ -19,6 +19,7 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import static dunder.mifflin.utils.Functional.optionally;
 import static dunder.mifflin.utils.Locations.location;
 import static javax.servlet.http.HttpServletResponse.*;
 
@@ -44,9 +45,9 @@ public class PrescribeMedicine extends HttpServlet {
     private int action(HttpServletRequest req) {
         try {
             final long id = Auths.session(req).orElseThrow();
-            final Person patient = Optional.ofNullable(req.getParameter("patient")).map(Long::parseLong).flatMap(daos.factory().person()::byKey).orElseThrow();
-            final long medicine = Optional.ofNullable(req.getParameter("medicine")).map(Long::parseLong).orElseThrow();
-            final int quantity = Optional.ofNullable(req.getParameter("quantity")).map(Integer::parseInt).filter((x) -> x < 5).filter((x) -> 0 < x).orElseThrow();
+            final Person patient = Optional.ofNullable(req.getParameter("patient")).flatMap(optionally(Long::parseLong)).flatMap(daos.factory().person()::byKey).orElseThrow();
+            final long medicine = Optional.ofNullable(req.getParameter("medicine")).flatMap(optionally(Long::parseLong)).orElseThrow();
+            final int quantity = Optional.ofNullable(req.getParameter("quantity")).flatMap(optionally(Integer::parseInt)).filter((x) -> x < 5).filter((x) -> 0 < x).orElseThrow();
 
             final General general = daos.factory().general().follows(patient.id()).filter((g) -> g.id().equals(id)).orElseThrow();
             final MedicinePrescription prescription = daos.factory().medicinePrescription().insert(patient.id(), medicine, quantity);

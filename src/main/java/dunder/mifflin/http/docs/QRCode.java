@@ -24,6 +24,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static dunder.mifflin.utils.Functional.optionally;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
@@ -43,8 +44,8 @@ public class QRCode extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             final Long petitioner = Auths.session(req).orElseThrow();
-            final long pr = Optional.ofNullable(req.getParameter("prescription")).map(Long::parseLong).orElseThrow();
-            final int size = Optional.ofNullable(req.getParameter("size")).map(Integer::parseInt).map((s) -> min(s, 600)).map((s) -> max(s, 50)).orElse(50);
+            final long pr = Optional.ofNullable(req.getParameter("prescription")).flatMap(optionally(Long::parseLong)).orElseThrow();
+            final int size = Optional.ofNullable(req.getParameter("size")).flatMap(optionally(Integer::parseInt)).map((s) -> min(s, 600)).map((s) -> max(s, 50)).orElse(50);
 
             final MedicinePrescription prescription = daos.factory().medicinePrescription().byKey(pr).orElseThrow();
             final General general = daos.factory().general().general(prescription.concerns()).orElseThrow(DAOException::new);
