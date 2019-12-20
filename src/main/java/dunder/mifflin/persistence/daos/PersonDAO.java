@@ -38,7 +38,7 @@ public interface PersonDAO extends DAO<Person, Long> {
      * @param general filter results by person's current general
      * @param name    filter results by person's name
      * @param email   filter results by person's email
-     * @param fc      filter resultrs bu person's fiscal code
+     * @param fc      filter results by person's fiscal code
      * @return every person who respects the filters above
      * @throws DAOException if an error occurred during the information retrieving
      */
