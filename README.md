@@ -52,8 +52,8 @@ Crea 2 database:
 ```
 > psql
 
-# CREATE DATABASE regional.hs
-# CREATE DATABASE test-regional.hs
+# CREATE DATABASE "regional.hs";
+# CREATE DATABASE "test-regional.hs";
 # \q
 ```
 
