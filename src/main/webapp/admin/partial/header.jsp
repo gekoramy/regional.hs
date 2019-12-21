@@ -10,13 +10,15 @@
             <div class="col-12">
                 <div class="it-header-slim-wrapper-content">
 
-                    <span class="d-none d-lg-block navbar-brand">Servizio Sanitario</span>
+                    <a href="${pageContext.request.contextPath}/home" class="d-none d-lg-block navbar-brand mx-2 align-middle">
+                        <img src="${logo}" alt="logo" height="30" width="30">
+                    </a>
 
                     <div class="nav-mobile">
                         <nav>
-                            <a class="it-opener d-lg-none" data-toggle="collapse" href="#menu1" role="button"
+                            <a class="it-opener d-lg-none text-decoration-none" data-toggle="collapse" href="#menu1" role="button"
                                aria-expanded="false" aria-controls="menu1">
-                                <span>Servizio Sanitario</span>
+                                <img class="navbar-brand mx-2 align-middle" src="${logo}" alt="logo" height="30" width="30">
                                 <svg class="icon">
                                     <use xlink:href="${bootstrap}/svg/sprite.svg#it-expand"></use>
                                 </svg>
@@ -25,8 +27,7 @@
                                 <ul class="link-list">
                                     <li>
                                         <a class="list-item"
-                                           href="${pageContext.request.contextPath}/tickets/xls" target="_blank" download>Xls</a>
-                                    </li>
+                                           href="${pageContext.request.contextPath}/tickets/xls" target="_blank" download>Xls</a></li>
                                     <li>
                                         <a class="list-item <c:if test="${fn:contains(pageContext.request.requestURI, '/patient/profile')}">active</c:if>"
                                            href="${pageContext.request.contextPath}/patient/profile">Profilo</a>

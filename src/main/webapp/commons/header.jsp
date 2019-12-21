@@ -35,7 +35,9 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="it-header-slim-wrapper-content">
-                            <img class="navbar-brand mx-2 align-middle" src="${logo}" alt="logo" height="30" width="30">
+                            <a href="${pageContext.request.contextPath}/home" class="navbar-brand mx-2 align-middle">
+                                <img src="${logo}" alt="logo" height="30" width="30">
+                            </a>
                             <div class="it-header-slim-right-zone">
                                 <a href="${pageContext.request.contextPath}/login" class="btn btn-primary btn-icon btn-full">
                                     <span class="rounded-icon">

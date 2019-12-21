@@ -10,7 +10,9 @@
             <div class="col-12">
                 <div class="it-header-slim-wrapper-content">
 
-                    <img class="d-none d-lg-block navbar-brand mx-2 align-middle" src="${logo}" alt="logo" height="30" width="30">
+                    <a href="${pageContext.request.contextPath}/home" class="d-none d-lg-block navbar-brand mx-2 align-middle">
+                        <img src="${logo}" alt="logo" height="30" width="30">
+                    </a>
 
                     <div class="nav-mobile">
                         <nav>

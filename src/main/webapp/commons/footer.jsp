@@ -3,7 +3,9 @@
         <hr class="mb-0 mt-5">
         <div class="row my-4 justify-content-between">
             <div class="col-2 text-left">
-                <img class="mx-2 align-middle" src="${pageContext.request.contextPath}/assets/img/logo/regional.hs.svg" alt="logo" height="40" width="40">
+                <a href="${pageContext.request.contextPath}/home" class="mx-2 align-middle">
+                    <img src="${pageContext.request.contextPath}/assets/img/logo/regional.hs.svg" alt="logo" height="40" width="40">
+                </a>
             </div>
 
             <div class="col text-right d-flex justify-content-end align-items-center">
