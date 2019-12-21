@@ -3,6 +3,7 @@ package dunder.mifflin.http.actions;
 import dunder.mifflin.beans.DAOs;
 import dunder.mifflin.beans.Emails;
 import dunder.mifflin.persistence.daos.exceptions.DAOException;
+import org.mindrot.jbcrypt.BCrypt;
 
 import javax.inject.Inject;
 import javax.mail.MessagingException;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.NoSuchElementException;
+import java.util.UUID;
 
 import static dunder.mifflin.utils.Locations.location;
 import static javax.servlet.http.HttpServletResponse.*;
@@ -39,10 +41,11 @@ public class Token extends HttpServlet {
         try {
             final var username = req.getParameter("username");
 
+            final var token = UUID.randomUUID();
             final var person = daos.factory().person().by(username).orElseThrow();
-            final var recover = daos.factory().token().store(person.id());
+            final var reset = String.format("http://localhost:8080%s/%s?who=%s&token=%s", req.getContextPath(), "reset", person.id(), token);
 
-            final var reset = String.format("http://localhost:8080%s/%s?token=%s", req.getContextPath(), "reset", recover.token().toString());
+            daos.factory().token().store(person.id(), BCrypt.hashpw(token.toString(), BCrypt.gensalt()));
 
             emails.recover(person, reset);
 

@@ -204,13 +204,11 @@ CREATE TABLE hs_report
     PRIMARY KEY (ticket)
 );
 
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-
 CREATE TABLE token
 (
     person     BIGINT      NOT NULL REFERENCES person ON UPDATE CASCADE ON DELETE CASCADE,
-    token      UUID        NOT NULL UNIQUE DEFAULT uuid_generate_v4(),
-    expiration TIMESTAMPTZ NOT NULL        DEFAULT CURRENT_TIMESTAMP + interval '2 hours',
+    token      TEXT        NOT NULL,
+    expiration TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP + interval '2 hours',
     PRIMARY KEY (person)
 );
 

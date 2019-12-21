@@ -206,7 +206,6 @@ Per come è definito, lo schema esclude:
 
 Lo schema da solo garantisce, tra le altre cose:
 
-* generazione randomica di token con annessa scadenza
 * un medico generale può seguire qualsiasi paziente, ad esclusione di se stesso
 * un medico specialista può svolgere esclusivamente esami specialistici
 * un medico del servizio sanitario può svolgere esclusivamente esami supportati dal servizio sanitario
@@ -257,7 +256,7 @@ L'immagine caricata viene:
 
 Il progetto permette di resettare la password dimenticata
 
-Avvenuta la richiesta, viene generato su db un token univoco casuale con timestamp di scadenza
+Avvenuta la richiesta, viene generato un token UUIDv4, viene cifrato tramite algoritmo bcrypt, quindi salvato su db con annesso timestamp di scadenza
 
 Tale token viene recapitato all'interessato via email
 
@@ -267,5 +266,5 @@ Il token viene eliminato nel momento in cui la richiesta di reset è andata a bu
 
 Il database garantisce:
 
-* token univoci e randomici
 * ogni utente abbia al massimo 1 token (rendendo così inefficaci i precedenti)
+* ogni token abbia un timestamp di scadenza

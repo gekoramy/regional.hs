@@ -15,7 +15,6 @@ import javax.annotation.processing.Generated;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 
 
 /**
@@ -31,7 +30,7 @@ import java.util.UUID;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Token extends TableImpl<Record> {
 
-    private static final long serialVersionUID = 614552394;
+    private static final long serialVersionUID = -633837147;
 
     /**
      * The reference instance of <code>public.token</code>
@@ -54,7 +53,7 @@ public class Token extends TableImpl<Record> {
     /**
      * The column <code>public.token.token</code>.
      */
-    public final TableField<Record, UUID> TOKEN_ = createField(DSL.name("token"), org.jooq.impl.SQLDataType.UUID.nullable(false).defaultValue(org.jooq.impl.DSL.field("uuid_generate_v4()", org.jooq.impl.SQLDataType.UUID)), this, "");
+    public final TableField<Record, String> TOKEN_ = createField(DSL.name("token"), org.jooq.impl.SQLDataType.CLOB.nullable(false), this, "");
 
     /**
      * The column <code>public.token.expiration</code>.
@@ -101,7 +100,7 @@ public class Token extends TableImpl<Record> {
 
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.TOKEN_PKEY, Indexes.TOKEN_TOKEN_KEY);
+        return Arrays.<Index>asList(Indexes.TOKEN_PKEY);
     }
 
     @Override
@@ -111,7 +110,7 @@ public class Token extends TableImpl<Record> {
 
     @Override
     public List<UniqueKey<Record>> getKeys() {
-        return Arrays.<UniqueKey<Record>>asList(Keys.TOKEN_PKEY, Keys.TOKEN_TOKEN_KEY);
+        return Arrays.<UniqueKey<Record>>asList(Keys.TOKEN_PKEY);
     }
 
     @Override

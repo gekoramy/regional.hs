@@ -59,7 +59,6 @@ public class Indexes {
     public static final Index SP_TICKET_PKEY = Indexes0.SP_TICKET_PKEY;
     public static final Index SPECIALIST_PKEY = Indexes0.SPECIALIST_PKEY;
     public static final Index TOKEN_PKEY = Indexes0.TOKEN_PKEY;
-    public static final Index TOKEN_TOKEN_KEY = Indexes0.TOKEN_TOKEN_KEY;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
@@ -96,6 +95,5 @@ public class Indexes {
         public static Index SP_TICKET_PKEY = Internal.createIndex("sp_ticket_pkey", SpTicket.SP_TICKET, new OrderField[] { SpTicket.SP_TICKET.PRESCRIPTION }, true);
         public static Index SPECIALIST_PKEY = Internal.createIndex("specialist_pkey", Specialist.SPECIALIST, new OrderField[] { Specialist.SPECIALIST.ID }, true);
         public static Index TOKEN_PKEY = Internal.createIndex("token_pkey", Token.TOKEN, new OrderField[] { Token.TOKEN.PERSON }, true);
-        public static Index TOKEN_TOKEN_KEY = Internal.createIndex("token_token_key", Token.TOKEN, new OrderField[] { Token.TOKEN.TOKEN_ }, true);
     }
 }
