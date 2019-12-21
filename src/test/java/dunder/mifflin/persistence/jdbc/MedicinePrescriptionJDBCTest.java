@@ -3,7 +3,7 @@ package dunder.mifflin.persistence.jdbc;
 import dunder.mifflin.persistence.daos.MedicinePrescriptionDAO;
 import dunder.mifflin.persistence.daos.exceptions.DAOException;
 import dunder.mifflin.persistence.jdbc.config.Database;
-import dunder.mifflin.utils.Limits;
+import dunder.mifflin.utils.Prescriptions;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
 import org.jooq.exception.DataAccessException;
@@ -98,16 +98,16 @@ class MedicinePrescriptionJDBCTest {
 
     @Test
     void concernsAfter() {
-        Assertions.assertEquals(27, dao.concernsAfter(2L, Limits.MIN, 30).count());
-        Assertions.assertEquals(5, dao.concernsAfter(2L, Limits.MIN, 5).count());
-        Assertions.assertEquals(0, dao.concernsAfter(2L, Limits.MAX, 5).count());
+        Assertions.assertEquals(27, dao.concernsAfter(2L, Prescriptions.MIN, 30).count());
+        Assertions.assertEquals(5, dao.concernsAfter(2L, Prescriptions.MIN, 5).count());
+        Assertions.assertEquals(0, dao.concernsAfter(2L, Prescriptions.MAX, 5).count());
     }
 
     @Test
     void concernsBefore() {
-        Assertions.assertEquals(27, dao.concernsBefore(2L, Limits.MAX, 30).count());
-        Assertions.assertEquals(5, dao.concernsBefore(2L, Limits.MAX, 5).count());
-        Assertions.assertEquals(0, dao.concernsBefore(2L, Limits.MIN, 5).count());
+        Assertions.assertEquals(27, dao.concernsBefore(2L, Prescriptions.MAX, 30).count());
+        Assertions.assertEquals(5, dao.concernsBefore(2L, Prescriptions.MAX, 5).count());
+        Assertions.assertEquals(0, dao.concernsBefore(2L, Prescriptions.MIN, 5).count());
     }
 
     @Test
