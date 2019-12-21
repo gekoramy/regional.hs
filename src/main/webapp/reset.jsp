@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 
+<jsp:useBean id="person" scope="request" type="dunder.mifflin.persistence.pojos.Person"/>
 <jsp:useBean id="token" scope="request" type="java.lang.String"/>
 
 <html>
@@ -14,6 +15,7 @@
 <%@include file="./commons/cookiebar.jsp" %>
 
 <form accept-charset="UTF-8" method="post" action="${pageContext.request.contextPath}/reset" class="container">
+    <input type="hidden" name="who" value="${person.id()}">
     <input type="hidden" name="token" value="${token}">
     <div class="row" style="height: 15%"></div>
     <div class="row justify-content-center">

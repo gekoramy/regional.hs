@@ -36,17 +36,18 @@ public class Reset extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
+            final Long who = Optional.ofNullable(req.getParameter("who")).flatMap(optionally(Long::parseLong)).orElseThrow();
             final UUID token = Optional.ofNullable(req.getParameter("token")).flatMap(optionally(UUID::fromString)).orElseThrow();
 
-            final Recover recover = daos.factory().token().by(token)
+            final Recover recover = daos.factory().token().byKey(who)
                     .filter((r) -> r.expiration().isAfter(OffsetDateTime.now()))
+                    .filter((r) -> BCrypt.checkpw(token.toString(), r.token()))
                     .orElseThrow();
 
             final Person person = daos.factory().person().byKey(recover.person()).orElseThrow();
 
-            req.setAttribute("expiration", recover.expiration());
-            req.setAttribute("person", person);
             req.setAttribute("token", token.toString());
+            req.setAttribute("person", person);
 
             req.getServletContext().getRequestDispatcher("/reset.jsp").forward(req, resp);
 
@@ -60,11 +61,13 @@ public class Reset extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
+            final Long who = Optional.ofNullable(req.getParameter("who")).flatMap(optionally(Long::parseLong)).orElseThrow();
             final UUID token = Optional.ofNullable(req.getParameter("token")).flatMap(optionally(UUID::fromString)).orElseThrow();
             final String password = Optional.ofNullable(req.getParameter("password")).orElseThrow();
 
-            final Recover recover = daos.factory().token().by(token)
+            final Recover recover = daos.factory().token().byKey(who)
                     .filter((r) -> r.expiration().isAfter(OffsetDateTime.now()))
+                    .filter((r) -> BCrypt.checkpw(token.toString(), r.token()))
                     .orElseThrow();
 
             final Person person = daos.factory().person().byKey(recover.person()).orElseThrow();
@@ -77,7 +80,7 @@ public class Reset extends HttpServlet {
             req.getServletContext().getRequestDispatcher("/logout").forward(req, resp);
 
         } catch (NoSuchElementException e) {
-            req.getServletContext().getRequestDispatcher("/reset.jsp").forward(req, resp);
+            resp.sendError(SC_UNAUTHORIZED);
         } catch (DAOException | MessagingException e) {
             resp.sendError(SC_INTERNAL_SERVER_ERROR, e.getMessage());
         }
