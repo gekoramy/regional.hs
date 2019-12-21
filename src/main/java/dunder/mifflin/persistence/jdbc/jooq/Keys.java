@@ -74,7 +74,6 @@ public class Keys {
     public static final UniqueKey<Record> SP_TICKET_PKEY = UniqueKeys0.SP_TICKET_PKEY;
     public static final UniqueKey<Record> SPECIALIST_PKEY = UniqueKeys0.SPECIALIST_PKEY;
     public static final UniqueKey<Record> TOKEN_PKEY = UniqueKeys0.TOKEN_PKEY;
-    public static final UniqueKey<Record> TOKEN_TOKEN_KEY = UniqueKeys0.TOKEN_TOKEN_KEY;
 
     // -------------------------------------------------------------------------
     // FOREIGN KEY definitions
@@ -162,7 +161,6 @@ public class Keys {
         public static final UniqueKey<Record> SP_TICKET_PKEY = Internal.createUniqueKey(SpTicket.SP_TICKET, "sp_ticket_pkey", SpTicket.SP_TICKET.PRESCRIPTION);
         public static final UniqueKey<Record> SPECIALIST_PKEY = Internal.createUniqueKey(Specialist.SPECIALIST, "specialist_pkey", Specialist.SPECIALIST.ID);
         public static final UniqueKey<Record> TOKEN_PKEY = Internal.createUniqueKey(Token.TOKEN, "token_pkey", Token.TOKEN.PERSON);
-        public static final UniqueKey<Record> TOKEN_TOKEN_KEY = Internal.createUniqueKey(Token.TOKEN, "token_token_key", Token.TOKEN.TOKEN_);
     }
 
     private static class ForeignKeys0 {
