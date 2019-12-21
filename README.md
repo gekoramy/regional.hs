@@ -256,7 +256,7 @@ L'immagine caricata viene:
 
 Il progetto permette di resettare la password dimenticata
 
-Avvenuta la richiesta, viene generato un token UUIDv4, viene cifrato tramite algorimto bcrypt, quidni salvato su db con timestamp di scadenza
+Avvenuta la richiesta, viene generato un token UUIDv4, viene cifrato tramite algoritmo bcrypt, quindi salvato su db con annesso timestamp di scadenza
 
 Tale token viene recapitato all'interessato via email
 
