@@ -2,17 +2,16 @@ package dunder.mifflin.persistence.pojos;
 
 import java.time.OffsetDateTime;
 import java.util.StringJoiner;
-import java.util.UUID;
 
 import static java.util.Objects.requireNonNull;
 
 public class Recover {
 
     private final Long person;
-    private final UUID token;
+    private final String token;
     private final OffsetDateTime expiration;
 
-    public Recover(Long person, UUID token, OffsetDateTime expiration) {
+    public Recover(Long person, String token, OffsetDateTime expiration) {
         this.person = requireNonNull(person);
         this.token = requireNonNull(token);
         this.expiration = requireNonNull(expiration);
@@ -22,7 +21,7 @@ public class Recover {
         return person;
     }
 
-    public UUID token() {
+    public String token() {
         return token;
     }
 

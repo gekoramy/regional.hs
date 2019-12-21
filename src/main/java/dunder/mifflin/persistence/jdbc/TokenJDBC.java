@@ -9,7 +9,6 @@ import org.jooq.impl.DSL;
 
 import java.util.Map;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Stream;
 
 import static dunder.mifflin.persistence.jdbc.jooq.Tables.TOKEN;
@@ -21,7 +20,7 @@ public class TokenJDBC extends JDBC implements TokenDAO {
     }
 
     @Override
-    public Recover store(long person) throws DAOException {
+    public Recover store(long person, String token) throws DAOException {
         return context.transactionResult((config) -> {
             DSL.using(config)
                     .deleteFrom(TOKEN)
@@ -30,8 +29,8 @@ public class TokenJDBC extends JDBC implements TokenDAO {
 
             return DSL.using(config)
                     .insertInto(TOKEN)
-                    .columns(TOKEN.PERSON)
-                    .values(person)
+                    .columns(TOKEN.PERSON, TOKEN.TOKEN_)
+                    .values(person, token)
                     .returning(TOKEN.asterisk())
                     .fetchOptional()
                     .map((r) -> new Recover(
@@ -55,15 +54,6 @@ public class TokenJDBC extends JDBC implements TokenDAO {
                         r.get(TOKEN.TOKEN_),
                         r.get(TOKEN.EXPIRATION)
                 ));
-    }
-
-    @Override
-    public Optional<Recover> by(UUID token) throws DAOException {
-        return context
-                .select()
-                .from(TOKEN)
-                .where(TOKEN.TOKEN_.eq(token))
-                .fetchOptionalInto(Recover.class);
     }
 
     @Override

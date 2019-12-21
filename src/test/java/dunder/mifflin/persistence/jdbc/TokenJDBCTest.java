@@ -43,23 +43,14 @@ class TokenJDBCTest {
 
     @Test
     void testStoreRemove() {
-        final var store = dao.store(1L);
+        final var store = dao.store(1L, "token");
 
         assertEquals(1L, store.person());
-        assertNotNull(store.token());
+        assertEquals("token", store.token());
         assertTrue(store.expiration().isBefore(OffsetDateTime.now().plus(125, ChronoUnit.MINUTES)));
         assertTrue(store.expiration().isAfter(OffsetDateTime.now().plus(115, ChronoUnit.MINUTES)));
 
         dao.byKey(1L).ifPresentOrElse(
-                (recover) -> {
-                    assertEquals(store.person(), recover.person());
-                    assertEquals(store.token(), recover.token());
-                    assertEquals(store.expiration(), recover.expiration());
-                },
-                Assertions::fail
-        );
-
-        dao.by(store.token()).ifPresentOrElse(
                 (recover) -> {
                     assertEquals(store.person(), recover.person());
                     assertEquals(store.token(), recover.token());
@@ -78,7 +69,6 @@ class TokenJDBCTest {
         );
 
         assertFalse(dao.byKey(1L).isPresent());
-        assertFalse(dao.by(store.token()).isPresent());
     }
 
     @Test
