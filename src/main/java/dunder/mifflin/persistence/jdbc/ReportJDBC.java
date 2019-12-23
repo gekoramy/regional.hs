@@ -141,6 +141,7 @@ public class ReportJDBC extends JDBC implements ReportDAO {
                 .leftJoin(HS_REPORT).on(PRESCRIPTION.ID.eq(HS_REPORT.TICKET))
                 .where(nvl(SP_REPORT.TICKET, HS_REPORT.TICKET).isNotNull())
                 .orderBy(nvl(SP_REPORT.DATE, HS_REPORT.DATE).desc())
-                .fetchStreamInto(Report.class);
+                .fetchInto(Report.class)
+                .stream();
     }
 }

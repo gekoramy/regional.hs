@@ -85,6 +85,7 @@ public class TokenJDBC extends JDBC implements TokenDAO {
         return context
                 .select()
                 .from(TOKEN)
-                .fetchStreamInto(Recover.class);
+                .fetchInto(Recover.class)
+                .stream();
     }
 }

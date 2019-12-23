@@ -48,7 +48,8 @@ public class GeneralJDBC extends JDBC implements GeneralDAO {
                 .and(gen.EMAIL.containsIgnoreCase(email))
                 .and(gen.FC.containsIgnoreCase(fc))
                 .orderBy(gen.NAME)
-                .fetchStreamInto(General.class);
+                .fetchInto(General.class)
+                .stream();
     }
 
     @Override
@@ -178,6 +179,7 @@ public class GeneralJDBC extends JDBC implements GeneralDAO {
                 .from(PERSON)
                 .naturalJoin(GENERAL)
                 .orderBy(PERSON.NAME)
-                .fetchStreamInto(General.class);
+                .fetchInto(General.class)
+                .stream();
     }
 }

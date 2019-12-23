@@ -70,6 +70,7 @@ public class SecretJDBC extends JDBC implements SecretDao {
         return context
                 .select(PERSON.ID, PERSON.PASSWORD)
                 .from(PERSON)
-                .fetchStreamInto(Secret.class);
+                .fetchInto(Secret.class)
+                .stream();
     }
 }

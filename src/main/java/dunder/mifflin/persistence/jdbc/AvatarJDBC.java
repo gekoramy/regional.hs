@@ -71,6 +71,7 @@ public class AvatarJDBC extends JDBC implements AvatarDAO {
         return context
                 .select()
                 .from(AVATAR)
-                .fetchStreamInto(Avatar.class);
+                .fetchInto(Avatar.class)
+                .stream();
     }
 }

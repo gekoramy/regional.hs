@@ -41,7 +41,8 @@ public class PersonJDBC extends JDBC implements PersonDAO {
                 .and(PERSON.EMAIL.containsIgnoreCase(email))
                 .and(PERSON.FC.containsIgnoreCase(fc))
                 .orderBy(PERSON.NAME)
-                .fetchStreamInto(Person.class);
+                .fetchInto(Person.class)
+                .stream();
     }
 
     @Override
@@ -78,7 +79,8 @@ public class PersonJDBC extends JDBC implements PersonDAO {
                 .and(PERSON.EMAIL.containsIgnoreCase(email))
                 .and(PERSON.FC.containsIgnoreCase(fc))
                 .orderBy(PERSON.NAME)
-                .fetchStreamInto(Person.class);
+                .fetchInto(Person.class)
+                .stream();
     }
 
     @Override
@@ -89,7 +91,8 @@ public class PersonJDBC extends JDBC implements PersonDAO {
                 .innerJoin(CITY).on(PERSON.RESIDENCE.eq(CITY.ID))
                 .where(CITY.PROVINCE.eq(province))
                 .orderBy(PERSON.NAME)
-                .fetchStreamInto(Person.class);
+                .fetchInto(Person.class)
+                .stream();
     }
 
     @Override
@@ -153,6 +156,7 @@ public class PersonJDBC extends JDBC implements PersonDAO {
                 .select(PERSON.asterisk().except(PERSON.PASSWORD))
                 .from(PERSON)
                 .orderBy(PERSON.NAME)
-                .fetchStreamInto(Person.class);
+                .fetchInto(Person.class)
+                .stream();
     }
 }

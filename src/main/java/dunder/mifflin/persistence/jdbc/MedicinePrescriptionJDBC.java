@@ -97,7 +97,8 @@ public class MedicinePrescriptionJDBC extends JDBC implements MedicinePrescripti
                 .innerJoin(FOLLOWS).on(PRESCRIPTION.CONCERNS.eq(FOLLOWS.ID))
                 .where(FOLLOWS.PATIENT.eq(patient))
                 .orderBy(PRESCRIPTION.DATE.desc())
-                .fetchStreamInto(MedicinePrescription.class);
+                .fetchInto(MedicinePrescription.class)
+                .stream();
     }
 
     @Override
@@ -112,7 +113,8 @@ public class MedicinePrescriptionJDBC extends JDBC implements MedicinePrescripti
                 .orderBy(PRESCRIPTION.DATE.asc())
                 .seek(after)
                 .limit(limit)
-                .fetchStreamInto(MedicinePrescription.class)
+                .fetchInto(MedicinePrescription.class)
+                .stream()
                 .collect(Collectors.toCollection(ArrayDeque::new));
 
         return StreamSupport.stream(Spliterators.spliteratorUnknownSize(tmp.descendingIterator(), 0), false);
@@ -130,7 +132,8 @@ public class MedicinePrescriptionJDBC extends JDBC implements MedicinePrescripti
                 .orderBy(PRESCRIPTION.DATE.desc())
                 .seek(before)
                 .limit(limit)
-                .fetchStreamInto(MedicinePrescription.class);
+                .fetchInto(MedicinePrescription.class)
+                .stream();
     }
 
     @Override
@@ -143,7 +146,8 @@ public class MedicinePrescriptionJDBC extends JDBC implements MedicinePrescripti
                 .innerJoin(FOLLOWS).on(PRESCRIPTION.CONCERNS.eq(FOLLOWS.ID))
                 .where(PRESCRIPTION.PLACE.eq(province))
                 .orderBy(PRESCRIPTION.DATE.desc())
-                .fetchStreamInto(MedicinePrescription.class);
+                .fetchInto(MedicinePrescription.class)
+                .stream();
     }
 
     @Override
@@ -182,6 +186,7 @@ public class MedicinePrescriptionJDBC extends JDBC implements MedicinePrescripti
                 .innerJoin(MEDICINE_PRESCRIPTION).on(PRESCRIPTION.ID.eq(MEDICINE_PRESCRIPTION.PRESCRIPTION))
                 .innerJoin(MEDICINE).on(MEDICINE_PRESCRIPTION.MEDICINE.eq(MEDICINE.ID))
                 .orderBy(PRESCRIPTION.DATE.desc())
-                .fetchStreamInto(MedicinePrescription.class);
+                .fetchInto(MedicinePrescription.class)
+                .stream();
     }
 }
