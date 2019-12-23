@@ -26,7 +26,8 @@ public class HsExamJDBC extends JDBC implements HsExamDAO {
                 .naturalJoin(HS_EXAM)
                 .innerJoin(HS_QUALIFICATION).on(HS_EXAM.ID.eq(HS_QUALIFICATION.EXAM))
                 .where(HS_QUALIFICATION.DOCTOR.eq(hsDoctor))
-                .fetchStreamInto(HsExam.class);
+                .fetchInto(HsExam.class)
+                .stream();
     }
 
     @Override
@@ -37,7 +38,8 @@ public class HsExamJDBC extends JDBC implements HsExamDAO {
                 .naturalJoin(HS_EXAM)
                 .where(EXAMINATION.NAME.containsIgnoreCase(pattern))
                 .or(EXAMINATION.INFO.containsIgnoreCase(pattern))
-                .fetchStreamInto(HsExam.class);
+                .fetchInto(HsExam.class)
+                .stream();
     }
 
     @Override
@@ -72,6 +74,7 @@ public class HsExamJDBC extends JDBC implements HsExamDAO {
                 .select(EXAMINATION.asterisk())
                 .from(EXAMINATION)
                 .naturalJoin(HS_EXAM)
-                .fetchStreamInto(HsExam.class);
+                .fetchInto(HsExam.class)
+                .stream();
     }
 }

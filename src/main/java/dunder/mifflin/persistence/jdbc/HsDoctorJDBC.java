@@ -52,6 +52,7 @@ public class HsDoctorJDBC extends JDBC implements HsDoctorDAO {
                 .from(PERSON)
                 .naturalJoin(HS_DOCTOR)
                 .orderBy(PERSON.NAME)
-                .fetchStreamInto(HsDoctor.class);
+                .fetchInto(HsDoctor.class)
+                .stream();
     }
 }

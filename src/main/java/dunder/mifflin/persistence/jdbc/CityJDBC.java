@@ -47,6 +47,7 @@ public class CityJDBC extends JDBC implements CityDAO {
         return context
                 .select()
                 .from(CITY)
-                .fetchStreamInto(City.class);
+                .fetchInto(City.class)
+                .stream();
     }
 }

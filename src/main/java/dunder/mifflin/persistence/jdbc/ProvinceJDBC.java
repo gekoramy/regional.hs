@@ -47,6 +47,7 @@ public class ProvinceJDBC extends JDBC implements ProvinceDAO {
         return context
                 .select()
                 .from(PROVINCE)
-                .fetchStreamInto(Province.class);
+                .fetchInto(Province.class)
+                .stream();
     }
 }

@@ -52,6 +52,7 @@ public class SpecialistJDBC extends JDBC implements SpecialistDAO {
                 .from(PERSON)
                 .naturalJoin(SPECIALIST)
                 .orderBy(PERSON.NAME)
-                .fetchStreamInto(Specialist.class);
+                .fetchInto(Specialist.class)
+                .stream();
     }
 }

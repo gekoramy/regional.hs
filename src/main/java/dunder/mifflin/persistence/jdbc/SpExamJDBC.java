@@ -26,7 +26,8 @@ public class SpExamJDBC extends JDBC implements SpExamDAO {
                 .naturalJoin(SP_EXAM)
                 .innerJoin(SP_QUALIFICATION).on(SP_EXAM.ID.eq(SP_QUALIFICATION.EXAM))
                 .where(SP_QUALIFICATION.SPECIALIST.eq(specialist))
-                .fetchStreamInto(SpExam.class);
+                .fetchInto(SpExam.class)
+                .stream();
     }
 
     @Override
@@ -37,7 +38,8 @@ public class SpExamJDBC extends JDBC implements SpExamDAO {
                 .naturalJoin(SP_EXAM)
                 .where(EXAMINATION.NAME.containsIgnoreCase(pattern))
                 .or(EXAMINATION.INFO.containsIgnoreCase(pattern))
-                .fetchStreamInto(SpExam.class);
+                .fetchInto(SpExam.class)
+                .stream();
     }
 
     @Override
@@ -72,6 +74,7 @@ public class SpExamJDBC extends JDBC implements SpExamDAO {
                 .select(EXAMINATION.asterisk())
                 .from(EXAMINATION)
                 .naturalJoin(SP_EXAM)
-                .fetchStreamInto(SpExam.class);
+                .fetchInto(SpExam.class)
+                .stream();
     }
 }

@@ -141,7 +141,8 @@ public class ExamPrescriptionJDBC extends JDBC implements ExamPrescriptionDAO {
                 .where(nvl(SP_PRESCRIPTION.PRESCRIPTION, HS_PRESCRIPTION.PRESCRIPTION).isNotNull())
                 .and(FOLLOWS.PATIENT.eq(patient))
                 .orderBy(PRESCRIPTION.DATE.desc())
-                .fetchStreamInto(ExamPrescription.class);
+                .fetchInto(ExamPrescription.class)
+                .stream();
     }
 
     @Override
@@ -158,7 +159,8 @@ public class ExamPrescriptionJDBC extends JDBC implements ExamPrescriptionDAO {
                 .orderBy(PRESCRIPTION.DATE.asc())
                 .seek(after)
                 .limit(limit)
-                .fetchStreamInto(ExamPrescription.class)
+                .fetchInto(ExamPrescription.class)
+                .stream()
                 .collect(Collectors.toCollection(ArrayDeque::new));
 
         return StreamSupport.stream(Spliterators.spliteratorUnknownSize(tmp.descendingIterator(), 0), false);
@@ -178,7 +180,8 @@ public class ExamPrescriptionJDBC extends JDBC implements ExamPrescriptionDAO {
                 .orderBy(PRESCRIPTION.DATE.desc())
                 .seek(before)
                 .limit(limit)
-                .fetchStreamInto(ExamPrescription.class);
+                .fetchInto(ExamPrescription.class)
+                .stream();
     }
 
     @Override
@@ -193,7 +196,8 @@ public class ExamPrescriptionJDBC extends JDBC implements ExamPrescriptionDAO {
                 .where(nvl(SP_PRESCRIPTION.PRESCRIPTION, HS_PRESCRIPTION.PRESCRIPTION).isNotNull())
                 .and(FOLLOWS.GENERAL.eq(general))
                 .orderBy(PRESCRIPTION.DATE.desc())
-                .fetchStreamInto(ExamPrescription.class);
+                .fetchInto(ExamPrescription.class)
+                .stream();
     }
 
     @Override
@@ -207,7 +211,8 @@ public class ExamPrescriptionJDBC extends JDBC implements ExamPrescriptionDAO {
                 .where(nvl(SP_PRESCRIPTION.PRESCRIPTION, HS_PRESCRIPTION.PRESCRIPTION).isNotNull())
                 .and(PRESCRIPTION.PLACE.eq(province))
                 .orderBy(PRESCRIPTION.DATE.desc())
-                .fetchStreamInto(ExamPrescription.class);
+                .fetchInto(ExamPrescription.class)
+                .stream();
     }
 
     @Override
@@ -250,6 +255,7 @@ public class ExamPrescriptionJDBC extends JDBC implements ExamPrescriptionDAO {
                 .innerJoin(EXAMINATION).on(EXAMINATION.ID.eq(SP_PRESCRIPTION.EXAM).or(EXAMINATION.ID.eq(HS_PRESCRIPTION.EXAM)))
                 .where(nvl(SP_PRESCRIPTION.PRESCRIPTION, HS_PRESCRIPTION.PRESCRIPTION).isNotNull())
                 .orderBy(PRESCRIPTION.DATE.desc())
-                .fetchStreamInto(ExamPrescription.class);
+                .fetchInto(ExamPrescription.class)
+                .stream();
     }
 }

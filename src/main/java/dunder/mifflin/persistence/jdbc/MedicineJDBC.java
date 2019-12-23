@@ -25,7 +25,8 @@ public class MedicineJDBC extends JDBC implements MedicineDAO {
                 .from(MEDICINE)
                 .where(MEDICINE.NAME.containsIgnoreCase(pattern))
                 .or(MEDICINE.INFO.containsIgnoreCase(pattern))
-                .fetchStreamInto(Medicine.class);
+                .fetchInto(Medicine.class)
+                .stream();
     }
 
     @Override
@@ -57,6 +58,7 @@ public class MedicineJDBC extends JDBC implements MedicineDAO {
         return context
                 .select()
                 .from(MEDICINE)
-                .fetchStreamInto(Medicine.class);
+                .fetchInto(Medicine.class)
+                .stream();
     }
 }

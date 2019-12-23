@@ -57,7 +57,8 @@ public class MedicineTicketJDBC extends JDBC implements MedicineTicketDAO {
                 .innerJoin(FOLLOWS).on(PRESCRIPTION.CONCERNS.eq(FOLLOWS.ID))
                 .where(FOLLOWS.PATIENT.eq(patient))
                 .orderBy(MEDICINE_TICKET.DATE.desc())
-                .fetchStreamInto(MedicineTicket.class);
+                .fetchInto(MedicineTicket.class)
+                .stream();
     }
 
     @Override
@@ -88,6 +89,7 @@ public class MedicineTicketJDBC extends JDBC implements MedicineTicketDAO {
         return context
                 .select(MEDICINE_TICKET.asterisk())
                 .from(MEDICINE_TICKET)
-                .fetchStreamInto(MedicineTicket.class);
+                .fetchInto(MedicineTicket.class)
+                .stream();
     }
 }

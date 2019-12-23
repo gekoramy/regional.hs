@@ -47,6 +47,7 @@ public class RegionJDBC extends JDBC implements RegionDAO {
         return context
                 .select()
                 .from(REGION)
-                .fetchStreamInto(Region.class);
+                .fetchInto(Region.class)
+                .stream();
     }
 }

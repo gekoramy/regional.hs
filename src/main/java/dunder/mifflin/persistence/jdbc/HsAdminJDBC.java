@@ -52,6 +52,7 @@ public class HsAdminJDBC extends JDBC implements HsAdminDAO {
                 .from(PERSON)
                 .naturalJoin(HS_ADMIN)
                 .orderBy(PERSON.NAME)
-                .fetchStreamInto(HsAdmin.class);
+                .fetchInto(HsAdmin.class)
+                .stream();
     }
 }

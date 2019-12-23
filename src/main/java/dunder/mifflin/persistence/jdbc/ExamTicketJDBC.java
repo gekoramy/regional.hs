@@ -141,7 +141,8 @@ public class ExamTicketJDBC extends JDBC implements ExamTicketDAO {
                 .where(nvl(SP_TICKET.PRESCRIPTION, HS_TICKET.PRESCRIPTION).isNotNull())
                 .and(FOLLOWS.PATIENT.eq(patient))
                 .orderBy(nvl(SP_TICKET.DATE, HS_TICKET.DATE).desc())
-                .fetchStreamInto(ExamTicket.class);
+                .fetchInto(ExamTicket.class)
+                .stream();
     }
 
     @Override
@@ -198,6 +199,7 @@ public class ExamTicketJDBC extends JDBC implements ExamTicketDAO {
                 .leftJoin(HS_TICKET).on(PRESCRIPTION.ID.eq(HS_TICKET.PRESCRIPTION))
                 .where(nvl(SP_TICKET.PRESCRIPTION, HS_TICKET.PRESCRIPTION).isNotNull())
                 .orderBy(nvl(SP_TICKET.DATE, HS_TICKET.DATE).desc())
-                .fetchStreamInto(ExamTicket.class);
+                .fetchInto(ExamTicket.class)
+                .stream();
     }
 }
